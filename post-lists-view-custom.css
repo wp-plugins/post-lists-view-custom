@@ -1,0 +1,36 @@
+form#post_lists_view_custom_form table td div#use,
+form#post_lists_view_custom_form table td div#not_use {
+	margin: 0;
+	padding: 10px 0;
+	clear: both;
+}
+form#post_lists_view_custom_form table td div#use div.widget,
+form#post_lists_view_custom_form table td div#not_use div.widget {
+	width: 200px;
+	float: left;
+	margin: 0 14px 20px 0;
+	height: auto;
+}
+form#post_lists_view_custom_form table td div#use .widget-placeholder,
+form#post_lists_view_custom_form table td div#not_use .widget-placeholder {
+	background-color: #FFF8D9;
+	display: inline-block;
+	float: left;
+	width: 220px;
+	margin-right: 14px;
+}
+
+
+
+body.edit-php table.wp-list-table th#excerpt,
+body.edit-php table.wp-list-table th#post-formats,
+body.edit-php table.wp-list-table th#tags,
+body.edit-php table.wp-list-table th#comments,
+body.edit-php table.wp-list-table th#categories,
+body.edit-php table.wp-list-table th#author
+{
+	width: auto;
+}
+body.edit-php table.wp-list-table th#post-thumbnails {
+	width: 60px;
+}
