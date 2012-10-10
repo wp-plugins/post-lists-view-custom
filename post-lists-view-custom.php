@@ -3,7 +3,7 @@
 Plugin Name: Post Lists View Custom
 Description: Customize the list of the post. view thumbnails and custom fields.
 Plugin URI: http://gqevu6bsiz.chicappa.jp
-Version: 1.0.0
+Version: 1.0.1
 Author: gqevu6bsiz
 Author URI: http://gqevu6bsiz.chicappa.jp/author/admin/
 Text Domain: post_lists_view_custom
@@ -28,7 +28,7 @@ Domain Path: /languages
 
 load_plugin_textdomain('post_lists_view_custom', false, basename(dirname(__FILE__)).'/languages');
 
-define ('POST_LISTS_VIEW_CUSTOM_VER', '1.0.0');
+define ('POST_LISTS_VIEW_CUSTOM_VER', '1.0.1');
 define ('POST_LISTS_VIEW_CUSTOM_PLUGIN_NAME', 'Post Lists View Costom');
 define ('POST_LISTS_VIEW_CUSTOM_MANAGE_URL', admin_url('options-general.php').'?page=post_lists_view_custom');
 define ('POST_LISTS_VIEW_CUSTOM_RECORD_NAME', 'post_lists_view_custom');
@@ -295,7 +295,6 @@ add_filter('manage_posts_columns', 'post_lists_view_custom_filter', 101);
 function post_lists_view_custom_manage($column_name, $post_id) {
 
 	$None = '&nbsp; - &nbsp;';
-	$CustomThumbnail = '';
 
 	if($column_name == 'post-formats') {
 		// post-formats
@@ -338,38 +337,7 @@ function post_lists_view_custom_manage($column_name, $post_id) {
 				}
 				echo '</ul>';
 			} else {
-				$post = get_post($post_meta[0]);
-				$is_active = false;
-				foreach ((array) get_option('active_plugins') as $plugin) {
-					if (preg_match('/custom-field-template/i', $plugin)) {
-						$is_active = true;
-						break;
-					}
-				}
-				
-				if(!empty($is_active)) {
-					if(intval($post_meta[0]) && $post->post_type == 'attachment') {
-						$CustomThumbnail = wp_get_attachment_image_src( $post_meta[0], 'post-thumbnail', true );
-						if(!empty($CustomThumbnail)) {
-							echo '<a href="media.php?attachment_id='.$post_meta[0].'&action=edit"><img src="'.$CustomThumbnail[0].'" width="'.POST_LISTS_VIEW_CUSTOM_ThumnailSize.'" /></a>';
-						} else {
-							echo $post_meta[0];
-						}
-					} else {
-						echo $post_meta[0];
-					}
-				} else {
-					if(intval($post_meta[0]) && $post->post_type == 'attachment' && $post_id == $post->post_parent) {
-						$CustomThumbnail = wp_get_attachment_image_src( $post_meta[0], 'post-thumbnail', true );
-						if(!empty($CustomThumbnail)) {
-							echo '<a href="media.php?attachment_id='.$post_meta[0].'&action=edit"><img src="'.$CustomThumbnail[0].'" width="'.POST_LISTS_VIEW_CUSTOM_ThumnailSize.'" /></a>';
-						} else {
-							echo $post_meta[0];
-						}
-					} else {
-						echo $post_meta[0];
-					}
-				}
+					echo $post_meta[0];
 			}
 		} else {
 			echo $None;

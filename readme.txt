@@ -4,7 +4,7 @@ Donate link:
 Tags: admin, post, view, custom, customfield, field
 Requires at least: 3.3.2
 Tested up to: 3.4.2
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPL2
 
 Customize the list of the post. view thumbnails and custom fields.
@@ -35,6 +35,9 @@ Change the display order.
 3. Screen post list
 
 == Changelog ==
+
+= 1.0.1 =
+there is a bug in the display of the thumbnail in custom field.
 
 = 1.0 =
 This is the initial release.
