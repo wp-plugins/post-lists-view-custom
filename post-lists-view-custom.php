@@ -3,7 +3,7 @@
 Plugin Name: Post Lists View Custom
 Description: Customize the list of the post. view thumbnails and custom fields.
 Plugin URI: http://gqevu6bsiz.chicappa.jp
-Version: 1.0.1
+Version: 1.0.2
 Author: gqevu6bsiz
 Author URI: http://gqevu6bsiz.chicappa.jp/author/admin/
 Text Domain: post_lists_view_custom
@@ -28,7 +28,7 @@ Domain Path: /languages
 
 load_plugin_textdomain('post_lists_view_custom', false, basename(dirname(__FILE__)).'/languages');
 
-define ('POST_LISTS_VIEW_CUSTOM_VER', '1.0.1');
+define ('POST_LISTS_VIEW_CUSTOM_VER', '1.0.2');
 define ('POST_LISTS_VIEW_CUSTOM_PLUGIN_NAME', 'Post Lists View Costom');
 define ('POST_LISTS_VIEW_CUSTOM_MANAGE_URL', admin_url('options-general.php').'?page=post_lists_view_custom');
 define ('POST_LISTS_VIEW_CUSTOM_RECORD_NAME', 'post_lists_view_custom');
@@ -218,8 +218,8 @@ function post_lists_view_custom_get($Data = array()) {
 	$posts_columns['excerpt'] = __('Excerpt');
 	$posts_columns['slug'] = __( 'Slug' );
 
-	// All costom field key
-	$Acfk = $wpdb->get_col( "SELECT meta_key FROM $wpdb->postmeta GROUP BY meta_key HAVING meta_key NOT LIKE '\_%' ORDER BY meta_key ");
+	// All custom field key
+	$Acfk = $wpdb->get_col( "SELECT meta_key FROM $wpdb->postmeta GROUP BY meta_key HAVING meta_key NOT LIKE '\_%' AND meta_key NOT LIKE 'field\_%' ORDER BY meta_key ");
 	if(!empty($Acfk)) {
 		natcasesort($Acfk);
 	}
@@ -313,8 +313,9 @@ function post_lists_view_custom_manage($column_name, $post_id) {
 	} else if($column_name == 'post-thumbnails') {
 		// thumbnail
 		if( has_post_thumbnail( $post_id ) ) {
+			$thumbnail_id = get_post_thumbnail_id($post_id);
 			$thumbnail = get_the_post_thumbnail( $post_id, array(POST_LISTS_VIEW_CUSTOM_ThumnailSize, "") );
-			echo $thumbnail;
+			echo '<a href="media.php?attachment_id='.$thumbnail_id.'&action=edit">'.$thumbnail.'</a>';
 		} else {
 			echo $None;
 		}
@@ -337,7 +338,72 @@ function post_lists_view_custom_manage($column_name, $post_id) {
 				}
 				echo '</ul>';
 			} else {
-					echo $post_meta[0];
+				// custom-field-template active flag
+				$is_active = false;
+				foreach ((array) get_option('active_plugins') as $plugin) {
+					if (preg_match('/custom-field-template/i', $plugin)) {
+						$is_active = true;
+						break;
+					}
+				}
+				if(!empty($is_active)) {
+					$cftd = get_option('custom_field_template_data');
+					if(!empty($cftd)) {
+						$cttd_contents = '';
+						$cttd_field_file = array();
+						foreach($cftd["custom_fields"] as $key => $cftdct) {
+							if(!empty($cftdct["content"])) {
+								$cttd_contents = explode("\n", stripcslashes($cftdct["content"]));
+								for($i=0; $i<count($cttd_contents); $i++) {
+									if(strpos($cttd_contents[$i], 'file')) {
+										for($ct=1;$ct<3;$ct++) {
+											if(!empty($cttd_contents[$i-$ct])) {
+												if (preg_match("/\[(.+)\]/", $cttd_contents[$i-$ct], $match)) {
+													$cttd_field_file[] = $match[1];
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+
+						if(!empty($cttd_field_file)) {
+							if(in_array($column_name, $cttd_field_file)) {
+								$post = get_post($post_meta[0]);
+								if(!empty($post) && intval($post_meta[0]) && $post->post_type == 'attachment') {
+									$CustomThumbnail = wp_get_attachment_image_src( $post_meta[0], 'post-thumbnail', true );
+									if(!empty($CustomThumbnail)) {
+										echo '<a href="media.php?attachment_id='.$post_meta[0].'&action=edit"><img src="'.$CustomThumbnail[0].'" width="'.POST_LISTS_VIEW_CUSTOM_ThumnailSize.'" /></a>';
+									} else {
+										echo $post_meta[0];
+									}
+								} else {
+									echo $post_meta[0];
+								}
+							} else {
+								echo $post_meta[0];
+							}
+						} else {
+							echo $post_meta[0];
+						}
+					} else {
+						echo $post_meta[0];
+					}
+				} else {
+					$post = get_post($post_meta[0]);
+					if(!empty($post) && intval($post_meta[0]) && $post->post_type == 'attachment' && $post_id == $post->post_parent) {
+						$CustomThumbnail = wp_get_attachment_image_src( $post_meta[0], 'post-thumbnail', true );
+						if(!empty($CustomThumbnail)) {
+							echo '<a href="media.php?attachment_id='.$post_meta[0].'&action=edit"><img src="'.$CustomThumbnail[0].'" width="'.POST_LISTS_VIEW_CUSTOM_ThumnailSize.'" /></a>';
+						} else {
+							echo $post_meta[0];
+						}
+					} else {
+						echo $post_meta[0];
+					}
+				}
+				
 			}
 		} else {
 			echo $None;
