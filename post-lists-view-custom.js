@@ -19,14 +19,4 @@ jQuery(document).ready(function($) {
 		}
 	}).disableSelection();
 
-	// reset
-	$Form.children("p.reset").children("input").click(function() {
-		$Form.children("table").children("tbody").children("tr").children("td").children("div").children("div").children("div.widget-inside").children("input").each(function() {
-			$(this).attr("name", "");
-			$(this).attr("value", "");
-		});
-
-		$Form.submit();
-	});
-
 });
