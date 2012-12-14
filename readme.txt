@@ -3,7 +3,7 @@ Contributors: gqevu6bsiz
 Donate link: 
 Tags: admin, post, posts, page, lists, view, custom, customfield, field, custom_post
 Requires at least: 3.3.2
-Tested up to: 3.4.2
+Tested up to: 3.5
 Stable tag: 1.1
 License: GPL2
 
