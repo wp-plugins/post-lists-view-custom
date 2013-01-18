@@ -3,7 +3,7 @@
 Plugin Name: Post Lists View Custom
 Description: Customize the list of the post and page, and custom post type.
 Plugin URI: http://gqevu6bsiz.chicappa.jp
-Version: 1.2
+Version: 1.2.1
 Author: gqevu6bsiz
 Author URI: http://gqevu6bsiz.chicappa.jp/author/admin/
 Text Domain: plvc
@@ -46,7 +46,7 @@ class Plvc
 
 
 	function __construct() {
-		$this->Ver = '1.2';
+		$this->Ver = '1.2.1';
 		$this->Name = 'Post Lists View Custom';
 		$this->Dir = WP_PLUGIN_URL . '/' . dirname( plugin_basename( __FILE__ ) ) . '/';
 		$this->Slug = 'post_lists_view_custom';
@@ -213,7 +213,7 @@ class Plvc
 
 		// Default colum
 		$Columns_Def = array(
-			"title" => _x( 'File' , 'column name' ) , "author" => __( 'Author' ) , "parent" => __( 'Attached to' , 'plvc' ) , "comments" => __( 'Comments' ) , "date" => __( 'Date' ) ,
+			"icon" => __( 'Image' ) , "title" => _x( 'File' , 'column name' ) , "author" => __( 'Author' ) , "parent" => __( 'Attached to' , 'plvc' ) , "comments" => __( 'Comments' ) , "date" => __( 'Date' ) ,
 			"media_title" => __( 'Title' ) , "image_alt" => __( 'Alt Text' , 'plvc' ) , "post_excerpt" => __('Caption') , "post_content" => __('Details') , "id" => 'ID'
 		);
 

@@ -4,7 +4,7 @@ Donate link:
 Tags: admin, post, posts, page, upload, media, attachment, lists, view, custom, customfield, field, custom_post
 Requires at least: 3.4.2
 Tested up to: 3.5
-Stable tag: 1.2
+Stable tag: 1.2.1
 License: GPL2
 
 Customize the list of the post and page, and custom post type.
@@ -36,6 +36,9 @@ You can customize the column display items freely.
 5. Screen media list
 
 == Changelog ==
+
+= 1.2.1 =
+I added that because there was no image display field.
 
 = 1.2 =
 be able to see the ID of the article.
