@@ -1,10 +1,10 @@
 === Post Lists View Custom ===
 Contributors: gqevu6bsiz
 Donate link: 
-Tags: admin, post, posts, page, lists, view, custom, customfield, field, custom_post
-Requires at least: 3.3.2
+Tags: admin, post, posts, page, upload, media, attachment, lists, view, custom, customfield, field, custom_post
+Requires at least: 3.4.2
 Tested up to: 3.5
-Stable tag: 1.1
+Stable tag: 1.2
 License: GPL2
 
 Customize the list of the post and page, and custom post type.
@@ -33,8 +33,13 @@ You can customize the column display items freely.
 2. While setting
 3. Screen posts list
 4. Screen custom posts type list
+5. Screen media list
 
 == Changelog ==
+
+= 1.2 =
+be able to see the ID of the article.
+Media list can be customized.
 
 = 1.1 =
 I also support and custom post type page.
@@ -56,6 +61,6 @@ This is the initial release.
 
 == 日本語でのご説明 ==
 
-このプラグインは、投稿一覧・ページ一覧およびカスタム投稿タイプの一覧表示をカスタマイズするプラグインです。
+このプラグインは、投稿一覧・ページ一覧およびカスタム投稿タイプ、メディアの一覧表示をカスタマイズするプラグインです。
 アイキャッチ画像やカスタムフィールドの項目を一覧に表示することが可能です。
 また、表示の順番も自由に変更できます。

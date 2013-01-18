@@ -3,7 +3,7 @@
 Plugin Name: Post Lists View Custom
 Description: Customize the list of the post and page, and custom post type.
 Plugin URI: http://gqevu6bsiz.chicappa.jp
-Version: 1.1
+Version: 1.2
 Author: gqevu6bsiz
 Author URI: http://gqevu6bsiz.chicappa.jp/author/admin/
 Text Domain: plvc
@@ -46,7 +46,7 @@ class Plvc
 
 
 	function __construct() {
-		$this->Ver = '1.1';
+		$this->Ver = '1.2';
 		$this->Name = 'Post Lists View Custom';
 		$this->Dir = WP_PLUGIN_URL . '/' . dirname( plugin_basename( __FILE__ ) ) . '/';
 		$this->Slug = 'post_lists_view_custom';
@@ -85,6 +85,7 @@ class Plvc
 	function admin_menu() {
 		add_menu_page( __( 'Post Lists View Customize' , 'plvc' ) , __( 'Post Lists View Customize' , 'plvc' ) , 'administrator', $this->Slug , array( $this , 'setting_post') );
 		add_submenu_page( $this->Slug , __( 'Page Lists View Customize' , 'plvc' ) , __( 'Page Lists View Customize' , 'plvc' ) , 'administrator' , 'page' . $this->RecordBaseName , array( $this , 'setting_page' ) );
+		add_submenu_page( $this->Slug , __( 'Media Lists View Customize' , 'plvc' ) , __( 'Media Lists View Customize' , 'plvc' ) , 'administrator' , 'media' . $this->RecordBaseName , array( $this , 'setting_media' ) );
 		add_submenu_page( $this->Slug , __( 'Custom Post Type Lists View Customize' , 'plvc' ) , __( 'Custom Post Type Lists View Customize' , 'plvc' ) , 'administrator' , 'custom_post' . $this->RecordBaseName , array( $this , 'setting_custom' ) );
 	}
 
@@ -98,6 +99,12 @@ class Plvc
 	function setting_page() {
 		$this->SetPage = 'page';
 		include_once 'inc/setting_lists.php';
+	}
+
+	// SettingPage
+	function setting_media() {
+		$this->SetPage = 'media';
+		include_once 'inc/setting_media.php';
 	}
 
 	// SettingPage
@@ -124,7 +131,7 @@ class Plvc
 		// Default colum
 		$Columns_Def = array(
 			"title" => __( 'Title' ) , "date" => __( 'Date' ) , "author" => __( 'Author' ) , "comments" => __( 'Comments' ) , "slug" => __( 'Slug' ) ,
-			"categories" => __( 'Categories' ) , "tags" => __( 'Tags' ) , "excerpt" => __('Excerpt')
+			"categories" => __( 'Categories' ) , "tags" => __( 'Tags' ) , "excerpt" => __('Excerpt') , "id" => 'ID'
 		);
 
 		// Theme Support colum
@@ -199,6 +206,55 @@ class Plvc
 		return $NewData;
 	}
 
+
+	// Data get
+	function get_data_media( $type ) {
+		global $wpdb;
+
+		// Default colum
+		$Columns_Def = array(
+			"title" => _x( 'File' , 'column name' ) , "author" => __( 'Author' ) , "parent" => __( 'Attached to' , 'plvc' ) , "comments" => __( 'Comments' ) , "date" => __( 'Date' ) ,
+			"media_title" => __( 'Title' ) , "image_alt" => __( 'Alt Text' , 'plvc' ) , "post_excerpt" => __('Caption') , "post_content" => __('Details') , "id" => 'ID'
+		);
+
+		// Default View Setting
+		$Columns = array();
+		foreach($Columns_Def as $column => $name) {
+			if( $column == 'title' or $column == 'author' or $column == 'parent' or $column == 'comments' or $column == 'date' ) {
+				$Columns[$column] = array( "use" => 1 , "name" => $name );
+			} else {
+				$Columns[$column] = array( "not_use" => 1 , "name" => $name );
+			}
+		}
+		unset($Columns_Def);
+
+		// Data Marge
+		$NewData = array();
+		$Data = get_option( $type . $this->RecordBaseName );
+		if(!empty($Data) and is_array($Data)) {
+			foreach($Data as $name => $val) {
+				if(!empty($Columns[$name])) {
+					$NewData[$name] = $val;
+					unset($Columns[$name]);
+				}
+			}
+			if(!empty($Columns) and is_array($Columns)) {
+				foreach($Columns as $name => $val) {
+					$NewData[$name] = $val;
+				}
+			}
+		} else {
+			$NewData = $Columns;
+		}
+
+		// checkbox
+		if(!empty($NewData["cb"])) {
+			unset($NewData["cb"]);
+		}
+
+		return $NewData;
+	}
+
 	// Setting Item
 	function get_lists( $type , $Data ) {
 		$Contents = '';
@@ -258,9 +314,9 @@ class Plvc
 
 	// FilterStart
 	function FilterStart() {
-		$QueryPostType = get_query_var( 'post_type' );
 		global $wpdb;
-		
+
+		$QueryPostType = get_query_var( 'post_type' );
 		$LvcNum = $wpdb->get_col( "SELECT option_name FROM $wpdb->options WHERE option_name LIKE  '%$this->RecordBaseName%'" );
 		
 		if( !empty( $LvcNum ) && is_array( $LvcNum ) ) {
@@ -269,13 +325,21 @@ class Plvc
 			}
 		}
 		if( !empty( $Type ) && is_array( $Type ) ) {
-			if( in_array( $QueryPostType , $Type ) == true) {
+			if( in_array( $QueryPostType , $Type ) == true ) {
 				$Data = get_option( $QueryPostType . $this->RecordBaseName );
 				if( !empty( $Data ) && is_array( $Data ) ) {
 					$FilterName = 'manage_edit-' . $QueryPostType . '_columns';
 					add_filter( $FilterName , array( $this , 'ColumnHeader' ) , 101);
 					$ActionName = 'manage_' . $QueryPostType . '_posts_custom_column';
 					add_action( $ActionName , array( $this , 'ColumnBody' ) , 10 , 2 );
+				}
+			} elseif ( in_array( 'media' , $Type ) == true ) {
+				$Data = get_option( 'media' . $this->RecordBaseName );
+				if( !empty( $Data ) && is_array( $Data ) ) {
+					$FilterName = 'manage_media_columns';
+					add_filter( $FilterName , array( $this , 'ColumnHeaderMedia' ) , 101);
+					$ActionName = 'manage_media_custom_column';
+					add_action( $ActionName , array( $this , 'ColumnBodyMedia' ) , 10 , 2 );
 				}
 			}
 		}
@@ -301,10 +365,13 @@ class Plvc
 	// FilterStart
 	function ColumnBody( $column_name , $post_id) {
 		$None = '  -  ';
-		
+
 		if($column_name == 'post-formats') {
 			// post-formats
 			echo get_post_format_string( get_post_format( $post_id ) );
+		} else if($column_name == 'id') {
+			// post ID
+			echo $post_id;
 		} else if($column_name == 'slug') {
 			// slug
 			echo urldecode( get_page_uri( $post_id ) );
@@ -414,6 +481,57 @@ class Plvc
 
 		}
 	}
+
+	// FilterStart
+	function ColumnHeaderMedia( $columns ) {
+		$Data = get_option( 'media' . $this->RecordBaseName );
+
+		$FilterColumn = array( "cb" => $columns["cb"] );
+		foreach($Data as $name => $val) {
+			if( !empty( $val["use"] ) ) {
+				$FilterColumn[$name] = $val["name"];
+			}
+		}
+
+		wp_enqueue_style( $this->Slug , $this->Dir . dirname( plugin_basename( __FILE__ ) ) . '.css' , array() , $this->Ver );
+
+		return $FilterColumn;
+	}
+
+	// FilterStart
+	function ColumnBodyMedia( $column_name , $post_id) {
+		$None = '  -  ';
+		$posts = get_posts( array( 'numberposts' => 1 , 'include' => $post_id , 'post_type' => 'attachment' ) );
+
+		if( !empty( $posts[0] ) ) {
+			$attachment = $posts[0];
+
+			if($column_name == 'id') {
+				// post ID
+				echo $post_id;
+			} else if($column_name == 'image_alt') {
+				// alternate
+				$image_alt = get_post_meta( $post_id , '_wp_attachment_image_alt' , true );
+				echo wp_strip_all_tags( stripslashes( $image_alt ) );
+			} else if($column_name == 'media_title') {
+				// media title
+				echo _draft_or_post_title( $post_id );
+			} else if($column_name == 'post_excerpt') {
+				// Caption
+				echo $attachment->post_excerpt;
+			} else if($column_name == 'post_content') {
+				// Description
+				echo $attachment->post_content;
+			} else {
+				echo $None;
+			}
+
+		} else {
+			echo $None;
+		}
+
+	}
+
 }
 
 $Plvc = new Plvc();
