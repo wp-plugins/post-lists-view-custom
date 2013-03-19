@@ -73,3 +73,5 @@ msgstr ""
 msgid "Please donate for better development."
 msgstr ""
 
+msgid "When used together, you can further customize."
+msgstr ""

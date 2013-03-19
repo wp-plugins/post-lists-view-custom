@@ -4,7 +4,7 @@ Donate link: http://gqevu6bsiz.chicappa.jp/please-donation/
 Tags: admin, post, posts, page, upload, media, attachment, lists, view, custom, customfield, field, custom_post, navi, menu
 Requires at least: 3.4.2
 Tested up to: 3.5
-Stable tag: 1.3
+Stable tag: 1.3.1
 License: GPL2
 
 Customize the list of the post and page, and custom post type.
@@ -37,6 +37,9 @@ You can customize the column display items freely.
 6. Screen navi list
 
 == Changelog ==
+
+= 1.3.1 =
+Added a plugin recommendations.
 
 = 1.3 =
 Added management for nav-menus.

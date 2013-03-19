@@ -3,7 +3,7 @@
 Plugin Name: Post Lists View Custom
 Description: Customize the list of the post and page, and custom post type.
 Plugin URI: http://gqevu6bsiz.chicappa.jp
-Version: 1.3
+Version: 1.3.1
 Author: gqevu6bsiz
 Author URI: http://gqevu6bsiz.chicappa.jp/author/admin/
 Text Domain: plvc
@@ -46,7 +46,7 @@ class Plvc
 
 
 	function __construct() {
-		$this->Ver = '1.3';
+		$this->Ver = '1.3.1';
 		$this->Name = 'Post Lists View Custom';
 		$this->Dir = WP_PLUGIN_URL . '/' . dirname( plugin_basename( __FILE__ ) ) . '/';
 		$this->Slug = 'post_lists_view_custom';
@@ -73,6 +73,7 @@ class Plvc
 		add_action( 'admin_menu' , array( $this , 'admin_menu' ) );
 
 		$this->Msg = '<div class="updated"><p><strong>' . __( 'Please donation' , 'plvc' ) . '</strong></p><p>' . __( 'Please donate for better development.' , 'plvc' ) . '</p><p>&gt;&gt; <a href="http://gqevu6bsiz.chicappa.jp/please-donation/" target="_blank">' . __( 'Donation' , 'plvc' ) . '</a></p></div>';
+		$this->Msg .= '<div><p><strong>aaaaa' . __( 'Please donation' , 'plvc' ) . '</strong></p><p>' . __( 'Please donate for better development.' , 'plvc' ) . '</p><p>&gt;&gt; <a href="http://gqevu6bsiz.chicappa.jp/please-donation/" target="_blank">' . __( 'Donation' , 'plvc' ) . '</a></p></div>';
 
 	}
 
