@@ -1,10 +1,10 @@
 === Post Lists View Custom ===
 Contributors: gqevu6bsiz
-Donate link: 
-Tags: admin, post, posts, page, upload, media, attachment, lists, view, custom, customfield, field, custom_post
+Donate link: http://gqevu6bsiz.chicappa.jp/please-donation/
+Tags: admin, post, posts, page, upload, media, attachment, lists, view, custom, customfield, field, custom_post, navi, menu
 Requires at least: 3.4.2
 Tested up to: 3.5
-Stable tag: 1.2.1
+Stable tag: 1.3
 License: GPL2
 
 Customize the list of the post and page, and custom post type.
@@ -34,8 +34,12 @@ You can customize the column display items freely.
 3. Screen posts list
 4. Screen custom posts type list
 5. Screen media list
+6. Screen navi list
 
 == Changelog ==
+
+= 1.3 =
+Added management for nav-menus.
 
 = 1.2.1 =
 I added that because there was no image display field.

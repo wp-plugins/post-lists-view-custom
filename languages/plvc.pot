@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0.0\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-01-18 11:03+0900\n"
+"PO-Revision-Date: 2013-03-19 12:40+0900\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -23,6 +23,12 @@ msgid "Page Lists View Customize"
 msgstr ""
 
 msgid "Media Lists View Customize"
+msgstr ""
+
+msgid "Menu Lists View Customize"
+msgstr ""
+
+msgid "Menu Advance View Customize"
 msgstr ""
 
 msgid "Custom Post Type Lists View Customize"
@@ -56,5 +62,14 @@ msgid "Attached to"
 msgstr ""
 
 msgid "Alt Text"
+msgstr ""
+
+msgid "Donation"
+msgstr ""
+
+msgid "Please donation"
+msgstr ""
+
+msgid "Please donate for better development."
 msgstr ""
 

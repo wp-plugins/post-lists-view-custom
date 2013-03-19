@@ -3,7 +3,7 @@
 Plugin Name: Post Lists View Custom
 Description: Customize the list of the post and page, and custom post type.
 Plugin URI: http://gqevu6bsiz.chicappa.jp
-Version: 1.2.1
+Version: 1.3
 Author: gqevu6bsiz
 Author URI: http://gqevu6bsiz.chicappa.jp/author/admin/
 Text Domain: plvc
@@ -46,7 +46,7 @@ class Plvc
 
 
 	function __construct() {
-		$this->Ver = '1.2.1';
+		$this->Ver = '1.3';
 		$this->Name = 'Post Lists View Custom';
 		$this->Dir = WP_PLUGIN_URL . '/' . dirname( plugin_basename( __FILE__ ) ) . '/';
 		$this->Slug = 'post_lists_view_custom';
@@ -55,6 +55,7 @@ class Plvc
 		$this->ThumbnailSize = 50;
 		$this->SetPage = 'post';
 		$this->UPFN = 'Y';
+		$this->Msg = '';
 
 		$this->PluginSetup();
 		add_action( 'admin_head' , array( $this , 'FilterStart' ) );
@@ -70,13 +71,24 @@ class Plvc
 
 		// add menu
 		add_action( 'admin_menu' , array( $this , 'admin_menu' ) );
+
+		$this->Msg = '<div class="updated"><p><strong>' . __( 'Please donation' , 'plvc' ) . '</strong></p><p>' . __( 'Please donate for better development.' , 'plvc' ) . '</p><p>&gt;&gt; <a href="http://gqevu6bsiz.chicappa.jp/please-donation/" target="_blank">' . __( 'Donation' , 'plvc' ) . '</a></p></div>';
+
 	}
 
 	// PluginSetup
 	function plugin_action_links( $links , $file ) {
 		if( plugin_basename(__FILE__) == $file ) {
-			$link = '<a href="' . 'admin.php?page=' . $this->Slug . '">' . __('Settings') . '</a>';
-			array_unshift( $links, $link );
+
+			$mofile = $this->TransFileCk();
+			if( $mofile == false ) {
+				$translation_link = '<a href="http://gqevu6bsiz.chicappa.jp/please-translation/" target="_blank">Please translation</a>'; 
+				array_unshift( $links, $translation_link );
+			}
+			$donation_link = '<a href="http://gqevu6bsiz.chicappa.jp/please-donation/" target="_blank">' . __( 'Donation' , 'plvc' ) . '</a>';
+			array_unshift( $links, $donation_link );
+			array_unshift( $links, '<a href="' . admin_url( 'admin.php?page=' . $this->Slug ) . '">' . __('Settings') . '</a>' );
+
 		}
 		return $links;
 	}
@@ -86,8 +98,21 @@ class Plvc
 		add_menu_page( __( 'Post Lists View Customize' , 'plvc' ) , __( 'Post Lists View Customize' , 'plvc' ) , 'administrator', $this->Slug , array( $this , 'setting_post') );
 		add_submenu_page( $this->Slug , __( 'Page Lists View Customize' , 'plvc' ) , __( 'Page Lists View Customize' , 'plvc' ) , 'administrator' , 'page' . $this->RecordBaseName , array( $this , 'setting_page' ) );
 		add_submenu_page( $this->Slug , __( 'Media Lists View Customize' , 'plvc' ) , __( 'Media Lists View Customize' , 'plvc' ) , 'administrator' , 'media' . $this->RecordBaseName , array( $this , 'setting_media' ) );
+		add_submenu_page( $this->Slug , __( 'Navi Lists View Customize' , 'plvc' ) , __( 'Menu Lists View Customize' , 'plvc' ) , 'administrator' , 'navi' . $this->RecordBaseName , array( $this , 'setting_navi' ) );
+		add_submenu_page( $this->Slug , __( 'Navi Advance View Customize' , 'plvc' ) , __( 'Menu Advance View Customize' , 'plvc' ) , 'administrator' , 'navi_advance' . $this->RecordBaseName , array( $this , 'setting_navi_advance' ) );
 		add_submenu_page( $this->Slug , __( 'Custom Post Type Lists View Customize' , 'plvc' ) , __( 'Custom Post Type Lists View Customize' , 'plvc' ) , 'administrator' , 'custom_post' . $this->RecordBaseName , array( $this , 'setting_custom' ) );
 	}
+
+	// Translation File Check
+	function TransFileCk() {
+		$file = false;
+		$moFile = WP_PLUGIN_DIR . '/' . dirname( plugin_basename( __FILE__ ) ) . '/languages/plvc-' . get_locale() . '.mo';
+		if( file_exists( $moFile ) ) {
+			$file = true;
+		}
+		return $file;
+	}
+
 
 
 	// SettingPage
@@ -105,6 +130,18 @@ class Plvc
 	function setting_media() {
 		$this->SetPage = 'media';
 		include_once 'inc/setting_media.php';
+	}
+
+	// SettingPage
+	function setting_navi() {
+		$this->SetPage = 'navi';
+		include_once 'inc/setting_navi.php';
+	}
+
+	// SettingPage
+	function setting_navi_advance() {
+		$this->SetPage = 'navi_advance';
+		include_once 'inc/setting_navi_advance.php';
 	}
 
 	// SettingPage
@@ -209,8 +246,6 @@ class Plvc
 
 	// Data get
 	function get_data_media( $type ) {
-		global $wpdb;
-
 		// Default colum
 		$Columns_Def = array(
 			"icon" => __( 'Image' ) , "title" => _x( 'File' , 'column name' ) , "author" => __( 'Author' ) , "parent" => __( 'Attached to' , 'plvc' ) , "comments" => __( 'Comments' ) , "date" => __( 'Date' ) ,
@@ -250,6 +285,87 @@ class Plvc
 		// checkbox
 		if(!empty($NewData["cb"])) {
 			unset($NewData["cb"]);
+		}
+
+		return $NewData;
+	}
+
+	// Data get
+	function get_data_navi( $type ) {
+		// Default colum
+		$Columns_Def = array(
+			"nav-menu-theme-locations" => __( 'Theme Locations' ) , "add-custom-links" => __( 'Custom Links' ), "add-post" => __( 'Posts' ) , "add-page" => __( 'Pages' ) ,
+			"add-category" => __( 'Categories' ) , "add-post_tag" => __( 'Tags' ) , "add-post_format" => __('Format')
+		);
+
+		// Default View Setting
+		$Columns = array();
+		foreach($Columns_Def as $column => $name) {
+			if( $column == 'nav-menu-theme-locations' or $column == 'add-custom-links' or $column == 'add-page' or $column == 'add-category' ) {
+				$Columns[$column] = array( "use" => 1 , "name" => $name );
+			} else {
+				$Columns[$column] = array( "not_use" => 1 , "name" => $name );
+			}
+		}
+		unset($Columns_Def);
+
+		// Data Marge
+		$NewData = array();
+		$Data = get_option( $type . $this->RecordBaseName );
+		if(!empty($Data) and is_array($Data)) {
+			foreach($Data as $name => $val) {
+				if(!empty($Columns[$name])) {
+					$NewData[$name] = $val;
+					unset($Columns[$name]);
+				}
+			}
+			if(!empty($Columns) and is_array($Columns)) {
+				foreach($Columns as $name => $val) {
+					$NewData[$name] = $val;
+				}
+			}
+		} else {
+			$NewData = $Columns;
+		}
+
+		return $NewData;
+	}
+
+	// Data get
+	function get_data_navi_advance( $type ) {
+		// Default colum
+		$Columns_Def = array(
+			"link-target" => __( 'Link Target' ) , "css-classes" => __( 'CSS Classes' ) , "xfn" => __( 'Link Relationship (XFN)' ) , "description" => __( 'Description' )
+		);
+
+		// Default View Setting
+		$Columns = array();
+		foreach($Columns_Def as $column => $name) {
+			if( $column == 'no_use_column' ) {
+				$Columns[$column] = array( "use" => 1 , "name" => $name );
+			} else {
+				$Columns[$column] = array( "not_use" => 1 , "name" => $name );
+			}
+		}
+		unset($Columns_Def);
+
+		// Data Marge
+		$NewData = array();
+		$Data = get_option( $type . $this->RecordBaseName );
+		if(!empty($Data) and is_array($Data)) {
+			foreach($Data as $name => $val) {
+				if(!empty($Columns[$name])) {
+					$NewData[$name] = $val;
+					unset($Columns[$name]);
+				}
+			}
+			if(!empty($Columns) and is_array($Columns)) {
+				foreach($Columns as $name => $val) {
+					$NewData[$name] = $val;
+				}
+			}
+		} else {
+			$NewData = $Columns;
 		}
 
 		return $NewData;
@@ -333,13 +449,31 @@ class Plvc
 					$ActionName = 'manage_' . $QueryPostType . '_posts_custom_column';
 					add_action( $ActionName , array( $this , 'ColumnBody' ) , 10 , 2 );
 				}
-			} elseif ( in_array( 'media' , $Type ) == true ) {
+			}
+			if ( in_array( 'media' , $Type ) == true ) {
 				$Data = get_option( 'media' . $this->RecordBaseName );
 				if( !empty( $Data ) && is_array( $Data ) ) {
 					$FilterName = 'manage_media_columns';
 					add_filter( $FilterName , array( $this , 'ColumnHeaderMedia' ) , 101);
 					$ActionName = 'manage_media_custom_column';
 					add_action( $ActionName , array( $this , 'ColumnBodyMedia' ) , 10 , 2 );
+				}
+			}
+			if ( in_array( 'navi' , $Type ) == true ) {
+				$Data = get_option( 'navi' . $this->RecordBaseName );
+				if( !empty( $Data ) && is_array( $Data ) ) {
+					$FilterName = 'manage_nav-menus_columns';
+					add_filter( $FilterName , array( $this , 'ColumnNavi' ));
+					
+				}
+			}
+			if ( in_array( 'navi_advance' , $Type ) == true ) {
+				$Data = get_option( 'navi_advance' . $this->RecordBaseName );
+				if( !empty( $Data ) && is_array( $Data ) ) {
+					$FilterName = 'manage_nav-menus_columns';
+					add_filter( $FilterName , array( $this , 'ColumnNaviAdvanceHeader' ));
+					$ActionName = 'manage_nav-menus_columns';
+					add_action( $ActionName , array( $this , 'ColumnNaviAdvanceBody' ) );
 				}
 			}
 		}
@@ -530,6 +664,73 @@ class Plvc
 			echo $None;
 		}
 
+	}
+
+	// FilterStart
+	function ColumnNavi( $columns ) {
+		$Data = get_option( 'navi' . $this->RecordBaseName );
+
+		foreach( $Data as $metabox_name => $val ) {
+			if( !empty( $val["not_use"] ) ) {
+				remove_meta_box( $metabox_name , 'nav-menus' , 'side' );
+			}
+		}
+
+		return $columns;
+	}
+
+	// FilterStart
+	function ColumnNaviAdvanceHeader( $columns ) {
+		$Data = get_option( 'navi_advance' . $this->RecordBaseName );
+
+		$FilterColumn = array();
+		foreach($Data as $name => $val) {
+			if( !empty( $val["use"] ) ) {
+				$FilterColumn[$name] = $val["name"];
+			}
+		}
+		
+		if( !empty( $FilterColumn ) ) {
+			$FilterColumn["_title"] = $columns["_title"];
+			$FilterColumn["cb"] = $columns["cb"];
+		}
+
+		return $FilterColumn;
+	}
+
+	// FilterStart
+	function ColumnNaviAdvanceBody( $columns ) {
+		$Data = get_option( 'navi_advance' . $this->RecordBaseName );
+		$user = wp_get_current_user();
+
+		$FilterColumn = array();
+		foreach($Data as $name => $val) {
+			if( !empty( $val["not_use"] ) ) {
+				$FilterColumn[] = $name;
+			}
+		}
+		
+		$hide_set = '';
+		$hide_field = '';
+		foreach( $FilterColumn as $name ) {
+			$hide_set .= '.metabox-prefs  label[for=' . $name . '-hide], ';
+			$hide_field .= '.menu-item-settings  p.field-' . $name . ', ';
+		}
+		$hide_set = rtrim( $hide_set , ', ' );
+		$hide_field = rtrim( $hide_field , ', ' );
+
+echo
+'
+<script>
+jQuery(document).ready(function($) {
+	$("' . $hide_set . '").hide();
+	$("' . $hide_field . '").hide();
+});
+</script>
+
+';
+
+		return $columns;
 	}
 
 }
