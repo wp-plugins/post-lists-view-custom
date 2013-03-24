@@ -1,0 +1,77 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0.0\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2013-03-19 12:40+0900\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-Language: Japanese\n"
+"X-Poedit-Country: JAPAN\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"Last-Translator: \n"
+
+msgid "Customize the list of the post and page, and custom post type."
+msgstr ""
+
+msgid "Post Lists View Customize"
+msgstr ""
+
+msgid "Page Lists View Customize"
+msgstr ""
+
+msgid "Media Lists View Customize"
+msgstr ""
+
+msgid "Menu Lists View Customize"
+msgstr ""
+
+msgid "Menu Advance View Customize"
+msgstr ""
+
+msgid "Custom Post Type Lists View Customize"
+msgstr ""
+
+msgid "Post Lists View Customize Setting"
+msgstr ""
+
+msgid "Page Lists View Customize Setting"
+msgstr ""
+
+msgid "Custom Post type Lists View Customize Setting"
+msgstr ""
+
+msgid "Please choose a custom post type you want to change the list's view."
+msgstr ""
+
+msgid "No custom post type found."
+msgstr ""
+
+msgid "Please rearrange the order in which you want to view by drag and drop."
+msgstr ""
+
+msgid "Would initialize?"
+msgstr ""
+
+msgid "Lists View Customize"
+msgstr ""
+
+msgid "Attached to"
+msgstr ""
+
+msgid "Alt Text"
+msgstr ""
+
+msgid "Donation"
+msgstr ""
+
+msgid "Please donation"
+msgstr ""
+
+msgid "Please donate for better development."
+msgstr ""
+
+msgid "When used together, you can further customize."
+msgstr ""
