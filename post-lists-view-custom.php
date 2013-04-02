@@ -2,10 +2,10 @@
 /*
 Plugin Name: Post Lists View Custom
 Description: Customize the list of the post and page, and custom post type.
-Plugin URI: http://gqevu6bsiz.chicappa.jp
-Version: 1.3.2
+Plugin URI: http://wordpress.org/extend/plugins/post-lists-view-custom/
+Version: 1.4
 Author: gqevu6bsiz
-Author URI: http://gqevu6bsiz.chicappa.jp/author/admin/
+Author URI: http://gqevu6bsiz.chicappa.jp/?utm_source=use_plugin&utm_medium=list&utm_content=plvc&utm_campaign=1_4
 Text Domain: plvc
 Domain Path: /languages
 */
@@ -36,6 +36,8 @@ class Plvc
 	var $Ver,
 		$Name,
 		$Dir,
+		$ltd,
+		$ltd_do,
 		$RecordBaseName,
 		$RecordSelectCustom,
 		$Slug,
@@ -46,15 +48,18 @@ class Plvc
 
 
 	function __construct() {
-		$this->Ver = '1.3.2';
+		$this->Ver = '1.4';
 		$this->Name = 'Post Lists View Custom';
 		$this->Dir = WP_PLUGIN_URL . '/' . dirname( plugin_basename( __FILE__ ) ) . '/';
+		$this->ltd = 'plvc';
+		$this->ltd_do = $this->ltd . '_donation';
 		$this->Slug = 'post_lists_view_custom';
 		$this->RecordBaseName = '_lists_view_custom';
 		$this->RecordSelectCustom = $this->Slug . '_select_custom';
 		$this->ThumbnailSize = 50;
 		$this->SetPage = 'post';
 		$this->UPFN = 'Y';
+		$this->DonateKey = 'd77aec9bc89d445fd54b4c988d090f03';
 		$this->Msg = '';
 
 		$this->PluginSetup();
@@ -64,17 +69,14 @@ class Plvc
 	// PluginSetup
 	function PluginSetup() {
 		// load text domain
-		load_plugin_textdomain( 'plvc' , false , basename( dirname( __FILE__ ) ) . '/languages' );
+		load_plugin_textdomain( $this->ltd , false , basename( dirname( __FILE__ ) ) . '/languages' );
+		load_plugin_textdomain( $this->ltd_do , false , basename( dirname( __FILE__ ) ) . '/languages' );
 
 		// plugin links
 		add_filter( 'plugin_action_links' , array( $this , 'plugin_action_links' ) , 10 , 2 );
 
 		// add menu
 		add_action( 'admin_menu' , array( $this , 'admin_menu' ) );
-
-		$this->Msg = '<div class="updated"><p><strong>' . __( 'Please donation' , 'plvc' ) . '</strong></p><p>' . __( 'Please donate for better development.' , 'plvc' ) . '</p><p>&gt;&gt; <a href="http://gqevu6bsiz.chicappa.jp/please-donation/" target="_blank">' . __( 'Donation' , 'plvc' ) . '</a></p></div>';
-		$this->Msg .= '<div><p><strong>' . __( 'Please donation' , 'plvc' ) . '</strong></p><p>' . __( 'Please donate for better development.' , 'plvc' ) . '</p><p>&gt;&gt; <a href="http://gqevu6bsiz.chicappa.jp/please-donation/" target="_blank">' . __( 'Donation' , 'plvc' ) . '</a></p></div>';
-
 	}
 
 	// PluginSetup
@@ -83,11 +85,11 @@ class Plvc
 
 			$mofile = $this->TransFileCk();
 			if( $mofile == false ) {
-				$translation_link = '<a href="http://gqevu6bsiz.chicappa.jp/please-translation/" target="_blank">Please translation</a>'; 
+				$translation_link = '<a href="http://gqevu6bsiz.chicappa.jp/please-translation/?utm_source=use_plugin&utm_medium=side&utm_content=' . $this->ltd . '&utm_campaign=' . str_replace( '.' , '_' , $this->Ver ) . '" target="_blank">Please translation</a>'; 
 				array_unshift( $links, $translation_link );
 			}
-			$donation_link = '<a href="http://gqevu6bsiz.chicappa.jp/please-donation/" target="_blank">' . __( 'Donation' , 'plvc' ) . '</a>';
-			array_unshift( $links, $donation_link );
+			$support_link = '<a href="http://wordpress.org/support/plugin/post-lists-view-custom" target="_blank">' . __( 'Support Forums' ) . '</a>';
+			array_unshift( $links, $support_link );
 			array_unshift( $links, '<a href="' . admin_url( 'admin.php?page=' . $this->Slug ) . '">' . __('Settings') . '</a>' );
 
 		}
@@ -96,12 +98,13 @@ class Plvc
 
 	// PluginSetup
 	function admin_menu() {
-		add_menu_page( __( 'Post Lists View Customize' , 'plvc' ) , __( 'Post Lists View Customize' , 'plvc' ) , 'administrator', $this->Slug , array( $this , 'setting_post') );
-		add_submenu_page( $this->Slug , __( 'Page Lists View Customize' , 'plvc' ) , __( 'Page Lists View Customize' , 'plvc' ) , 'administrator' , 'page' . $this->RecordBaseName , array( $this , 'setting_page' ) );
-		add_submenu_page( $this->Slug , __( 'Media Lists View Customize' , 'plvc' ) , __( 'Media Lists View Customize' , 'plvc' ) , 'administrator' , 'media' . $this->RecordBaseName , array( $this , 'setting_media' ) );
-		add_submenu_page( $this->Slug , __( 'Navi Lists View Customize' , 'plvc' ) , __( 'Menu Lists View Customize' , 'plvc' ) , 'administrator' , 'navi' . $this->RecordBaseName , array( $this , 'setting_navi' ) );
-		add_submenu_page( $this->Slug , __( 'Navi Advance View Customize' , 'plvc' ) , __( 'Menu Advance View Customize' , 'plvc' ) , 'administrator' , 'navi_advance' . $this->RecordBaseName , array( $this , 'setting_navi_advance' ) );
-		add_submenu_page( $this->Slug , __( 'Custom Post Type Lists View Customize' , 'plvc' ) , __( 'Custom Post Type Lists View Customize' , 'plvc' ) , 'administrator' , 'custom_post' . $this->RecordBaseName , array( $this , 'setting_custom' ) );
+		add_menu_page( __( 'Post Lists View Customize' , $this->ltd ) , __( 'Post Lists View Customize' , $this->ltd ) , 'administrator', $this->Slug , array( $this , 'setting_post') );
+		add_submenu_page( $this->Slug , __( 'Page Lists View Customize' , $this->ltd ) , __( 'Page Lists View Customize' , $this->ltd ) , 'administrator' , 'page' . $this->RecordBaseName , array( $this , 'setting_page' ) );
+		add_submenu_page( $this->Slug , __( 'Media Lists View Customize' , $this->ltd ) , __( 'Media Lists View Customize' , $this->ltd ) , 'administrator' , 'media' . $this->RecordBaseName , array( $this , 'setting_media' ) );
+		add_submenu_page( $this->Slug , __( 'Comments Lists View Customize' , $this->ltd ) , __( 'Comments Lists View Customize' , $this->ltd ) , 'administrator' , 'comment' . $this->RecordBaseName , array( $this , 'setting_comment' ) );
+		add_submenu_page( $this->Slug , __( 'Navi Lists View Customize' , $this->ltd ) , __( 'Menu Lists View Customize' , $this->ltd ) , 'administrator' , 'navi' . $this->RecordBaseName , array( $this , 'setting_navi' ) );
+		add_submenu_page( $this->Slug , __( 'Navi Advance View Customize' , $this->ltd ) , __( 'Menu Advance View Customize' , $this->ltd ) , 'administrator' , 'navi_advance' . $this->RecordBaseName , array( $this , 'setting_navi_advance' ) );
+		add_submenu_page( $this->Slug , __( 'Custom Post Type Lists View Customize' , $this->ltd ) , __( 'Custom Post Type Lists View Customize' , $this->ltd ) , 'administrator' , 'custom_post' . $this->RecordBaseName , array( $this , 'setting_custom' ) );
 	}
 
 	// Translation File Check
@@ -118,40 +121,56 @@ class Plvc
 
 	// SettingPage
 	function setting_post() {
+		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
+		$this->DisplayDonation();
 		include_once 'inc/setting_lists.php';
 	}
 
 	// SettingPage
 	function setting_page() {
+		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
+		$this->DisplayDonation();
 		$this->SetPage = 'page';
 		include_once 'inc/setting_lists.php';
 	}
 
 	// SettingPage
 	function setting_media() {
+		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
+		$this->DisplayDonation();
 		$this->SetPage = 'media';
 		include_once 'inc/setting_media.php';
 	}
 
 	// SettingPage
+	function setting_comment() {
+		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
+		$this->DisplayDonation();
+		$this->SetPage = 'comment';
+		include_once 'inc/setting_comment.php';
+	}
+
+	// SettingPage
 	function setting_navi() {
+		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
+		$this->DisplayDonation();
 		$this->SetPage = 'navi';
 		include_once 'inc/setting_navi.php';
 	}
 
 	// SettingPage
 	function setting_navi_advance() {
+		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
+		$this->DisplayDonation();
 		$this->SetPage = 'navi_advance';
 		include_once 'inc/setting_navi_advance.php';
 	}
 
 	// SettingPage
 	function setting_custom() {
-		if( !empty( $_POST["reset"] ) ) {
-			$this->update_reset();
-		} elseif( !empty( $_POST[$this->UPFN] ) ) {
-			$this->update();
-		} 
+		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
+		$this->DisplayDonation();
+
 		if( empty( $_POST["CustomSelect"] ) ) {
 			$this->SetPage = 'custom';
 			include_once 'inc/select_custom.php';
@@ -249,14 +268,60 @@ class Plvc
 	function get_data_media( $type ) {
 		// Default colum
 		$Columns_Def = array(
-			"icon" => __( 'Image' ) , "title" => _x( 'File' , 'column name' ) , "author" => __( 'Author' ) , "parent" => __( 'Attached to' , 'plvc' ) , "comments" => __( 'Comments' ) , "date" => __( 'Date' ) ,
-			"media_title" => __( 'Title' ) , "image_alt" => __( 'Alt Text' , 'plvc' ) , "post_excerpt" => __('Caption') , "post_content" => __('Details') , "id" => 'ID'
+			"icon" => __( 'Image' ) , "title" => _x( 'File' , 'column name' ) , "author" => __( 'Author' ) , "parent" => __( 'Attached to' , $this->ltd ) , "comments" => __( 'Comments' ) , "date" => __( 'Date' ) ,
+			"media_title" => __( 'Title' ) , "image_alt" => __( 'Alt Text' , $this->ltd ) , "post_excerpt" => __('Caption') , "post_content" => __('Details') , "id" => 'ID'
 		);
 
 		// Default View Setting
 		$Columns = array();
 		foreach($Columns_Def as $column => $name) {
 			if( $column == 'title' or $column == 'author' or $column == 'parent' or $column == 'comments' or $column == 'date' ) {
+				$Columns[$column] = array( "use" => 1 , "name" => $name );
+			} else {
+				$Columns[$column] = array( "not_use" => 1 , "name" => $name );
+			}
+		}
+		unset($Columns_Def);
+
+		// Data Marge
+		$NewData = array();
+		$Data = get_option( $type . $this->RecordBaseName );
+		if(!empty($Data) and is_array($Data)) {
+			foreach($Data as $name => $val) {
+				if(!empty($Columns[$name])) {
+					$NewData[$name] = $val;
+					unset($Columns[$name]);
+				}
+			}
+			if(!empty($Columns) and is_array($Columns)) {
+				foreach($Columns as $name => $val) {
+					$NewData[$name] = $val;
+				}
+			}
+		} else {
+			$NewData = $Columns;
+		}
+
+		// checkbox
+		if(!empty($NewData["cb"])) {
+			unset($NewData["cb"]);
+		}
+
+		return $NewData;
+	}
+
+	// Data get
+	function get_data_comment( $type ) {
+		// Default colum
+		$Columns_Def = array(
+			"author" => __( 'Author' ) , "comment" => _x( 'Comment' , 'column name' ) , "newcomment_author" => __( 'Name' ) , "newcomment_author_email" => __( 'E-mail' ),
+			"response" => _x( 'In Response To' , 'column name' ) , "newcomment_author_url" => __( 'URL' ) , "id" => 'ID'
+		);
+
+		// Default View Setting
+		$Columns = array();
+		foreach($Columns_Def as $column => $name) {
+			if( $column == 'author' or $column == 'comment' or $column == 'response' ) {
 				$Columns[$column] = array( "use" => 1 , "name" => $name );
 			} else {
 				$Columns[$column] = array( "not_use" => 1 , "name" => $name );
@@ -402,22 +467,36 @@ class Plvc
 		if( $UPFN == 'Y' ) {
 			unset( $_POST[$this->UPFN] );
 
-			$Modes = array( "use" , "not_use" );
-			$Update = array();
-			foreach($Modes as $mode) {
-				if(!empty( $_POST[$mode] )) {
-					foreach ($_POST[$mode] as $key => $val) {
-						$Update[strip_tags( $key )]["name"] = strip_tags( $val["name"] );
-						$Update[strip_tags( $key )][$mode] = 1;
+			// donated
+			if( !empty( $_POST["donate_key"] ) ) {
+
+				$SubmitKey = md5( strip_tags( $_POST["donate_key"] ) );
+				if( $this->DonateKey == $SubmitKey ) {
+					update_option( $this->ltd . '_donated' , $SubmitKey );
+					$this->Msg .= '<div class="updated"><p><strong>' . __( 'Thank you for your donation.' , $this->ltd_do ) . '</strong></p></div>';
+				}
+
+			} else {
+
+				$Modes = array( "use" , "not_use" );
+				$Update = array();
+				foreach($Modes as $mode) {
+					if(!empty( $_POST[$mode] )) {
+						foreach ($_POST[$mode] as $key => $val) {
+							$Update[strip_tags( $key )]["name"] = strip_tags( $val["name"] );
+							$Update[strip_tags( $key )][$mode] = 1;
+						}
 					}
 				}
+	
+				if(!empty( $Update )) {
+					$Record = strip_tags( $_POST["SetPage"] ) . $this->RecordBaseName;
+					update_option( $Record , $Update );
+					$this->Msg .= '<div class="updated"><p><strong>' . __('Settings saved.') . '</strong></p></div>';
+				}
+
 			}
 
-			if(!empty( $Update )) {
-				$Record = strip_tags( $_POST["SetPage"] ) . $this->RecordBaseName;
-				update_option( $Record , $Update );
-				$this->Msg = '<div class="updated"><p><strong>' . __('Settings saved.') . '</strong></p></div>';
-			}
 		}
 	}
 
@@ -425,7 +504,7 @@ class Plvc
 	function update_reset() {
 		$Record = strip_tags( $_POST["SetPage"] ) . $this->RecordBaseName;
 		delete_option( $Record );
-		$this->Msg = '<div class="updated"><p><strong>' . __('Settings saved.') . '</strong></p></div>';
+		$this->Msg .= '<div class="updated"><p><strong>' . __('Settings saved.') . '</strong></p></div>';
 	}
 
 
@@ -441,6 +520,7 @@ class Plvc
 				$Type[] = str_replace( $this->RecordBaseName , "" , $name);
 			}
 		}
+
 		if( !empty( $Type ) && is_array( $Type ) ) {
 			if( in_array( $QueryPostType , $Type ) == true ) {
 				$Data = get_option( $QueryPostType . $this->RecordBaseName );
@@ -458,6 +538,15 @@ class Plvc
 					add_filter( $FilterName , array( $this , 'ColumnHeaderMedia' ) , 101);
 					$ActionName = 'manage_media_custom_column';
 					add_action( $ActionName , array( $this , 'ColumnBodyMedia' ) , 10 , 2 );
+				}
+			}
+			if ( in_array( 'comment' , $Type ) == true ) {
+				$Data = get_option( 'comment' . $this->RecordBaseName );
+				if( !empty( $Data ) && is_array( $Data ) ) {
+					$FilterName = 'manage_edit-comments_columns';
+					add_filter( $FilterName , array( $this , 'ColumnHeaderComment' ) , 101);
+					$ActionName = 'manage_comments_custom_column';
+					add_action( $ActionName , array( $this , 'ColumnBodyComment' ) , 10 , 2 );
 				}
 			}
 			if ( in_array( 'navi' , $Type ) == true ) {
@@ -668,6 +757,52 @@ class Plvc
 	}
 
 	// FilterStart
+	function ColumnHeaderComment( $columns ) {
+		$Data = get_option( 'comment' . $this->RecordBaseName );
+
+		$FilterColumn = array( "cb" => $columns["cb"] );
+		foreach($Data as $name => $val) {
+			if( !empty( $val["use"] ) ) {
+				$FilterColumn[$name] = $val["name"];
+			}
+		}
+
+		wp_enqueue_style( $this->Slug , $this->Dir . dirname( plugin_basename( __FILE__ ) ) . '.css' , array() , $this->Ver );
+
+		return $FilterColumn;
+	}
+
+	// FilterStart
+	function ColumnBodyComment( $column_name , $comment_id) {
+		$None = '  -  ';
+		$comments = get_comments( array( 'ID' => $comment_id ) );
+		
+		if( !empty( $comments[0] ) ) {
+			$comment = $comments[0];
+
+			if($column_name == 'id') {
+				// post ID
+				echo $comment_id;
+			} else if($column_name == 'newcomment_author') {
+				// author
+				echo $comment->comment_author;
+			} else if($column_name == 'newcomment_author_email') {
+				// email
+				echo $comment->comment_author_email;
+			} else if($column_name == 'newcomment_author_url') {
+				// url
+				echo $comment->comment_author_url;
+			} else {
+				echo $None;
+			}
+
+		} else {
+			echo $None;
+		}
+
+	}
+
+	// FilterStart
 	function ColumnNavi( $columns ) {
 		$Data = get_option( 'navi' . $this->RecordBaseName );
 
@@ -733,6 +868,21 @@ jQuery(document).ready(function($) {
 
 		return $columns;
 	}
+
+	// FilterStart
+	function layout_footer( $text ) {
+		$text = '<img src="http://www.gravatar.com/avatar/7e05137c5a859aa987a809190b979ed4?s=18" width="18" /> Plugin developer : <a href="http://gqevu6bsiz.chicappa.jp/?utm_source=use_plugin&utm_medium=footer&utm_content=' . $this->ltd . '&utm_campaign=' . str_replace( '.' , '_' , $this->Ver ) . '" target="_blank">gqevu6bsiz</a>';
+		return $text;
+	}
+
+	// FilterStart
+	function DisplayDonation() {
+		$donation = get_option( $this->ltd . '_donated' );
+		if( $this->DonateKey != $donation ) {
+			$this->Msg .= '<div class="error"><p><strong>' . __( 'Please consider a donation if you are satisfied with this plugin.' , $this->ltd_do ) . '</strong></p></div>';
+		}
+	}
+
 
 }
 

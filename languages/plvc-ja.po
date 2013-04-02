@@ -1,17 +1,16 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0.0\n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-03-19 17:25+0900\n"
-"Language-Team: \n"
+"Project-Id-Version: Post Lists View Custom\n"
+"POT-Creation-Date: 2013-04-02 14:11+0900\n"
+"PO-Revision-Date: 2013-04-02 14:35+0900\n"
+"Last-Translator: Gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
+"Language-Team: Gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
 "X-Poedit-Language: Japanese\n"
 "X-Poedit-Country: JAPAN\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"Last-Translator: \n"
 
 msgid "Customize the list of the post and page, and custom post type."
 msgstr "投稿と固定ページの一覧表示とカスタム投稿タイプの一覧表示をカスタマイズします。"
@@ -25,6 +24,9 @@ msgstr "固定ページ一覧表示設定"
 msgid "Media Lists View Customize"
 msgstr "メディア一覧表示設定"
 
+msgid "Comments Lists View Customize"
+msgstr "コメント一覧表示設定"
+
 msgid "Menu Lists View Customize"
 msgstr "ナビメニュー一覧表示設定"
 
@@ -33,15 +35,6 @@ msgstr "ナビ詳細メニュー表示設定"
 
 msgid "Custom Post Type Lists View Customize"
 msgstr "カスタム投稿タイプ一覧表示設定"
-
-msgid "Post Lists View Customize Setting"
-msgstr "投稿の一覧表示設定"
-
-msgid "Page Lists View Customize Setting"
-msgstr "固定ページの一覧表示設定"
-
-msgid "Custom Post type Lists View Customize Setting"
-msgstr "カスタム投稿タイプの一覧表示設定"
 
 msgid "Please choose a custom post type you want to change the list's view."
 msgstr "一覧表示の変更をしたいカスタム投稿タイプを選択してください。"
@@ -63,16 +56,4 @@ msgstr "アップロード先"
 
 msgid "Alt Text"
 msgstr "代替テキスト"
-
-msgid "Donation"
-msgstr "寄付のお願い"
-
-msgid "Please donation"
-msgstr "寄付のお願い"
-
-msgid "Please donate for better development."
-msgstr "よりよい開発の為に寄付をお願いします。"
-
-msgid "When used together, you can further customize."
-msgstr "一緒に使うと、さらにカスタマイズできます。"
 

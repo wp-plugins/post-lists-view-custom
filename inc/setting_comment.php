@@ -1,6 +1,6 @@
 <?php
 
-$PageTitle = __( 'Media Lists View Customize' , $this->ltd );
+$PageTitle = __( 'Comments Lists View Customize' , $this->ltd );
 
 
 if( !empty( $_POST["reset"] ) ) {
@@ -15,7 +15,7 @@ wp_enqueue_script( $this->Slug ,  $this->Dir . dirname( dirname( plugin_basename
 wp_enqueue_style( $this->Slug , $this->Dir . dirname( dirname( plugin_basename( __FILE__ ) ) ) . '.css', array() , $this->Ver );
 
 // get data
-$Data = $this->get_data_media($this->SetPage);
+$Data = $this->get_data_comment($this->SetPage);
 
 ?>
 
@@ -86,6 +86,7 @@ $Data = $this->get_data_media($this->SetPage);
 		
 			</form>
 
+
 		</div>
 
 		<div id="postbox-container-2" class="postbox-container">
@@ -99,3 +100,4 @@ $Data = $this->get_data_media($this->SetPage);
 	</div>
 
 </div>
+

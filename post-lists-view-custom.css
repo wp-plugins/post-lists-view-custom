@@ -1,3 +1,28 @@
+.columns-2.plvc #postbox-container-1 {
+	width: 60%;
+}
+.columns-2.plvc #postbox-container-2 {
+	width: 38%;
+	margin-left: 2%;
+}
+.plvc .postbox-container .postbox .hndle {
+	cursor: default; 	
+}
+
+
+.plvc .postbox-container #donationbox {
+	background: #87BCE4;
+	border: 3px solid #227499;
+}
+.plvc .postbox-container #donationbox .inside {
+	padding: 6px 10px 10px 10px;
+}
+.plvc .postbox-container #donationbox .inside .donation_memo {
+	background: #FFF8D9;
+	padding: 2px 10px;
+}
+
+
 form#post_lists_view_custom_form table td div#use,
 form#post_lists_view_custom_form table td div#not_use {
 	margin: 0;

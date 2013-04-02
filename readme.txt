@@ -1,19 +1,25 @@
 === Post Lists View Custom ===
 Contributors: gqevu6bsiz
-Donate link: http://gqevu6bsiz.chicappa.jp/please-donation/
-Tags: admin, post, posts, page, upload, media, attachment, lists, view, custom, customfield, field, custom_post, navi, menu
+Donate link: http://gqevu6bsiz.chicappa.jp/please-donation/?utm_source=wporg&utm_medium=donate&utm_content=plvc&utm_campaign=1_4
+Tags: admin, post, posts, page, upload, media, attachment, lists, view, custom, customfield, field, custom_post, navi, menu, comment
 Requires at least: 3.4.2
 Tested up to: 3.5
-Stable tag: 1.3.2
+Stable tag: 1.4
 License: GPL2
 
-Customize the list of the post and page, and custom post type.
+Customize the list of the post and page and the custom post type.
 
 == Description ==
 
-Customize the list of the post and page.
-custom post type page, too.
-You can customize the column display items freely.
+* Posts lists
+* Pages lists
+* Custom Posts Type lists
+* Media lists
+* Comments lists
+* Menus to show on screen
+* Menus to show advanced menu properties
+
+These lists to Customization is possible.
 
 == Installation ==
 
@@ -38,6 +44,10 @@ You can customize the column display items freely.
 
 == Changelog ==
 
+= 1.4 =
+Added to screen management for comments lists.
+Added a translation file.
+Changed the layout.
 
 = 1.3.2 =
 I fixed a mistake.
@@ -75,6 +85,14 @@ This is the initial release.
 
 == 日本語でのご説明 ==
 
-このプラグインは、投稿一覧・ページ一覧およびカスタム投稿タイプ、メディアの一覧表示をカスタマイズするプラグインです。
-アイキャッチ画像やカスタムフィールドの項目を一覧に表示することが可能です。
+* 投稿一覧
+* ページ一覧
+* カスタム投稿タイプ一覧
+* メディア一覧
+* コメント一覧
+* メニューの表示一覧
+* メニューの拡張表示一覧
+
+これらの一覧表示をカスタマイズするプラグインです。
+アイキャッチ画像やカスタムフィールドの項目、記事のIDを一覧に表示することが可能です。
 また、表示の順番も自由に変更できます。

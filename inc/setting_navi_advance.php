@@ -1,6 +1,6 @@
 <?php
 
-$PageTitle = __( 'Menu Advance View Customize' , 'plvc' );
+$PageTitle = __( 'Menu Advance View Customize' , $this->ltd );
 
 
 if( !empty( $_POST["reset"] ) ) {
@@ -23,63 +23,79 @@ $Data = $this->get_data_navi_advance($this->SetPage);
 	<div class="icon32" id="icon-options-general"></div>
 	<h2><?php echo $PageTitle; ?></h2>
 	<?php echo $this->Msg; ?>
-	<p><?php _e( 'Please rearrange the order in which you want to view by drag and drop.' , 'plvc' ); ?></p>
-	<p>&nbsp;</p>
+	<p><?php _e( 'Please rearrange the order in which you want to view by drag and drop.' , $this->ltd ); ?></p>
 
-	<form id="post_lists_view_custom_form" method="post" action="">
-		<input type="hidden" name="<?php echo $this->UPFN; ?>" value="Y">
-		<?php wp_nonce_field(); ?>
+	<div class="metabox-holder columns-2 plvc">
 
-		<input type="hidden" name="SetPage" value="<?php echo $this->SetPage; ?>">
-		<table cellspacing="0" class="widefat fixed">
-			<thead>
-				<tr>
-					<th><?php _e( 'Show' ); ?></th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>
-						<div id="use" class="widget-list">
-							<?php if(!empty($Data)): ?>
-								<?php echo $this->get_lists( 'use' , $Data ); ?>
-							<?php endif; ?>
-						</div>
-						<div class="clear"></div>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+		<div id="postbox-container-1" class="postbox-container">
 
-		<p>&nbsp;</p>
+			<form id="post_lists_view_custom_form" method="post" action="">
+				<input type="hidden" name="<?php echo $this->UPFN; ?>" value="Y">
+				<?php wp_nonce_field(); ?>
+		
+				<input type="hidden" name="SetPage" value="<?php echo $this->SetPage; ?>">
+				<table cellspacing="0" class="widefat fixed">
+					<thead>
+						<tr>
+							<th><?php _e( 'Show' ); ?></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								<div id="use" class="widget-list">
+									<?php if(!empty($Data)): ?>
+										<?php echo $this->get_lists( 'use' , $Data ); ?>
+									<?php endif; ?>
+								</div>
+								<div class="clear"></div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+		
+				<p>&nbsp;</p>
+		
+				<table cellspacing="0" class="widefat fixed">
+					<thead>
+						<tr>
+							<th><?php _e('Hide'); ?></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								<div id="not_use" class="widget-list">
+									<?php if(!empty($Data)): ?>
+										<?php echo $this->get_lists( 'not_use' , $Data ); ?>
+									<?php endif; ?>
+								</div>
+								<div class="clear"></div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+		
+				<p class="submit">
+					<input type="submit" class="button-primary" name="update" value="<?php _e( 'Save' ); ?>" />
+				</p>
+				<p class="submit reset">
+					<span class="description"><?php _e( 'Would initialize?' , $this->ltd ); ?></span>
+					<input type="submit" class="button-secondary" name="reset" value="<?php _e( 'Reset' ); ?>" />
+				</p>
+		
+			</form>
 
-		<table cellspacing="0" class="widefat fixed">
-			<thead>
-				<tr>
-					<th><?php _e('Hide'); ?></th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>
-						<div id="not_use" class="widget-list">
-							<?php if(!empty($Data)): ?>
-								<?php echo $this->get_lists( 'not_use' , $Data ); ?>
-							<?php endif; ?>
-						</div>
-						<div class="clear"></div>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+		</div>
 
-		<p class="submit">
-			<input type="submit" class="button-primary" name="update" value="<?php _e( 'Save' ); ?>" />
-		</p>
-		<p class="submit reset">
-			<span class="description"><?php _e( 'Would initialize?' , 'plvc' ); ?></span>
-			<input type="submit" class="button-secondary" name="reset" value="<?php _e( 'Reset' ); ?>" />
-		</p>
+		<div id="postbox-container-2" class="postbox-container">
 
-	</form>
+			<?php include_once 'donation.php'; ?>
+
+		</div>
+
+		<div class="clear"></div>
+
+	</div>
+
 </div>
