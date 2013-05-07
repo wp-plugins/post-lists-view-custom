@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Post Lists View Custom\n"
 "POT-Creation-Date: 2013-04-02 14:11+0900\n"
-"PO-Revision-Date: 2013-04-02 14:35+0900\n"
+"PO-Revision-Date: 2013-05-08 02:00+0900\n"
 "Last-Translator: Gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
 "Language-Team: Gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -56,4 +56,19 @@ msgstr "アップロード先"
 
 msgid "Alt Text"
 msgstr "代替テキスト"
+
+msgid "Setting Thumbnail size"
+msgstr "サムネイルサイズ設定"
+
+msgid "Change the size of thumbnails displayed in the lists."
+msgstr "一覧に表示されるサムネイルのサイズを設定します。"
+
+msgid "It will be displayed at <strong>%s px</strong> If there is no setting."
+msgstr "設定が無い場合は <strong>%s px</strong> での表示となります。"
+
+msgid "Height will be displayed in proportion to the width."
+msgstr "高さは幅に比例した表示となります。"
+
+msgid "Post, Page, and Custom Post type the applies."
+msgstr "投稿、ページ、カスタム投稿タイプに適用されます。"
 

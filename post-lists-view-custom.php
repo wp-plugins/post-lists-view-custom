@@ -3,9 +3,9 @@
 Plugin Name: Post Lists View Custom
 Description: Customize the list of the post and page, and custom post type.
 Plugin URI: http://wordpress.org/extend/plugins/post-lists-view-custom/
-Version: 1.4
+Version: 1.4.1
 Author: gqevu6bsiz
-Author URI: http://gqevu6bsiz.chicappa.jp/?utm_source=use_plugin&utm_medium=list&utm_content=plvc&utm_campaign=1_4
+Author URI: http://gqevu6bsiz.chicappa.jp/?utm_source=use_plugin&utm_medium=list&utm_content=plvc&utm_campaign=1_4_1
 Text Domain: plvc
 Domain Path: /languages
 */
@@ -48,7 +48,7 @@ class Plvc
 
 
 	function __construct() {
-		$this->Ver = '1.4';
+		$this->Ver = '1.4.1';
 		$this->Name = 'Post Lists View Custom';
 		$this->Dir = WP_PLUGIN_URL . '/' . dirname( plugin_basename( __FILE__ ) ) . '/';
 		$this->ltd = 'plvc';
@@ -105,6 +105,7 @@ class Plvc
 		add_submenu_page( $this->Slug , __( 'Navi Lists View Customize' , $this->ltd ) , __( 'Menu Lists View Customize' , $this->ltd ) , 'administrator' , 'navi' . $this->RecordBaseName , array( $this , 'setting_navi' ) );
 		add_submenu_page( $this->Slug , __( 'Navi Advance View Customize' , $this->ltd ) , __( 'Menu Advance View Customize' , $this->ltd ) , 'administrator' , 'navi_advance' . $this->RecordBaseName , array( $this , 'setting_navi_advance' ) );
 		add_submenu_page( $this->Slug , __( 'Custom Post Type Lists View Customize' , $this->ltd ) , __( 'Custom Post Type Lists View Customize' , $this->ltd ) , 'administrator' , 'custom_post' . $this->RecordBaseName , array( $this , 'setting_custom' ) );
+		add_submenu_page( $this->Slug , __( 'Setting Thumbnail size' , $this->ltd ) , __( 'Setting Thumbnail size' , $this->ltd ) , 'administrator' , 'thumbnail_size' . $this->RecordBaseName , array( $this , 'setting_thumbnail_size' ) );
 	}
 
 	// Translation File Check
@@ -179,6 +180,15 @@ class Plvc
 			include_once 'inc/setting_lists.php';
 		}
 	}
+
+	// SettingPage
+	function setting_thumbnail_size() {
+		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
+		$this->DisplayDonation();
+		$this->SetPage = 'thumbnail_size';
+		include_once 'inc/setting_thumbnail_size.php';
+	}
+
 
 
 	// Data get
@@ -262,7 +272,6 @@ class Plvc
 
 		return $NewData;
 	}
-
 
 	// Data get
 	function get_data_media( $type ) {
@@ -436,6 +445,21 @@ class Plvc
 
 		return $NewData;
 	}
+	// Data get
+	function get_data_thumbnail_size( $type ) {
+		$Data = get_option( $type . $this->RecordBaseName );
+
+		$NewData = array();
+		if( !empty( $Data ) and is_array( $Data ) ) {
+			$NewData["width"] = intval( $Data["width"] );
+		}
+
+		return $NewData;
+	}
+
+
+
+
 
 	// Setting Item
 	function get_lists( $type , $Data ) {
@@ -478,15 +502,23 @@ class Plvc
 
 			} else {
 
-				$Modes = array( "use" , "not_use" );
-				$Update = array();
-				foreach($Modes as $mode) {
-					if(!empty( $_POST[$mode] )) {
-						foreach ($_POST[$mode] as $key => $val) {
-							$Update[strip_tags( $key )]["name"] = strip_tags( $val["name"] );
-							$Update[strip_tags( $key )][$mode] = 1;
+				if( $_POST["SetPage"] == 'thumbnail_size' ) {
+					
+					$Update["width"] = strip_tags( $_POST["width"] );
+					
+				} else {
+
+					$Modes = array( "use" , "not_use" );
+					$Update = array();
+					foreach($Modes as $mode) {
+						if(!empty( $_POST[$mode] )) {
+							foreach ($_POST[$mode] as $key => $val) {
+								$Update[strip_tags( $key )]["name"] = strip_tags( $val["name"] );
+								$Update[strip_tags( $key )][$mode] = 1;
+							}
 						}
 					}
+
 				}
 	
 				if(!empty( $Update )) {
@@ -590,6 +622,12 @@ class Plvc
 	function ColumnBody( $column_name , $post_id) {
 		$None = '  -  ';
 
+		$Thumbnail_Size = $this->ThumbnailSize;
+		$Thumbnail_setting = $this->get_data_thumbnail_size('thumbnail_size');
+		if( !empty( $Thumbnail_setting["width"] ) ) {
+			$Thumbnail_Size = intval( $Thumbnail_setting["width"] );
+		}
+
 		if($column_name == 'post-formats') {
 			// post-formats
 			echo get_post_format_string( get_post_format( $post_id ) );
@@ -611,8 +649,8 @@ class Plvc
 			// thumbnail
 			if( has_post_thumbnail( $post_id ) ) {
 				$thumbnail_id = get_post_thumbnail_id( $post_id );
-				$thumbnail = get_the_post_thumbnail( $post_id , array( $this->ThumbnailSize , "" ) );
-				echo '<a href="media.php?attachment_id=' . $thumbnail_id . '&action=edit">' . $thumbnail . '</a>';
+				$thumbnail = wp_get_attachment_image_src( $thumbnail_id , 'post-thumbnail', true );
+				echo '<a href="media.php?attachment_id=' . $thumbnail_id . '&action=edit"><img src="' . $thumbnail[0] . '" width="' . $Thumbnail_Size . '" /></a>';
 			} else {
 				echo $None;
 			}
@@ -669,9 +707,9 @@ class Plvc
 							if( in_array( $column_name , $cftd_field_file ) ) {
 								$post = get_post( $post_meta[0] );
 								if( !empty($post) && intval( $post_meta[0] ) && $post->post_type == 'attachment' ) {
-									$CustomThumbnail = wp_get_attachment_image_src( $post_meta[0], 'post-thumbnail', true );
+									$CustomThumbnail = wp_get_attachment_image_src( $post_meta[0] , 'post-thumbnail', true );
 									if(!empty($CustomThumbnail)) {
-										echo '<a href="media.php?attachment_id=' . $post_meta[0] . '&action=edit"><img src="' . $CustomThumbnail[0] . '" width="'.$this->ThumbnailSize . '" /></a>';
+										echo '<a href="media.php?attachment_id=' . $post_meta[0] . '&action=edit"><img src="' . $CustomThumbnail[0] . '" width="' . $Thumbnail_Size . '" /></a>';
 									} else {
 										echo $post_meta[0];
 									}
@@ -690,7 +728,7 @@ class Plvc
 						if( !empty($post) && intval($post_meta[0]) && $post->post_type == 'attachment' && $post_id == $post->post_parent ) {
 							$CustomThumbnail = wp_get_attachment_image_src( $post_meta[0], 'post-thumbnail', true );
 							if( !empty($CustomThumbnail ) ) {
-								echo '<a href="media.php?attachment_id=' . $post_meta[0] . '&action=edit"><img src="' . $CustomThumbnail[0] . '" width="' . $this->ThumbnailSize . '" /></a>';
+								echo '<a href="media.php?attachment_id=' . $post_meta[0] . '&action=edit"><img src="' . $CustomThumbnail[0] . '" width="' . $Thumbnail_Size . '" /></a>';
 							} else {
 								echo $post_meta[0];
 							}

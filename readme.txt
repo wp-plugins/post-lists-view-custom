@@ -1,9 +1,9 @@
 === Post Lists View Custom ===
 Contributors: gqevu6bsiz
-Donate link: http://gqevu6bsiz.chicappa.jp/please-donation/?utm_source=wporg&utm_medium=donate&utm_content=plvc&utm_campaign=1_4
+Donate link: http://gqevu6bsiz.chicappa.jp/please-donation/?utm_source=wporg&utm_medium=donate&utm_content=plvc&utm_campaign=1_4_1
 Tags: admin, post, posts, page, upload, media, attachment, lists, view, custom, customfield, field, custom_post, navi, menu, comment
 Requires at least: 3.4.2
-Tested up to: 3.5
+Tested up to: 3.5.1
 Stable tag: 1.4
 License: GPL2
 
@@ -43,6 +43,10 @@ These lists to Customization is possible.
 6. Screen navi list
 
 == Changelog ==
+
+= 1.4.1 =
+* Changed the method of obtaining the thumbnail image.
+* Added menu to the thumbnail size setting.
 
 = 1.4 =
 Added to screen management for comments lists.

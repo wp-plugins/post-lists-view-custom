@@ -7,7 +7,8 @@ if( $this->SetPage == 'post' ) {
 } elseif( $this->SetPage == 'page' ) {
 	$PageTitle = __( 'Page Lists View Customize' , $this->ltd );
 } else {
-	$PageTitle = __( 'Custom Post Type Lists View Customize' , $this->ltd ) . ' (' . $this->SetPage . ')';
+	$PostType = get_post_type_object( $this->SetPage );
+	$PageTitle = __( 'Custom Post Type Lists View Customize' , $this->ltd ) . ' ' . $PostType->labels->name . ' (' . $this->SetPage . ')';
 }
 
 

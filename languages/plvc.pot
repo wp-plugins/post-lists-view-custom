@@ -55,3 +55,18 @@ msgstr ""
 msgid "Alt Text"
 msgstr ""
 
+msgid "Setting Thumbnail size"
+msgstr ""
+
+msgid "Change the size of thumbnails displayed in the lists."
+msgstr ""
+
+msgid "It will be displayed at <strong>%s px</strong> If there is no setting."
+msgstr ""
+
+msgid "Height will be displayed in proportion to the width."
+msgstr ""
+
+msgid "Post, Page, and Custom Post type the applies."
+msgstr ""
+

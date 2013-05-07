@@ -56,7 +56,6 @@ body.edit-php table.wp-list-table th#author
 {
 	width: auto;
 }
-body.edit-php table.wp-list-table th#post-thumbnails,
 body.edit-php table.wp-list-table th#id {
 	width: 60px;
 }
@@ -68,7 +67,6 @@ body.upload-php table.wp-list-table th#author
 {
 	width: auto;
 }
-body.upload-php table.wp-list-table th#post-thumbnails,
 body.upload-php table.wp-list-table th#id {
 	width: 60px;
 }
