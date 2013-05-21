@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Post Lists View Custom
-Description: Customize the list of the post and page, and custom post type.
+Description: You can customize the various lists screen.
 Plugin URI: http://wordpress.org/extend/plugins/post-lists-view-custom/
-Version: 1.4.1
+Version: 1.5
 Author: gqevu6bsiz
-Author URI: http://gqevu6bsiz.chicappa.jp/?utm_source=use_plugin&utm_medium=list&utm_content=plvc&utm_campaign=1_4_1
+Author URI: http://gqevu6bsiz.chicappa.jp/?utm_source=use_plugin&utm_medium=list&utm_content=plvc&utm_campaign=1_5
 Text Domain: plvc
 Domain Path: /languages
 */
@@ -30,34 +30,47 @@ Domain Path: /languages
 
 
 
-class Plvc
+class Post_Lists_View_Custom
 {
 
 	var $Ver,
 		$Name,
 		$Dir,
 		$ltd,
-		$ltd_do,
-		$RecordBaseName,
-		$RecordSelectCustom,
-		$Slug,
-		$ThumbnailSize,
+		$ltd_p,
+		$Record,
+		$PageSlug,
 		$SetPage,
+		$ThumbnailSize,
+		$Multiple,
 		$UPFN,
 		$Msg;
 
 
 	function __construct() {
-		$this->Ver = '1.4.1';
+		$this->Ver = '1.5';
 		$this->Name = 'Post Lists View Custom';
 		$this->Dir = WP_PLUGIN_URL . '/' . dirname( plugin_basename( __FILE__ ) ) . '/';
 		$this->ltd = 'plvc';
-		$this->ltd_do = $this->ltd . '_donation';
-		$this->Slug = 'post_lists_view_custom';
-		$this->RecordBaseName = '_lists_view_custom';
-		$this->RecordSelectCustom = $this->Slug . '_select_custom';
+		$this->ltd_p = $this->ltd . '_plugin';
+		$this->Record = array(
+			"user_role" => $this->ltd . '_user_role',
+			"post" => $this->ltd . '_post',
+			"page" => $this->ltd . '_page',
+			"media" => $this->ltd . '_media',
+			"comments" => $this->ltd . '_comments',
+			"widgets" => $this->ltd . '_widgets',
+			"menus" => $this->ltd . '_menus',
+			"menus_adv" => $this->ltd . '_menus_adv',
+			"custom_posts" => $this->ltd . '_custom_posts',
+			"thunmbnail" => $this->ltd . '_thumbnail',
+			"donate" => $this->ltd . '_donated',
+			"donate_width" => $this->ltd . '_donate_width',
+		);
+
+		$this->PageSlug = 'post_lists_view_custom';
 		$this->ThumbnailSize = 50;
-		$this->SetPage = 'post';
+		$this->Multiple = false;
 		$this->UPFN = 'Y';
 		$this->DonateKey = 'd77aec9bc89d445fd54b4c988d090f03';
 		$this->Msg = '';
@@ -65,18 +78,30 @@ class Plvc
 		$this->PluginSetup();
 		add_action( 'admin_head' , array( $this , 'FilterStart' ) );
 	}
-
+	
 	// PluginSetup
 	function PluginSetup() {
 		// load text domain
 		load_plugin_textdomain( $this->ltd , false , basename( dirname( __FILE__ ) ) . '/languages' );
-		load_plugin_textdomain( $this->ltd_do , false , basename( dirname( __FILE__ ) ) . '/languages' );
+		load_plugin_textdomain( $this->ltd_p , false , basename( dirname( __FILE__ ) ) . '/languages' );
 
 		// plugin links
 		add_filter( 'plugin_action_links' , array( $this , 'plugin_action_links' ) , 10 , 2 );
 
 		// add menu
 		add_action( 'admin_menu' , array( $this , 'admin_menu' ) );
+
+		// setup database
+		register_activation_hook( __FILE__ , array( $this , 'SetupRecord' ) );
+
+		// get donation toggle
+		add_action( 'wp_ajax_plvc_get_donation_toggle' , array( $this , 'wp_ajax_plvc_get_donation_toggle' ) );
+
+		// set donation toggle
+		add_action( 'wp_ajax_plvc_set_donation_toggle' , array( $this , 'wp_ajax_plvc_set_donation_toggle' ) );
+
+		// setting check user role
+		add_action( 'admin_notices' , array( $this , 'settingCheck' ) ) ;
 	}
 
 	// PluginSetup
@@ -90,7 +115,7 @@ class Plvc
 			}
 			$support_link = '<a href="http://wordpress.org/support/plugin/post-lists-view-custom" target="_blank">' . __( 'Support Forums' ) . '</a>';
 			array_unshift( $links, $support_link );
-			array_unshift( $links, '<a href="' . admin_url( 'admin.php?page=' . $this->Slug ) . '">' . __('Settings') . '</a>' );
+			array_unshift( $links, '<a href="' . admin_url( 'admin.php?page=' . $this->PageSlug ) . '">' . __('Settings') . '</a>' );
 
 		}
 		return $links;
@@ -98,15 +123,110 @@ class Plvc
 
 	// PluginSetup
 	function admin_menu() {
-		add_menu_page( __( 'Post Lists View Customize' , $this->ltd ) , __( 'Post Lists View Customize' , $this->ltd ) , 'administrator', $this->Slug , array( $this , 'setting_post') );
-		add_submenu_page( $this->Slug , __( 'Page Lists View Customize' , $this->ltd ) , __( 'Page Lists View Customize' , $this->ltd ) , 'administrator' , 'page' . $this->RecordBaseName , array( $this , 'setting_page' ) );
-		add_submenu_page( $this->Slug , __( 'Media Lists View Customize' , $this->ltd ) , __( 'Media Lists View Customize' , $this->ltd ) , 'administrator' , 'media' . $this->RecordBaseName , array( $this , 'setting_media' ) );
-		add_submenu_page( $this->Slug , __( 'Comments Lists View Customize' , $this->ltd ) , __( 'Comments Lists View Customize' , $this->ltd ) , 'administrator' , 'comment' . $this->RecordBaseName , array( $this , 'setting_comment' ) );
-		add_submenu_page( $this->Slug , __( 'Navi Lists View Customize' , $this->ltd ) , __( 'Menu Lists View Customize' , $this->ltd ) , 'administrator' , 'navi' . $this->RecordBaseName , array( $this , 'setting_navi' ) );
-		add_submenu_page( $this->Slug , __( 'Navi Advance View Customize' , $this->ltd ) , __( 'Menu Advance View Customize' , $this->ltd ) , 'administrator' , 'navi_advance' . $this->RecordBaseName , array( $this , 'setting_navi_advance' ) );
-		add_submenu_page( $this->Slug , __( 'Custom Post Type Lists View Customize' , $this->ltd ) , __( 'Custom Post Type Lists View Customize' , $this->ltd ) , 'administrator' , 'custom_post' . $this->RecordBaseName , array( $this , 'setting_custom' ) );
-		add_submenu_page( $this->Slug , __( 'Setting Thumbnail size' , $this->ltd ) , __( 'Setting Thumbnail size' , $this->ltd ) , 'administrator' , 'thumbnail_size' . $this->RecordBaseName , array( $this , 'setting_thumbnail_size' ) );
+		wp_enqueue_style( $this->ltd . '-table' , $this->Dir . dirname( plugin_basename( __FILE__ ) ) . '-table.css' , array() , $this->Ver );
+		add_menu_page( 'Post Lists View Custom' , 'Post Lists View Custom' , 'administrator', $this->PageSlug , array( $this , 'setting_default') );
+		add_submenu_page( $this->PageSlug , __( 'All Posts List Customize' , $this->ltd ) , __( 'All Posts' ) , 'administrator' , $this->Record["post"] , array( $this , 'setting_post' ) );
+		add_submenu_page( $this->PageSlug , __( 'All Pages List Customize' , $this->ltd ) , __( 'All Pages' ) , 'administrator' , $this->Record["page"] , array( $this , 'setting_page' ) );
+		add_submenu_page( $this->PageSlug , __( 'Media Library List Customize' , $this->ltd ) , __( 'Media Library' ) , 'administrator' , $this->Record["media"] , array( $this , 'setting_media' ) );
+		add_submenu_page( $this->PageSlug , __( 'Comments List Customize' , $this->ltd ) , __( 'Comments' ) , 'administrator' , $this->Record["comments"] , array( $this , 'setting_comments' ) );
+		add_submenu_page( $this->PageSlug , __( 'Available Widgets List Customize' , $this->ltd ) , __( 'Available Widgets' ) , 'administrator' , $this->Record["widgets"] , array( $this , 'setting_widgets' ) );
+		add_submenu_page( $this->PageSlug , __( 'Menus show screen List Customize' , $this->ltd ) , __( 'Menus' ) , 'administrator' , $this->Record["menus"] , array( $this , 'setting_menus' ) );
+		add_submenu_page( $this->PageSlug , __( 'Menus show advanced properties screen List Customize' , $this->ltd ) , __( 'Menus advanced properties' , $this->ltd ) , 'administrator' , $this->Record["menus_adv"] , array( $this , 'setting_menus_adv' ) );
+		add_submenu_page( $this->PageSlug , __( 'Custom Posts Type' , $this->ltd ) , __( 'Custom Posts Type' , $this->ltd ) , 'administrator' , 'select_custom_posts_list_view_setting' , array( $this , 'select_custom_posts' ) );
+		add_submenu_page( $this->PageSlug , __( 'Custom Posts Type List Customize' , $this->ltd ) , sprintf( '<div style="display: none;">$s</div>' , __( 'Custom Posts Type' , $this->ltd ) ) , 'administrator' , $this->Record["custom_posts"] , array( $this , 'setting_custom_posts' ) );
+		add_submenu_page( $this->PageSlug , __( 'Setting Thumbnail size' , $this->ltd ) , __( 'Setting Thumbnail size' , $this->ltd ) , 'administrator' , $this->Record["thunmbnail"] , array( $this , 'setting_thumbnail' ) );
 	}
+
+	// PluginSetup
+	function SetupRecord() {
+		global $wpdb;
+
+		$LvcNum = $wpdb->get_col( "SELECT option_name FROM $wpdb->options WHERE option_name LIKE  '%_lists_view_custom%'" );
+
+		if( !empty( $LvcNum ) ) {
+
+			$Data = array();
+			foreach( $LvcNum as $record_name) {
+				$Data[$record_name] = get_option( $record_name );
+			}
+			
+			if( isset( $Data["thumbnail_size_lists_view_custom"] ) ) {
+
+				$Update = array();
+				$Update = array( "UPFN" => $this->UPFN );
+				$Update["width"] = intval( $Data["thumbnail_size_lists_view_custom"]["width"] );
+				update_option( $this->Record["thunmbnail"] , $Update );
+				unset( $Data["thumbnail_size_lists_view_custom"] );
+				delete_option( "thumbnail_size_lists_view_custom" );
+			
+			}
+
+			$RecordArr = array();
+			$RecordArr["post"] = "post_lists_view_custom";
+			$RecordArr["page"] = "page_lists_view_custom";
+			$RecordArr["media"] = "media_lists_view_custom";
+			$RecordArr["comments"] = "comment_lists_view_custom";
+			$RecordArr["menus"] = "navi_lists_view_custom";
+			$RecordArr["menus_adv"] = "navi_advance_lists_view_custom";
+
+			foreach( $RecordArr as $record => $old_record ) {
+				if( isset( $Data[$old_record] ) ) {
+
+					$Update = array();
+					$Update = $this->DataConvert( $Data[$old_record] );
+					$Update["UPFN"] = $this->UPFN;
+					update_option( $this->Record[$record] , $Update );
+					delete_option( $old_record );
+					unset( $Data[$old_record] );
+	
+				}
+			}
+
+			if( !empty( $Data ) ) {
+				$Update = array();
+				$Update = array( "UPFN" => $this->UPFN );
+				foreach( $Data as $custom_post_record => $val ) {
+					$CustomPostName = str_replace( '_lists_view_custom' , '' , $custom_post_record );
+					$Update[$CustomPostName] = $this->DataConvert( $val );
+					delete_option( $custom_post_record );
+				}
+				update_option( $this->Record["custom_posts"] , $Update );
+			}
+
+		}
+
+		$Data = $this->get_data( "user_role" );
+		if( empty( $Data["UPFN"] ) ) {
+
+			$UserRoles = $this->get_user_role();
+			$Update = array();
+			$Update["UPFN"] = $this->UPFN;
+			
+			foreach( $UserRoles as $user_role => $role_name ) {
+				$Update[$user_role] = 1;
+			}
+			update_option( $this->Record["user_role"] , $Update );
+
+		}
+
+	}
+
+	// PluginSetup
+	function DataConvert( $Data ) {
+		$NewData = array();
+		
+		foreach( $Data as $id => $column ) {
+			if( !empty( $column["use"] ) ) {
+				$NewData["use"][$id] = array( "name" => $column["name"] );
+			} else {
+				$NewData["not_use"][$id] = array( "name" => $column["name"] );
+			}
+		}
+		
+		return $NewData;
+	}
+
+
 
 	// Translation File Check
 	function TransFileCk() {
@@ -120,8 +240,20 @@ class Plvc
 
 
 
+
+
+	// SettingPage
+	function setting_default() {
+		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
+		
+		$this->DisplayDonation();
+		include_once 'inc/setting_default.php';
+	}
+
 	// SettingPage
 	function setting_post() {
+		$this->SetPage = 'post';
+		
 		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
 		$this->DisplayDonation();
 		include_once 'inc/setting_lists.php';
@@ -129,353 +261,692 @@ class Plvc
 
 	// SettingPage
 	function setting_page() {
+		$this->SetPage = 'page';
+		
 		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
 		$this->DisplayDonation();
-		$this->SetPage = 'page';
 		include_once 'inc/setting_lists.php';
 	}
 
 	// SettingPage
 	function setting_media() {
-		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
-		$this->DisplayDonation();
 		$this->SetPage = 'media';
-		include_once 'inc/setting_media.php';
+		
+		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
+		$this->DisplayDonation();
+		include_once 'inc/setting_lists.php';
 	}
 
 	// SettingPage
-	function setting_comment() {
+	function setting_comments() {
+		$this->SetPage = 'comments';
+		
 		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
 		$this->DisplayDonation();
-		$this->SetPage = 'comment';
-		include_once 'inc/setting_comment.php';
+		include_once 'inc/setting_lists.php';
 	}
 
 	// SettingPage
-	function setting_navi() {
+	function setting_widgets() {
+		$this->SetPage = 'widgets';
+		
 		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
 		$this->DisplayDonation();
-		$this->SetPage = 'navi';
-		include_once 'inc/setting_navi.php';
+		include_once 'inc/setting_lists.php';
 	}
 
 	// SettingPage
-	function setting_navi_advance() {
+	function setting_menus() {
+		$this->SetPage = 'menus';
+		
 		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
 		$this->DisplayDonation();
-		$this->SetPage = 'navi_advance';
-		include_once 'inc/setting_navi_advance.php';
+		include_once 'inc/setting_lists.php';
 	}
 
 	// SettingPage
-	function setting_custom() {
+	function setting_menus_adv() {
+		$this->SetPage = 'menus_adv';
+		
 		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
 		$this->DisplayDonation();
+		include_once 'inc/setting_lists.php';
+	}
 
-		if( empty( $_POST["CustomSelect"] ) ) {
-			$this->SetPage = 'custom';
-			include_once 'inc/select_custom.php';
-		} else {
-			$this->SetPage = strip_tags( $_POST["CustomSelect"] );
-			include_once 'inc/setting_lists.php';
+	// SettingPage
+	function select_custom_posts() {
+		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
+		$this->DisplayDonation();
+		include_once 'inc/select_custom.php';
+	}
+
+	// SettingPage
+	function setting_custom_posts() {
+
+		$PostSlug = '';
+		if( !empty( $_GET["setname"] ) && !empty( $_GET["name"] ) ) {
+			$PostSlug = strip_tags( $_GET["name"] );
 		}
+
+		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
+		$this->DisplayDonation();
+
+		if( !empty( $PostSlug ) ) {
+			$this->SetPage = 'custom_posts';
+			include_once 'inc/setting_lists.php';
+		} else {
+			echo sprintf( '<p>%s</p>' , __( 'No custom post type found.' , $this->ltd ) );
+			echo sprintf( '<p><a href="%2$s">%1$s</a></p>' , __( 'Please select a Custom Posts type from here.' , $this->ltd ) , self_admin_url( 'admin.php?page=select_custom_posts_list_view_setting' ) );
+		}
+
 	}
 
 	// SettingPage
-	function setting_thumbnail_size() {
+	function setting_thumbnail() {
+		$this->SetPage = 'thunmbnail';
+		
 		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
 		$this->DisplayDonation();
-		$this->SetPage = 'thumbnail_size';
 		include_once 'inc/setting_thumbnail_size.php';
 	}
 
 
 
-	// Data get
-	function get_data( $type ) {
-		global $wpdb;
 
+
+	// GetData
+	function get_data( $record ) {
+		$GetData = get_option( $this->Record[$record] );
+		$GetData = apply_filters( 'plvc_pre_get_data' , $GetData , $record );
+
+		$Data = array();
+		if( !empty( $GetData ) ) {
+			$Data = $GetData;
+		}
+
+		return $Data;
+	}
+
+	// GetData
+	function get_data_columns( $record ) {
+		$Data = array();
+		
+		if( !empty( $record ) ) {
+
+			$GetData = get_option( $this->Record[$record] );
+
+			if( $record == 'post' ) {
+				$Columns = $this->get_post_columns();
+			} elseif( $record == 'page' ) {
+				$Columns = $this->get_page_columns();
+			} elseif( $record == 'media' ) {
+				$Columns = $this->get_media_columns();
+			} elseif( $record == 'comments' ) {
+				$Columns = $this->get_comments_columns();
+			} elseif( $record == 'widgets' ) {
+				$Columns = $this->get_widgets_columns();
+			} elseif( $record == 'menus' ) {
+				$Columns = $this->get_menus_columns();
+			} elseif( $record == 'menus_adv' ) {
+				$Columns = $this->get_menus_adv_columns();
+			} elseif( $record == 'custom_posts' ) {
+				$Columns = $this->get_custom_posts_columns();
+				if( !empty( $GetData[strip_tags( $_GET["name"] )] ) ) {
+					$GetData = $GetData[strip_tags( $_GET["name"] )];
+				} else {
+					$GetData = array();
+				}
+			}
+
+			if( empty( $GetData ) ) {
+
+				$Data = $Columns;
+
+			} else {
+
+				if( !empty( $GetData["use"] ) ) {
+					$NewColumns = array();
+					foreach( $GetData["use"] as $column_id => $column_val ) {
+						$NewColumns[$column_id] = array( "use" => 1 , "name" => $column_val["name"] );
+						unset( $Columns[$column_id] );
+					}
+					if( !empty( $GetData["not_use"] ) ) {
+						foreach( $GetData["not_use"] as $column_id => $column_val ) {
+							$NewColumns[$column_id] = array( "not_use" => 1 , "name" => $column_val["name"] );
+							unset( $Columns[$column_id] );
+						}
+					}
+					foreach( $Columns as $column_id => $column_val ) {
+						$NewColumns[$column_id] = array( "not_use" => 1 , "name" => $column_val["name"] );
+						unset( $Columns[$column_id]["use"] );
+					}
+					unset( $Columns );
+					$Columns = $NewColumns;
+				} else {
+					foreach( $Columns as $column_id => $column_val ) {
+						if( !empty( $column_val["use"] ) ) {
+							$Columns[$column_id]["not_use"] = 1;
+							unset( $Columns[$column_id]["use"] );
+						}
+					}
+				}
+
+				$Data = $Columns;
+
+			}
+
+		}
+		
+		return $Data;
+	}
+
+	// GetData
+	function get_data_thumbnail() {
+		$Data = $this->get_data( "thunmbnail" );
+		
+		if( !empty( $Data ) ) {
+			$Thumbnail["width"] = intval( $Data["width"] );
+		} else {
+			$Thumbnail["width"] = intval( $this->ThumbnailSize );
+		}
+		
+		return $Thumbnail;
+	}
+
+
+
+
+	// Settingcheck
+	function settingCheck() {
+		global $current_screen;
+
+		$Data = $this->get_data( 'user_role' );
+
+		if( !empty( $Data["UPFN"] ) ) {
+			unset( $Data["UPFN"] );
+		}
+
+		if( empty( $Data ) ) {
+
+			if( $current_screen->parent_base == $this->PageSlug && $current_screen->id != 'toplevel_page_post_lists_view_custom' && $current_screen->id != 'post-lists-view-custom_page_plvc_add_multiple' ) {
+				echo '<div class="error"><p><strong>' . sprintf( __( 'Authority to apply the setting is not selected. Please select the permissions you want to set <a href="%s">from here</a>.' , $this->ltd ) , self_admin_url( 'admin.php?page=' . $this->PageSlug ) ) . '</strong></p></div>';
+			}
+
+		}
+	}
+
+	// SetList
+	function get_user_role() {
+		$editable_roles = get_editable_roles();
+		foreach ( $editable_roles as $role => $details ) {
+			$UserRole[$role] = translate_user_role( $details['name'] );
+		}
+
+		return $UserRole;
+	}
+
+	// SetList
+	function get_columns_label( $column ) {
+
+		global $wp_version;
+
+		$post_type = strip_tags( $column[0] );
+		$column_name = strip_tags( $column[1] );
+		$Label = '';
+		
+		if( $column_name == 'title' ) {
+
+			if( $post_type == 'media' ) {
+				$Label = _x( 'File' , 'column name' );
+			} else {
+				$Label = __( 'Title' );
+			}
+
+		} elseif( $column_name == 'author' ) { $Label = __( 'Author' );
+		} elseif( $column_name == 'categories' ) { $Label = __( 'Categories' );
+		} elseif( $column_name == 'tags' ) { $Label = __( 'Tags' );
+		} elseif( $column_name == 'comments' or $column_name == 'comment' ) { $Label = __( 'Comments' );
+		} elseif( $column_name == 'slug' ) { $Label = __( 'Slug' );
+		} elseif( $column_name == 'excerpt' ) { $Label = __('Excerpt');
+		} elseif( $column_name == 'id' ) { $Label = __( 'ID' );
+
+		} elseif( $column_name == 'post-thumbnails' ) { $Label = __( 'Featured Image' );
+		} elseif( $column_name == 'post-formats' ) { $Label = __( 'Format' );
+
+		} elseif( $column_name == 'media_title' ) { $Label = __( 'Title' );
+		} elseif( $column_name == 'image_alt' ) { $Label = __( 'Alt Text' , $this->ltd );
+
+		} elseif( $column_name == 'post_excerpt' ) { $Label = __('Caption');
+		} elseif( $column_name == 'post_content' ) { $Label = __('Details');
+		} elseif( $column_name == 'icon' ) { $Label = __( 'Image' );
+		} elseif( $column_name == 'response' ) { $Label = _x( 'In Response To' , 'column name' ) ;
+		} elseif( $column_name == 'newcomment_author' ) { $Label = __( 'Name' );
+		} elseif( $column_name == 'newcomment_author_email' ) { $Label = __( 'E-mail' );
+		} elseif( $column_name == 'newcomment_author_url' ) { $Label = __( 'URL' );
+
+		} elseif( $column_name == 'nav-menu-theme-locations' ) { $Label = __( 'Theme Locations' );
+		} elseif( $column_name == 'add-page' ) { $Label = __( 'Pages' );
+		} elseif( $column_name == 'add-category' ) { $Label = __( 'Categories' );
+		} elseif( $column_name == 'add-post_format' ) { $Label = __('Format');
+		} elseif( $column_name == 'add-post' ) { $Label = __( 'Posts' );
+		} elseif( $column_name == 'add-post_tag' ) { $Label = __( 'Tags' );
+
+		} elseif( $column_name == 'link-target' ) { $Label = __('Link Target');
+		} elseif( $column_name == 'css-classes' ) { $Label = __( 'CSS Classes' );
+		} elseif( $column_name == 'xfn' ) { $Label = __( 'Link Relationship (XFN)' );
+		} elseif( $column_name == 'description' ) { $Label = __( 'Description' );
+
+		} elseif( $column_name == 'parent' ) {
+
+			if ( version_compare( $wp_version, "3.5", '>=' ) ) {
+				$Label = _x( 'Uploaded to' , 'column name' );
+			} else {
+				$Label = _x( 'Attached to' , 'column name' );
+			}
+
+		} elseif( $column_name == 'date' ) {
+
+			if( $post_type == 'media' ) {
+				$Label = _x( 'Date' , 'column name' );
+			} else {
+				$Label = __( 'Date' );
+			}
+
+		} elseif( $column_name == 'add-custom-links' ) {
+
+			if ( version_compare( $wp_version, "3.5.1", '>' ) ) {
+				$Label = __( 'Links' );
+			} else {
+				$Label = __( 'Custom Links' );
+			}
+
+		} else {
+
+			$custom_post_type_name = str_replace( 'add-' , '' , $column_name );
+			
+			if( $custom_post_type_name ) {
+
+				// menus
+				$args = array( 'public' => true, '_builtin' => false );
+				$PostTypes = get_post_types( $args , 'objects' );
+				
+				if( !empty( $PostTypes ) && is_array( $PostTypes ) ) {
+
+					$Label = $column_name;
+
+					foreach( $PostTypes as $name => $Type ) {
+						if( $name == $custom_post_type_name ) {
+							$Label = esc_html( $Type->labels->name );
+							break;
+						}
+					}
+
+				}
+
+
+			} else {
+
+				$Label = $column_name;
+
+			}
+			
+		}
+
+		return $Label;
+
+	}
+
+	// SetList
+	function get_post_columns() {
 		// Default colum
 		$Columns_Def = array(
-			"title" => __( 'Title' ) , "date" => __( 'Date' ) , "author" => __( 'Author' ) , "comments" => __( 'Comments' ) , "slug" => __( 'Slug' ) ,
-			"categories" => __( 'Categories' ) , "tags" => __( 'Tags' ) , "excerpt" => __('Excerpt') , "id" => 'ID'
+			"title" , "author" , "categories" , "tags" , "comments" , "date" ,
+			"slug" , "excerpt" , "id"
 		);
-
+		
 		// Theme Support colum
-		$ThemeSupports = array( 'post-thumbnails' => __('Featured Image') , 'post-formats' => __( 'Format' ));
-		foreach( $ThemeSupports as $Name => $TransName ) {
-			$Support = current_theme_supports( $Name );
+		$ThemeSupports = array( 'post-thumbnails' , 'post-formats' );
+		foreach( $ThemeSupports as $name ) {
+			$Support = current_theme_supports( $name );
 			if(!empty($Support)) {
-				$Columns_Def[$Name] = $TransName;
+				$Columns_Def[] = $name;
 			}
 		}
 		unset($ThemeSupports);
 
-		// All Post Custom Field meta
-		$Acfk = $wpdb->get_col( "SELECT meta_key FROM $wpdb->postmeta GROUP BY meta_key HAVING meta_key NOT LIKE '\_%' ORDER BY meta_key" );
-		if(!empty($Acfk)) {
-			natcasesort($Acfk);
+		// set label
+		$SetColumns = array();
+		foreach( $Columns_Def as $id ) {
+			$SetColumns[$id] = $this->get_columns_label( array( "post" , $id ) );
 		}
+		unset($Columns_Def);
 
 		// Default View Setting
 		$Columns = array();
-		foreach($Columns_Def as $column => $name) {
-			if( $column == 'title' or $column == 'author' or $column == 'date' or $column == 'comments' or $column == 'tags' or $column == 'categories' ) {
+		foreach($SetColumns as $column => $name) {
+			if( $column == 'title' or $column == 'author' or $column == 'categories' or $column == 'tags' or $column == 'comments' or $column == 'date' ) {
 				$Columns[$column] = array( "use" => 1 , "name" => $name );
 			} else {
 				$Columns[$column] = array( "not_use" => 1 , "name" => $name );
 			}
 		}
+		unset($SetColumns);
+
+		// Custom fields Marge
+		$Columns = $this->get_custom_fields_columns( $Columns );
+
+		return $Columns;
+
+	}
+
+	// SetList
+	function get_page_columns() {
+		// Default colum
+		$Columns_Def = array(
+			"title" , "author" , "comments" , "date" ,
+			"slug" , "excerpt" , "id"
+		);
+
+		// Theme Support colum
+		$ThemeSupports = array( 'post-thumbnails' );
+		foreach( $ThemeSupports as $name ) {
+			$Support = current_theme_supports( $name );
+			if(!empty($Support)) {
+				$Columns_Def[] = $name;
+			}
+		}
+		unset($ThemeSupports);
+
+		// set label
+		$SetColumns = array();
+		foreach( $Columns_Def as $id ) {
+			$SetColumns[$id] = $this->get_columns_label( array( "page" , $id ) );
+		}
 		unset($Columns_Def);
-		foreach($Acfk as $name) {
-			$Columns[$name] = array( "not_use" => 1 , "name" => $name );
-		}
-		unset($Acfk);
 
-		// Data Marge
-		$NewData = array();
-		$Data = get_option( $type . $this->RecordBaseName );
-		if(!empty($Data) and is_array($Data)) {
-			foreach($Data as $name => $val) {
-				if(!empty($Columns[$name])) {
-					$NewData[$name] = $val;
-					unset($Columns[$name]);
-				}
+		// Default View Setting
+		$Columns = array();
+		foreach($SetColumns as $column => $name) {
+			if( $column == 'title' or $column == 'author' or $column == 'comments' or $column == 'date' ) {
+				$Columns[$column] = array( "use" => 1 , "name" => $name );
+			} else {
+				$Columns[$column] = array( "not_use" => 1 , "name" => $name );
 			}
-			if(!empty($Columns) and is_array($Columns)) {
-				foreach($Columns as $name => $val) {
-					$NewData[$name] = $val;
-				}
-			}
-		} else {
-			$NewData = $Columns;
+		}
+		unset($SetColumns);
+
+		// Custom fields Marge
+		$Columns = $this->get_custom_fields_columns( $Columns );
+
+		return $Columns;
+
+	}
+
+	// SetList
+	function get_custom_fields_columns( $Columns ) {
+		global $wpdb;
+
+		// All Post Custom Field meta
+		$All_custom_columns = $wpdb->get_col( "SELECT meta_key FROM $wpdb->postmeta GROUP BY meta_key HAVING meta_key NOT LIKE '\_%' ORDER BY meta_key" );
+		if(!empty($All_custom_columns)) {
+			natcasesort($All_custom_columns);
 		}
 
-		// checkbox
-		if(!empty($NewData["cb"])) {
-			unset($NewData["cb"]);
-		}
 
-		// unset colum name
+		// Unset colum name
 		$Unset = array( 'allorany' , 'hide_on_screen' );
 		foreach($Unset as $name) {
-			unset( $NewData[$name] );
+			if( array_search( $name , $All_custom_columns ) !== false ) {
+				unset( $All_custom_columns[array_search( $name , $All_custom_columns )] );
+			}
 		}
+		
+		// Unset colum match name
 		$MatchUnset = array( 'field_' );
-		foreach($MatchUnset as $name) {
-			foreach($NewData as $key => $val) {
-				if( strpos( $key , $name ) !== false ) {
-					unset( $NewData[$key] );
+		foreach( $MatchUnset as $name ) {
+			foreach( $All_custom_columns as $key => $val ) {
+				if( strpos( $val , $name ) !== false ) {
+					unset( $All_custom_columns[$key] );
 				}
 			}
 		}
 
-		return $NewData;
+		foreach($All_custom_columns as $name) {
+			$Columns[$name] = array( "not_use" => 1 , "name" => $name );
+		}
+		unset($All_custom_columns);
+
+		return $Columns;
 	}
 
-	// Data get
-	function get_data_media( $type ) {
+	// SetList
+	function get_media_columns() {
 		// Default colum
 		$Columns_Def = array(
-			"icon" => __( 'Image' ) , "title" => _x( 'File' , 'column name' ) , "author" => __( 'Author' ) , "parent" => __( 'Attached to' , $this->ltd ) , "comments" => __( 'Comments' ) , "date" => __( 'Date' ) ,
-			"media_title" => __( 'Title' ) , "image_alt" => __( 'Alt Text' , $this->ltd ) , "post_excerpt" => __('Caption') , "post_content" => __('Details') , "id" => 'ID'
+			"icon" , "title" , "author" , "parent" , "comments" , "date" ,
+			"media_title" , "image_alt" , "post_excerpt" , "post_content" , "id"
 		);
+
+		// set label
+		$SetColumns = array();
+		foreach( $Columns_Def as $id ) {
+			$SetColumns[$id] = $this->get_columns_label( array( "media" , $id ) );
+		}
+		unset($Columns_Def);
 
 		// Default View Setting
 		$Columns = array();
-		foreach($Columns_Def as $column => $name) {
-			if( $column == 'title' or $column == 'author' or $column == 'parent' or $column == 'comments' or $column == 'date' ) {
+		foreach($SetColumns as $column => $name) {
+			if( $column == 'icon' or $column == 'title' or $column == 'author' or $column == 'parent' or $column == 'comments' or $column == 'date' ) {
 				$Columns[$column] = array( "use" => 1 , "name" => $name );
 			} else {
 				$Columns[$column] = array( "not_use" => 1 , "name" => $name );
 			}
 		}
-		unset($Columns_Def);
+		unset($SetColumns);
 
-		// Data Marge
-		$NewData = array();
-		$Data = get_option( $type . $this->RecordBaseName );
-		if(!empty($Data) and is_array($Data)) {
-			foreach($Data as $name => $val) {
-				if(!empty($Columns[$name])) {
-					$NewData[$name] = $val;
-					unset($Columns[$name]);
-				}
-			}
-			if(!empty($Columns) and is_array($Columns)) {
-				foreach($Columns as $name => $val) {
-					$NewData[$name] = $val;
-				}
-			}
-		} else {
-			$NewData = $Columns;
-		}
+		return $Columns;
 
-		// checkbox
-		if(!empty($NewData["cb"])) {
-			unset($NewData["cb"]);
-		}
-
-		return $NewData;
 	}
 
-	// Data get
-	function get_data_comment( $type ) {
+	// SetList
+	function get_comments_columns() {
+
 		// Default colum
 		$Columns_Def = array(
-			"author" => __( 'Author' ) , "comment" => _x( 'Comment' , 'column name' ) , "newcomment_author" => __( 'Name' ) , "newcomment_author_email" => __( 'E-mail' ),
-			"response" => _x( 'In Response To' , 'column name' ) , "newcomment_author_url" => __( 'URL' ) , "id" => 'ID'
+			"author" , "comment" , "response" , 
+			"newcomment_author" , "newcomment_author_email" , "newcomment_author_url" , "id"
 		);
+
+		// set label
+		$SetColumns = array();
+		foreach( $Columns_Def as $id ) {
+			$SetColumns[$id] = $this->get_columns_label( array( "comments" , $id ) );
+		}
+		unset($Columns_Def);
 
 		// Default View Setting
 		$Columns = array();
-		foreach($Columns_Def as $column => $name) {
+		foreach($SetColumns as $column => $name) {
 			if( $column == 'author' or $column == 'comment' or $column == 'response' ) {
 				$Columns[$column] = array( "use" => 1 , "name" => $name );
 			} else {
 				$Columns[$column] = array( "not_use" => 1 , "name" => $name );
 			}
 		}
-		unset($Columns_Def);
+		unset($SetColumns);
 
-		// Data Marge
-		$NewData = array();
-		$Data = get_option( $type . $this->RecordBaseName );
-		if(!empty($Data) and is_array($Data)) {
-			foreach($Data as $name => $val) {
-				if(!empty($Columns[$name])) {
-					$NewData[$name] = $val;
-					unset($Columns[$name]);
-				}
-			}
-			if(!empty($Columns) and is_array($Columns)) {
-				foreach($Columns as $name => $val) {
-					$NewData[$name] = $val;
-				}
-			}
-		} else {
-			$NewData = $Columns;
-		}
+		return $Columns;
 
-		// checkbox
-		if(!empty($NewData["cb"])) {
-			unset($NewData["cb"]);
-		}
-
-		return $NewData;
 	}
 
-	// Data get
-	function get_data_navi( $type ) {
-		// Default colum
-		$Columns_Def = array(
-			"nav-menu-theme-locations" => __( 'Theme Locations' ) , "add-custom-links" => __( 'Custom Links' ), "add-post" => __( 'Posts' ) , "add-page" => __( 'Pages' ) ,
-			"add-category" => __( 'Categories' ) , "add-post_tag" => __( 'Tags' ) , "add-post_format" => __('Format')
-		);
+	// SetList
+	function get_widgets_columns() {
 
+		global $wp_registered_widgets;
+
+		// Default Available
+		$Columns_Def = array();
+		foreach( $wp_registered_widgets as $widget_id => $widget ) {
+			$Columns_Def[$widget_id] = $widget["name"];
+		}
+		
 		// Default View Setting
 		$Columns = array();
 		foreach($Columns_Def as $column => $name) {
-			if( $column == 'nav-menu-theme-locations' or $column == 'add-custom-links' or $column == 'add-page' or $column == 'add-category' ) {
+			$Columns[$column] = array( "use" => 1 , "name" => $name );
+		}
+		unset($Columns_Def);
+
+		return $Columns;
+
+	}
+
+	// SetList
+	function get_menus_columns() {
+		global $wp_version;
+
+		// Default colum
+		$Columns_Def = array(
+			"nav-menu-theme-locations" , "add-custom-links" , "add-page" ,
+			"add-category" , "add-post_format" , "add-post" , "add-post_tag" , 
+		);
+
+		if ( version_compare( $wp_version, "3.5.1", '>' ) ) {
+			if( in_array( "nav-menu-theme-locations" , $Columns_Def ) ) {
+				$index = array_search( "nav-menu-theme-locations" , $Columns_Def );
+				unset( $Columns_Def[$index] );
+			}
+		}
+
+		// set label
+		$SetColumns = array();
+		foreach( $Columns_Def as $id ) {
+			$SetColumns[$id] = $this->get_columns_label( array( "menus" , $id ) );
+		}
+		unset($Columns_Def);
+
+		// Default View Setting
+		$Columns = array();
+		foreach($SetColumns as $column => $name) {
+			if( $column == 'nav-menu-theme-locations' or $column == 'add-custom-links' or $column == 'add-page' or $column == 'add-category' or $column == 'add-post_format' ) {
 				$Columns[$column] = array( "use" => 1 , "name" => $name );
 			} else {
 				$Columns[$column] = array( "not_use" => 1 , "name" => $name );
 			}
 		}
-		unset($Columns_Def);
+		unset($SetColumns);
 
-		// Data Marge
-		$NewData = array();
-		$Data = get_option( $type . $this->RecordBaseName );
-		if(!empty($Data) and is_array($Data)) {
-			foreach($Data as $name => $val) {
-				if(!empty($Columns[$name])) {
-					$NewData[$name] = $val;
-					unset($Columns[$name]);
-				}
+		// Custom Post type suppoted nav-menu
+		$CustomPosts = get_post_types( array( 'show_in_nav_menus' => true ), 'object' );
+		unset( $CustomPosts["post"] );
+		unset( $CustomPosts["page"] );
+		
+		if( !empty( $CustomPosts ) ) {
+			foreach ( $CustomPosts as $CustomPost ) {
+				$Columns['add-'.$CustomPost->name] = array( "use" => 1 , "name" => esc_html( $CustomPost->labels->name ) );
 			}
-			if(!empty($Columns) and is_array($Columns)) {
-				foreach($Columns as $name => $val) {
-					$NewData[$name] = $val;
-				}
-			}
-		} else {
-			$NewData = $Columns;
 		}
 
-		return $NewData;
+		return $Columns;
+
 	}
 
-	// Data get
-	function get_data_navi_advance( $type ) {
+	// SetList
+	function get_menus_adv_columns() {
+
 		// Default colum
 		$Columns_Def = array(
-			"link-target" => __( 'Link Target' ) , "css-classes" => __( 'CSS Classes' ) , "xfn" => __( 'Link Relationship (XFN)' ) , "description" => __( 'Description' )
+			"link-target" , "css-classes" , "xfn" , "description"
 		);
+
+		// set label
+		$SetColumns = array();
+		foreach( $Columns_Def as $id ) {
+			$SetColumns[$id] = $this->get_columns_label( array( "menus_adv" , $id ) );
+		}
+		unset($Columns_Def);
+
 
 		// Default View Setting
 		$Columns = array();
-		foreach($Columns_Def as $column => $name) {
-			if( $column == 'no_use_column' ) {
+		foreach($SetColumns as $column => $name) {
+			if( $column == 'nav-menu-theme-locations' or $column == 'add-custom-links' or $column == 'add-page' or $column == 'add-category' or $column == 'add-post_format' ) {
 				$Columns[$column] = array( "use" => 1 , "name" => $name );
 			} else {
 				$Columns[$column] = array( "not_use" => 1 , "name" => $name );
 			}
 		}
+		unset($SetColumns);
+
+		return $Columns;
+
+	}
+
+	// SetList
+	function get_custom_posts_columns() {
+		// Default colum
+		$Columns_Def = array(
+			"title" , "author" , "categories" , "tags" , "comments" , "date" ,
+			"slug" , "excerpt" , "id"
+		);
+		
+		// Theme Support colum
+		$ThemeSupports = array( 'post-thumbnails' , 'post-formats' );
+		foreach( $ThemeSupports as $name ) {
+			$Support = current_theme_supports( $name );
+			if(!empty($Support)) {
+				$Columns_Def[] = $name;
+			}
+		}
+		unset($ThemeSupports);
+
+		// set label
+		$SetColumns = array();
+		foreach( $Columns_Def as $id ) {
+			$SetColumns[$id] = $this->get_columns_label( array( "post" , $id ) );
+		}
 		unset($Columns_Def);
 
-		// Data Marge
-		$NewData = array();
-		$Data = get_option( $type . $this->RecordBaseName );
-		if(!empty($Data) and is_array($Data)) {
-			foreach($Data as $name => $val) {
-				if(!empty($Columns[$name])) {
-					$NewData[$name] = $val;
-					unset($Columns[$name]);
-				}
+		// Default View Setting
+		$Columns = array();
+		foreach($SetColumns as $column => $name) {
+			if( $column == 'title' or $column == 'author' or $column == 'comments' or $column == 'date' ) {
+				$Columns[$column] = array( "use" => 1 , "name" => $name );
+			} else {
+				$Columns[$column] = array( "not_use" => 1 , "name" => $name );
 			}
-			if(!empty($Columns) and is_array($Columns)) {
-				foreach($Columns as $name => $val) {
-					$NewData[$name] = $val;
-				}
-			}
-		} else {
-			$NewData = $Columns;
 		}
+		unset($SetColumns);
 
-		return $NewData;
-	}
-	// Data get
-	function get_data_thumbnail_size( $type ) {
-		$Data = get_option( $type . $this->RecordBaseName );
+		// Custom fields Marge
+		$Columns = $this->get_custom_fields_columns( $Columns );
 
-		$NewData = array();
-		if( !empty( $Data ) and is_array( $Data ) ) {
-			$NewData["width"] = intval( $Data["width"] );
-		}
+		return $Columns;
 
-		return $NewData;
 	}
 
-
-
-
-
-	// Setting Item
-	function get_lists( $type , $Data ) {
+	// SetList
+	function get_lists( $type , $Data , $PostType ) {
 		$Contents = '';
 		foreach($Data as $key => $val) {
-			if(!empty($val[$type])) {
+			if( !empty( $val[$type] ) ) {
 				$Contents .= '<div id="'.$key.'" class="widget">';
 
 				$Contents .= '<div class="widget-top">';
 				$Contents .= '<div class="widget-title">';
-				$Contents .= '<h4>'.$val["name"].'</h4>';
+
+				if( $PostType != 'widgets' ) {
+					$Contents .= '<h4>' . $this->get_columns_label( array( $PostType , $key ) ) . '</h4>';
+				} else {
+					$Contents .= '<h4>' . $val["name"] . '</h4>';
+				}
+
 				$Contents .= '</div>';
 				$Contents .= '</div>';
 
 				$Contents .= '<div class="widget-inside">';
-				$Contents .= '<input type="hidden" name="'.$type.'['.$key.'][name]" value="'.$val["name"].'" />';
+				$Contents .= '<input type="hidden" name="' . $type . '[' . $key . '][name]" value=" ' . $val["name"] . '" />';
 				$Contents .= '</div>';
 
 				$Contents .= '</div>';
@@ -485,148 +956,315 @@ class Plvc
 		return $Contents;
 	}
 
-	// Update Setting
-	function update() {
-		$UPFN = strip_tags( $_POST[$this->UPFN] );
-		if( $UPFN == 'Y' ) {
-			unset( $_POST[$this->UPFN] );
+	// SetList
+	function get_apply_roles() {
 
-			// donated
-			if( !empty( $_POST["donate_key"] ) ) {
-
-				$SubmitKey = md5( strip_tags( $_POST["donate_key"] ) );
-				if( $this->DonateKey == $SubmitKey ) {
-					update_option( $this->ltd . '_donated' , $SubmitKey );
-					$this->Msg .= '<div class="updated"><p><strong>' . __( 'Thank you for your donation.' , $this->ltd_do ) . '</strong></p></div>';
-				}
-
-			} else {
-
-				if( $_POST["SetPage"] == 'thumbnail_size' ) {
-					
-					$Update["width"] = strip_tags( $_POST["width"] );
-					
-				} else {
-
-					$Modes = array( "use" , "not_use" );
-					$Update = array();
-					foreach($Modes as $mode) {
-						if(!empty( $_POST[$mode] )) {
-							foreach ($_POST[$mode] as $key => $val) {
-								$Update[strip_tags( $key )]["name"] = strip_tags( $val["name"] );
-								$Update[strip_tags( $key )][$mode] = 1;
-							}
-						}
-					}
-
-				}
-	
-				if(!empty( $Update )) {
-					$Record = strip_tags( $_POST["SetPage"] ) . $this->RecordBaseName;
-					update_option( $Record , $Update );
-					$this->Msg .= '<div class="updated"><p><strong>' . __('Settings saved.') . '</strong></p></div>';
-				}
-
+		$apply_user_roles = $this->get_data( 'user_role' );
+		unset( $apply_user_roles["UPFN"] );
+		
+		$Contents =  __( 'Apply user roles' , $this->ltd ) . ' : ';
+		
+		if( !empty( $apply_user_roles ) ) {
+			$UserRoles = $this->get_user_role();
+			foreach( $apply_user_roles as $role => $v ) {
+				$Contents .= '[ ' . $UserRoles[$role] . ' ]';
 			}
+		} else {
+				$Contents .= __( 'None' );
+		}
 
+		$Contents = apply_filters( 'plvc_get_apply_roles' , $Contents );
+
+		return $Contents;
+
+	}
+
+	// SetList
+	function wp_ajax_plvc_get_donation_toggle() {
+		echo get_option( $this->ltd . '_donate_width' );
+		die();
+	}
+
+	// SetList
+	function wp_ajax_plvc_set_donation_toggle() {
+		update_option( $this->ltd . '_donate_width' , strip_tags( $_POST["f"] ) );
+		die();
+	}
+
+
+
+
+
+
+	// DataUpdate
+	function update_validate() {
+		$Update = array();
+
+		if( !empty( $_POST[$this->UPFN] ) ) {
+			$UPFN = strip_tags( $_POST[$this->UPFN] );
+			if( $UPFN == $this->UPFN ) {
+				$Update["UPFN"] = strip_tags( $_POST[$this->UPFN] );
+			}
+		}
+
+		return $Update;
+	}
+
+	// Update Reset
+	function update_reset( $record ) {
+		$Update = $this->update_validate();
+		if( !empty( $Update ) ) {
+			$this->delete_record( $this->Record[$record] );
 		}
 	}
 
 	// Update Reset
-	function update_reset() {
-		$Record = strip_tags( $_POST["SetPage"] ) . $this->RecordBaseName;
+	function delete_record( $Record ) {
+		$Record = apply_filters( 'plvc_pre_delete' , $Record );
 		delete_option( $Record );
 		$this->Msg .= '<div class="updated"><p><strong>' . __('Settings saved.') . '</strong></p></div>';
 	}
 
+	// DataUpdate
+	function update_record( $Record , $Data ) {
+		$Record = apply_filters( 'plvc_pre_update' , $Record );
+		update_option( $Record , $Data );
+		$this->Msg .= '<div class="updated"><p><strong>' . __('Settings saved.') . '</strong></p></div>';
+	}
+
+	// Update Reset
+	function update_custom_posts_reset( $record ) {
+		$Update = $this->update_validate();
+		if( !empty( $Update ) ) {
+			$Record_fil = apply_filters( 'plvc_pre_delete' , $this->Record['custom_posts'] );
+			$GetData = get_option( $Record_fil );
+			unset( $GetData[$record] );
+
+			$this->update_record( $this->Record["custom_posts"] , $GetData );
+		}
+	}
+
+	// DataUpdate
+	function DonatingCheck() {
+		$Update = $this->update_validate();
+
+		if( !empty( $Update ) ) {
+			if( !empty( $_POST["donate_key"] ) ) {
+				$SubmitKey = md5( strip_tags( $_POST["donate_key"] ) );
+				if( $this->DonateKey == $SubmitKey ) {
+					update_option( $this->Record["donate"] , $SubmitKey );
+					$this->Msg .= '<div class="updated"><p><strong>' . __( 'Thank you for your donation.' , $this->ltd_p ) . '</strong></p></div>';
+				}
+			}
+		}
+
+	}
+
+	// DataUpdate
+	function update_userrole() {
+		$Update = $this->update_validate();
+		if( !empty( $Update ) ) {
+
+			if( !empty( $_POST["data"]["user_role"] ) ) {
+				foreach($_POST["data"]["user_role"] as $key => $val) {
+					$tmpK = strip_tags( $key );
+					$tmpV = strip_tags ( $val );
+					$Update[$tmpK] = $tmpV;
+				}
+			}
+
+			$this->update_record( $this->Record["user_role"] , $Update );
+		}
+	}
+
+	// DataUpdate
+	function update_data( $record ) {
+		$Update = $this->update_validate();
+		if( !empty( $Update ) ) {
+
+			$Modes = array( "use" , "not_use" );
+			foreach($Modes as $mode) {
+				$Update[$mode] = array();
+				if( !empty( $_POST[$mode] ) ) {
+					$Columns = $_POST[$mode];
+					foreach( $Columns as $column_id => $column_name ) {
+						$tmpK = strip_tags( $column_id );
+						$tmpV = strip_tags ( $column_name["name"] );
+						$Update[$mode][$tmpK]["name"] = $tmpV;
+					}
+				}
+			}
+			
+			$this->update_record( $this->Record[$record] , $Update );
+		}
+	}
+
+	// DataUpdate
+	function update_thunmbnail( $record ) {
+		$Update = $this->update_validate();
+		if( !empty( $Update ) ) {
+
+			if( !empty( $_POST["width"] ) ) {
+				$Update["width"] = intval( $_POST["width"] );
+			}
+			
+			$this->update_record( $this->Record[$record] , $Update );
+		}
+	}
+
+	// DataUpdate
+	function update_custom_posts_data( $record ) {
+		$Update = $this->update_validate();
+		if( !empty( $Update ) ) {
+
+			$Record_fil = apply_filters( 'plvc_pre_delete' , $this->Record['custom_posts'] );
+			$GetData = get_option( $Record_fil );
+			unset( $GetData[$record] );
+
+			$Modes = array( "use" , "not_use" );
+			foreach($Modes as $mode) {
+				$GetData[$record][$mode] = array();
+				if( !empty( $_POST[$mode] ) ) {
+					$Columns = $_POST[$mode];
+					foreach( $Columns as $column_id => $column_name ) {
+						$tmpK = strip_tags( $column_id );
+						$tmpV = strip_tags ( $column_name["name"] );
+						$GetData[$record][$mode][$tmpK]["name"] = $tmpV;
+					}
+				}
+			}
+			
+			$this->update_record( $this->Record['custom_posts'] , $GetData );
+		}
+	}
+
+
+
 
 	// FilterStart
 	function FilterStart() {
-		global $wpdb;
 
-		$QueryPostType = get_query_var( 'post_type' );
-		$LvcNum = $wpdb->get_col( "SELECT option_name FROM $wpdb->options WHERE option_name LIKE  '%$this->RecordBaseName%'" );
-		
-		if( !empty( $LvcNum ) && is_array( $LvcNum ) ) {
-			foreach($LvcNum as $name) {
-				$Type[] = str_replace( $this->RecordBaseName , "" , $name);
-			}
-		}
+		$SettingRole = $this->get_data( 'user_role' );
+		$SettingRole = apply_filters( 'plvc_pre_setting_roles' , $SettingRole );
 
-		if( !empty( $Type ) && is_array( $Type ) ) {
-			if( in_array( $QueryPostType , $Type ) == true ) {
-				$Data = get_option( $QueryPostType . $this->RecordBaseName );
-				if( !empty( $Data ) && is_array( $Data ) ) {
-					$FilterName = 'manage_edit-' . $QueryPostType . '_columns';
-					add_filter( $FilterName , array( $this , 'ColumnHeader' ) , 101);
-					$ActionName = 'manage_' . $QueryPostType . '_posts_custom_column';
-					add_action( $ActionName , array( $this , 'ColumnBody' ) , 10 , 2 );
-				}
+		if( !empty( $SettingRole ) ) {
+			unset($SettingRole["UPFN"]);
+
+			$UserRole = '';
+			$User = wp_get_current_user();
+			if( !empty( $User->roles[0] ) ) {
+				$UserRole = $User->roles[0];
 			}
-			if ( in_array( 'media' , $Type ) == true ) {
-				$Data = get_option( 'media' . $this->RecordBaseName );
-				if( !empty( $Data ) && is_array( $Data ) ) {
-					$FilterName = 'manage_media_columns';
-					add_filter( $FilterName , array( $this , 'ColumnHeaderMedia' ) , 101);
-					$ActionName = 'manage_media_custom_column';
-					add_action( $ActionName , array( $this , 'ColumnBodyMedia' ) , 10 , 2 );
-				}
-			}
-			if ( in_array( 'comment' , $Type ) == true ) {
-				$Data = get_option( 'comment' . $this->RecordBaseName );
-				if( !empty( $Data ) && is_array( $Data ) ) {
-					$FilterName = 'manage_edit-comments_columns';
-					add_filter( $FilterName , array( $this , 'ColumnHeaderComment' ) , 101);
-					$ActionName = 'manage_comments_custom_column';
-					add_action( $ActionName , array( $this , 'ColumnBodyComment' ) , 10 , 2 );
-				}
-			}
-			if ( in_array( 'navi' , $Type ) == true ) {
-				$Data = get_option( 'navi' . $this->RecordBaseName );
-				if( !empty( $Data ) && is_array( $Data ) ) {
-					$FilterName = 'manage_nav-menus_columns';
-					add_filter( $FilterName , array( $this , 'ColumnNavi' ));
+
+			if( !is_network_admin() ) {
+				if( array_key_exists( $UserRole , $SettingRole ) ) {
+
+					global $current_screen;
+
+					$Data = array();
+					if( $current_screen->base == 'edit' ) {
+						if( $current_screen->post_type == 'post' or $current_screen->post_type == 'page' ) {
+							$Data = $this->get_data( $current_screen->post_type );
+						} else {
+							$Custom = $this->get_data( "custom_posts" );
+							if( !empty( $Custom[$current_screen->post_type] ) ) {
+								$Data = $Custom[$current_screen->post_type];
+							}
+						}
+						
+						$hook_header = array( "manage_edit-" . $current_screen->post_type . "_columns" , "PostsColumnHeader" );
+						$hook_body = array( "manage_" . $current_screen->post_type . "_posts_custom_column" , "PostsColumnBody" );
+
+						if( !empty( $Data ) && !empty( $hook_header ) && !empty( $hook_body ) ) {
+							add_filter( $hook_header[0] , array( $this , $hook_header[1] ) , 101);
+							add_action( $hook_body[0] , array( $this , $hook_body[1] ) , 10 , 2 );
+						}
+					}
+
+					if( $current_screen->base == $current_screen->id && $current_screen->id == 'upload' ) {
+						$Data = $this->get_data( "media" );
+						
+						$hook_header = array( "manage_media_columns" , "MediaColumnHeader" );
+						$hook_body = array( "manage_media_custom_column" , "MediaColumnBody" );
+
+						if( !empty( $Data ) && !empty( $hook_header ) && !empty( $hook_body ) ) {
+							add_filter( $hook_header[0] , array( $this , $hook_header[1] ) , 101);
+							add_action( $hook_body[0] , array( $this , $hook_body[1] ) , 10 , 2 );
+						}
+					}
 					
-				}
-			}
-			if ( in_array( 'navi_advance' , $Type ) == true ) {
-				$Data = get_option( 'navi_advance' . $this->RecordBaseName );
-				if( !empty( $Data ) && is_array( $Data ) ) {
-					$FilterName = 'manage_nav-menus_columns';
-					add_filter( $FilterName , array( $this , 'ColumnNaviAdvanceHeader' ));
-					$ActionName = 'manage_nav-menus_columns';
-					add_action( $ActionName , array( $this , 'ColumnNaviAdvanceBody' ) );
+					if( $current_screen->base == $current_screen->id && $current_screen->id == 'edit-comments' ) {
+						$Data = $this->get_data( "comments" );
+						
+						$hook_header = array( "manage_edit-comments_columns" , "CommentsColumnHeader" );
+						$hook_body = array( "manage_comments_custom_column" , "CommentsColumnBody" );
+
+						if( !empty( $Data ) && !empty( $hook_header ) && !empty( $hook_body ) ) {
+							add_filter( $hook_header[0] , array( $this , $hook_header[1] ) , 101);
+							add_action( $hook_body[0] , array( $this , $hook_body[1] ) , 10 , 2 );
+						}
+					}
+					
+					if( $current_screen->base == $current_screen->id && $current_screen->id == 'widgets' ) {
+						$Data = $this->get_data( "widgets" );
+						
+						if( !empty( $Data ) ) {
+							add_filter( 'widgets_admin_page' , array( $this , 'WidgetsColumnBody' ) );
+						}
+					}
+
+					if( $current_screen->base == $current_screen->id && $current_screen->id == 'nav-menus' ) {
+						$Data = $this->get_data( "menus" );
+						
+						if( !empty( $Data ) ) {
+							add_filter( "manage_nav-menus_columns" , array( $this , "MenusMetaBox" ) );
+						}
+
+						$Data = $this->get_data( "menus_adv" );
+						
+						$hook_header = array( "manage_nav-menus_columns" , "MenusAdvColumnHeader" );
+						$hook_body = array( "manage_nav-menus_columns" , "MenusAdvColumnBody" );
+
+						if( !empty( $Data ) && !empty( $hook_header ) && !empty( $hook_body ) ) {
+							add_filter( $hook_header[0] , array( $this , $hook_header[1] ) );
+							add_action( $hook_body[0] , array( $this , $hook_body[1] ) );
+						}
+					}
+
 				}
 			}
 		}
+
 	}
 	
 	// FilterStart
-	function ColumnHeader( $columns ) {
-		$QueryPostType = get_query_var( 'post_type' );
-		$Data = get_option( $QueryPostType . $this->RecordBaseName );
+	function PostsColumnHeader( $columns ) {
+		global $current_screen;
+		
+		if( $current_screen->post_type == 'post' or $current_screen->post_type == 'page' ) {
+			$Data = $this->get_data( $current_screen->post_type );
+		} else {
+			$Custom = $this->get_data( "custom_posts" );
+			$Data = $Custom[$current_screen->post_type];
+		}
 
 		$FilterColumn = array( "cb" => $columns["cb"] );
-		foreach($Data as $name => $val) {
-			if( !empty( $val["use"] ) ) {
-				$FilterColumn[$name] = $val["name"];
+		if( !empty( $Data["use"] ) ) {
+			foreach( $Data["use"] as $id => $name ) {
+				$FilterColumn[$id] = esc_html( $name["name"] );
 			}
 		}
 
-		wp_enqueue_style( $this->Slug , $this->Dir . dirname( plugin_basename( __FILE__ ) ) . '.css' , array() , $this->Ver );
+		wp_enqueue_style( $this->ltd . '-table' , $this->Dir . dirname( plugin_basename( __FILE__ ) ) . '-table.css' , array() , $this->Ver );
 
 		return $FilterColumn;
 	}
 
 	// FilterStart
-	function ColumnBody( $column_name , $post_id) {
-		$None = '  -  ';
+	function PostsColumnBody( $column_name , $post_id ) {
+		$None = '';
 
-		$Thumbnail_Size = $this->ThumbnailSize;
-		$Thumbnail_setting = $this->get_data_thumbnail_size('thumbnail_size');
-		if( !empty( $Thumbnail_setting["width"] ) ) {
-			$Thumbnail_Size = intval( $Thumbnail_setting["width"] );
-		}
+		$Thumbnail_setting = $this->get_data_thumbnail();
 
 		if($column_name == 'post-formats') {
 			// post-formats
@@ -650,7 +1288,7 @@ class Plvc
 			if( has_post_thumbnail( $post_id ) ) {
 				$thumbnail_id = get_post_thumbnail_id( $post_id );
 				$thumbnail = wp_get_attachment_image_src( $thumbnail_id , 'post-thumbnail', true );
-				echo '<a href="media.php?attachment_id=' . $thumbnail_id . '&action=edit"><img src="' . $thumbnail[0] . '" width="' . $Thumbnail_Size . '" /></a>';
+				echo '<a href="media.php?attachment_id=' . $thumbnail_id . '&action=edit"><img src="' . $thumbnail[0] . '" width="' . $Thumbnail_setting["width"] . '" /></a>';
 			} else {
 				echo $None;
 			}
@@ -709,7 +1347,7 @@ class Plvc
 								if( !empty($post) && intval( $post_meta[0] ) && $post->post_type == 'attachment' ) {
 									$CustomThumbnail = wp_get_attachment_image_src( $post_meta[0] , 'post-thumbnail', true );
 									if(!empty($CustomThumbnail)) {
-										echo '<a href="media.php?attachment_id=' . $post_meta[0] . '&action=edit"><img src="' . $CustomThumbnail[0] . '" width="' . $Thumbnail_Size . '" /></a>';
+										echo '<a href="media.php?attachment_id=' . $post_meta[0] . '&action=edit"><img src="' . $CustomThumbnail[0] . '" width="' . $Thumbnail_setting["width"] . '" /></a>';
 									} else {
 										echo $post_meta[0];
 									}
@@ -728,7 +1366,7 @@ class Plvc
 						if( !empty($post) && intval($post_meta[0]) && $post->post_type == 'attachment' && $post_id == $post->post_parent ) {
 							$CustomThumbnail = wp_get_attachment_image_src( $post_meta[0], 'post-thumbnail', true );
 							if( !empty($CustomThumbnail ) ) {
-								echo '<a href="media.php?attachment_id=' . $post_meta[0] . '&action=edit"><img src="' . $CustomThumbnail[0] . '" width="' . $Thumbnail_Size . '" /></a>';
+								echo '<a href="media.php?attachment_id=' . $post_meta[0] . '&action=edit"><img src="' . $CustomThumbnail[0] . '" width="' . $Thumbnail_setting["width"] . '" /></a>';
 							} else {
 								echo $post_meta[0];
 							}
@@ -745,24 +1383,24 @@ class Plvc
 	}
 
 	// FilterStart
-	function ColumnHeaderMedia( $columns ) {
-		$Data = get_option( 'media' . $this->RecordBaseName );
+	function MediaColumnHeader( $columns ) {
+		$Data = $this->get_data( 'media' );
 
 		$FilterColumn = array( "cb" => $columns["cb"] );
-		foreach($Data as $name => $val) {
-			if( !empty( $val["use"] ) ) {
-				$FilterColumn[$name] = $val["name"];
+		if( !empty( $Data["use"] ) ) {
+			foreach( $Data["use"] as $id => $name ) {
+				$FilterColumn[$id] = esc_html( $name["name"] );
 			}
 		}
 
-		wp_enqueue_style( $this->Slug , $this->Dir . dirname( plugin_basename( __FILE__ ) ) . '.css' , array() , $this->Ver );
+		wp_enqueue_style( $this->ltd . '-table' , $this->Dir . dirname( plugin_basename( __FILE__ ) ) . '-table.css' , array() , $this->Ver );
 
 		return $FilterColumn;
 	}
 
 	// FilterStart
-	function ColumnBodyMedia( $column_name , $post_id) {
-		$None = '  -  ';
+	function MediaColumnBody( $column_name , $post_id ) {
+		$None = '';
 		$posts = get_posts( array( 'numberposts' => 1 , 'include' => $post_id , 'post_type' => 'attachment' ) );
 
 		if( !empty( $posts[0] ) ) {
@@ -795,24 +1433,24 @@ class Plvc
 	}
 
 	// FilterStart
-	function ColumnHeaderComment( $columns ) {
-		$Data = get_option( 'comment' . $this->RecordBaseName );
+	function CommentsColumnHeader( $columns ) {
+		$Data = $this->get_data( 'comments' );
 
 		$FilterColumn = array( "cb" => $columns["cb"] );
-		foreach($Data as $name => $val) {
-			if( !empty( $val["use"] ) ) {
-				$FilterColumn[$name] = $val["name"];
+		if( !empty( $Data["use"] ) ) {
+			foreach( $Data["use"] as $id => $name ) {
+				$FilterColumn[$id] = esc_html( $name["name"] );
 			}
 		}
 
-		wp_enqueue_style( $this->Slug , $this->Dir . dirname( plugin_basename( __FILE__ ) ) . '.css' , array() , $this->Ver );
+		wp_enqueue_style( $this->ltd . '-table' , $this->Dir . dirname( plugin_basename( __FILE__ ) ) . '-table.css' , array() , $this->Ver );
 
 		return $FilterColumn;
 	}
 
 	// FilterStart
-	function ColumnBodyComment( $column_name , $comment_id) {
-		$None = '  -  ';
+	function CommentsColumnBody( $column_name , $comment_id ) {
+		$None = '';
 		$comments = get_comments( array( 'ID' => $comment_id ) );
 		
 		if( !empty( $comments[0] ) ) {
@@ -841,12 +1479,27 @@ class Plvc
 	}
 
 	// FilterStart
-	function ColumnNavi( $columns ) {
-		$Data = get_option( 'navi' . $this->RecordBaseName );
+	function WidgetsColumnBody() {
+		global $wp_registered_widgets;
+		
+		$Data = $this->get_data( "widgets" );
+		if( !empty( $Data["not_use"] ) ) {
+			foreach( $wp_registered_widgets as $widget_id => $widget ) {
+				if( array_key_exists( $widget_id , $Data["not_use"] ) !== false ) {
+					unset( $wp_registered_widgets[$widget_id] );
+				}
+			}
+		}
 
-		foreach( $Data as $metabox_name => $val ) {
-			if( !empty( $val["not_use"] ) ) {
-				remove_meta_box( $metabox_name , 'nav-menus' , 'side' );
+	}
+
+	// FilterStart
+	function MenusMetaBox( $columns ) {
+		$Data = $this->get_data( 'menus' );
+
+		if( !empty( $Data["not_use"] ) ) {
+			foreach( $Data["not_use"] as $id => $name ) {
+				remove_meta_box( $id , 'nav-menus' , 'side' );
 			}
 		}
 
@@ -854,41 +1507,42 @@ class Plvc
 	}
 
 	// FilterStart
-	function ColumnNaviAdvanceHeader( $columns ) {
-		$Data = get_option( 'navi_advance' . $this->RecordBaseName );
+	function MenusAdvColumnHeader( $columns ) {
+
+		$Data = $this->get_data( 'menus_adv' );
 
 		$FilterColumn = array();
-		foreach($Data as $name => $val) {
-			if( !empty( $val["use"] ) ) {
-				$FilterColumn[$name] = $val["name"];
+		if( !empty( $Data["use"] ) ) {
+			foreach( $Data["use"] as $id => $name ) {
+				$FilterColumn[$id] = esc_html( $name["name"] );
 			}
 		}
 		
 		if( !empty( $FilterColumn ) ) {
-			$FilterColumn["_title"] = $columns["_title"];
 			$FilterColumn["cb"] = $columns["cb"];
+			$FilterColumn["_title"] = $columns["_title"];
 		}
 
 		return $FilterColumn;
 	}
 
 	// FilterStart
-	function ColumnNaviAdvanceBody( $columns ) {
-		$Data = get_option( 'navi_advance' . $this->RecordBaseName );
+	function MenusAdvColumnBody( $columns ) {
+		$Data = $this->get_data( 'menus_adv' );
 		$user = wp_get_current_user();
 
 		$FilterColumn = array();
-		foreach($Data as $name => $val) {
-			if( !empty( $val["not_use"] ) ) {
-				$FilterColumn[] = $name;
+		if( !empty( $Data["not_use"] ) ) {
+			foreach( $Data["not_use"] as $id => $name ) {
+				$FilterColumn[$id] = esc_html( $name["name"] );
 			}
 		}
 		
 		$hide_set = '';
 		$hide_field = '';
-		foreach( $FilterColumn as $name ) {
-			$hide_set .= '.metabox-prefs  label[for=' . $name . '-hide], ';
-			$hide_field .= '.menu-item-settings  p.field-' . $name . ', ';
+		foreach( $FilterColumn as $id => $name ) {
+			$hide_set .= '.metabox-prefs label[for=' . $id . '-hide], ';
+			$hide_field .= '.menu-item-settings p.field-' . $id . ', ';
 		}
 		$hide_set = rtrim( $hide_set , ', ' );
 		$hide_field = rtrim( $hide_field , ', ' );
@@ -901,7 +1555,6 @@ jQuery(document).ready(function($) {
 	$("' . $hide_field . '").hide();
 });
 </script>
-
 ';
 
 		return $columns;
@@ -917,11 +1570,11 @@ jQuery(document).ready(function($) {
 	function DisplayDonation() {
 		$donation = get_option( $this->ltd . '_donated' );
 		if( $this->DonateKey != $donation ) {
-			$this->Msg .= '<div class="error"><p><strong>' . __( 'Please consider a donation if you are satisfied with this plugin.' , $this->ltd_do ) . '</strong></p></div>';
+			$this->Msg .= '<div class="error"><p><strong>' . __( 'Please consider a donation if you are satisfied with this plugin.' , $this->ltd_p ) . '</strong></p></div>';
 		}
 	}
 
 
 }
 
-$Plvc = new Plvc();
+$Plvc = new Post_Lists_View_Custom();

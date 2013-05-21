@@ -1,0 +1,41 @@
+/* All */
+
+.fixed .column-author,
+.fixed .column-categories,
+.fixed .column-tags,
+.fixed .column-comments,
+.fixed .column-date,
+#excerpt, .attachmentlinks,
+.fixed .column-slug
+{
+	width: auto;
+}
+
+.fixed thead th.column-id {
+	width: 3em;
+}
+
+
+/* Media Library */
+
+.fixed .column-icon,
+.upload-php .fixed .column-parent
+{
+	width: auto;
+}
+
+
+
+/* Comments */
+
+#comments-form .fixed .column-author,
+.fixed .column-response
+{
+	width: auto;
+}
+
+
+
+#excerpt, .attachmentlinks {
+	height: auto;
+}

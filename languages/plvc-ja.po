@@ -1,40 +1,55 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Post Lists View Custom\n"
-"POT-Creation-Date: 2013-04-02 14:11+0900\n"
-"PO-Revision-Date: 2013-05-08 02:00+0900\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
 "Last-Translator: Gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
 "Language-Team: Gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: Japanese\n"
-"X-Poedit-Country: JAPAN\n"
-"X-Poedit-SourceCharset: utf-8\n"
 
-msgid "Customize the list of the post and page, and custom post type."
-msgstr "投稿と固定ページの一覧表示とカスタム投稿タイプの一覧表示をカスタマイズします。"
+msgid "You can customize the various lists screen."
+msgstr "様々な一覧表示をカスタマイズします。"
 
-msgid "Post Lists View Customize"
-msgstr "投稿一覧表示設定"
+msgid "Apply the settings of Post Lists View Custom only user roles selected."
+msgstr "選択された権限のみ Post Lists View Custom の設定を適用します。"
 
-msgid "Page Lists View Customize"
-msgstr "固定ページ一覧表示設定"
+msgid "Authority to apply the setting is not selected. Please select the permissions you want to set <a href=\"%s\">from here</a>."
+msgstr "設定を適用する権限が選択されていません。<a href=\"%s\">こちら</a>から設定する権限を選んでください。"
 
-msgid "Media Lists View Customize"
-msgstr "メディア一覧表示設定"
+msgid "Please select the user roles you want to apply the settings."
+msgstr "設定を適用する権限を選んでください。"
 
-msgid "Comments Lists View Customize"
-msgstr "コメント一覧表示設定"
+msgid "All Posts List Customize"
+msgstr "投稿一覧カスタマイズ"
 
-msgid "Menu Lists View Customize"
-msgstr "ナビメニュー一覧表示設定"
+msgid "All Pages List Customize"
+msgstr "固定ページ一覧設定"
 
-msgid "Menu Advance View Customize"
-msgstr "ナビ詳細メニュー表示設定"
+msgid "Media Library List Customize"
+msgstr "メディアライブラリ一覧設定"
 
-msgid "Custom Post Type Lists View Customize"
-msgstr "カスタム投稿タイプ一覧表示設定"
+msgid "Comments List Customize"
+msgstr "コメント一覧設定"
+
+msgid "Available Widgets List Customize"
+msgstr "利用できるウィジェット一覧設定"
+
+msgid "Menus show screen List Customize"
+msgstr "メニュー表示項目一覧設定"
+
+msgid "Menus advanced properties"
+msgstr "詳細メニュー"
+
+msgid "Menus show advanced properties screen List Customize"
+msgstr "詳細メニュー表示項目一覧設定"
+
+msgid "Custom Posts Type"
+msgstr "カスタム投稿タイプ"
+
+msgid "Custom Posts Type List Customize"
+msgstr "カスタム投稿タイプ一覧設定"
 
 msgid "Please choose a custom post type you want to change the list's view."
 msgstr "一覧表示の変更をしたいカスタム投稿タイプを選択してください。"
@@ -42,17 +57,17 @@ msgstr "一覧表示の変更をしたいカスタム投稿タイプを選択し
 msgid "No custom post type found."
 msgstr "カスタム投稿タイプがありません。"
 
+msgid "Please select a Custom Posts type from here."
+msgstr "こちらからカスタム投稿タイプを選択してください。"
+
 msgid "Please rearrange the order in which you want to view by drag and drop."
-msgstr "ドラッグ&ドロップで表示したい順に並べ替えて下さい。"
+msgstr "表示したい順にドラッグ&ドロップで並べ替えて下さい。"
+
+msgid "Please drag and drop the column to show. <strong>* Order does not affect.</strong>"
+msgstr "表示したい項目をドラッグ&ドロップして下さい。※順番は影響しません。"
 
 msgid "Would initialize?"
 msgstr "初期化しますか？"
-
-msgid "Lists View Customize"
-msgstr "一覧表示設定へ"
-
-msgid "Attached to"
-msgstr "アップロード先"
 
 msgid "Alt Text"
 msgstr "代替テキスト"
@@ -71,4 +86,7 @@ msgstr "高さは幅に比例した表示となります。"
 
 msgid "Post, Page, and Custom Post type the applies."
 msgstr "投稿、ページ、カスタム投稿タイプに適用されます。"
+
+msgid "Apply user roles"
+msgstr "適用するユーザー権限"
 

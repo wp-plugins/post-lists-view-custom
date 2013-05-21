@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Post Lists View Custom\n"
 "POT-Creation-Date: 2013-04-02 14:11+0900\n"
-"PO-Revision-Date: 2013-04-02 14:35+0900\n"
+"PO-Revision-Date: 2013-05-19 00:34+0900\n"
 "Last-Translator: Gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
 "Language-Team: Gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +25,7 @@ msgid "Donation delete key"
 msgstr "寄付メッセージ削除キー"
 
 msgid "Please consider a donation if you are satisfied with this plugin."
-msgstr "このプラグインに満足できたらら寄付のご検討を宜しくお願いします。"
+msgstr "このプラグインに満足できたら寄付のご検討を宜しくお願いします。"
 
 msgid "Please donation."
 msgstr "寄付のお願い"
@@ -71,6 +71,9 @@ msgstr "このプラグインについて何か提案がありますか？あれ
 
 msgid "Useful plugins"
 msgstr "便利なプラグイン"
+
+msgid "This add-on is can be different setting for each user roles."
+msgstr "このアドオンはユーザーの検便ごと にPost Lists View Custom の設定が可能になるアドオンです。"
 
 msgid "Customize a variety of screen management."
 msgstr "管理画面の様々なカスタマイズ"

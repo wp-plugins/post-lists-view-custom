@@ -1,18 +1,18 @@
 <?php
 
 if( !empty( $_POST["reset"] ) ) {
-	$this->update_reset();
+	$this->update_reset( $this->SetPage );
 } elseif( !empty( $_POST["update"] ) ) {
-	$this->update();
+	$this->update_thunmbnail( $this->SetPage );
 }
 
 // include js css
 $ReadedJs = array( 'jquery' );
-wp_enqueue_script( $this->Slug ,  $this->Dir . dirname( dirname( plugin_basename( __FILE__ ) ) ) . '.js', $ReadedJs , $this->Ver );
-wp_enqueue_style( $this->Slug , $this->Dir . dirname( dirname( plugin_basename( __FILE__ ) ) ) . '.css', array() , $this->Ver );
+wp_enqueue_script( $this->PageSlug ,  $this->Dir . dirname( dirname( plugin_basename( __FILE__ ) ) ) . '.js', $ReadedJs , $this->Ver );
+wp_enqueue_style( $this->PageSlug , $this->Dir . dirname( dirname( plugin_basename( __FILE__ ) ) ) . '.css', array() , $this->Ver );
 
 // get data
-$Data = $this->get_data_thumbnail_size($this->SetPage);
+$Data = $this->get_data( $this->SetPage );
 
 ?>
 
@@ -20,10 +20,13 @@ $Data = $this->get_data_thumbnail_size($this->SetPage);
 	<div class="icon32" id="icon-options-general"></div>
 	<h2><?php _e( 'Setting Thumbnail size' , $this->ltd ); ?></h2>
 	<?php echo $this->Msg; ?>
+
 	<p><?php _e( 'Change the size of thumbnails displayed in the lists.' , $this->ltd ); ?></p>
 	<p class="description"><?php _e( 'Post, Page, and Custom Post type the applies.' , $this->ltd ); ?></p>
 
-	<div class="metabox-holder columns-2 plvc">
+	<?php $class = $this->ltd; ?>
+	<?php if( get_option( $this->Record["donate_width"] ) ) $class .= ' full-width'; ?>
+	<div class="metabox-holder columns-2 <?php echo $class; ?>">
 
 		<div id="postbox-container-1" class="postbox-container">
 
@@ -40,7 +43,7 @@ $Data = $this->get_data_thumbnail_size($this->SetPage);
 							</th>
 							<td>
 								<label for="width"><?php _e( 'Width' ); ?></label>
-								<?php $val = ''; if( !empty( $Data["width"] ) ) : $val = $Data["width"]; endif; ?>
+								<?php $val = ''; if( !empty( $Data["width"] ) ) : $val = intval( $Data["width"] ); endif; ?>
 								<input type="number" step="1" min="0" name="width" id="width" class="small-text" value="<?php echo $val; ?>" />px
 								<p class="description"><?php echo sprintf( __( 'It will be displayed at <strong>%s px</strong> If there is no setting.' , $this->ltd ) , $this->ThumbnailSize ); ?></p>
 								<p class="description"><?php _e( 'Height will be displayed in proportion to the width.' , $this->ltd ); ?></p>

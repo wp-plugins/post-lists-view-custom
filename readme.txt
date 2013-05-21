@@ -1,10 +1,10 @@
 === Post Lists View Custom ===
 Contributors: gqevu6bsiz
-Donate link: http://gqevu6bsiz.chicappa.jp/please-donation/?utm_source=wporg&utm_medium=donate&utm_content=plvc&utm_campaign=1_4_1
-Tags: admin, post, posts, page, upload, media, attachment, lists, view, custom, customfield, field, custom_post, navi, menu, comment
+Donate link: http://gqevu6bsiz.chicappa.jp/please-donation/?utm_source=wporg&utm_medium=donate&utm_content=plvc&utm_campaign=1_5
+Tags: admin, post, posts, page, upload, media, attachment, lists, view, custom, customfield, field, custom_post, navi, menu, comment, widgets
 Requires at least: 3.4.2
-Tested up to: 3.5.1
-Stable tag: 1.4.1
+Tested up to: 3.6
+Stable tag: 1.5
 License: GPL2
 
 Customize the list of the post and page and the custom post type.
@@ -16,6 +16,7 @@ Customize the list of the post and page and the custom post type.
 * Custom Posts Type lists
 * Media lists
 * Comments lists
+* Available Widgets lists
 * Menus to show on screen
 * Menus to show advanced menu properties
 
@@ -43,6 +44,13 @@ These lists to Customization is possible.
 6. Screen navi list
 
 == Changelog ==
+
+= 1.5 =
+* Changed the show when there is no value of the custom fields.
+* Changed a lot of processing.
+* To be able to choose the user role to be applied.
+* Changed to the data update method.
+* Added Available Widgets lists.
 
 = 1.4.1 =
 * Changed the method of obtaining the thumbnail image.
@@ -94,6 +102,7 @@ This is the initial release.
 * カスタム投稿タイプ一覧
 * メディア一覧
 * コメント一覧
+* 利用できるウィジェット一覧
 * メニューの表示一覧
 * メニューの拡張表示一覧
 

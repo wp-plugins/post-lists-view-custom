@@ -1,37 +1,54 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Post Lists View Custom\n"
-"POT-Creation-Date: 2013-04-02 14:11+0900\n"
-"PO-Revision-Date: 2013-04-02 14:11+0900\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
 "Last-Translator: Gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
 "Language-Team: Gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-
-msgid "Customize the list of the post and page, and custom post type."
+msgid "You can customize the various lists screen."
 msgstr ""
 
-msgid "Post Lists View Customize"
+msgid "Apply the settings of Post Lists View Custom only user roles selected."
 msgstr ""
 
-msgid "Page Lists View Customize"
+msgid "Authority to apply the setting is not selected. Please select the permissions you want to set <a href=\"%s\">from here</a>."
 msgstr ""
 
-msgid "Media Lists View Customize"
+msgid "Please select the user roles you want to apply the settings."
 msgstr ""
 
-msgid "Comments Lists View Customize"
+msgid "All Posts List Customize"
 msgstr ""
 
-msgid "Menu Lists View Customize"
+msgid "All Pages List Customize"
 msgstr ""
 
-msgid "Menu Advance View Customize"
+msgid "Media Library List Customize"
 msgstr ""
 
-msgid "Custom Post Type Lists View Customize"
+msgid "Comments List Customize"
+msgstr ""
+
+msgid "Available Widgets List Customize"
+msgstr ""
+
+msgid "Menus show screen List Customize"
+msgstr ""
+
+msgid "Menus advanced properties"
+msgstr ""
+
+msgid "Menus show advanced properties screen List Customize"
+msgstr ""
+
+msgid "Custom Posts Type"
+msgstr ""
+
+msgid "Custom Posts Type List Customize"
 msgstr ""
 
 msgid "Please choose a custom post type you want to change the list's view."
@@ -40,16 +57,16 @@ msgstr ""
 msgid "No custom post type found."
 msgstr ""
 
+msgid "Please select a Custom Posts type from here."
+msgstr ""
+
 msgid "Please rearrange the order in which you want to view by drag and drop."
 msgstr ""
 
+msgid "Please drag and drop the column to show. <strong>* Order does not affect.</strong>"
+msgstr ""
+
 msgid "Would initialize?"
-msgstr ""
-
-msgid "Lists View Customize"
-msgstr ""
-
-msgid "Attached to"
 msgstr ""
 
 msgid "Alt Text"
@@ -70,3 +87,5 @@ msgstr ""
 msgid "Post, Page, and Custom Post type the applies."
 msgstr ""
 
+msgid "Apply user roles"
+msgstr ""
