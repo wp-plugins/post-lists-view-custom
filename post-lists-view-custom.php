@@ -3,9 +3,9 @@
 Plugin Name: Post Lists View Custom
 Description: You can customize the various lists screen.
 Plugin URI: http://wordpress.org/extend/plugins/post-lists-view-custom/
-Version: 1.5
+Version: 1.5.1
 Author: gqevu6bsiz
-Author URI: http://gqevu6bsiz.chicappa.jp/?utm_source=use_plugin&utm_medium=list&utm_content=plvc&utm_campaign=1_5
+Author URI: http://gqevu6bsiz.chicappa.jp/?utm_source=use_plugin&utm_medium=list&utm_content=plvc&utm_campaign=1_5_1
 Text Domain: plvc
 Domain Path: /languages
 */
@@ -48,7 +48,7 @@ class Post_Lists_View_Custom
 
 
 	function __construct() {
-		$this->Ver = '1.5';
+		$this->Ver = '1.5.1';
 		$this->Name = 'Post Lists View Custom';
 		$this->Dir = WP_PLUGIN_URL . '/' . dirname( plugin_basename( __FILE__ ) ) . '/';
 		$this->ltd = 'plvc';
@@ -562,23 +562,28 @@ class Post_Lists_View_Custom
 
 		} else {
 
-			$custom_post_type_name = str_replace( 'add-' , '' , $column_name );
 			
-			if( $custom_post_type_name ) {
+			if( $post_type == 'menus' ) {
 
-				// menus
-				$args = array( 'public' => true, '_builtin' => false );
-				$PostTypes = get_post_types( $args , 'objects' );
+				$custom_post_type_name = str_replace( 'add-' , '' , $column_name );
 				
-				if( !empty( $PostTypes ) && is_array( $PostTypes ) ) {
-
-					$Label = $column_name;
-
-					foreach( $PostTypes as $name => $Type ) {
-						if( $name == $custom_post_type_name ) {
-							$Label = esc_html( $Type->labels->name );
-							break;
+				if( $custom_post_type_name ) {
+	
+					// menus
+					$args = array( 'public' => true, '_builtin' => false );
+					$PostTypes = get_post_types( $args , 'objects' );
+					
+					if( !empty( $PostTypes ) && is_array( $PostTypes ) ) {
+	
+						$Label = $column_name;
+	
+						foreach( $PostTypes as $name => $Type ) {
+							if( $name == $custom_post_type_name ) {
+								$Label = esc_html( $Type->labels->name );
+								break;
+							}
 						}
+	
 					}
 
 				}
@@ -691,7 +696,6 @@ class Post_Lists_View_Custom
 		if(!empty($All_custom_columns)) {
 			natcasesort($All_custom_columns);
 		}
-
 
 		// Unset colum name
 		$Unset = array( 'allorany' , 'hide_on_screen' );
