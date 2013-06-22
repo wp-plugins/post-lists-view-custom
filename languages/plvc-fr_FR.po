@@ -1,0 +1,92 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Post Lists View Custom\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
+"Language-Team: Gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.5\n"
+"Language: ja\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+msgid "You can customize the various lists screen."
+msgstr "Vous pouvez personnaliser l'&eacute;cran des listes diff&eacute;rentes."
+
+msgid "Apply the settings of Post Lists View Custom only user roles selected."
+msgstr "Ne s'applique qu'aux privil&eacute;ges de l'utilisateur qui ont &eacute;t&eacute; s&eacute;lectionn&eacute;s."
+
+msgid "Authority to apply the setting is not selected. <a href=\"%s\">From here</a>, please select the permissions you want to set."
+msgstr "Autorit&eacute; pour appliquer le param&eacute;tre n'est pas s&eacute;lectionn&eacute;. <a href=\"%s\">A partir de l&agrave;</a>, s'il vous pla&icirc;t s&eacute;lectionnez les autorisations que vous souhaitez d&eacute;finir."
+
+msgid "Please select the user roles that all settings will apply to."
+msgstr "S'il vous pla&icirc;t choisir l'autorit&eacute; pour appliquer les param&eacute;tres."
+
+msgid "All Posts List Customize"
+msgstr "Tous les Articles Personnaliser liste"
+
+msgid "All Pages List Customize"
+msgstr "Tous les Pages Personnaliser liste"
+
+msgid "Media Library List Customize"
+msgstr "Biblioth&eacute;que de m&eacute;dias Personnaliser liste"
+
+msgid "Comments List Customize"
+msgstr "Commentaires Personnaliser liste"
+
+msgid "Available Widgets List Customize"
+msgstr "Widgets disponibles Personnaliser liste"
+
+msgid "Menus show screen List Customize"
+msgstr "Menus Afficher &agrave; l’&eacute;cran Personnaliser liste"
+
+msgid "Menus advanced properties"
+msgstr "Afficher les propri&eacute;t&eacute;s avanc&eacute;es du menu"
+
+msgid "Menus show advanced properties screen List Customize"
+msgstr "Afficher les propri&eacute;t&eacute;s avanc&eacute;es du menu Personnaliser liste"
+
+msgid "Custom Posts Type"
+msgstr "Articles de type personnalis&eacute;"
+
+msgid "Custom Posts Type List Customize"
+msgstr "Articles de type personnalis&eacute; Personnaliser liste"
+
+msgid "Please choose a custom post type you want to change the list's view."
+msgstr "S'il vous plaît s&eacute;lectionner un type de Articles personnalis&eacute; pour lequel vous souhaitez modifier la liste."
+
+msgid "No custom post type found."
+msgstr "Ne pas avoir un type de Articles personnalis&eacute;."
+
+msgid "Please select a Custom Posts type from here."
+msgstr "S'il vous pla&icirc;t choisir un type de Articles personnalis&eacute;s &agrave; partir d'ici."
+
+msgid "Please rearrange the order in which you want to view by Drag & Drop."
+msgstr "S'il vous pla&icirc;t tri&eacute;s par glisser-déposer dans l'ordre dans lequel vous souhaitez afficher."
+
+msgid "Please drag and drop the column to show. <strong>* Order does not affect.</strong>"
+msgstr "S'il vous pla&icirc;t faites glisser la colonne &agrave; montrer. <strong> * Ordre n'a pas d'incidence. </ strong>"
+
+msgid "Reset settings?"
+msgstr "R&eacute;initialiser les param&eacute;tres?"
+
+msgid "Setting Thumbnail size"
+msgstr "R&eacute;glage de la taille des image "
+
+msgid "Change the size of thumbnails displayed in the lists."
+msgstr "Changer la taille des vignettes affich&eacute;es dans les listes."
+
+msgid "It will be displayed at <strong>%s px</strong> If there is no setting."
+msgstr "Il sera affich&eacute; au <strong>%s px</strong> S'il n'ya pas de r&eacute;glage."
+
+msgid "Height will be displayed in proportion to the width."
+msgstr "Hauteur s'affiche en proportion de la largeur."
+
+msgid "Post, Page, and Custom Post type the applies."
+msgstr "Articles, Page et d'un type de Articles le s'applique."
+
+msgid "Apply user roles"
+msgstr "Appliquer les r&ocirc;les des utilisateurs"
+

@@ -2,57 +2,51 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Post Lists View Custom\n"
 "POT-Creation-Date: 2013-04-02 14:11+0900\n"
-"PO-Revision-Date: 2013-05-19 00:34+0900\n"
+"PO-Revision-Date: 2013-06-21 16:27+0900\n"
 "Last-Translator: Gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
 "Language-Team: Gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: Japanese\n"
-"X-Poedit-Country: JAPAN\n"
 "X-Poedit-SourceCharset: utf-8\n"
+"Language: ja_JP\n"
+"X-Generator: Poedit 1.5.5\n"
+
+msgid "To donate if you feel that it is useful, please."
+msgstr "あなたが便利に感じる事ができたら、寄付をお願いします。宜しくお願いします。"
 
 msgid "Thank you for your donation."
 msgstr "寄付いただきありがとうございます。"
 
-msgid "If you have already donated to."
-msgstr "寄付済みの方へ。"
+msgid "Thank you very much for your support."
+msgstr "あなたのサポートを感謝します。"
 
 msgid "Please enter the 'Donation delete key' that have been described in the 'Line Break First and End download page'."
-msgstr "'Line Break First and End download page' ダウンロードページに記載されていた寄付削除キーを入力して、寄付メッセージを削除できます。"
+msgstr "'Line Break First and End' ダウンロードページに記載されていた寄付削除キーを入力して、寄付メッセージを削除できます。"
+
+msgid "Donate"
+msgstr "寄付へ"
 
 msgid "Donation delete key"
 msgstr "寄付メッセージ削除キー"
 
-msgid "Please consider a donation if you are satisfied with this plugin."
-msgstr "このプラグインに満足できたら寄付のご検討を宜しくお願いします。"
+msgid "I welcome the idea from you."
+msgstr "あなたからのより良い改善案を私はお待ちしています。"
 
-msgid "Please donation."
-msgstr "寄付のお願い"
+msgid "Do you have any trouble?"
+msgstr "何かお困りはありませんか？"
 
-msgid "You are contented with this plugin?<br />By the laws of Japan, Japan's new paypal user can not make a donation button.<br />So i would like you to buy this plugin as the replacement for the donation."
-msgstr "このプラグインを使って満足できましたか？<br />日本の法律では、日本の新PayPalユーザーは寄付ボタンを作成することはできません。<br />なので寄付の代わりとしてこのプラグインを購入して欲しいです。"
+msgid "Please contact me if it is good."
+msgstr "宜しければご相談ください。"
 
-msgid "Features"
-msgstr "機能について"
+msgid "If anything that of the admin screen customize."
+msgstr "管理画面のカスタマイズについて。"
 
-msgid "Line Break First and End plugin is In the visual editor TinyMCE, It is a plugin that will help when you will not be able to enter a line break."
-msgstr "Line Break First and Endプラグインは、TinyMCEのビジュアルエディタで、改行を入力することが出来なくなった時に便利なプラグインです。"
+msgid "Can I be of any use?"
+msgstr "何かお役に立てることがございましたらご連絡ください。"
 
-msgid "The primary use of donations"
-msgstr "寄付の主な使用目的"
-
-msgid "Liquidation of time and value"
-msgstr "時間と価値の清算"
-
-msgid "Additional suggestions feature"
-msgstr "機能提案の追加"
-
-msgid "Maintain motivation"
-msgstr "モチベーション維持"
-
-msgid "Ensure time as the father of Sunday"
-msgstr "日曜日の父親としての時間確保"
+msgid "Contact"
+msgstr "お問い合わせ"
 
 msgid "About plugin"
 msgstr "プラグインについて"
@@ -62,6 +56,9 @@ msgstr "動作確認済み"
 
 msgid "Developer's site"
 msgstr "開発者のサイト"
+
+msgid "Better Customization Examples"
+msgstr "より良いカスタマイズサンプル"
 
 msgid "Reviews"
 msgstr "レビュー"
@@ -73,7 +70,7 @@ msgid "Useful plugins"
 msgstr "便利なプラグイン"
 
 msgid "This add-on is can be different setting for each user roles."
-msgstr "このアドオンはユーザーの検便ごと にPost Lists View Custom の設定が可能になるアドオンです。"
+msgstr "このアドオンはユーザーの権限グループごとにPost Lists View Custom の設定が可能になるアドオンです。"
 
 msgid "Customize a variety of screen management."
 msgstr "管理画面の様々なカスタマイズ"

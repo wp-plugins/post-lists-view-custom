@@ -13,80 +13,80 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 
 msgid "You can customize the various lists screen."
-msgstr "様々な一覧表示をカスタマイズします。"
+msgstr "Puede personalizar la pantalla de diferentes listas."
 
 msgid "Apply the settings of Post Lists View Custom only user roles selected."
-msgstr "選択された権限のみ Post Lists View Custom の設定を適用します。"
+msgstr "Aplicar la &uacute;nica autoridad Post Lists View Custom que ha sido seleccionado."
 
 msgid "Authority to apply the setting is not selected. <a href=\"%s\">From here</a>, please select the permissions you want to set."
-msgstr "設定を適用する権限が選択されていません。<a href=\"%s\">こちら</a>から設定する権限を選んでください。"
+msgstr "La autoridad para aplicar la configuraci&oacute;n no est&aacute; seleccionada. Por favor, seleccione los permisos que desea ajustar desde <a href=\"%s\">Aqu&iacute; </a>."
 
 msgid "Please select the user roles that all settings will apply to."
-msgstr "設定を適用する権限を選んでください。"
+msgstr "Por favor, seleccione las funciones de usuario que todos los ajustes se aplican a."
 
 msgid "All Posts List Customize"
-msgstr "投稿一覧カスタマイズ"
+msgstr "Todas las Entradas Personalizar"
 
 msgid "All Pages List Customize"
-msgstr "固定ページ一覧設定"
+msgstr "Todas las P&aacute;ginas Personalizar"
 
 msgid "Media Library List Customize"
-msgstr "メディアライブラリ一覧設定"
+msgstr "Librer&iacute;a multimedia lista Personalizar"
 
 msgid "Comments List Customize"
-msgstr "コメント一覧設定"
+msgstr "Comentarios lista Personalizar"
 
 msgid "Available Widgets List Customize"
-msgstr "利用できるウィジェット一覧設定"
+msgstr "Widgets disponibles lista Personalizar"
 
 msgid "Menus show screen List Customize"
-msgstr "メニュー表示項目一覧設定"
+msgstr "Men&uacute; mostrar en pantalla lista Personalizar"
 
 msgid "Menus advanced properties"
-msgstr "詳細メニュー"
+msgstr "propiedades avanzadas de men&uacute;"
 
 msgid "Menus show advanced properties screen List Customize"
-msgstr "詳細メニュー表示項目一覧設定"
+msgstr "Mostrar propiedades avanzadas de men&uacute; lista Personalizar"
 
 msgid "Custom Posts Type"
-msgstr "カスタム投稿タイプ"
+msgstr "Tipo de Entradas personalizado"
 
 msgid "Custom Posts Type List Customize"
-msgstr "カスタム投稿タイプ一覧設定"
+msgstr "Tipo de Entradas personalizado lista Personalizar"
 
 msgid "Please choose a custom post type you want to change the list's view."
-msgstr "一覧表示の変更をしたいカスタム投稿タイプを選択してください。"
+msgstr "Seleccione un tipo de Entradas personalizado para el que desea cambiar la lista."
 
 msgid "No custom post type found."
-msgstr "カスタム投稿タイプがありません。"
+msgstr "No se encontr&oacute; Tipo Entradas personalizado."
 
 msgid "Please select a Custom Posts type from here."
-msgstr "こちらからカスタム投稿タイプを選択してください。"
+msgstr "Seleccione un tipo de entrada personalizada de este lugar."
 
 msgid "Please rearrange the order in which you want to view by Drag & Drop."
-msgstr "表示したい順にドラッグ&ドロップで並べ替えて下さい。"
+msgstr "Por favor, cambiar el orden en el que desea ver por Drag & Drop."
 
 msgid "Please drag and drop the column to show. <strong>* Order does not affect.</strong>"
-msgstr "表示したい項目をドラッグ&ドロップして下さい。<strong>※順番は影響しません。</strong>"
+msgstr "Arrastrar y soltar los elementos que desea mostrar. Orden no afecta."
 
 msgid "Reset settings?"
-msgstr "リセットしますか?"
+msgstr "Restablecer ajustes?"
 
 msgid "Setting Thumbnail size"
-msgstr "サムネイルサイズ設定"
+msgstr "Ajuste de tama&ntilde;o imagen"
 
 msgid "Change the size of thumbnails displayed in the lists."
-msgstr "一覧に表示されるサムネイルのサイズを設定します。"
+msgstr "Cambiar el tama&ntilde;o de las imagen que aparecen en las listas."
 
 msgid "It will be displayed at <strong>%s px</strong> If there is no setting."
-msgstr "設定が無い場合は <strong>%s px</strong> での表示となります。"
+msgstr "Como se muestra en <strong>% s px</strong> Si no hay ningún ajuste."
 
 msgid "Height will be displayed in proportion to the width."
-msgstr "高さは幅に比例した表示となります。"
+msgstr "Altura se mostrar&aacute; en relaci&oacute;n con la anchura."
 
 msgid "Post, Page, and Custom Post type the applies."
-msgstr "投稿、ページ、カスタム投稿タイプに適用されます。"
+msgstr "Entradas, la P&aacute;ginas y el tipo de Entradas personalizado la aplica."
 
 msgid "Apply user roles"
-msgstr "適用するユーザー権限"
+msgstr "Los derechos de usuario que deben aplicarse"
 

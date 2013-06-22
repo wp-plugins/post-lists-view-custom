@@ -25,9 +25,9 @@ wp_enqueue_style( $this->PageSlug , $this->Dir . dirname( dirname( plugin_basena
 	<h2><?php echo $this->Name; ?></h2>
 	<?php echo $this->Msg; ?>
 	<p><?php _e( 'Apply the settings of Post Lists View Custom only user roles selected.' , $this->ltd ); ?>
-	<p><?php _e ( 'Please select the user roles you want to apply the settings.' , $this->ltd ); ?></p>
+	<p><?php _e ( 'Please select the user roles that all settings will apply to.' , $this->ltd ); ?></p>
 
-	<p><strong><span style="color: orange;">new</span> <a href="http://gqevu6bsiz.chicappa.jp/post-lists-view-custom-for-multiple-setups-add-on/?utm_source=use_plugin&utm_medium=head&utm_content=<?php echo $this->ltd; ?>&utm_campaign=<?php echo str_replace( '.' , '_' , $this->Ver ); ?>" target="_blank">Post Lists View Custom for Multiple setups Add-on</a></strong></p>
+	<p><strong><span style="color: orange;">new</span> <a href="<?php echo $this->AuthorUrl; ?>post-lists-view-custom-for-multiple-setups-add-on/?utm_source=use_plugin&utm_medium=head&utm_content=<?php echo $this->ltd; ?>&utm_campaign=<?php echo str_replace( '.' , '_' , $this->Ver ); ?>" target="_blank">Post Lists View Custom for Multiple setups Add-on</a></strong></p>
 
 	<?php $class = $this->ltd; ?>
 	<?php if( get_option( $this->Record["donate_width"] ) ) $class .= ' full-width'; ?>
@@ -61,7 +61,7 @@ wp_enqueue_style( $this->PageSlug , $this->Dir . dirname( dirname( plugin_basena
 				</p>
 		
 				<p class="submit reset">
-					<span class="description"><?php _e( 'Would initialize?' , $this->ltd ); ?></span>
+					<span class="description"><?php _e( 'Reset settings?' , $this->ltd ); ?></span>
 					<input type="submit" class="button-secondary" name="reset" value="<?php _e('Reset'); ?>" />
 				</p>
 
@@ -69,6 +69,12 @@ wp_enqueue_style( $this->PageSlug , $this->Dir . dirname( dirname( plugin_basena
 				
 			</form>
 
+			<p><strong>Translate Help</strong></p>
+			<p>
+				<?php echo _e( 'Would you like to translate?' , $this->ltd_p ); ?>
+				<a href="<?php echo $this->AuthorUrl; ?>please-translation/?utm_source=use_plugin&utm_medium=side&utm_content=<?php echo $this->ltd; ?>&utm_campaign=<?php echo str_replace( '.' , '_' , $this->Ver ); ?>" target="_blank">Translation</a>
+			</p>
+			<p><strong>Bug reports and suggestions</strong></p>
 			<p><?php echo sprintf( __( 'Do you have a proposal you want to improve? Please contact to %s if it is necessary.' , $this->ltd_p ) , '<a href="http://wordpress.org/support/plugin/post-lists-view-custom" target="_blank">' . __( 'Support Forums' ) . '</a>' ); ?></p>
 
 		</div>

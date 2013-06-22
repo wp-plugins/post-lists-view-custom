@@ -1,0 +1,83 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Post Lists View Custom\n"
+"POT-Creation-Date: 2013-04-02 14:11+0900\n"
+"PO-Revision-Date: 2013-06-21 16:40+0900\n"
+"Last-Translator: Gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
+"Language-Team: Gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"Language: ja_JP\n"
+"X-Generator: Poedit 1.5.5\n"
+
+msgid "To donate if you feel that it is useful, please."
+msgstr "Когда вы чувствуете, что вы полезны, пожалуйста, пожертвовать. Спасибо.."
+
+msgid "Thank you for your donation."
+msgstr "Спасибо за пожертвование."
+
+msgid "Thank you very much for your support."
+msgstr "Я хотел бы поблагодарить вас за вашу поддержку."
+
+msgid "Please enter the 'Donation delete key' that have been described in the 'Line Break First and End download page'."
+msgstr "Пожалуйста, введите 'Пожертвование удалить ключ \", которые были описаны в странице загрузки' Line Break First and End'."
+
+msgid "Donate"
+msgstr "Пожертвования"
+
+msgid "Donation delete key"
+msgstr "Пожертвование сообщение удалить ключ"
+
+msgid "I welcome the idea from you."
+msgstr "Я с нетерпением жду от вас идей."
+
+msgid "Do you have any trouble?"
+msgstr "Есть ли у вас проблемы?"
+
+msgid "Please contact me if it is good."
+msgstr "Пожалуйста, свяжитесь с нами, если это хорошо."
+
+msgid "If anything that of the admin screen customize."
+msgstr "О настройке управления экрана."
+
+msgid "Can I be of any use?"
+msgstr "Если в дальнейшем мы чем-либо еще сможем быть вас полезны, пожалуйста дайте нам знать."
+
+msgid "Contact"
+msgstr "Связаться с Нами"
+
+msgid "About plugin"
+msgstr "О плагине"
+
+msgid "Version check"
+msgstr "Подтвержденные операции"
+
+msgid "Developer's site"
+msgstr "плагине разработчика"
+
+msgid "Better Customization Examples"
+msgstr "Индивидуальные образцы"
+
+msgid "Reviews"
+msgstr "Отзывы"
+
+msgid "Do you have a proposal you want to improve? Please contact to %s if it is necessary."
+msgstr "У вас есть предложение, которое вы хотите улучшить? Пожалуйста, свяжитесь с %s, если это необходимо."
+
+msgid "Useful plugins"
+msgstr "Полезные плагины"
+
+msgid "This add-on is can be different setting for each user roles."
+msgstr "Это дополнение является дополнением, которое позволяет устанавливать права для групп пользователей."
+
+msgid "Customize a variety of screen management."
+msgstr "Настроить различные управления экраном."
+
+msgid "Announce to display the dashboard. Change the display to a different user role."
+msgstr "Посмотреть объявление на приборной панели. Я могу изменить права доступа для каждого пользователя."
+
+msgid "The plugin that allows you to add the value of the options. Option value that you have created, can be used in addition to the template tag, Short code can be used in the body of the article."
+msgstr "Необязательное значение Сжигание модуль. Значение опции, которые вы создали, вы можете использовать шаблон и короткий код."
+

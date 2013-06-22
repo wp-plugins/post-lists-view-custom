@@ -13,80 +13,80 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 
 msgid "You can customize the various lists screen."
-msgstr "様々な一覧表示をカスタマイズします。"
+msgstr "&Egrave; possibile personalizzare la schermata di varie liste."
 
 msgid "Apply the settings of Post Lists View Custom only user roles selected."
-msgstr "選択された権限のみ Post Lists View Custom の設定を適用します。"
+msgstr "Domanda unica autorit&agrave; che &egrave; stato selezionato."
 
 msgid "Authority to apply the setting is not selected. <a href=\"%s\">From here</a>, please select the permissions you want to set."
-msgstr "設定を適用する権限が選択されていません。<a href=\"%s\">こちら</a>から設定する権限を選んでください。"
+msgstr "Autorit&agrave; per applicare l'impostazione non &egrave; selezionata. <a href=\"%s\">Da qui</a>, si prega di selezionare le autorizzazioni che si desidera impostare."
 
 msgid "Please select the user roles that all settings will apply to."
-msgstr "設定を適用する権限を選んでください。"
+msgstr "Si prega di scegliere la facolt&agrave; di applicare le impostazioni."
 
 msgid "All Posts List Customize"
-msgstr "投稿一覧カスタマイズ"
+msgstr "Tutti gli Articoli list Personalizza"
 
 msgid "All Pages List Customize"
-msgstr "固定ページ一覧設定"
+msgstr "Tutti gli Pagine list Personalizza"
 
 msgid "Media Library List Customize"
-msgstr "メディアライブラリ一覧設定"
+msgstr "Libreria media list Personalizza"
 
 msgid "Comments List Customize"
-msgstr "コメント一覧設定"
+msgstr "Commenti list Personalizza"
 
 msgid "Available Widgets List Customize"
-msgstr "利用できるウィジェット一覧設定"
+msgstr "Widget disponibili list Personalizza"
 
 msgid "Menus show screen List Customize"
-msgstr "メニュー表示項目一覧設定"
+msgstr "Visualizza a schermo list Personalizza"
 
 msgid "Menus advanced properties"
-msgstr "詳細メニュー"
+msgstr "Visualizza propriet&agrave; avanzate per il menu"
 
 msgid "Menus show advanced properties screen List Customize"
-msgstr "詳細メニュー表示項目一覧設定"
+msgstr "Visualizza propriet&agrave; avanzate per il menu list Personalizza"
 
 msgid "Custom Posts Type"
-msgstr "カスタム投稿タイプ"
+msgstr "Articoli Personalizzata tipo"
 
 msgid "Custom Posts Type List Customize"
-msgstr "カスタム投稿タイプ一覧設定"
+msgstr "Articoli Personalizzata tipo list Personalizza"
 
 msgid "Please choose a custom post type you want to change the list's view."
-msgstr "一覧表示の変更をしたいカスタム投稿タイプを選択してください。"
+msgstr "Selezionare un tipo di Articoli personalizzato per il quale si desidera modificare l'elenco."
 
 msgid "No custom post type found."
-msgstr "カスタム投稿タイプがありません。"
+msgstr "Nessun tipo di Articoli personalizzato trovato."
 
 msgid "Please select a Custom Posts type from here."
-msgstr "こちらからカスタム投稿タイプを選択してください。"
+msgstr "Selezionare un tipo di Articoli personalizzati da qui."
 
 msgid "Please rearrange the order in which you want to view by Drag & Drop."
-msgstr "表示したい順にドラッグ&ドロップで並べ替えて下さい。"
+msgstr "Si prega di modificare l'ordine in cui si desidera visualizzare da Drag & Drop."
 
 msgid "Please drag and drop the column to show. <strong>* Order does not affect.</strong>"
-msgstr "表示したい項目をドラッグ&ドロップして下さい。<strong>※順番は影響しません。</strong>"
+msgstr "Trascinare e rilasciare gli elementi che si desidera visualizzare. <strong>* Ordine non influisce.</strong>"
 
 msgid "Reset settings?"
-msgstr "リセットしますか?"
+msgstr "Azzera le impostazioni?"
 
 msgid "Setting Thumbnail size"
-msgstr "サムネイルサイズ設定"
+msgstr "Impostazione delle dimensioni delle l'immagine"
 
 msgid "Change the size of thumbnails displayed in the lists."
-msgstr "一覧に表示されるサムネイルのサイズを設定します。"
+msgstr "Modificare le dimensioni delle l'immagine visualizzate nelle liste."
 
 msgid "It will be displayed at <strong>%s px</strong> If there is no setting."
-msgstr "設定が無い場合は <strong>%s px</strong> での表示となります。"
+msgstr "Questo può essere un display in  <strong>% s px</strong> Se non vi è alcuna impostazione."
 
 msgid "Height will be displayed in proportion to the width."
-msgstr "高さは幅に比例した表示となります。"
+msgstr "Altezza viene visualizzato in proporzione alla larghezza."
 
 msgid "Post, Page, and Custom Post type the applies."
-msgstr "投稿、ページ、カスタム投稿タイプに適用されます。"
+msgstr "Si applica Articoli, pagine, tipo di Articoli personalizzato."
 
 msgid "Apply user roles"
-msgstr "適用するユーザー権限"
+msgstr "I diritti utente da applicare"
 

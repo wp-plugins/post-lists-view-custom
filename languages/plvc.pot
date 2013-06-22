@@ -1,13 +1,16 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: Post Lists View Custom\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
 "Last-Translator: Gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
 "Language-Team: Gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.5\n"
+"Language: ja\n"
+"X-Poedit-SourceCharset: utf-8\n"
 
 msgid "You can customize the various lists screen."
 msgstr ""
@@ -15,10 +18,10 @@ msgstr ""
 msgid "Apply the settings of Post Lists View Custom only user roles selected."
 msgstr ""
 
-msgid "Authority to apply the setting is not selected. Please select the permissions you want to set <a href=\"%s\">from here</a>."
+msgid "Authority to apply the setting is not selected. <a href=\"%s\">From here</a>, please select the permissions you want to set."
 msgstr ""
 
-msgid "Please select the user roles you want to apply the settings."
+msgid "Please select the user roles that all settings will apply to."
 msgstr ""
 
 msgid "All Posts List Customize"
@@ -60,16 +63,13 @@ msgstr ""
 msgid "Please select a Custom Posts type from here."
 msgstr ""
 
-msgid "Please rearrange the order in which you want to view by drag and drop."
+msgid "Please rearrange the order in which you want to view by Drag & Drop."
 msgstr ""
 
 msgid "Please drag and drop the column to show. <strong>* Order does not affect.</strong>"
 msgstr ""
 
-msgid "Would initialize?"
-msgstr ""
-
-msgid "Alt Text"
+msgid "Reset settings?"
 msgstr ""
 
 msgid "Setting Thumbnail size"
@@ -89,3 +89,4 @@ msgstr ""
 
 msgid "Apply user roles"
 msgstr ""
+

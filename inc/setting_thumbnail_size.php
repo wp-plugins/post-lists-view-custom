@@ -56,7 +56,7 @@ $Data = $this->get_data( $this->SetPage );
 					<input type="submit" class="button-primary" name="update" value="<?php _e( 'Save' ); ?>" />
 				</p>
 				<p class="submit reset">
-					<span class="description"><?php _e( 'Would initialize?' , $this->ltd ); ?></span>
+					<span class="description"><?php _e( 'Reset settings?' , $this->ltd ); ?></span>
 					<input type="submit" class="button-secondary" name="reset" value="<?php _e( 'Reset' ); ?>" />
 				</p>
 		

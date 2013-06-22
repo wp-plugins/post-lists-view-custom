@@ -63,7 +63,7 @@ $Data = $this->get_data_columns( $this->SetPage );
 	<?php if( $this->SetPage == 'menus' or $this->SetPage == 'menus_adv' or $this->SetPage == 'widgets' ) : ?>
 		<p><?php _e( 'Please drag and drop the column to show. <strong>* Order does not affect.</strong>' , $this->ltd ); ?></p>
 	<?php else: ?>
-		<p><?php _e( 'Please rearrange the order in which you want to view by drag and drop.' , $this->ltd ); ?></p>
+		<p><?php _e( 'Please rearrange the order in which you want to view by Drag & Drop.' , $this->ltd ); ?></p>
 	<?php endif; ?>
 
 	<h3 id="plvc-apply-user-roles"><?php echo $this->get_apply_roles(); ?></h3>
@@ -131,7 +131,7 @@ $Data = $this->get_data_columns( $this->SetPage );
 					<input type="submit" class="button-primary" name="update" value="<?php _e( 'Save' ); ?>" />
 				</p>
 				<p class="submit reset">
-					<span class="description"><?php _e( 'Would initialize?' , $this->ltd ); ?></span>
+					<span class="description"><?php _e( 'Reset settings?' , $this->ltd ); ?></span>
 					<input type="submit" class="button-secondary" name="reset" value="<?php _e( 'Reset' ); ?>" />
 				</p>
 		

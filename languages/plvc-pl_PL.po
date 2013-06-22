@@ -13,80 +13,80 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 
 msgid "You can customize the various lists screen."
-msgstr "様々な一覧表示をカスタマイズします。"
+msgstr "Dostosowywanie listy."
 
 msgid "Apply the settings of Post Lists View Custom only user roles selected."
-msgstr "選択された権限のみ Post Lists View Custom の設定を適用します。"
+msgstr "Ustawienia dotycz&#261; tylko wybranych uprawnie&#x144;."
 
 msgid "Authority to apply the setting is not selected. <a href=\"%s\">From here</a>, please select the permissions you want to set."
-msgstr "設定を適用する権限が選択されていません。<a href=\"%s\">こちら</a>から設定する権限を選んでください。"
+msgstr "Urz&#261;d, aby zastosowa&#x107; ustawienie nie jest zaznaczone. <a href=\"%s\">tutaj</a>, wybierz uprawnienia, kt&oacute;re chcesz ustawi&#x107;."
 
 msgid "Please select the user roles that all settings will apply to."
-msgstr "設定を適用する権限を選んでください。"
+msgstr "Prosz&#0281; wybra&#x107; użytkownik&oacute;w zastosowa&#x107; ustawienia."
 
 msgid "All Posts List Customize"
-msgstr "投稿一覧カスタマイズ"
+msgstr "Lista wszystkie Wpisy Dostosuj"
 
 msgid "All Pages List Customize"
-msgstr "固定ページ一覧設定"
+msgstr "Lista wszystkie Strony Dostosuj"
 
 msgid "Media Library List Customize"
-msgstr "メディアライブラリ一覧設定"
+msgstr "Lista Biblioteka medi&oacute;w Dostosuj"
 
 msgid "Comments List Customize"
-msgstr "コメント一覧設定"
+msgstr "Lista Komentarze Dostosuj"
 
 msgid "Available Widgets List Customize"
-msgstr "利用できるウィジェット一覧設定"
+msgstr "Lista Dost&#0281;pne widgety Dostosuj"
 
 msgid "Menus show screen List Customize"
-msgstr "メニュー表示項目一覧設定"
+msgstr "Lista Wy&#347;wietlaj na ekranie Dostosuj"
 
 msgid "Menus advanced properties"
-msgstr "詳細メニュー"
+msgstr "Poka&#380; zaawansowane wła&#347;ciwo&#347;ci menu"
 
 msgid "Menus show advanced properties screen List Customize"
-msgstr "詳細メニュー表示項目一覧設定"
+msgstr "Lista Poka&#380; zaawansowane wła&#347;ciwo&#347;ci menu Dostosuj"
 
 msgid "Custom Posts Type"
-msgstr "カスタム投稿タイプ"
+msgstr "Typ niestandardowy Wpisy"
 
 msgid "Custom Posts Type List Customize"
-msgstr "カスタム投稿タイプ一覧設定"
+msgstr "Lista Typ niestandardowy Wpisy Dostosuj"
 
 msgid "Please choose a custom post type you want to change the list's view."
-msgstr "一覧表示の変更をしたいカスタム投稿タイプを選択してください。"
+msgstr "Wybierz typ niestandardowy Wpisy, dla którego chcesz zmienić listę."
 
 msgid "No custom post type found."
-msgstr "カスタム投稿タイプがありません。"
+msgstr "No niestandardowy typ Wpisy."
 
 msgid "Please select a Custom Posts type from here."
-msgstr "こちらからカスタム投稿タイプを選択してください。"
+msgstr "Wybierz typ niestandardowy Wpisy z tego miejsca."
 
 msgid "Please rearrange the order in which you want to view by Drag & Drop."
-msgstr "表示したい順にドラッグ&ドロップで並べ替えて下さい。"
+msgstr "Prosz&#0281; posortowane według przeciągania i upuszczania w kolejno&#347;ci, w której chcesz wy&#347;wietli&#x107;."
 
 msgid "Please drag and drop the column to show. <strong>* Order does not affect.</strong>"
-msgstr "表示したい項目をドラッグ&ドロップして下さい。<strong>※順番は影響しません。</strong>"
+msgstr "Prosz&#0281; przeci&#261;gn&#261;&#x107; kolumn&#0281;, aby pokaza&#x107;. <strong>Order * nie ma wpływu</strong>."
 
 msgid "Reset settings?"
-msgstr "リセットしますか?"
+msgstr "Zresetowa&#x107; ustawienia?"
 
 msgid "Setting Thumbnail size"
-msgstr "サムネイルサイズ設定"
+msgstr "Ustawienie rozmiaru ikon&#0281;"
 
 msgid "Change the size of thumbnails displayed in the lists."
-msgstr "一覧に表示されるサムネイルのサイズを設定します。"
+msgstr "Zmie&#x144; rozmiar ikon&#0281; wyświetlanych na listach."
 
 msgid "It will be displayed at <strong>%s px</strong> If there is no setting."
-msgstr "設定が無い場合は <strong>%s px</strong> での表示となります。"
+msgstr "B&#0281;dzie It by&#x107; wy&#347;wietlane at <strong>%s px</strong> Je&#380;eli tam jest no setting."
 
 msgid "Height will be displayed in proportion to the width."
-msgstr "高さは幅に比例した表示となります。"
+msgstr "Wzrost b&#0281;dzie wy&#347;wietlany w stosunku do szeroko&#347;ci."
 
 msgid "Post, Page, and Custom Post type the applies."
-msgstr "投稿、ページ、カスタム投稿タイプに適用されます。"
+msgstr "Dotyczy to Wpisy, Strony, Typ niestandardowy Wpisy."
 
 msgid "Apply user roles"
-msgstr "適用するユーザー権限"
+msgstr "Zastosuj u&#380;ytkownik&oacute;w"
 

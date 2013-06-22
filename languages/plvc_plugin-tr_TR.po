@@ -1,0 +1,83 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Post Lists View Custom\n"
+"POT-Creation-Date: 2013-04-02 14:11+0900\n"
+"PO-Revision-Date: 2013-06-21 16:41+0900\n"
+"Last-Translator: Gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
+"Language-Team: Gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"Language: ja_JP\n"
+"X-Generator: Poedit 1.5.5\n"
+
+msgid "To donate if you feel that it is useful, please."
+msgstr "E&#x11F;er yararlı hissediyorum oldu&#x11F;unuzda, ba&#x11F;ış l&uuml;tfen. Teşekk&uuml;r ederim. L&uuml;tfen."
+
+msgid "Thank you for your donation."
+msgstr "Ba&#x11F;ış için teşekk&uuml;r ederiz."
+
+msgid "Thank you very much for your support."
+msgstr "Deste&#x11F;iniz için &ccedil;ok te&#x15F;ekk&uuml;r ederim."
+
+msgid "Please enter the 'Donation delete key' that have been described in the 'Line Break First and End download page'."
+msgstr "''Line Break First and End' indirme sayfasında tarif edilmi&#x15F; 'Ba&#x11F;ı&#x15F; anahtarını silin' girin."
+
+msgid "Donate"
+msgstr "Ba&#x11F;ı&#x15F;lamak"
+
+msgid "Donation delete key"
+msgstr "Ba&#x11F;ış sil tu&#x15F;una"
+
+msgid "I welcome the idea from you."
+msgstr "Ben fikirlerinizi bekliyorum."
+
+msgid "Do you have any trouble?"
+msgstr "E&#x11F;er herhangi bir sorun var mı?"
+
+msgid "Please contact me if it is good."
+msgstr "Iyi ise bana ula&#x15F;ın."
+
+msgid "If anything that of the admin screen customize."
+msgstr "Y&ouml;netici ekranını &ouml;zelleştirmek bu e&#x11F;er bir &#x15F;ey."
+
+msgid "Can I be of any use?"
+msgstr "E&#x11F;er daha fazla yardımcı olabilece&#x11F;imizi d&uuml;ş&uuml;n&uuml;yorsanız, l&uuml;tfen bize bildirin."
+
+msgid "Contact"
+msgstr "Bize ula&#x15F;ın"
+
+msgid "About plugin"
+msgstr "Plugin Hakkında"
+
+msgid "Version check"
+msgstr "Onaylandı &ccedil;alı&#x15F;ma"
+
+msgid "Developer's site"
+msgstr "Geli&#x15F;tirici sitesinde"
+
+msgid "Better Customization Examples"
+msgstr "Daha iyi &ouml;rnek &ouml;zelle&#x15F;tirmek"
+
+msgid "Reviews"
+msgstr "Yorumlar"
+
+msgid "Do you have a proposal you want to improve? Please contact to %s if it is necessary."
+msgstr "E&#x11F;er geli&#x15F;tirmek isteyen bir &ouml;neri var mı? Gerekirse %s ba&#x15F;vurun."
+
+msgid "Useful plugins"
+msgstr "Faydalı eklentileri"
+
+msgid "This add-on is can be different setting for each user roles."
+msgstr "Bu eklenti her kullanıcı rolleri i&ccedil;in farklı bir ayar olabilir."
+
+msgid "Customize a variety of screen management."
+msgstr "Ekran y&ouml;netimi &ccedil;e&#x15F;itli &ouml;zelle&#x15F;tirin."
+
+msgid "Announce to display the dashboard. Change the display to a different user role."
+msgstr "Ba&#x15F;langı&ccedil; tablosunda Duyurusu g&ouml;r&uuml;nt&uuml;leyin."
+
+msgid "The plugin that allows you to add the value of the options. Option value that you have created, can be used in addition to the template tag, Short code can be used in the body of the article."
+msgstr "Eklentiler bir seçenek de&#x11F;er yaratmak. Yazılar ve &#x15F;ablonları da kullanılabilir."
+

@@ -3,9 +3,9 @@
 Plugin Name: Post Lists View Custom
 Description: You can customize the various lists screen.
 Plugin URI: http://wordpress.org/extend/plugins/post-lists-view-custom/
-Version: 1.5.1
+Version: 1.5.2
 Author: gqevu6bsiz
-Author URI: http://gqevu6bsiz.chicappa.jp/?utm_source=use_plugin&utm_medium=list&utm_content=plvc&utm_campaign=1_5_1
+Author URI: http://gqevu6bsiz.chicappa.jp/?utm_source=use_plugin&utm_medium=list&utm_content=plvc&utm_campaign=1_5_2
 Text Domain: plvc
 Domain Path: /languages
 */
@@ -36,9 +36,11 @@ class Post_Lists_View_Custom
 	var $Ver,
 		$Name,
 		$Dir,
+		$AuthorUrl,
 		$ltd,
 		$ltd_p,
 		$Record,
+		$DefaultColumns,
 		$PageSlug,
 		$SetPage,
 		$ThumbnailSize,
@@ -48,9 +50,10 @@ class Post_Lists_View_Custom
 
 
 	function __construct() {
-		$this->Ver = '1.5.1';
+		$this->Ver = '1.5.2';
 		$this->Name = 'Post Lists View Custom';
 		$this->Dir = WP_PLUGIN_URL . '/' . dirname( plugin_basename( __FILE__ ) ) . '/';
+		$this->AuthorUrl = 'http://gqevu6bsiz.chicappa.jp/';
 		$this->ltd = 'plvc';
 		$this->ltd_p = $this->ltd . '_plugin';
 		$this->Record = array(
@@ -110,7 +113,7 @@ class Post_Lists_View_Custom
 
 			$mofile = $this->TransFileCk();
 			if( $mofile == false ) {
-				$translation_link = '<a href="http://gqevu6bsiz.chicappa.jp/please-translation/?utm_source=use_plugin&utm_medium=side&utm_content=' . $this->ltd . '&utm_campaign=' . str_replace( '.' , '_' , $this->Ver ) . '" target="_blank">Please translation</a>'; 
+				$translation_link = '<a href="' . $this->AuthorUrl . 'please-translation/?utm_source=use_plugin&utm_medium=side&utm_content=' . $this->ltd . '&utm_campaign=' . str_replace( '.' , '_' , $this->Ver ) . '" target="_blank">Please translation</a>'; 
 				array_unshift( $links, $translation_link );
 			}
 			$support_link = '<a href="http://wordpress.org/support/plugin/post-lists-view-custom" target="_blank">' . __( 'Support Forums' ) . '</a>';
@@ -469,7 +472,7 @@ class Post_Lists_View_Custom
 		if( empty( $Data ) ) {
 
 			if( $current_screen->parent_base == $this->PageSlug && $current_screen->id != 'toplevel_page_post_lists_view_custom' && $current_screen->id != 'post-lists-view-custom_page_plvc_add_multiple' ) {
-				echo '<div class="error"><p><strong>' . sprintf( __( 'Authority to apply the setting is not selected. Please select the permissions you want to set <a href="%s">from here</a>.' , $this->ltd ) , self_admin_url( 'admin.php?page=' . $this->PageSlug ) ) . '</strong></p></div>';
+				echo '<div class="error"><p><strong>' . sprintf( __( 'Authority to apply the setting is not selected. <a href="%s">From here</a>, please select the permissions you want to set.' , $this->ltd ) , self_admin_url( 'admin.php?page=' . $this->PageSlug ) ) . '</strong></p></div>';
 			}
 
 		}
@@ -514,7 +517,7 @@ class Post_Lists_View_Custom
 		} elseif( $column_name == 'post-formats' ) { $Label = __( 'Format' );
 
 		} elseif( $column_name == 'media_title' ) { $Label = __( 'Title' );
-		} elseif( $column_name == 'image_alt' ) { $Label = __( 'Alt Text' , $this->ltd );
+		} elseif( $column_name == 'image_alt' ) { $Label = __( 'Alternative Text' );
 
 		} elseif( $column_name == 'post_excerpt' ) { $Label = __('Caption');
 		} elseif( $column_name == 'post_content' ) { $Label = __('Details');
@@ -984,6 +987,19 @@ class Post_Lists_View_Custom
 	}
 
 	// SetList
+	function get_user_role_group() {
+		$UserRole = '';
+		$User = wp_get_current_user();
+		if( !empty( $User->roles ) ) {
+			foreach( $User->roles as $role ) {
+				$UserRole = $role;
+				break;
+			}
+		}
+		return $UserRole;
+	}
+
+	// SetList
 	function wp_ajax_plvc_get_donation_toggle() {
 		echo get_option( $this->ltd . '_donate_width' );
 		die();
@@ -1154,11 +1170,7 @@ class Post_Lists_View_Custom
 		if( !empty( $SettingRole ) ) {
 			unset($SettingRole["UPFN"]);
 
-			$UserRole = '';
-			$User = wp_get_current_user();
-			if( !empty( $User->roles[0] ) ) {
-				$UserRole = $User->roles[0];
-			}
+			$UserRole = $this->get_user_role_group();
 
 			if( !is_network_admin() ) {
 				if( array_key_exists( $UserRole , $SettingRole ) ) {
@@ -1566,7 +1578,7 @@ jQuery(document).ready(function($) {
 
 	// FilterStart
 	function layout_footer( $text ) {
-		$text = '<img src="http://www.gravatar.com/avatar/7e05137c5a859aa987a809190b979ed4?s=18" width="18" /> Plugin developer : <a href="http://gqevu6bsiz.chicappa.jp/?utm_source=use_plugin&utm_medium=footer&utm_content=' . $this->ltd . '&utm_campaign=' . str_replace( '.' , '_' , $this->Ver ) . '" target="_blank">gqevu6bsiz</a>';
+		$text = '<img src="http://www.gravatar.com/avatar/7e05137c5a859aa987a809190b979ed4?s=18" width="18" /> Plugin developer : <a href="'. $this->AuthorUrl . '?utm_source=use_plugin&utm_medium=footer&utm_content=' . $this->ltd . '&utm_campaign=' . str_replace( '.' , '_' , $this->Ver ) . '" target="_blank">gqevu6bsiz</a>';
 		return $text;
 	}
 
@@ -1574,7 +1586,7 @@ jQuery(document).ready(function($) {
 	function DisplayDonation() {
 		$donation = get_option( $this->ltd . '_donated' );
 		if( $this->DonateKey != $donation ) {
-			$this->Msg .= '<div class="error"><p><strong>' . __( 'Please consider a donation if you are satisfied with this plugin.' , $this->ltd_p ) . '</strong></p></div>';
+			$this->Msg .= '<div class="updated" style="background: #E5FFE2; border-color: #7BE762;"><p><strong>' . __( 'To donate if you feel that it is useful, please.' , $this->ltd_p ) . '</strong></p></div>';
 		}
 	}
 
