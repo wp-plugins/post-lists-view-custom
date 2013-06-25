@@ -11,6 +11,8 @@ msgstr ""
 "X-Generator: Poedit 1.5.5\n"
 "Language: ja\n"
 "X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-Language: Dutch\n"
+"X-Poedit-Country: NEW ZEALAND\n"
 
 msgid "You can customize the various lists screen."
 msgstr "U kunt de verschillende scherm lijsten aan te passen."
@@ -89,4 +91,10 @@ msgstr "Het geldt berichten, pagina's, aangepaste Berichten typen aan."
 
 msgid "Apply user roles"
 msgstr "Gebruikersrechten toe te passen"
+
+msgid "Could not read the columns."
+msgstr "Kon de kolommen niet lezen."
+
+msgid "Columns will be loaded automatically when you access <a href=\"%1$s\">%2$s</a>."
+msgstr "Kolommen worden automatisch geladen wanneer u <a href=\"%1$s\">%2$s</a>."
 

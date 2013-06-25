@@ -6,11 +6,12 @@ msgstr ""
 "Last-Translator: Gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
 "Language-Team: Gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.5\n"
-"Language: ja\n"
-"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-Language: Japanese\n"
+"X-Poedit-Country: JAPAN\n"
 
 msgid "You can customize the various lists screen."
 msgstr "様々な一覧表示をカスタマイズします。"
@@ -89,4 +90,10 @@ msgstr "投稿、ページ、カスタム投稿タイプに適用されます。
 
 msgid "Apply user roles"
 msgstr "適用するユーザー権限"
+
+msgid "Could not read the columns."
+msgstr "カラムの読み取りが出来ませんでした。"
+
+msgid "Columns will be loaded automatically when you access <a href=\"%1$s\">%2$s</a>."
+msgstr "<a href=\"%1$s\">%2$s</a>にアクセスした時にカラムは自動的に読み込まれます。"
 

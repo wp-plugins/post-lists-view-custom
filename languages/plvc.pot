@@ -90,3 +90,9 @@ msgstr ""
 msgid "Apply user roles"
 msgstr ""
 
+msgid "Could not read the columns."
+msgstr ""
+
+msgid "Columns will be loaded automatically when you access <a href=\"%1$s\">%2$s</a>."
+msgstr ""
+

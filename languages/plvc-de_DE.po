@@ -10,6 +10,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.5\n"
 "X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: GERMANY\n"
 
 msgid "You can customize the various lists screen."
 msgstr "Sie k&ouml;nnen die verschiedenen Listen angezeigt."
@@ -88,4 +90,10 @@ msgstr "Es gilt Beitr&auml;ge, Seiten, Benutzerdefinierte Inhaltstypen."
 
 msgid "Apply user roles"
 msgstr "Bewerben Benutzerrollen"
+
+msgid "Could not read the columns."
+msgstr "Konnte nicht gelesen werden die Spalten."
+
+msgid "Columns will be loaded automatically when you access <a href=\"%1$s\">%2$s</a>."
+msgstr "Spalten werden automatisch geladen, wenn Sie <a href=\"%1$s\">%2$s</a>."
 

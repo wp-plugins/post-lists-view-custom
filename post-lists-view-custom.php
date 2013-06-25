@@ -3,9 +3,9 @@
 Plugin Name: Post Lists View Custom
 Description: You can customize the various lists screen.
 Plugin URI: http://wordpress.org/extend/plugins/post-lists-view-custom/
-Version: 1.5.2
+Version: 1.5.3
 Author: gqevu6bsiz
-Author URI: http://gqevu6bsiz.chicappa.jp/?utm_source=use_plugin&utm_medium=list&utm_content=plvc&utm_campaign=1_5_2
+Author URI: http://gqevu6bsiz.chicappa.jp/?utm_source=use_plugin&utm_medium=list&utm_content=plvc&utm_campaign=1_5_3
 Text Domain: plvc
 Domain Path: /languages
 */
@@ -40,7 +40,6 @@ class Post_Lists_View_Custom
 		$ltd,
 		$ltd_p,
 		$Record,
-		$DefaultColumns,
 		$PageSlug,
 		$SetPage,
 		$ThumbnailSize,
@@ -50,7 +49,7 @@ class Post_Lists_View_Custom
 
 
 	function __construct() {
-		$this->Ver = '1.5.2';
+		$this->Ver = '1.5.3';
 		$this->Name = 'Post Lists View Custom';
 		$this->Dir = WP_PLUGIN_URL . '/' . dirname( plugin_basename( __FILE__ ) ) . '/';
 		$this->AuthorUrl = 'http://gqevu6bsiz.chicappa.jp/';
@@ -67,6 +66,7 @@ class Post_Lists_View_Custom
 			"menus_adv" => $this->ltd . '_menus_adv',
 			"custom_posts" => $this->ltd . '_custom_posts',
 			"thunmbnail" => $this->ltd . '_thumbnail',
+			"regist_columns" => $this->ltd . '_regist_columns',
 			"donate" => $this->ltd . '_donated',
 			"donate_width" => $this->ltd . '_donate_width',
 		);
@@ -79,7 +79,7 @@ class Post_Lists_View_Custom
 		$this->Msg = '';
 
 		$this->PluginSetup();
-		add_action( 'admin_head' , array( $this , 'FilterStart' ) );
+		$this->FilterStart();
 	}
 	
 	// PluginSetup
@@ -259,7 +259,7 @@ class Post_Lists_View_Custom
 		
 		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
 		$this->DisplayDonation();
-		include_once 'inc/setting_lists.php';
+		include_once 'inc/setting_lists_post.php';
 	}
 
 	// SettingPage
@@ -268,7 +268,7 @@ class Post_Lists_View_Custom
 		
 		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
 		$this->DisplayDonation();
-		include_once 'inc/setting_lists.php';
+		include_once 'inc/setting_lists_post.php';
 	}
 
 	// SettingPage
@@ -325,6 +325,7 @@ class Post_Lists_View_Custom
 
 	// SettingPage
 	function setting_custom_posts() {
+		$this->SetPage = 'custom_posts';
 
 		$PostSlug = '';
 		if( !empty( $_GET["setname"] ) && !empty( $_GET["name"] ) ) {
@@ -335,8 +336,7 @@ class Post_Lists_View_Custom
 		$this->DisplayDonation();
 
 		if( !empty( $PostSlug ) ) {
-			$this->SetPage = 'custom_posts';
-			include_once 'inc/setting_lists.php';
+			include_once 'inc/setting_lists_post.php';
 		} else {
 			echo sprintf( '<p>%s</p>' , __( 'No custom post type found.' , $this->ltd ) );
 			echo sprintf( '<p><a href="%2$s">%1$s</a></p>' , __( 'Please select a Custom Posts type from here.' , $this->ltd ) , self_admin_url( 'admin.php?page=select_custom_posts_list_view_setting' ) );
@@ -489,6 +489,61 @@ class Post_Lists_View_Custom
 	}
 
 	// SetList
+	function get_custom_fields_columns( $Columns ) {
+		global $wpdb;
+
+		// All Post Custom Field meta
+		$All_custom_columns = $wpdb->get_col( "SELECT meta_key FROM $wpdb->postmeta GROUP BY meta_key HAVING meta_key NOT LIKE '\_%' ORDER BY meta_key" );
+		if(!empty($All_custom_columns)) {
+			natcasesort($All_custom_columns);
+		}
+
+		// Unset colum name
+		$Unset = array( 'allorany' , 'hide_on_screen' );
+		foreach($Unset as $name) {
+			if( array_search( $name , $All_custom_columns ) !== false ) {
+				unset( $All_custom_columns[array_search( $name , $All_custom_columns )] );
+			}
+		}
+		
+		// Unset colum match name
+		$MatchUnset = array( 'field_' );
+		foreach( $MatchUnset as $name ) {
+			foreach( $All_custom_columns as $key => $val ) {
+				if( strpos( $val , $name ) !== false ) {
+					unset( $All_custom_columns[$key] );
+				}
+			}
+		}
+
+		foreach($All_custom_columns as $name) {
+			$Columns[$name] = array( "not_use" => 1 , "name" => $name );
+		}
+		unset($All_custom_columns);
+
+		return $Columns;
+	}
+
+	// SetList
+	function get_plugin_fields_columns( $post_type , $Columns ) {
+
+		$RegistColumns = $this->get_data( 'regist_columns' );
+
+		if( !empty( $RegistColumns[$post_type] ) ) {
+			
+			$CurrentColumns = $RegistColumns[$post_type];
+
+			foreach( $CurrentColumns as $column_name => $column_label ) {
+				if( empty( $Columns[$column_name] ) ) {
+					$Columns[$column_name] = array( "use" => 1 , "name" => $column_label );
+				}
+			}
+		}
+
+		return $Columns;
+	}
+
+	// SetList
 	function get_columns_label( $column ) {
 
 		global $wp_version;
@@ -517,7 +572,6 @@ class Post_Lists_View_Custom
 		} elseif( $column_name == 'post-formats' ) { $Label = __( 'Format' );
 
 		} elseif( $column_name == 'media_title' ) { $Label = __( 'Title' );
-		} elseif( $column_name == 'image_alt' ) { $Label = __( 'Alternative Text' );
 
 		} elseif( $column_name == 'post_excerpt' ) { $Label = __('Caption');
 		} elseif( $column_name == 'post_content' ) { $Label = __('Details');
@@ -545,6 +599,14 @@ class Post_Lists_View_Custom
 				$Label = _x( 'Uploaded to' , 'column name' );
 			} else {
 				$Label = _x( 'Attached to' , 'column name' );
+			}
+
+		} elseif( $column_name == 'image_alt' ) {
+
+			if ( version_compare( $wp_version, "3.5", '>=' ) ) {
+				$Label = __( 'Alternative Text' );
+			} else {
+				$Label = __( 'Alternate Text' );
 			}
 
 		} elseif( $column_name == 'date' ) {
@@ -643,8 +705,10 @@ class Post_Lists_View_Custom
 		// Custom fields Marge
 		$Columns = $this->get_custom_fields_columns( $Columns );
 
-		return $Columns;
+		// Plugin fiedls Marge
+		$Columns = $this->get_plugin_fields_columns( "post" , $Columns );
 
+		return $Columns;
 	}
 
 	// SetList
@@ -686,44 +750,11 @@ class Post_Lists_View_Custom
 		// Custom fields Marge
 		$Columns = $this->get_custom_fields_columns( $Columns );
 
-		return $Columns;
-
-	}
-
-	// SetList
-	function get_custom_fields_columns( $Columns ) {
-		global $wpdb;
-
-		// All Post Custom Field meta
-		$All_custom_columns = $wpdb->get_col( "SELECT meta_key FROM $wpdb->postmeta GROUP BY meta_key HAVING meta_key NOT LIKE '\_%' ORDER BY meta_key" );
-		if(!empty($All_custom_columns)) {
-			natcasesort($All_custom_columns);
-		}
-
-		// Unset colum name
-		$Unset = array( 'allorany' , 'hide_on_screen' );
-		foreach($Unset as $name) {
-			if( array_search( $name , $All_custom_columns ) !== false ) {
-				unset( $All_custom_columns[array_search( $name , $All_custom_columns )] );
-			}
-		}
-		
-		// Unset colum match name
-		$MatchUnset = array( 'field_' );
-		foreach( $MatchUnset as $name ) {
-			foreach( $All_custom_columns as $key => $val ) {
-				if( strpos( $val , $name ) !== false ) {
-					unset( $All_custom_columns[$key] );
-				}
-			}
-		}
-
-		foreach($All_custom_columns as $name) {
-			$Columns[$name] = array( "not_use" => 1 , "name" => $name );
-		}
-		unset($All_custom_columns);
+		// Plugin fiedls Marge
+		$Columns = $this->get_plugin_fields_columns( "page" , $Columns );
 
 		return $Columns;
+
 	}
 
 	// SetList
@@ -929,6 +960,13 @@ class Post_Lists_View_Custom
 		// Custom fields Marge
 		$Columns = $this->get_custom_fields_columns( $Columns );
 
+		// Plugin fiedls Marge
+		$post_type = "post";
+		if( !empty( $_GET["setname"] ) && !empty( $_GET["name"] ) && $_GET["setname"] == 'custom_posts' ) {
+			$post_type = strip_tags( $_GET["name"] );
+		}
+		$Columns = $this->get_plugin_fields_columns( $post_type , $Columns );
+
 		return $Columns;
 
 	}
@@ -943,17 +981,15 @@ class Post_Lists_View_Custom
 				$Contents .= '<div class="widget-top">';
 				$Contents .= '<div class="widget-title">';
 
-				if( $PostType != 'widgets' ) {
-					$Contents .= '<h4>' . $this->get_columns_label( array( $PostType , $key ) ) . '</h4>';
-				} else {
-					$Contents .= '<h4>' . $val["name"] . '</h4>';
-				}
+				$Contents .= '<h4>' . $val["name"] . '</h4>';
 
 				$Contents .= '</div>';
 				$Contents .= '</div>';
 
 				$Contents .= '<div class="widget-inside">';
-				$Contents .= '<input type="hidden" name="' . $type . '[' . $key . '][name]" value=" ' . $val["name"] . '" />';
+				$Contents .= "\n\n";
+				$Contents .= '<input type="hidden" name="' . $type . '[' . $key . '][name]" value=" ' . esc_html( stripslashes( $val["name"] ) ) . '" />';
+				$Contents .= "\n\n";
 				$Contents .= '</div>';
 
 				$Contents .= '</div>';
@@ -997,6 +1033,28 @@ class Post_Lists_View_Custom
 			}
 		}
 		return $UserRole;
+	}
+
+	// SetList
+	function post_columns_default_load( $columns ) {
+		
+		global $typenow;
+		
+		$UserRole = $this->get_user_role_group();
+		
+		$NowColumns = array();
+		if( $UserRole == 'administrator' && !empty( $columns ) ) {
+
+			$RegistColumns = $this->get_data( 'regist_columns' );
+			$NowColumns = $columns;
+			unset( $NowColumns["cb"] );
+
+			$RegistColumns[$typenow] = $NowColumns;
+			
+			update_option( $this->Record["regist_columns"] , $RegistColumns );
+		}
+		
+		return $columns;
 	}
 
 	// SetList
@@ -1148,7 +1206,7 @@ class Post_Lists_View_Custom
 					$Columns = $_POST[$mode];
 					foreach( $Columns as $column_id => $column_name ) {
 						$tmpK = strip_tags( $column_id );
-						$tmpV = strip_tags ( $column_name["name"] );
+						$tmpV = stripslashes( $column_name["name"] );
 						$GetData[$record][$mode][$tmpK]["name"] = $tmpV;
 					}
 				}
@@ -1163,96 +1221,114 @@ class Post_Lists_View_Custom
 
 	// FilterStart
 	function FilterStart() {
+		if ( is_admin() ) {
+			// default columns load.
+			add_action( 'load-edit.php' , array( $this , 'post_columns_default_load_action' ) );
+			
+			// Filter Set
+			add_action( 'admin_head' , array( $this , 'columns_init' ) );
+		}
+	}
+
+	// FilterStart
+	function post_columns_default_load_action() {
+		global $typenow;
+		add_filter( "manage_edit-" . $typenow . "_columns" , array( $this , 'post_columns_default_load' ) , 10000 );
+	}
+
+	// FilterStart
+	function columns_init() {
 
 		$SettingRole = $this->get_data( 'user_role' );
 		$SettingRole = apply_filters( 'plvc_pre_setting_roles' , $SettingRole );
-
+		
 		if( !empty( $SettingRole ) ) {
 			unset($SettingRole["UPFN"]);
-
+			
 			$UserRole = $this->get_user_role_group();
-
-			if( !is_network_admin() ) {
+		
+			if( !is_network_admin() && !empty( $UserRole) ) {
 				if( array_key_exists( $UserRole , $SettingRole ) ) {
 
-					global $current_screen;
-
-					$Data = array();
-					if( $current_screen->base == 'edit' ) {
-						if( $current_screen->post_type == 'post' or $current_screen->post_type == 'page' ) {
-							$Data = $this->get_data( $current_screen->post_type );
-						} else {
-							$Custom = $this->get_data( "custom_posts" );
-							if( !empty( $Custom[$current_screen->post_type] ) ) {
-								$Data = $Custom[$current_screen->post_type];
+						global $current_screen;
+	
+						$Data = array();
+						if( $current_screen->base == 'edit' ) {
+							if( $current_screen->post_type == 'post' or $current_screen->post_type == 'page' ) {
+								$Data = $this->get_data( $current_screen->post_type );
+							} else {
+								$Custom = $this->get_data( "custom_posts" );
+								if( !empty( $Custom[$current_screen->post_type] ) ) {
+									$Data = $Custom[$current_screen->post_type];
+								}
+							}
+							
+							$hook_header = array( "manage_edit-" . $current_screen->post_type . "_columns" , "PostsColumnHeader" );
+							$hook_body = array( "manage_" . $current_screen->post_type . "_posts_custom_column" , "PostsColumnBody" );
+	
+							if( !empty( $Data ) && !empty( $hook_header ) && !empty( $hook_body ) ) {
+								add_filter( $hook_header[0] , array( $this , $hook_header[1] ) , 10001 );
+								add_action( $hook_body[0] , array( $this , $hook_body[1] ) , 10 , 2 );
+							}
+						}
+	
+						if( $current_screen->base == $current_screen->id && $current_screen->id == 'upload' ) {
+							$Data = $this->get_data( "media" );
+							
+							$hook_header = array( "manage_media_columns" , "MediaColumnHeader" );
+							$hook_body = array( "manage_media_custom_column" , "MediaColumnBody" );
+	
+							if( !empty( $Data ) && !empty( $hook_header ) && !empty( $hook_body ) ) {
+								add_filter( $hook_header[0] , array( $this , $hook_header[1] ) , 10001 );
+								add_action( $hook_body[0] , array( $this , $hook_body[1] ) , 10 , 2 );
 							}
 						}
 						
-						$hook_header = array( "manage_edit-" . $current_screen->post_type . "_columns" , "PostsColumnHeader" );
-						$hook_body = array( "manage_" . $current_screen->post_type . "_posts_custom_column" , "PostsColumnBody" );
-
-						if( !empty( $Data ) && !empty( $hook_header ) && !empty( $hook_body ) ) {
-							add_filter( $hook_header[0] , array( $this , $hook_header[1] ) , 101);
-							add_action( $hook_body[0] , array( $this , $hook_body[1] ) , 10 , 2 );
+						if( $current_screen->base == $current_screen->id && $current_screen->id == 'edit-comments' ) {
+							$Data = $this->get_data( "comments" );
+							
+							$hook_header = array( "manage_edit-comments_columns" , "CommentsColumnHeader" );
+							$hook_body = array( "manage_comments_custom_column" , "CommentsColumnBody" );
+	
+							if( !empty( $Data ) && !empty( $hook_header ) && !empty( $hook_body ) ) {
+								add_filter( $hook_header[0] , array( $this , $hook_header[1] ) , 10001 );
+								add_action( $hook_body[0] , array( $this , $hook_body[1] ) , 10 , 2 );
+							}
 						}
-					}
-
-					if( $current_screen->base == $current_screen->id && $current_screen->id == 'upload' ) {
-						$Data = $this->get_data( "media" );
 						
-						$hook_header = array( "manage_media_columns" , "MediaColumnHeader" );
-						$hook_body = array( "manage_media_custom_column" , "MediaColumnBody" );
-
-						if( !empty( $Data ) && !empty( $hook_header ) && !empty( $hook_body ) ) {
-							add_filter( $hook_header[0] , array( $this , $hook_header[1] ) , 101);
-							add_action( $hook_body[0] , array( $this , $hook_body[1] ) , 10 , 2 );
+						if( $current_screen->base == $current_screen->id && $current_screen->id == 'widgets' ) {
+							$Data = $this->get_data( "widgets" );
+							
+							if( !empty( $Data ) ) {
+								add_filter( 'widgets_admin_page' , array( $this , 'WidgetsColumnBody' ) );
+							}
 						}
-					}
+	
+						if( $current_screen->base == $current_screen->id && $current_screen->id == 'nav-menus' ) {
+							$Data = $this->get_data( "menus" );
+							
+							if( !empty( $Data ) ) {
+								add_filter( "manage_nav-menus_columns" , array( $this , "MenusMetaBox" ) );
+							}
+	
+							$Data = $this->get_data( "menus_adv" );
+							
+							$hook_header = array( "manage_nav-menus_columns" , "MenusAdvColumnHeader" );
+							$hook_body = array( "manage_nav-menus_columns" , "MenusAdvColumnBody" );
+	
+							if( !empty( $Data ) && !empty( $hook_header ) && !empty( $hook_body ) ) {
+								add_filter( $hook_header[0] , array( $this , $hook_header[1] ) );
+								add_action( $hook_body[0] , array( $this , $hook_body[1] ) );
+							}
+						}
 					
-					if( $current_screen->base == $current_screen->id && $current_screen->id == 'edit-comments' ) {
-						$Data = $this->get_data( "comments" );
-						
-						$hook_header = array( "manage_edit-comments_columns" , "CommentsColumnHeader" );
-						$hook_body = array( "manage_comments_custom_column" , "CommentsColumnBody" );
-
-						if( !empty( $Data ) && !empty( $hook_header ) && !empty( $hook_body ) ) {
-							add_filter( $hook_header[0] , array( $this , $hook_header[1] ) , 101);
-							add_action( $hook_body[0] , array( $this , $hook_body[1] ) , 10 , 2 );
-						}
-					}
-					
-					if( $current_screen->base == $current_screen->id && $current_screen->id == 'widgets' ) {
-						$Data = $this->get_data( "widgets" );
-						
-						if( !empty( $Data ) ) {
-							add_filter( 'widgets_admin_page' , array( $this , 'WidgetsColumnBody' ) );
-						}
-					}
-
-					if( $current_screen->base == $current_screen->id && $current_screen->id == 'nav-menus' ) {
-						$Data = $this->get_data( "menus" );
-						
-						if( !empty( $Data ) ) {
-							add_filter( "manage_nav-menus_columns" , array( $this , "MenusMetaBox" ) );
-						}
-
-						$Data = $this->get_data( "menus_adv" );
-						
-						$hook_header = array( "manage_nav-menus_columns" , "MenusAdvColumnHeader" );
-						$hook_body = array( "manage_nav-menus_columns" , "MenusAdvColumnBody" );
-
-						if( !empty( $Data ) && !empty( $hook_header ) && !empty( $hook_body ) ) {
-							add_filter( $hook_header[0] , array( $this , $hook_header[1] ) );
-							add_action( $hook_body[0] , array( $this , $hook_body[1] ) );
-						}
-					}
-
 				}
 			}
+
 		}
 
 	}
-	
+
 	// FilterStart
 	function PostsColumnHeader( $columns ) {
 		global $current_screen;
@@ -1267,7 +1343,7 @@ class Post_Lists_View_Custom
 		$FilterColumn = array( "cb" => $columns["cb"] );
 		if( !empty( $Data["use"] ) ) {
 			foreach( $Data["use"] as $id => $name ) {
-				$FilterColumn[$id] = esc_html( $name["name"] );
+				$FilterColumn[$id] = stripslashes( $name["name"] );
 			}
 		}
 

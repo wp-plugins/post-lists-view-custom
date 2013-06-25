@@ -10,6 +10,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.5\n"
 "X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-Language: Portuguese\n"
+"X-Poedit-Country: BRAZIL\n"
 
 msgid "You can customize the various lists screen."
 msgstr "Vou personalizar a lista."
@@ -88,4 +90,10 @@ msgstr "Aplica se Posts, P&aacute;ginas, o tipo de Posts personalizada."
 
 msgid "Apply user roles"
 msgstr "Os direitos do usu&aacute;rio a serem aplicadas"
+
+msgid "Could not read the columns."
+msgstr "N&atilde;o foi poss&iacute;vel ler as colunas."
+
+msgid "Columns will be loaded automatically when you access <a href=\"%1$s\">%2$s</a>."
+msgstr "Coluna ser&#225; carregado automaticamente quando o acesso <a href=\"%1$s\">%2$s </a>."
 

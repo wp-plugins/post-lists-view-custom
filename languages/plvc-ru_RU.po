@@ -11,6 +11,8 @@ msgstr ""
 "X-Generator: Poedit 1.5.5\n"
 "Language: ja\n"
 "X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-Language: Russian\n"
+"X-Poedit-Country: RUSSIAN FEDERATION\n"
 
 msgid "You can customize the various lists screen."
 msgstr "Вы можете настроить экран различные списки."
@@ -89,4 +91,10 @@ msgstr "Записи, страницы и пользовательский ти�
 
 msgid "Apply user roles"
 msgstr "Применить ролей пользователей"
+
+msgid "Could not read the columns."
+msgstr "Не удается выполнить чтение столбцов."
+
+msgid "Columns will be loaded automatically when you access <a href=\"%1$s\">%2$s</a>."
+msgstr "Колонка будет загружен автоматически при с  доступом <a href=\"%1$s\">%2$s</a>."
 

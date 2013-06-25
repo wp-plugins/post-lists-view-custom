@@ -11,6 +11,8 @@ msgstr ""
 "X-Generator: Poedit 1.5.5\n"
 "Language: ja\n"
 "X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-Language: Polish\n"
+"X-Poedit-Country: POLAND\n"
 
 msgid "You can customize the various lists screen."
 msgstr "Dostosowywanie listy."
@@ -89,4 +91,10 @@ msgstr "Dotyczy to Wpisy, Strony, Typ niestandardowy Wpisy."
 
 msgid "Apply user roles"
 msgstr "Zastosuj u&#380;ytkownik&oacute;w"
+
+msgid "Could not read the columns."
+msgstr "Nie mo&#380;na odczyta&#263; kolumny."
+
+msgid "Columns will be loaded automatically when you access <a href=\"%1$s\">%2$s</a>."
+msgstr "Kolumny zostan&#261; za&#x142;adowane automatycznie po <a href=\"%1$s\">%2$s</a>."
 

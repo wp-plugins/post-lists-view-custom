@@ -11,6 +11,8 @@ msgstr ""
 "X-Generator: Poedit 1.5.5\n"
 "Language: ja\n"
 "X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-Language: Turkish\n"
+"X-Poedit-Country: TURKEY\n"
 
 msgid "You can customize the various lists screen."
 msgstr "Bir liste &ccedil;e&#x15F;itli g&ouml;r&uuml;nt&uuml;ler &ouml;zelle&#x15F;tirmek olacaktır."
@@ -89,4 +91,10 @@ msgstr "Bu &ouml;zel Yazılar t&uuml;r&uuml;, Sayfalar Yazılar ge&ccedil;erlidi
 
 msgid "Apply user roles"
 msgstr "Uygulanacak kullanıcı hakları"
+
+msgid "Could not read the columns."
+msgstr "S&#252;tunları okunamadı."
+
+msgid "Columns will be loaded automatically when you access <a href=\"%1$s\">%2$s</a>."
+msgstr "S&#252;tun otomatik olarak y&#252;klenecek zaman s <a href=\"%1$s\">%2$s</a>."
 
