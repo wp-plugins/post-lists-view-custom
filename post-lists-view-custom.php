@@ -3,9 +3,9 @@
 Plugin Name: Post Lists View Custom
 Description: You can customize the various lists screen.
 Plugin URI: http://wordpress.org/extend/plugins/post-lists-view-custom/
-Version: 1.5.3
+Version: 1.5.3.1
 Author: gqevu6bsiz
-Author URI: http://gqevu6bsiz.chicappa.jp/?utm_source=use_plugin&utm_medium=list&utm_content=plvc&utm_campaign=1_5_3
+Author URI: http://gqevu6bsiz.chicappa.jp/?utm_source=use_plugin&utm_medium=list&utm_content=plvc&utm_campaign=1_5_3_1
 Text Domain: plvc
 Domain Path: /languages
 */
@@ -49,7 +49,7 @@ class Post_Lists_View_Custom
 
 
 	function __construct() {
-		$this->Ver = '1.5.3';
+		$this->Ver = '1.5.3.1';
 		$this->Name = 'Post Lists View Custom';
 		$this->Dir = WP_PLUGIN_URL . '/' . dirname( plugin_basename( __FILE__ ) ) . '/';
 		$this->AuthorUrl = 'http://gqevu6bsiz.chicappa.jp/';
@@ -981,14 +981,15 @@ class Post_Lists_View_Custom
 				$Contents .= '<div class="widget-top">';
 				$Contents .= '<div class="widget-title">';
 
-				$Contents .= '<h4>' . $val["name"] . '</h4>';
+				$Contents .= '<h4>' . stripslashes( $val["name"] ) . '</h4>';
 
 				$Contents .= '</div>';
 				$Contents .= '</div>';
 
 				$Contents .= '<div class="widget-inside">';
 				$Contents .= "\n\n";
-				$Contents .= '<input type="hidden" name="' . $type . '[' . $key . '][name]" value=" ' . esc_html( stripslashes( $val["name"] ) ) . '" />';
+				$Contents .= '<input type="hidden" name="' . $type . '[' . $key . '][name]" value="' . esc_html( stripslashes( $val["name"] ) ) . '" />';
+				
 				$Contents .= "\n\n";
 				$Contents .= '</div>';
 
@@ -1167,7 +1168,7 @@ class Post_Lists_View_Custom
 					$Columns = $_POST[$mode];
 					foreach( $Columns as $column_id => $column_name ) {
 						$tmpK = strip_tags( $column_id );
-						$tmpV = strip_tags ( $column_name["name"] );
+						$tmpV = stripslashes( $column_name["name"] );
 						$Update[$mode][$tmpK]["name"] = $tmpV;
 					}
 				}
