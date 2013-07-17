@@ -32,7 +32,7 @@ $Data = $this->get_data( $this->SetPage );
 
 			<form id="post_lists_view_custom_form" method="post" action="">
 				<input type="hidden" name="<?php echo $this->UPFN; ?>" value="Y">
-				<?php wp_nonce_field(); ?>
+				<?php wp_nonce_field( $this->Nonces["value"] , $this->Nonces["field"] ); ?>
 		
 				<input type="hidden" name="SetPage" value="<?php echo $this->SetPage; ?>">
 				<table class="form-table">

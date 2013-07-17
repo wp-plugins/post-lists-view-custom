@@ -37,19 +37,19 @@ wp_enqueue_style( $this->PageSlug , $this->Dir . dirname( dirname( plugin_basena
 
 			<form id="plvc_setting_default" class="plvc_form" method="post" action="">
 				<input type="hidden" name="<?php echo $this->UPFN; ?>" value="Y" />
-				<?php wp_nonce_field(); ?>
+				<?php wp_nonce_field( $this->Nonces["value"] , $this->Nonces["field"] ); ?>
 
 				<div class="postbox">
 					<h3 class="hndle"><span><?php _e( 'User Roles' ); ?></span></h3>
 					<div class="inside">
 						<?php $field = 'user_role'; ?>
-						<?php foreach($UserRoles as $key => $val) : ?>
+						<?php foreach($UserRoles as $role_name => $val) : ?>
 							<?php $Checked = ''; ?>
-							<?php if( !empty( $Data[$key] ) ) : $Checked = 'checked="checked"'; endif; ?>
+							<?php if( !empty( $Data[$role_name] ) ) : $Checked = 'checked="checked"'; endif; ?>
 							<p>
 								<label>
-									<input type="checkbox" name="data[<?php echo $field; ?>][<?php echo $key; ?>]" value="1" <?php echo $Checked; ?> />
-									<?php echo $val; ?>
+									<input type="checkbox" name="data[<?php echo $field; ?>][<?php echo $role_name; ?>]" value="1" <?php echo $Checked; ?> />
+									<?php echo $val["label"]; ?>
 								</label>
 							</p>
 						<?php endforeach; ?>

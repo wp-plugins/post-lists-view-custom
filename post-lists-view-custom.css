@@ -74,8 +74,3 @@ form#post_lists_view_custom_form table td div#not_use .widget-placeholder {
 	margin-right: 14px;
 }
 
-
-
-.ajax-feedback-use, .ajax-feedback-notuse {
-	visibility: hidden;
-}

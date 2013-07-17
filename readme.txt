@@ -1,10 +1,10 @@
 === Post Lists View Custom ===
 Contributors: gqevu6bsiz
-Donate link: http://gqevu6bsiz.chicappa.jp/please-donation/?utm_source=wporg&utm_medium=donate&utm_content=plvc&utm_campaign=1_5_3_1
+Donate link: http://gqevu6bsiz.chicappa.jp/please-donation/?utm_source=wporg&utm_medium=donate&utm_content=plvc&utm_campaign=1_5_3_2
 Tags: admin, post, posts, page, upload, media, attachment, lists, view, custom, customfield, field, custom_post, navi, menu, comment, widgets
 Requires at least: 3.4.2
-Tested up to: 3.5.2
-Stable tag: 1.5.3.1
+Tested up to: 3.6 RC1
+Stable tag: 1.5.3.2
 License: GPL2
 
 Customize the list of the post and page and the custom post type.
@@ -36,14 +36,19 @@ These lists to Customization is possible.
 
 == Screenshots ==
 
-1. Interface in setting
+1. Settings Interface
 2. While setting
-3. Screen posts list
-4. Screen custom posts type list
-5. Screen media list
-6. Screen navi list
+3. Screen All Posts
+4. Screen Custom Posts Type
+5. Screen Media Library
+6. Screen Navi Menus
 
 == Changelog ==
+
+= 1.5.3.2 =
+* Added a confirmation of Nonce field.
+* Deleted old data conversion.
+* Checked Compatibility.
 
 = 1.5.3.1 =
 * Bug fix : HTML escape mistake.

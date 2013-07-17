@@ -3,9 +3,9 @@
 Plugin Name: Post Lists View Custom
 Description: You can customize the various lists screen.
 Plugin URI: http://wordpress.org/extend/plugins/post-lists-view-custom/
-Version: 1.5.3.1
+Version: 1.5.3.2
 Author: gqevu6bsiz
-Author URI: http://gqevu6bsiz.chicappa.jp/?utm_source=use_plugin&utm_medium=list&utm_content=plvc&utm_campaign=1_5_3_1
+Author URI: http://gqevu6bsiz.chicappa.jp/?utm_source=use_plugin&utm_medium=list&utm_content=plvc&utm_campaign=1_5_3_2
 Text Domain: plvc
 Domain Path: /languages
 */
@@ -43,13 +43,13 @@ class Post_Lists_View_Custom
 		$PageSlug,
 		$SetPage,
 		$ThumbnailSize,
-		$Multiple,
+		$Nonces,
 		$UPFN,
 		$Msg;
 
 
 	function __construct() {
-		$this->Ver = '1.5.3.1';
+		$this->Ver = '1.5.3.2';
 		$this->Name = 'Post Lists View Custom';
 		$this->Dir = WP_PLUGIN_URL . '/' . dirname( plugin_basename( __FILE__ ) ) . '/';
 		$this->AuthorUrl = 'http://gqevu6bsiz.chicappa.jp/';
@@ -73,7 +73,7 @@ class Post_Lists_View_Custom
 
 		$this->PageSlug = 'post_lists_view_custom';
 		$this->ThumbnailSize = 50;
-		$this->Multiple = false;
+		$this->Nonces = array( "field" => $this->ltd . '_field' , "value" => $this->ltd . '_value' );
 		$this->UPFN = 'Y';
 		$this->DonateKey = 'd77aec9bc89d445fd54b4c988d090f03';
 		$this->Msg = '';
@@ -92,10 +92,7 @@ class Post_Lists_View_Custom
 		add_filter( 'plugin_action_links' , array( $this , 'plugin_action_links' ) , 10 , 2 );
 
 		// add menu
-		add_action( 'admin_menu' , array( $this , 'admin_menu' ) );
-
-		// setup database
-		register_activation_hook( __FILE__ , array( $this , 'SetupRecord' ) );
+		add_action( 'admin_menu' , array( $this , 'admin_menu' ) , 2 );
 
 		// get donation toggle
 		add_action( 'wp_ajax_plvc_get_donation_toggle' , array( $this , 'wp_ajax_plvc_get_donation_toggle' ) );
@@ -110,12 +107,6 @@ class Post_Lists_View_Custom
 	// PluginSetup
 	function plugin_action_links( $links , $file ) {
 		if( plugin_basename(__FILE__) == $file ) {
-
-			$mofile = $this->TransFileCk();
-			if( $mofile == false ) {
-				$translation_link = '<a href="' . $this->AuthorUrl . 'please-translation/?utm_source=use_plugin&utm_medium=side&utm_content=' . $this->ltd . '&utm_campaign=' . str_replace( '.' , '_' , $this->Ver ) . '" target="_blank">Please translation</a>'; 
-				array_unshift( $links, $translation_link );
-			}
 			$support_link = '<a href="http://wordpress.org/support/plugin/post-lists-view-custom" target="_blank">' . __( 'Support Forums' ) . '</a>';
 			array_unshift( $links, $support_link );
 			array_unshift( $links, '<a href="' . admin_url( 'admin.php?page=' . $this->PageSlug ) . '">' . __('Settings') . '</a>' );
@@ -126,7 +117,6 @@ class Post_Lists_View_Custom
 
 	// PluginSetup
 	function admin_menu() {
-		wp_enqueue_style( $this->ltd . '-table' , $this->Dir . dirname( plugin_basename( __FILE__ ) ) . '-table.css' , array() , $this->Ver );
 		add_menu_page( 'Post Lists View Custom' , 'Post Lists View Custom' , 'administrator', $this->PageSlug , array( $this , 'setting_default') );
 		add_submenu_page( $this->PageSlug , __( 'All Posts List Customize' , $this->ltd ) , __( 'All Posts' ) , 'administrator' , $this->Record["post"] , array( $this , 'setting_post' ) );
 		add_submenu_page( $this->PageSlug , __( 'All Pages List Customize' , $this->ltd ) , __( 'All Pages' ) , 'administrator' , $this->Record["page"] , array( $this , 'setting_page' ) );
@@ -138,107 +128,6 @@ class Post_Lists_View_Custom
 		add_submenu_page( $this->PageSlug , __( 'Custom Posts Type' , $this->ltd ) , __( 'Custom Posts Type' , $this->ltd ) , 'administrator' , 'select_custom_posts_list_view_setting' , array( $this , 'select_custom_posts' ) );
 		add_submenu_page( $this->PageSlug , __( 'Custom Posts Type List Customize' , $this->ltd ) , sprintf( '<div style="display: none;">$s</div>' , __( 'Custom Posts Type' , $this->ltd ) ) , 'administrator' , $this->Record["custom_posts"] , array( $this , 'setting_custom_posts' ) );
 		add_submenu_page( $this->PageSlug , __( 'Setting Thumbnail size' , $this->ltd ) , __( 'Setting Thumbnail size' , $this->ltd ) , 'administrator' , $this->Record["thunmbnail"] , array( $this , 'setting_thumbnail' ) );
-	}
-
-	// PluginSetup
-	function SetupRecord() {
-		global $wpdb;
-
-		$LvcNum = $wpdb->get_col( "SELECT option_name FROM $wpdb->options WHERE option_name LIKE  '%_lists_view_custom%'" );
-
-		if( !empty( $LvcNum ) ) {
-
-			$Data = array();
-			foreach( $LvcNum as $record_name) {
-				$Data[$record_name] = get_option( $record_name );
-			}
-			
-			if( isset( $Data["thumbnail_size_lists_view_custom"] ) ) {
-
-				$Update = array();
-				$Update = array( "UPFN" => $this->UPFN );
-				$Update["width"] = intval( $Data["thumbnail_size_lists_view_custom"]["width"] );
-				update_option( $this->Record["thunmbnail"] , $Update );
-				unset( $Data["thumbnail_size_lists_view_custom"] );
-				delete_option( "thumbnail_size_lists_view_custom" );
-			
-			}
-
-			$RecordArr = array();
-			$RecordArr["post"] = "post_lists_view_custom";
-			$RecordArr["page"] = "page_lists_view_custom";
-			$RecordArr["media"] = "media_lists_view_custom";
-			$RecordArr["comments"] = "comment_lists_view_custom";
-			$RecordArr["menus"] = "navi_lists_view_custom";
-			$RecordArr["menus_adv"] = "navi_advance_lists_view_custom";
-
-			foreach( $RecordArr as $record => $old_record ) {
-				if( isset( $Data[$old_record] ) ) {
-
-					$Update = array();
-					$Update = $this->DataConvert( $Data[$old_record] );
-					$Update["UPFN"] = $this->UPFN;
-					update_option( $this->Record[$record] , $Update );
-					delete_option( $old_record );
-					unset( $Data[$old_record] );
-	
-				}
-			}
-
-			if( !empty( $Data ) ) {
-				$Update = array();
-				$Update = array( "UPFN" => $this->UPFN );
-				foreach( $Data as $custom_post_record => $val ) {
-					$CustomPostName = str_replace( '_lists_view_custom' , '' , $custom_post_record );
-					$Update[$CustomPostName] = $this->DataConvert( $val );
-					delete_option( $custom_post_record );
-				}
-				update_option( $this->Record["custom_posts"] , $Update );
-			}
-
-		}
-
-		$Data = $this->get_data( "user_role" );
-		if( empty( $Data["UPFN"] ) ) {
-
-			$UserRoles = $this->get_user_role();
-			$Update = array();
-			$Update["UPFN"] = $this->UPFN;
-			
-			foreach( $UserRoles as $user_role => $role_name ) {
-				$Update[$user_role] = 1;
-			}
-			update_option( $this->Record["user_role"] , $Update );
-
-		}
-
-	}
-
-	// PluginSetup
-	function DataConvert( $Data ) {
-		$NewData = array();
-		
-		foreach( $Data as $id => $column ) {
-			if( !empty( $column["use"] ) ) {
-				$NewData["use"][$id] = array( "name" => $column["name"] );
-			} else {
-				$NewData["not_use"][$id] = array( "name" => $column["name"] );
-			}
-		}
-		
-		return $NewData;
-	}
-
-
-
-	// Translation File Check
-	function TransFileCk() {
-		$file = false;
-		$moFile = WP_PLUGIN_DIR . '/' . dirname( plugin_basename( __FILE__ ) ) . '/languages/plvc-' . get_locale() . '.mo';
-		if( file_exists( $moFile ) ) {
-			$file = true;
-		}
-		return $file;
 	}
 
 
@@ -327,19 +216,19 @@ class Post_Lists_View_Custom
 	function setting_custom_posts() {
 		$this->SetPage = 'custom_posts';
 
+		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
+		$this->DisplayDonation();
+
 		$PostSlug = '';
 		if( !empty( $_GET["setname"] ) && !empty( $_GET["name"] ) ) {
 			$PostSlug = strip_tags( $_GET["name"] );
 		}
 
-		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
-		$this->DisplayDonation();
-
 		if( !empty( $PostSlug ) ) {
 			include_once 'inc/setting_lists_post.php';
 		} else {
 			echo sprintf( '<p>%s</p>' , __( 'No custom post type found.' , $this->ltd ) );
-			echo sprintf( '<p><a href="%2$s">%1$s</a></p>' , __( 'Please select a Custom Posts type from here.' , $this->ltd ) , self_admin_url( 'admin.php?page=select_custom_posts_list_view_setting' ) );
+			echo sprintf( '<p><a href="%2$s">%1$s</a></p>' , __( 'Please select a Custom Posts type from here.' , $this->ltd ) , admin_url( 'admin.php?page=select_custom_posts_list_view_setting' ) );
 		}
 
 	}
@@ -470,11 +359,9 @@ class Post_Lists_View_Custom
 		}
 
 		if( empty( $Data ) ) {
-
-			if( $current_screen->parent_base == $this->PageSlug && $current_screen->id != 'toplevel_page_post_lists_view_custom' && $current_screen->id != 'post-lists-view-custom_page_plvc_add_multiple' ) {
-				echo '<div class="error"><p><strong>' . sprintf( __( 'Authority to apply the setting is not selected. <a href="%s">From here</a>, please select the permissions you want to set.' , $this->ltd ) , self_admin_url( 'admin.php?page=' . $this->PageSlug ) ) . '</strong></p></div>';
+			if( $current_screen->parent_base == $this->PageSlug && $current_screen->id != 'toplevel_page_' . $this->PageSlug ) {
+				echo '<div class="error"><p><strong>' . sprintf( __( 'Authority to apply the setting is not selected. <a href="%s">From here</a>, please select the permissions you want to set.' , $this->ltd ) , admin_url( 'admin.php?page=' . $this->PageSlug ) ) . '</strong></p></div>';
 			}
-
 		}
 	}
 
@@ -482,10 +369,54 @@ class Post_Lists_View_Custom
 	function get_user_role() {
 		$editable_roles = get_editable_roles();
 		foreach ( $editable_roles as $role => $details ) {
-			$UserRole[$role] = translate_user_role( $details['name'] );
+			$editable_roles[$role]["label"] = translate_user_role( $details['name'] );
 		}
 
-		return $UserRole;
+		return $editable_roles;
+	}
+
+	// SetList
+	function get_apply_roles() {
+
+		$apply_user_roles = $this->get_data( 'user_role' );
+		unset( $apply_user_roles["UPFN"] );
+		
+		$Contents =  __( 'Apply user roles' , $this->ltd ) . ' : ';
+		
+		if( !empty( $apply_user_roles ) ) {
+			$UserRoles = $this->get_user_role();
+			foreach( $apply_user_roles as $role => $v ) {
+				$Contents .= '[ ' . $UserRoles[$role]["label"] . ' ]';
+			}
+		} else {
+			$Contents .= __( 'None' );
+		}
+
+		$Contents = apply_filters( 'plvc_get_apply_roles' , $Contents );
+
+		return $Contents;
+
+	}
+
+	// SetList
+	function post_columns_default_load( $columns ) {
+		global $typenow;
+		
+		$UserRole = $this->current_user_role_group();
+		
+		$NowColumns = array();
+		if( $UserRole == 'administrator' && !empty( $columns ) ) {
+
+			$RegistColumns = $this->get_data( 'regist_columns' );
+			$NowColumns = $columns;
+			unset( $NowColumns["cb"] );
+
+			$RegistColumns[$typenow] = $NowColumns;
+			
+			update_option( $this->Record["regist_columns"] , $RegistColumns );
+		}
+		
+		return $columns;
 	}
 
 	// SetList
@@ -619,7 +550,7 @@ class Post_Lists_View_Custom
 
 		} elseif( $column_name == 'add-custom-links' ) {
 
-			if ( version_compare( $wp_version, "3.5.1", '>' ) ) {
+			if ( version_compare( $wp_version, "3.5.2", '>' ) ) {
 				$Label = __( 'Links' );
 			} else {
 				$Label = __( 'Custom Links' );
@@ -850,7 +781,7 @@ class Post_Lists_View_Custom
 			"add-category" , "add-post_format" , "add-post" , "add-post_tag" , 
 		);
 
-		if ( version_compare( $wp_version, "3.5.1", '>' ) ) {
+		if ( version_compare( $wp_version, "3.5.2", '>' ) ) {
 			if( in_array( "nav-menu-theme-locations" , $Columns_Def ) ) {
 				$index = array_search( "nav-menu-theme-locations" , $Columns_Def );
 				unset( $Columns_Def[$index] );
@@ -1001,30 +932,7 @@ class Post_Lists_View_Custom
 	}
 
 	// SetList
-	function get_apply_roles() {
-
-		$apply_user_roles = $this->get_data( 'user_role' );
-		unset( $apply_user_roles["UPFN"] );
-		
-		$Contents =  __( 'Apply user roles' , $this->ltd ) . ' : ';
-		
-		if( !empty( $apply_user_roles ) ) {
-			$UserRoles = $this->get_user_role();
-			foreach( $apply_user_roles as $role => $v ) {
-				$Contents .= '[ ' . $UserRoles[$role] . ' ]';
-			}
-		} else {
-				$Contents .= __( 'None' );
-		}
-
-		$Contents = apply_filters( 'plvc_get_apply_roles' , $Contents );
-
-		return $Contents;
-
-	}
-
-	// SetList
-	function get_user_role_group() {
+	function current_user_role_group() {
 		$UserRole = '';
 		$User = wp_get_current_user();
 		if( !empty( $User->roles ) ) {
@@ -1034,28 +942,6 @@ class Post_Lists_View_Custom
 			}
 		}
 		return $UserRole;
-	}
-
-	// SetList
-	function post_columns_default_load( $columns ) {
-		
-		global $typenow;
-		
-		$UserRole = $this->get_user_role_group();
-		
-		$NowColumns = array();
-		if( $UserRole == 'administrator' && !empty( $columns ) ) {
-
-			$RegistColumns = $this->get_data( 'regist_columns' );
-			$NowColumns = $columns;
-			unset( $NowColumns["cb"] );
-
-			$RegistColumns[$typenow] = $NowColumns;
-			
-			update_option( $this->Record["regist_columns"] , $RegistColumns );
-		}
-		
-		return $columns;
 	}
 
 	// SetList
@@ -1099,22 +985,26 @@ class Post_Lists_View_Custom
 
 	// Update Reset
 	function delete_record( $Record ) {
-		$Record = apply_filters( 'plvc_pre_delete' , $Record );
-		delete_option( $Record );
-		$this->Msg .= '<div class="updated"><p><strong>' . __('Settings saved.') . '</strong></p></div>';
+		if( check_admin_referer( $this->Nonces["value"] , $this->Nonces["field"] ) ) {
+			$Record = apply_filters( 'plvc_pre_delete' , $Record );
+			delete_option( $Record );
+			$this->Msg .= '<div class="updated"><p><strong>' . __('Settings saved.') . '</strong></p></div>';
+		}
 	}
 
 	// DataUpdate
 	function update_record( $Record , $Data ) {
-		$Record = apply_filters( 'plvc_pre_update' , $Record );
-		update_option( $Record , $Data );
-		$this->Msg .= '<div class="updated"><p><strong>' . __('Settings saved.') . '</strong></p></div>';
+		if( check_admin_referer( $this->Nonces["value"] , $this->Nonces["field"] ) ) {
+			$Record = apply_filters( 'plvc_pre_update' , $Record );
+			update_option( $Record , $Data );
+			$this->Msg .= '<div class="updated"><p><strong>' . __('Settings saved.') . '</strong></p></div>';
+		}
 	}
 
 	// Update Reset
 	function update_custom_posts_reset( $record ) {
 		$Update = $this->update_validate();
-		if( !empty( $Update ) ) {
+		if( !empty( $Update ) && check_admin_referer( $this->Nonces["value"] , $this->Nonces["field"] ) ) {
 			$Record_fil = apply_filters( 'plvc_pre_delete' , $this->Record['custom_posts'] );
 			$GetData = get_option( $Record_fil );
 			unset( $GetData[$record] );
@@ -1142,7 +1032,7 @@ class Post_Lists_View_Custom
 	// DataUpdate
 	function update_userrole() {
 		$Update = $this->update_validate();
-		if( !empty( $Update ) ) {
+		if( !empty( $Update ) && check_admin_referer( $this->Nonces["value"] , $this->Nonces["field"] ) ) {
 
 			if( !empty( $_POST["data"]["user_role"] ) ) {
 				foreach($_POST["data"]["user_role"] as $key => $val) {
@@ -1159,7 +1049,7 @@ class Post_Lists_View_Custom
 	// DataUpdate
 	function update_data( $record ) {
 		$Update = $this->update_validate();
-		if( !empty( $Update ) ) {
+		if( !empty( $Update ) && check_admin_referer( $this->Nonces["value"] , $this->Nonces["field"] ) ) {
 
 			$Modes = array( "use" , "not_use" );
 			foreach($Modes as $mode) {
@@ -1181,7 +1071,7 @@ class Post_Lists_View_Custom
 	// DataUpdate
 	function update_thunmbnail( $record ) {
 		$Update = $this->update_validate();
-		if( !empty( $Update ) ) {
+		if( !empty( $Update ) && check_admin_referer( $this->Nonces["value"] , $this->Nonces["field"] ) ) {
 
 			if( !empty( $_POST["width"] ) ) {
 				$Update["width"] = intval( $_POST["width"] );
@@ -1194,7 +1084,7 @@ class Post_Lists_View_Custom
 	// DataUpdate
 	function update_custom_posts_data( $record ) {
 		$Update = $this->update_validate();
-		if( !empty( $Update ) ) {
+		if( !empty( $Update ) && check_admin_referer( $this->Nonces["value"] , $this->Nonces["field"] ) ) {
 
 			$Record_fil = apply_filters( 'plvc_pre_delete' , $this->Record['custom_posts'] );
 			$GetData = get_option( $Record_fil );
@@ -1246,7 +1136,7 @@ class Post_Lists_View_Custom
 		if( !empty( $SettingRole ) ) {
 			unset($SettingRole["UPFN"]);
 			
-			$UserRole = $this->get_user_role_group();
+			$UserRole = $this->current_user_role_group();
 		
 			if( !is_network_admin() && !empty( $UserRole) ) {
 				if( array_key_exists( $UserRole , $SettingRole ) ) {

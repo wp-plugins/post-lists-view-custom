@@ -47,7 +47,7 @@ if( $donatedKey == $this->DonateKey ) :
 			<div class="stuffbox" id="aboutbox">
 				<h3><span class="hndle"><?php _e( 'About plugin' , $this->ltd_p ); ?></span></h3>
 				<div class="inside">
-					<p><?php _e( 'Version check' , $this->ltd_p ); ?> : 3.4.2 - 3.5.2</p>
+					<p><?php _e( 'Version check' , $this->ltd_p ); ?> : 3.4.2 - 3.6 RC1</p>
 					<ul>
 						<li><a href="<?php echo $this->AuthorUrl; ?>?utm_source=use_plugin&utm_medium=side&utm_content=<?php echo $this->ltd; ?>&utm_campaign=<?php echo str_replace( '.' , '_' , $this->Ver ); ?>" target="_blank"><?php _e( 'Developer\'s site' , $this->ltd_p ); ?></a></li>
 						<li><a href="http://wordpress.org/support/plugin/post-lists-view-custom" target="_blank"><?php _e( 'Support Forums' ); ?></a></li>
@@ -59,7 +59,7 @@ if( $donatedKey == $this->DonateKey ) :
 					<p><strong>Translate Help</strong></p>
 					<p><?php echo sprintf( __( 'Would you like to translate?' , $this->ltd_p ) , '<a href="http://wordpress.org/support/plugin/post-lists-view-custom" target="_blank">' . __( 'Support Forums' ) . '</a>' ); ?></p>
 					<p>
-						<a href="<?php echo $this->AuthorUrl; ?>please-translation/?utm_source=use_plugin&utm_medium=side&utm_content=<?php echo $this->ltd; ?>&utm_campaign=<?php echo str_replace( '.' , '_' , $this->Ver ); ?>" target="_blank">Translation</a>
+						<a href="<?php echo $this->AuthorUrl; ?>please-translation/?utm_source=use_plugin&utm_medium=side&utm_content=<?php echo $this->ltd; ?>&utm_campaign=<?php echo str_replace( '.' , '_' , $this->Ver ); ?>" target="_blank">Translate</a>
 					</p>
 					<p><?php echo sprintf( __( 'Do you have a proposal you want to improve? Please contact to %s if it is necessary.' , $this->ltd_p ) , '<a href="http://wordpress.org/support/plugin/post-lists-view-custom" target="_blank">' . __( 'Support Forums' ) . '</a>' ); ?></p>
 				</div>

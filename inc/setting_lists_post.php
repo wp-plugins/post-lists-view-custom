@@ -96,7 +96,7 @@ $Data = $this->get_data_columns( $this->SetPage );
 
 				<form id="post_lists_view_custom_form" method="post" action="">
 					<input type="hidden" name="<?php echo $this->UPFN; ?>" value="Y">
-					<?php wp_nonce_field(); ?>
+					<?php wp_nonce_field( $this->Nonces["value"] , $this->Nonces["field"] ); ?>
 			
 					<input type="hidden" name="SetPage" value="<?php echo $this->SetPage; ?>" />
 					<?php if( $this->SetPage == 'custom_posts' ) : ?>
@@ -118,7 +118,6 @@ $Data = $this->get_data_columns( $this->SetPage );
 										<?php endif; ?>
 									</div>
 									<div class="clear"></div>
-									<img src="<?php echo esc_url( admin_url( 'images/wpspin_light.gif' ) ); ?>" class="ajax-feedback-use" title="" alt="" />
 								</td>
 							</tr>
 						</tbody>
@@ -141,7 +140,6 @@ $Data = $this->get_data_columns( $this->SetPage );
 										<?php endif; ?>
 									</div>
 									<div class="clear"></div>
-									<img src="<?php echo esc_url( admin_url( 'images/wpspin_light.gif' ) ); ?>" class="ajax-feedback-notuse" title="" alt="" />
 								</td>
 							</tr>
 						</tbody>
