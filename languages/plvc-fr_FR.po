@@ -68,8 +68,8 @@ msgstr "S'il vous pla&icirc;t choisir un type de Articles personnalis&eacute;s &
 msgid "Please rearrange the order in which you want to view by Drag & Drop."
 msgstr "S'il vous pla&icirc;t tri&eacute;s par glisser-déposer dans l'ordre dans lequel vous souhaitez afficher."
 
-msgid "Please drag and drop the column to show. <strong>* Order does not affect.</strong>"
-msgstr "S'il vous pla&icirc;t faites glisser la colonne &agrave; montrer. <strong> * Ordre n'a pas d'incidence. </ strong>"
+msgid "Please select the column item to hide."
+msgstr "S'il vous pla&icirc;t s&eacute;lectionner l'&eacute;l&eacute;ment que vous voulez cacher."
 
 msgid "Reset settings?"
 msgstr "R&eacute;initialiser les param&eacute;tres?"
@@ -97,4 +97,7 @@ msgstr "Impossible de lire les colonnes."
 
 msgid "Columns will be loaded automatically when you access <a href=\"%1$s\">%2$s</a>."
 msgstr "Les colonnes seront charg&eacute;s automatiquement lorsque vous <a href=\"%1$s\">%2$s</a>."
+
+msgid "Taxonomy"
+msgstr "Taxinomie"
 

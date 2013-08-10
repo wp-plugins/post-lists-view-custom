@@ -74,3 +74,128 @@ form#post_lists_view_custom_form table td div#not_use .widget-placeholder {
 	margin-right: 14px;
 }
 
+
+
+form#post_lists_view_custom_form table.menu-lists {
+	border-collapse: separate;
+	border-spacing: 0;
+}
+form#post_lists_view_custom_form table.widefat td div.widget.plugin,
+form#post_lists_view_custom_form table.widefat td div.widget.plugin .widget-top,
+form#post_lists_view_custom_form .example_widgets .widget.plugin,
+form#post_lists_view_custom_form .example_widgets .widget.plugin .widget-top {
+	border-color: #CFE1EF;
+}
+form#post_lists_view_custom_form table.widefat td div.widget.plugin .widget-top,
+form#post_lists_view_custom_form .example_widgets .widget.plugin .widget-top,
+form#post_lists_view_custom_form table.menu-lists tr.plugin th,
+form#post_lists_view_custom_form table.menu-lists tr.plugin td {
+	background: #E2EDF5;
+	background-image: -webkit-gradient(linear,left bottom,left top,from(#E2EDF5),to(#F4F8FB));
+	background-image: -webkit-linear-gradient(bottom,#E2EDF5,#F4F8FB);
+	background-image: -moz-linear-gradient(bottom,#E2EDF5,#F4F8FB);
+	background-image: -o-linear-gradient(bottom,#E2EDF5,#F4F8FB);
+	background-image: linear-gradient(to top,#E2EDF5,#F4F8FB);
+}
+form#post_lists_view_custom_form table.widefat td div.widget.custom_fields,
+form#post_lists_view_custom_form table.widefat td div.widget.custom_fields .widget-top,
+form#post_lists_view_custom_form .example_widgets .widget.custom_fields,
+form#post_lists_view_custom_form .example_widgets .widget.custom_fields .widget-top {
+	border-color: #F3CAD5;
+}
+form#post_lists_view_custom_form table.widefat td div.widget.custom_fields .widget-top,
+form#post_lists_view_custom_form .example_widgets .widget.custom_fields .widget-top,
+form#post_lists_view_custom_form table.menu-lists tr.custom_fields th,
+form#post_lists_view_custom_form table.menu-lists tr.custom_fields td {
+	background: #F8E1E7;
+	background-image: -webkit-gradient(linear,left bottom,left top,from(#F8E1E7),to(#FCF5F7));
+	background-image: -webkit-linear-gradient(bottom,#F8E1E7,#FCF5F7);
+	background-image: -moz-linear-gradient(bottom,#F8E1E7,#FCF5F7);
+	background-image: -o-linear-gradient(bottom,#F8E1E7,#FCF5F7);
+	background-image: linear-gradient(to top,#F8E1E7,#FCF5F7);
+}
+form#post_lists_view_custom_form table.widefat td div.widget.custom_post,
+form#post_lists_view_custom_form table.widefat td div.widget.custom_post .widget-top,
+form#post_lists_view_custom_form .example_widgets .widget.custom_post,
+form#post_lists_view_custom_form .example_widgets .widget.custom_post .widget-top {
+	border-color: #F9DAC4;
+}
+form#post_lists_view_custom_form table.widefat td div.widget.custom_post .widget-top,
+form#post_lists_view_custom_form .example_widgets .widget.custom_post .widget-top,
+form#post_lists_view_custom_form table.menu-lists tr.custom_post th,
+form#post_lists_view_custom_form table.menu-lists tr.custom_post td {
+	background: #FCEADD;
+	background-image: -webkit-gradient(linear,left bottom,left top,from(#FCEADD),to(#FDF7F2));
+	background-image: -webkit-linear-gradient(bottom,#FCEADD,#FDF7F2);
+	background-image: -moz-linear-gradient(bottom,#FCEADD,#FDF7F2);
+	background-image: -o-linear-gradient(bottom,#FCEADD,#FDF7F2);
+	background-image: linear-gradient(to top,#FCEADD,#FDF7F2);
+}
+form#post_lists_view_custom_form table.widefat td div.widget.custom_taxonomy,
+form#post_lists_view_custom_form table.widefat td div.widget.custom_taxonomy .widget-top,
+form#post_lists_view_custom_form .example_widgets .widget.custom_taxonomy,
+form#post_lists_view_custom_form .example_widgets .widget.custom_taxonomy .widget-top {
+	border-color: #CCF2CB;
+}
+form#post_lists_view_custom_form table.widefat td div.widget.custom_taxonomy .widget-top,
+form#post_lists_view_custom_form .example_widgets .widget.custom_taxonomy .widget-top,
+form#post_lists_view_custom_form table.menu-lists tr.custom_taxonomy th,
+form#post_lists_view_custom_form table.menu-lists tr.custom_taxonomy td {
+	background: #E0F7E0;
+	background-image: -webkit-gradient(linear,left bottom,left top,from(#E0F7E0),to(#F3FCF3));
+	background-image: -webkit-linear-gradient(bottom,#E0F7E0,#F3FCF3);
+	background-image: -moz-linear-gradient(bottom,#E0F7E0,#F3FCF3);
+	background-image: -o-linear-gradient(bottom,#E0F7E0,#F3FCF3);
+	background-image: linear-gradient(to top,#E0F7E0,#F3FCF3);
+}
+
+form#post_lists_view_custom_form .example_widgets {
+	padding: 0 0 16px 0;
+}
+form#post_lists_view_custom_form .example_widgets .widget {
+	width: 170px;
+	float: left;
+	margin: 0 20px 16px 0;
+}
+form#post_lists_view_custom_form .example_widgets .widget .widget-top {
+	cursor: default;
+}
+
+
+
+/* mp6 */
+
+body.mp6 form#post_lists_view_custom_form table.widefat td div.widget.plugin .widget-top,
+body.mp6 form#post_lists_view_custom_form .example_widgets .widget.plugin .widget-top,
+body.mp6 form#post_lists_view_custom_form table.menu-lists tr.plugin th,
+body.mp6 form#post_lists_view_custom_form table.menu-lists tr.plugin td {
+	background: #913E93;
+}
+body.mp6 form#post_lists_view_custom_form table.widefat td div.widget.custom_fields .widget-top,
+body.mp6 form#post_lists_view_custom_form .example_widgets .widget.custom_fields .widget-top,
+body.mp6 form#post_lists_view_custom_form table.menu-lists tr.custom_fields th,
+body.mp6 form#post_lists_view_custom_form table.menu-lists tr.custom_fields td {
+	background: #9F293A;
+}
+body.mp6 form#post_lists_view_custom_form table.widefat td div.widget.custom_post .widget-top,
+body.mp6 form#post_lists_view_custom_form .example_widgets .widget.custom_post .widget-top,
+body.mp6 form#post_lists_view_custom_form table.menu-lists tr.custom_post th,
+body.mp6 form#post_lists_view_custom_form table.menu-lists tr.custom_post td {
+	background: #F47400;
+}
+body.mp6 form#post_lists_view_custom_form table.widefat td div.widget.custom_taxonomy .widget-top,
+body.mp6 form#post_lists_view_custom_form .example_widgets .widget.custom_taxonomy .widget-top,
+body.mp6 form#post_lists_view_custom_form table.menu-lists tr.custom_taxonomy th,
+body.mp6 form#post_lists_view_custom_form table.menu-lists tr.custom_taxonomy td {
+	background: #3BA610;
+}
+body.mp6 form#post_lists_view_custom_form table.menu-lists tr.plugin th,
+body.mp6 form#post_lists_view_custom_form table.menu-lists tr.plugin td,
+body.mp6 form#post_lists_view_custom_form table.menu-lists tr.custom_fields th,
+body.mp6 form#post_lists_view_custom_form table.menu-lists tr.custom_fields td,
+body.mp6 form#post_lists_view_custom_form table.menu-lists tr.custom_post th,
+body.mp6 form#post_lists_view_custom_form table.menu-lists tr.custom_post td,
+body.mp6 form#post_lists_view_custom_form table.menu-lists tr.custom_taxonomy th,
+body.mp6 form#post_lists_view_custom_form table.menu-lists tr.custom_taxonomy td {
+	color: #fff;
+}

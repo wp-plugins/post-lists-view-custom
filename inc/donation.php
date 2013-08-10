@@ -35,33 +35,36 @@ if( $donatedKey == $this->DonateKey ) :
 				<h3 style="background: #FFF2D0; border-color: #FFC426;"><span class="hndle"><?php _e( 'Do you have any trouble?' , $this->ltd_p ); ?></span></h3>
 				<div class="inside">
 					<p style="float: right;">
-						<img src="http://www.gravatar.com/avatar/7e05137c5a859aa987a809190b979ed4?s=46" width="46" /><br />
+						<img src="<?php echo $this->Schema; ?>www.gravatar.com/avatar/7e05137c5a859aa987a809190b979ed4?s=46" width="46" /><br />
 						<a href="<?php echo $this->AuthorUrl; ?>contact-us/utm_source=use_plugin&utm_medium=side&utm_content=<?php echo $this->ltd; ?>&utm_campaign=<?php echo str_replace( '.' , '_' , $this->Ver ); ?>" target="_blank">gqevu6bsiz</a>
 					</p>
 					<p><?php _e( 'If anything that of the admin screen customize.' , $this->ltd_p ); ?></p>
 					<p><?php _e ('Can I be of any use?' , $this->ltd_p ); ?></p>
-					<p><a href="<?php echo $this->AuthorUrl; ?>contact-us/utm_source=use_plugin&utm_medium=side&utm_content=<?php echo $this->ltd; ?>&utm_campaign=<?php echo str_replace( '.' , '_' , $this->Ver ); ?>" target="_blank"><?php _e( 'Contact' , $this->ltd_p ); ?></a></p>
+					<p>
+						<a href="<?php echo $this->AuthorUrl; ?>contact-us/utm_source=use_plugin&utm_medium=side&utm_content=<?php echo $this->ltd; ?>&utm_campaign=<?php echo str_replace( '.' , '_' , $this->Ver ); ?>" target="_blank"><?php _e( 'Contact' , $this->ltd_p ); ?></a>
+						 | 
+						<a href="http://wpadminuicustomize.com/blog/category/example/?utm_source=use_plugin&utm_medium=side&utm_content=<?php echo $this->ltd; ?>&utm_campaign=<?php echo str_replace( '.' , '_' , $this->Ver ); ?>" target="_blank"><?php _e( 'Better Customization Examples' , $this->ltd_p ); ?></a>
+					</p>
 				</div>
 			</div>
 
 			<div class="stuffbox" id="aboutbox">
 				<h3><span class="hndle"><?php _e( 'About plugin' , $this->ltd_p ); ?></span></h3>
 				<div class="inside">
-					<p><?php _e( 'Version check' , $this->ltd_p ); ?> : 3.4.2 - 3.6 RC1</p>
+					<p><?php _e( 'Version check' , $this->ltd_p ); ?> : 3.4.2 - 3.6</p>
 					<ul>
 						<li><a href="<?php echo $this->AuthorUrl; ?>?utm_source=use_plugin&utm_medium=side&utm_content=<?php echo $this->ltd; ?>&utm_campaign=<?php echo str_replace( '.' , '_' , $this->Ver ); ?>" target="_blank"><?php _e( 'Developer\'s site' , $this->ltd_p ); ?></a></li>
-						<li><a href="http://wordpress.org/support/plugin/post-lists-view-custom" target="_blank"><?php _e( 'Support Forums' ); ?></a></li>
-						<li><a href="http://wpadminuicustomize.com/blog/category/example/?utm_source=use_plugin&utm_medium=side&utm_content=<?php echo $this->ltd; ?>&utm_campaign=<?php echo str_replace( '.' , '_' , $this->Ver ); ?>"><?php _e( 'Better Customization Examples' , $this->ltd_p ); ?></a></li>
-						<li><a href="http://wordpress.org/support/view/plugin-reviews/post-lists-view-custom" target="_blank"><?php _e( 'Reviews' , $this->ltd_p ); ?></a></li>
+						<li><a href="http://wordpress.org/support/plugin/<?php echo $this->PluginSlug; ?>" target="_blank"><?php _e( 'Support Forums' ); ?></a></li>
+						<li><a href="http://wordpress.org/support/view/plugin-reviews/<?php echo $this->PluginSlug; ?>" target="_blank"><?php _e( 'Reviews' , $this->ltd_p ); ?></a></li>
 						<li><a href="https://twitter.com/gqevu6bsiz" target="_blank">twitter</a></li>
 						<li><a href="http://www.facebook.com/pages/Gqevu6bsiz/499584376749601" target="_blank">facebook</a></li>
 					</ul>
 					<p><strong>Translate Help</strong></p>
-					<p><?php echo sprintf( __( 'Would you like to translate?' , $this->ltd_p ) , '<a href="http://wordpress.org/support/plugin/post-lists-view-custom" target="_blank">' . __( 'Support Forums' ) . '</a>' ); ?></p>
+					<p><?php echo sprintf( __( 'Would you like to translate?' , $this->ltd_p ) , '<a href="http://wordpress.org/support/plugin/' . $this->PluginSlug . '" target="_blank">' . __( 'Support Forums' ) . '</a>' ); ?></p>
 					<p>
 						<a href="<?php echo $this->AuthorUrl; ?>please-translation/?utm_source=use_plugin&utm_medium=side&utm_content=<?php echo $this->ltd; ?>&utm_campaign=<?php echo str_replace( '.' , '_' , $this->Ver ); ?>" target="_blank">Translate</a>
 					</p>
-					<p><?php echo sprintf( __( 'Do you have a proposal you want to improve? Please contact to %s if it is necessary.' , $this->ltd_p ) , '<a href="http://wordpress.org/support/plugin/post-lists-view-custom" target="_blank">' . __( 'Support Forums' ) . '</a>' ); ?></p>
+					<p><?php echo sprintf( __( 'Do you have a proposal you want to improve? Please contact to %s if it is necessary.' , $this->ltd_p ) , '<a href="http://wordpress.org/support/plugin/' . $this->PluginSlug . '" target="_blank">' . __( 'Support Forums' ) . '</a>' ); ?></p>
 				</div>
 			</div>
 

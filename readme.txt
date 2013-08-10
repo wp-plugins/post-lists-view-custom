@@ -1,10 +1,10 @@
 === Post Lists View Custom ===
 Contributors: gqevu6bsiz
-Donate link: http://gqevu6bsiz.chicappa.jp/please-donation/?utm_source=wporg&utm_medium=donate&utm_content=plvc&utm_campaign=1_5_3_2
+Donate link: http://gqevu6bsiz.chicappa.jp/please-donation/?utm_source=wporg&utm_medium=donate&utm_content=plvc&utm_campaign=1_5_4
 Tags: admin, post, posts, page, upload, media, attachment, lists, view, custom, customfield, field, custom_post, navi, menu, comment, widgets
-Requires at least: 3.4.2
-Tested up to: 3.6 RC1
-Stable tag: 1.5.3.2
+Requires at least: 3.5.2
+Tested up to: 3.6
+Stable tag: 1.5.4
 License: GPL2
 
 Customize the list of the post and page and the custom post type.
@@ -42,8 +42,17 @@ These lists to Customization is possible.
 4. Screen Custom Posts Type
 5. Screen Media Library
 6. Screen Navi Menus
+7. With MP6
 
 == Changelog ==
+
+= 1.5.4 =
+* Support on SSL.
+* Added to Custom Taxonomies on Menu.
+* Easy to set in color-coded.
+* Changed some settings method.
+* Column to hidden when plugins been deactivated.
+* Corresponds to the theme of MP6.
 
 = 1.5.3.2 =
 * Added a confirmation of Nonce field.

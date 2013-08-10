@@ -15,14 +15,14 @@ $UserRoles = $this->get_user_role();
 
 // include js css
 $ReadedJs = array( 'jquery' , 'jquery-ui-sortable' );
-wp_enqueue_script( $this->PageSlug ,  $this->Dir . dirname( dirname( plugin_basename( __FILE__ ) ) ) . '.js', $ReadedJs , $this->Ver );
-wp_enqueue_style( $this->PageSlug , $this->Dir . dirname( dirname( plugin_basename( __FILE__ ) ) ) . '.css', array() , $this->Ver );
+wp_enqueue_script( $this->PageSlug ,  $this->Url . $this->PluginSlug . '.js', $ReadedJs , $this->Ver );
+wp_enqueue_style( $this->PageSlug , $this->Url . $this->PluginSlug . '.css', array() , $this->Ver );
 
 ?>
 
 <div class="wrap">
 	<div class="icon32" id="icon-tools"></div>
-	<h2><?php echo $this->Name; ?></h2>
+	<h2><?php echo $this->PageTitle; ?></h2>
 	<?php echo $this->Msg; ?>
 	<p><?php _e( 'Apply the settings of Post Lists View Custom only user roles selected.' , $this->ltd ); ?>
 	<p><?php _e ( 'Please select the user roles that all settings will apply to.' , $this->ltd ); ?></p>
@@ -75,7 +75,7 @@ wp_enqueue_style( $this->PageSlug , $this->Dir . dirname( dirname( plugin_basena
 				<a href="<?php echo $this->AuthorUrl; ?>please-translation/?utm_source=use_plugin&utm_medium=side&utm_content=<?php echo $this->ltd; ?>&utm_campaign=<?php echo str_replace( '.' , '_' , $this->Ver ); ?>" target="_blank">Translation</a>
 			</p>
 			<p><strong>Bug reports and suggestions</strong></p>
-			<p><?php echo sprintf( __( 'Do you have a proposal you want to improve? Please contact to %s if it is necessary.' , $this->ltd_p ) , '<a href="http://wordpress.org/support/plugin/post-lists-view-custom" target="_blank">' . __( 'Support Forums' ) . '</a>' ); ?></p>
+			<p><?php echo sprintf( __( 'Do you have a proposal you want to improve? Please contact to %s if it is necessary.' , $this->ltd_p ) , '<a href="http://wordpress.org/support/plugin/' . $this->PluginSlug . '" target="_blank">' . __( 'Support Forums' ) . '</a>' ); ?></p>
 
 		</div>
 

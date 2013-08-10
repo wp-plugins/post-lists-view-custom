@@ -67,14 +67,14 @@ msgstr "こちらからカスタム投稿タイプを選択してください。
 msgid "Please rearrange the order in which you want to view by Drag & Drop."
 msgstr "表示したい順にドラッグ&ドロップで並べ替えて下さい。"
 
-msgid "Please drag and drop the column to show. <strong>* Order does not affect.</strong>"
-msgstr "表示したい項目をドラッグ&ドロップして下さい。<strong>※順番は影響しません。</strong>"
+msgid "Please select the column item to hide."
+msgstr "非表示にしたい項目を選んでください。"
 
 msgid "Reset settings?"
 msgstr "リセットしますか?"
 
 msgid "Setting Thumbnail size"
-msgstr "サムネイルサイズ設定"
+msgstr "アイキャッチサイズ設定"
 
 msgid "Change the size of thumbnails displayed in the lists."
 msgstr "一覧に表示されるサムネイルのサイズを設定します。"
@@ -96,4 +96,7 @@ msgstr "カラムの読み取りが出来ませんでした。"
 
 msgid "Columns will be loaded automatically when you access <a href=\"%1$s\">%2$s</a>."
 msgstr "<a href=\"%1$s\">%2$s</a>にアクセスした時にカラムは自動的に読み込まれます。"
+
+msgid "Taxonomy"
+msgstr "タクソノミー"
 

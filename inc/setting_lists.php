@@ -1,52 +1,41 @@
 <?php
 
 
-$PageTitle = '';
-
-if( $this->SetPage == 'media' ) {
-	$PageTitle = __( 'Media Library List Customize' , $this->ltd );
-} elseif( $this->SetPage == 'comments' ) {
-	$PageTitle = __( 'Comments List Customize' , $this->ltd );
-} elseif( $this->SetPage == 'widgets' ) {
-	$PageTitle = __( 'Available Widgets List Customize' , $this->ltd );
-} elseif( $this->SetPage == 'menus' ) {
-	$PageTitle = __( 'Menus show screen List Customize' , $this->ltd );
-} elseif( $this->SetPage == 'menus_adv' ) {
-	$PageTitle = __( 'Menus show advanced properties screen List Customize' , $this->ltd );
-}
-
-
-
 if( !empty( $_POST["SetPage"] ) ) {
 
-	if( !empty( $_POST["reset"] ) ) {
-		$this->update_reset( $this->SetPage );
-	} elseif( !empty( $_POST["update"] ) ) {
-		$this->update_data( $this->SetPage );
+	if( $this->SetPage == 'media' ) {
+		if( !empty( $_POST["reset"] ) ) {
+			$this->update_reset( $this->SetPage );
+		} elseif( !empty( $_POST["update"] ) ) {
+			$this->update_media();
+		}
+	} elseif( $this->SetPage == 'comments' ) {
+		if( !empty( $_POST["reset"] ) ) {
+			$this->update_reset( $this->SetPage );
+		} elseif( !empty( $_POST["update"] ) ) {
+			$this->update_comments();
+		}
 	}
-
+	
 }
 
 // include js css
 $ReadedJs = array( 'jquery' , 'jquery-ui-sortable' );
-wp_enqueue_script( $this->PageSlug ,  $this->Dir . dirname( dirname( plugin_basename( __FILE__ ) ) ) . '.js', $ReadedJs , $this->Ver );
-wp_enqueue_style( $this->PageSlug , $this->Dir . dirname( dirname( plugin_basename( __FILE__ ) ) ) . '.css', array() , $this->Ver );
+wp_enqueue_script( $this->PageSlug ,  $this->Url . $this->PluginSlug . '.js', $ReadedJs , $this->Ver );
+wp_enqueue_style( $this->PageSlug , $this->Url . $this->PluginSlug . '.css', array() , $this->Ver );
 
 // get data
-$Data = $this->get_data_columns( $this->SetPage );
+$Data = $this->get_data( $this->SetPage );
+$Columns = $this->get_list_columns( $this->SetPage );
 
 ?>
 
 <div class="wrap">
 	<div class="icon32" id="icon-options-general"></div>
-	<h2><?php echo $PageTitle; ?></h2>
+	<h2><?php echo $this->PageTitle; ?></h2>
 	<?php echo $this->Msg; ?>
 
-	<?php if( $this->SetPage == 'menus' or $this->SetPage == 'menus_adv' or $this->SetPage == 'widgets' ) : ?>
-		<p><?php _e( 'Please drag and drop the column to show. <strong>* Order does not affect.</strong>' , $this->ltd ); ?></p>
-	<?php else: ?>
-		<p><?php _e( 'Please rearrange the order in which you want to view by Drag & Drop.' , $this->ltd ); ?></p>
-	<?php endif; ?>
+	<p><?php _e( 'Please rearrange the order in which you want to view by Drag & Drop.' , $this->ltd ); ?></p>
 
 	<h3 id="plvc-apply-user-roles"><?php echo $this->get_apply_roles(); ?></h3>
 
@@ -62,6 +51,14 @@ $Data = $this->get_data_columns( $this->SetPage );
 			
 					<input type="hidden" name="SetPage" value="<?php echo $this->SetPage; ?>" />
 	
+					<div class="example_widgets">
+						<p class="description"><?php _e( 'Description' ); ?></p>
+						<div class="widget"><div class="widget-top"><div class="widget-title"><h4><?php _e( 'Default' ); ?></h4></div></div></div>
+						<div class="widget plugin"><div class="widget-top"><div class="widget-title"><h4><?php _e( 'Plugin' ); ?></h4></div></div></div>
+						<div class="widget custom_fields"><div class="widget-top"><div class="widget-title"><h4><?php _e( 'Custom Fields' ); ?></h4></div></div></div>
+						<div class="clear"></div>
+					</div>
+
 					<table cellspacing="0" class="widefat fixed">
 						<thead>
 							<tr>
@@ -72,8 +69,21 @@ $Data = $this->get_data_columns( $this->SetPage );
 							<tr>
 								<td>
 									<div id="use" class="widget-list">
-										<?php if( !empty( $Data ) ): ?>
-											<?php echo $this->get_lists( 'use' , $Data , $this->SetPage ); ?>
+										<?php if( empty( $Data ) ) : ?>
+											<?php foreach( $Columns as $column_id => $column ) : ?>
+												<?php if( !empty( $column["use"] ) ) : ?>
+													<?php $this->setting_list_widget( 'use' , $column_id , $column , $this->SetPage ); ?>
+												<?php endif; ?>
+											<?php endforeach; ?>
+										<?php else : ?>
+											<?php if( !empty( $Data["use"] ) ) : ?>
+												<?php foreach( $Data["use"] as $column_id => $column ) : ?>
+													<?php if( !empty( $Columns[$column_id] ) ) : ?>
+														<?php $this->setting_list_widget( 'use' , $column_id , $Columns[$column_id] , $this->SetPage ); ?>
+														<?php unset( $Columns[$column_id] ); ?>
+													<?php endif; ?>
+												<?php endforeach; ?>
+											<?php endif; ?>
 										<?php endif; ?>
 									</div>
 									<div class="clear"></div>
@@ -94,8 +104,16 @@ $Data = $this->get_data_columns( $this->SetPage );
 							<tr>
 								<td>
 									<div id="not_use" class="widget-list">
-										<?php if( !empty( $Data ) ): ?>
-											<?php echo $this->get_lists( 'not_use' , $Data , $this->SetPage ); ?>
+										<?php if( empty( $Data ) ) : ?>
+											<?php foreach( $Columns as $column_id => $column ) : ?>
+												<?php if( !empty( $column["not_use"] ) ) : ?>
+													<?php $this->setting_list_widget( 'not_use' , $column_id , $column , $this->SetPage ); ?>
+												<?php endif; ?>
+											<?php endforeach; ?>
+										<?php else : ?>
+											<?php foreach( $Columns as $column_id => $column ) : ?>
+												<?php $this->setting_list_widget( 'not_use' , $column_id , $column , $this->SetPage ); ?>
+											<?php endforeach; ?>
 										<?php endif; ?>
 									</div>
 									<div class="clear"></div>

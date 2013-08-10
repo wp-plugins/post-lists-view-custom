@@ -67,8 +67,8 @@ msgstr "Bitte w&auml;hlen Sie eine Benutzerdefinierte Inhaltstypen von hier."
 msgid "Please rearrange the order in which you want to view by Drag & Drop."
 msgstr "Bitte sortiert per Drag & Drop in der Reihenfolge, in der Sie sich ansehen m&ouml;chten."
 
-msgid "Please drag and drop the column to show. <strong>* Order does not affect.</strong>"
-msgstr "Ziehen Sie die Elemente, die Sie anzeigen m&ouml;chten. <strong>* Bestellung hat keinen Einfluss.</strong>"
+msgid "Please select the column item to hide."
+msgstr "Bitte w&auml;hlen Sie die Spalte Artikel zu verstecken."
 
 msgid "Reset settings?"
 msgstr "Einstellungen zur&uuml;cksetzen?"
@@ -96,4 +96,7 @@ msgstr "Konnte nicht gelesen werden die Spalten."
 
 msgid "Columns will be loaded automatically when you access <a href=\"%1$s\">%2$s</a>."
 msgstr "Spalten werden automatisch geladen, wenn Sie <a href=\"%1$s\">%2$s</a>."
+
+msgid "Taxonomy"
+msgstr "Taxonomie"
 

@@ -1,29 +1,26 @@
 <?php
 
 
-$PostType = get_post_type_object( $this->SetPage );
+if( $this->SetPage == 'custom_posts' ) {
+	$PostType = get_post_type_object( strip_tags( $_GET["name"] ) );
+}
+
 
 $tmp = $this->get_data( "regist_columns" );
 $Regist_Columns = array();
-if( !empty( $tmp[$this->SetPage] ) ) {
-	$Regist_Columns = $tmp[$this->SetPage];
+if( !empty( $tmp[$PostType->name] ) ) {
+	$Regist_Columns = $tmp[$PostType->name];
 }
 unset( $tmp );
 
 
 if( !empty( $_POST["SetPage"] ) ) {
 
-	if( $this->SetPage == 'post' ) {
+	if( $this->SetPage == 'custom_posts' ) {
 		if( !empty( $_POST["reset"] ) ) {
-			$this->update_reset( $this->SetPage );
+			$this->update_reset_custom_post( $PostType->name );
 		} elseif( !empty( $_POST["update"] ) ) {
-			$this->update_post();
-		}
-	} elseif( $this->SetPage == 'page' ) {
-		if( !empty( $_POST["reset"] ) ) {
-			$this->update_reset( $this->SetPage );
-		} elseif( !empty( $_POST["update"] ) ) {
-			$this->update_page();
+			$this->update_custom_post( $PostType->name );
 		}
 	}
 	
@@ -35,8 +32,12 @@ wp_enqueue_script( $this->PageSlug ,  $this->Url . $this->PluginSlug . '.js', $R
 wp_enqueue_style( $this->PageSlug , $this->Url . $this->PluginSlug . '.css', array() , $this->Ver );
 
 // get data
-$Data = $this->get_data( $this->SetPage );
+$tmpData = $this->get_data( $this->SetPage );
 $Columns = $this->get_list_columns( $this->SetPage );
+
+if( !empty( $tmpData[$PostType->name] ) ) {
+	$Data = $tmpData[$PostType->name];
+}
 
 ?>
 
@@ -59,7 +60,8 @@ $Columns = $this->get_list_columns( $this->SetPage );
 
 			<?php if( empty( $Regist_Columns ) ) : ?>
 
-				<?php $edit_url = self_admin_url( '/edit.php?post_type=' . $this->SetPage ); ?>
+				<?php $edit_url = self_admin_url( '/edit.php?post_type=' . $PostType->name ); ?>
+				<?php $post_name = $PostType->name; ?>
 				<p><?php _e( 'Could not read the columns.' , $this->ltd ); ?></p>
 				<p><?php echo sprintf( __( 'Columns will be loaded automatically when you access <a href="%1$s">%2$s</a>.' , $this->ltd ) , $edit_url , $PostType->labels->all_items ); ?></p>
 
@@ -70,6 +72,9 @@ $Columns = $this->get_list_columns( $this->SetPage );
 					<?php wp_nonce_field( $this->Nonces["value"] , $this->Nonces["field"] ); ?>
 			
 					<input type="hidden" name="SetPage" value="<?php echo $this->SetPage; ?>" />
+					<?php if( $this->SetPage == 'custom_posts' ) : ?>
+						<input type="hidden" name="CustomSelect" value="<?php echo $PostType->name; ?>" />
+					<?php endif; ?>
 
 					<div class="example_widgets">
 						<p class="description"><?php _e( 'Description' ); ?></p>

@@ -68,8 +68,8 @@ msgstr "Seleccione un tipo de entrada personalizada de este lugar."
 msgid "Please rearrange the order in which you want to view by Drag & Drop."
 msgstr "Por favor, cambiar el orden en el que desea ver por Drag & Drop."
 
-msgid "Please drag and drop the column to show. <strong>* Order does not affect.</strong>"
-msgstr "Arrastrar y soltar los elementos que desea mostrar. Orden no afecta."
+msgid "Please select the column item to hide."
+msgstr "Por favor, seleccione el elemento de la columna que ocultar."
 
 msgid "Reset settings?"
 msgstr "Restablecer ajustes?"
@@ -97,4 +97,7 @@ msgstr "No se pudo leer las columnas."
 
 msgid "Columns will be loaded automatically when you access <a href=\"%1$s\">%2$s</a>."
 msgstr "La columna se carga autom&aacute;ticamente cuando el <a href=\"%1$s\">%2$s</a>."
+
+msgid "Taxonomy"
+msgstr "Taxonomía"
 

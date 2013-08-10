@@ -3,9 +3,9 @@
 Plugin Name: Post Lists View Custom
 Description: You can customize the various lists screen.
 Plugin URI: http://wordpress.org/extend/plugins/post-lists-view-custom/
-Version: 1.5.3.2
+Version: 1.5.4
 Author: gqevu6bsiz
-Author URI: http://gqevu6bsiz.chicappa.jp/?utm_source=use_plugin&utm_medium=list&utm_content=plvc&utm_campaign=1_5_3_2
+Author URI: http://gqevu6bsiz.chicappa.jp/?utm_source=use_plugin&utm_medium=list&utm_content=plvc&utm_campaign=1_5_4
 Text Domain: plvc
 Domain Path: /languages
 */
@@ -36,22 +36,27 @@ class Post_Lists_View_Custom
 	var $Ver,
 		$Name,
 		$Dir,
+		$Url,
 		$AuthorUrl,
 		$ltd,
 		$ltd_p,
 		$Record,
 		$PageSlug,
+		$PluginSlug,
 		$SetPage,
 		$ThumbnailSize,
 		$Nonces,
+		$Schema,
+		$PageTitle,
 		$UPFN,
 		$Msg;
 
 
 	function __construct() {
-		$this->Ver = '1.5.3.2';
+		$this->Ver = '1.5.4';
 		$this->Name = 'Post Lists View Custom';
-		$this->Dir = WP_PLUGIN_URL . '/' . dirname( plugin_basename( __FILE__ ) ) . '/';
+		$this->Dir = plugin_dir_path( __FILE__ );
+		$this->Url = plugin_dir_url( __FILE__ );
 		$this->AuthorUrl = 'http://gqevu6bsiz.chicappa.jp/';
 		$this->ltd = 'plvc';
 		$this->ltd_p = $this->ltd . '_plugin';
@@ -72,8 +77,11 @@ class Post_Lists_View_Custom
 		);
 
 		$this->PageSlug = 'post_lists_view_custom';
+		$this->PluginSlug = dirname( plugin_basename( __FILE__ ) );
 		$this->ThumbnailSize = 50;
 		$this->Nonces = array( "field" => $this->ltd . '_field' , "value" => $this->ltd . '_value' );
+		$this->Schema = is_ssl() ? 'https://' : 'http://';
+		$this->PageTitle = $this->Name;
 		$this->UPFN = 'Y';
 		$this->DonateKey = 'd77aec9bc89d445fd54b4c988d090f03';
 		$this->Msg = '';
@@ -85,8 +93,8 @@ class Post_Lists_View_Custom
 	// PluginSetup
 	function PluginSetup() {
 		// load text domain
-		load_plugin_textdomain( $this->ltd , false , basename( dirname( __FILE__ ) ) . '/languages' );
-		load_plugin_textdomain( $this->ltd_p , false , basename( dirname( __FILE__ ) ) . '/languages' );
+		load_plugin_textdomain( $this->ltd , false , $this->PluginSlug . '/languages' );
+		load_plugin_textdomain( $this->ltd_p , false , $this->PluginSlug . '/languages' );
 
 		// plugin links
 		add_filter( 'plugin_action_links' , array( $this , 'plugin_action_links' ) , 10 , 2 );
@@ -107,7 +115,7 @@ class Post_Lists_View_Custom
 	// PluginSetup
 	function plugin_action_links( $links , $file ) {
 		if( plugin_basename(__FILE__) == $file ) {
-			$support_link = '<a href="http://wordpress.org/support/plugin/post-lists-view-custom" target="_blank">' . __( 'Support Forums' ) . '</a>';
+			$support_link = '<a href="http://wordpress.org/support/plugin/' . $this->PluginSlug . '" target="_blank">' . __( 'Support Forums' ) . '</a>';
 			array_unshift( $links, $support_link );
 			array_unshift( $links, '<a href="' . admin_url( 'admin.php?page=' . $this->PageSlug ) . '">' . __('Settings') . '</a>' );
 
@@ -145,6 +153,7 @@ class Post_Lists_View_Custom
 	// SettingPage
 	function setting_post() {
 		$this->SetPage = 'post';
+		$this->PageTitle = __( 'All Posts List Customize' , $this->ltd );
 		
 		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
 		$this->DisplayDonation();
@@ -154,6 +163,7 @@ class Post_Lists_View_Custom
 	// SettingPage
 	function setting_page() {
 		$this->SetPage = 'page';
+		$this->PageTitle = __( 'All Pages List Customize' , $this->ltd );
 		
 		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
 		$this->DisplayDonation();
@@ -163,6 +173,7 @@ class Post_Lists_View_Custom
 	// SettingPage
 	function setting_media() {
 		$this->SetPage = 'media';
+		$this->PageTitle = __( 'Media Library List Customize' , $this->ltd );
 		
 		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
 		$this->DisplayDonation();
@@ -172,6 +183,7 @@ class Post_Lists_View_Custom
 	// SettingPage
 	function setting_comments() {
 		$this->SetPage = 'comments';
+		$this->PageTitle = __( 'Comments List Customize' , $this->ltd );
 		
 		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
 		$this->DisplayDonation();
@@ -181,28 +193,31 @@ class Post_Lists_View_Custom
 	// SettingPage
 	function setting_widgets() {
 		$this->SetPage = 'widgets';
+		$this->PageTitle = __( 'Available Widgets List Customize' , $this->ltd );
 		
 		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
 		$this->DisplayDonation();
-		include_once 'inc/setting_lists.php';
+		include_once 'inc/setting_menus.php';
 	}
 
 	// SettingPage
 	function setting_menus() {
 		$this->SetPage = 'menus';
+		$this->PageTitle = __( 'Menus show screen List Customize' , $this->ltd );
 		
 		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
 		$this->DisplayDonation();
-		include_once 'inc/setting_lists.php';
+		include_once 'inc/setting_menus.php';
 	}
 
 	// SettingPage
 	function setting_menus_adv() {
 		$this->SetPage = 'menus_adv';
+		$this->PageTitle = __( 'Menus show advanced properties screen List Customize' , $this->ltd );
 		
 		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
 		$this->DisplayDonation();
-		include_once 'inc/setting_lists.php';
+		include_once 'inc/setting_menus.php';
 	}
 
 	// SettingPage
@@ -225,17 +240,19 @@ class Post_Lists_View_Custom
 		}
 
 		if( !empty( $PostSlug ) ) {
-			include_once 'inc/setting_lists_post.php';
+			$PostType = get_post_type_object( $PostSlug );
+			$this->PageTitle = __( 'Custom Posts Type List Customize' , $this->ltd ) . '( ' . esc_html( $PostType->labels->name ) . ' )';
+			include_once 'inc/setting_lists_custom_post.php';
 		} else {
 			echo sprintf( '<p>%s</p>' , __( 'No custom post type found.' , $this->ltd ) );
 			echo sprintf( '<p><a href="%2$s">%1$s</a></p>' , __( 'Please select a Custom Posts type from here.' , $this->ltd ) , admin_url( 'admin.php?page=select_custom_posts_list_view_setting' ) );
 		}
-
 	}
 
 	// SettingPage
 	function setting_thumbnail() {
 		$this->SetPage = 'thunmbnail';
+		$this->PageTitle = __( 'Setting Thumbnail size' , $this->ltd );
 		
 		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
 		$this->DisplayDonation();
@@ -260,89 +277,16 @@ class Post_Lists_View_Custom
 	}
 
 	// GetData
-	function get_data_columns( $record ) {
+	function get_filt_data( $record ) {
+		$GetData = get_option( $this->Record[$record] );
+		$GetData = apply_filters( 'plvc_pre_get_filt_data' , $GetData , $record );
+
 		$Data = array();
-		
-		if( !empty( $record ) ) {
-
-			$GetData = get_option( $this->Record[$record] );
-
-			if( $record == 'post' ) {
-				$Columns = $this->get_post_columns();
-			} elseif( $record == 'page' ) {
-				$Columns = $this->get_page_columns();
-			} elseif( $record == 'media' ) {
-				$Columns = $this->get_media_columns();
-			} elseif( $record == 'comments' ) {
-				$Columns = $this->get_comments_columns();
-			} elseif( $record == 'widgets' ) {
-				$Columns = $this->get_widgets_columns();
-			} elseif( $record == 'menus' ) {
-				$Columns = $this->get_menus_columns();
-			} elseif( $record == 'menus_adv' ) {
-				$Columns = $this->get_menus_adv_columns();
-			} elseif( $record == 'custom_posts' ) {
-				$Columns = $this->get_custom_posts_columns();
-				if( !empty( $GetData[strip_tags( $_GET["name"] )] ) ) {
-					$GetData = $GetData[strip_tags( $_GET["name"] )];
-				} else {
-					$GetData = array();
-				}
-			}
-
-			if( empty( $GetData ) ) {
-
-				$Data = $Columns;
-
-			} else {
-
-				if( !empty( $GetData["use"] ) ) {
-					$NewColumns = array();
-					foreach( $GetData["use"] as $column_id => $column_val ) {
-						$NewColumns[$column_id] = array( "use" => 1 , "name" => $column_val["name"] );
-						unset( $Columns[$column_id] );
-					}
-					if( !empty( $GetData["not_use"] ) ) {
-						foreach( $GetData["not_use"] as $column_id => $column_val ) {
-							$NewColumns[$column_id] = array( "not_use" => 1 , "name" => $column_val["name"] );
-							unset( $Columns[$column_id] );
-						}
-					}
-					foreach( $Columns as $column_id => $column_val ) {
-						$NewColumns[$column_id] = array( "not_use" => 1 , "name" => $column_val["name"] );
-						unset( $Columns[$column_id]["use"] );
-					}
-					unset( $Columns );
-					$Columns = $NewColumns;
-				} else {
-					foreach( $Columns as $column_id => $column_val ) {
-						if( !empty( $column_val["use"] ) ) {
-							$Columns[$column_id]["not_use"] = 1;
-							unset( $Columns[$column_id]["use"] );
-						}
-					}
-				}
-
-				$Data = $Columns;
-
-			}
-
+		if( !empty( $GetData ) ) {
+			$Data = $GetData;
 		}
-		
+
 		return $Data;
-	}
-
-	// GetData
-	function get_data_thumbnail() {
-		$Data = $this->get_data( "thunmbnail" );
-		
-		if( !empty( $Data ) ) {
-			$Thumbnail["width"] = intval( $Data["width"] );
-		} else {
-			$Thumbnail["width"] = intval( $this->ThumbnailSize );
-		}
-		
-		return $Thumbnail;
 	}
 
 
@@ -364,6 +308,9 @@ class Post_Lists_View_Custom
 			}
 		}
 	}
+
+
+
 
 	// SetList
 	function get_user_role() {
@@ -448,7 +395,7 @@ class Post_Lists_View_Custom
 		}
 
 		foreach($All_custom_columns as $name) {
-			$Columns[$name] = array( "not_use" => 1 , "name" => $name );
+			$Columns[$name] = array( "not_use" => 1 , "name" => $name , "group" => "custom_fields" );
 		}
 		unset($All_custom_columns);
 
@@ -457,7 +404,6 @@ class Post_Lists_View_Custom
 
 	// SetList
 	function get_plugin_fields_columns( $post_type , $Columns ) {
-
 		$RegistColumns = $this->get_data( 'regist_columns' );
 
 		if( !empty( $RegistColumns[$post_type] ) ) {
@@ -466,7 +412,7 @@ class Post_Lists_View_Custom
 
 			foreach( $CurrentColumns as $column_name => $column_label ) {
 				if( empty( $Columns[$column_name] ) ) {
-					$Columns[$column_name] = array( "use" => 1 , "name" => $column_label );
+					$Columns[$column_name] = array( "use" => 1 , "name" => $column_label , "group" => "plugin" );
 				}
 			}
 		}
@@ -475,8 +421,7 @@ class Post_Lists_View_Custom
 	}
 
 	// SetList
-	function get_columns_label( $column ) {
-
+	function replace_columns_label( $column ) {
 		global $wp_version;
 
 		$post_type = strip_tags( $column[0] );
@@ -597,6 +542,33 @@ class Post_Lists_View_Custom
 
 	}
 
+	// GetData
+	function get_list_columns( $type ) {
+		$Columns = array();
+		
+		if( !empty( $type ) ) {
+			if( $type == 'post' ) {
+				$Columns = $this->get_post_columns();
+			} elseif( $type == 'page' ) {
+				$Columns = $this->get_page_columns();
+			} elseif( $type == 'media' ) {
+				$Columns = $this->get_media_columns();
+			} elseif( $type == 'comments' ) {
+				$Columns = $this->get_comments_columns();
+			} elseif( $type == 'widgets' ) {
+				$Columns = $this->get_widgets_columns();
+			} elseif( $type == 'menus' ) {
+				$Columns = $this->get_menus_columns();
+			} elseif( $type == 'menus_adv' ) {
+				$Columns = $this->get_menus_adv_columns();
+			} elseif( $type == 'custom_posts' ) {
+				$Columns = $this->get_custom_posts_columns();
+			}
+		}
+		
+		return $Columns;
+	}
+
 	// SetList
 	function get_post_columns() {
 		// Default colum
@@ -618,7 +590,7 @@ class Post_Lists_View_Custom
 		// set label
 		$SetColumns = array();
 		foreach( $Columns_Def as $id ) {
-			$SetColumns[$id] = $this->get_columns_label( array( "post" , $id ) );
+			$SetColumns[$id] = $this->replace_columns_label( array( "post" , $id ) );
 		}
 		unset($Columns_Def);
 
@@ -663,7 +635,7 @@ class Post_Lists_View_Custom
 		// set label
 		$SetColumns = array();
 		foreach( $Columns_Def as $id ) {
-			$SetColumns[$id] = $this->get_columns_label( array( "page" , $id ) );
+			$SetColumns[$id] = $this->replace_columns_label( array( "page" , $id ) );
 		}
 		unset($Columns_Def);
 
@@ -699,7 +671,7 @@ class Post_Lists_View_Custom
 		// set label
 		$SetColumns = array();
 		foreach( $Columns_Def as $id ) {
-			$SetColumns[$id] = $this->get_columns_label( array( "media" , $id ) );
+			$SetColumns[$id] = $this->replace_columns_label( array( "media" , $id ) );
 		}
 		unset($Columns_Def);
 
@@ -730,7 +702,7 @@ class Post_Lists_View_Custom
 		// set label
 		$SetColumns = array();
 		foreach( $Columns_Def as $id ) {
-			$SetColumns[$id] = $this->get_columns_label( array( "comments" , $id ) );
+			$SetColumns[$id] = $this->replace_columns_label( array( "comments" , $id ) );
 		}
 		unset($Columns_Def);
 
@@ -762,8 +734,13 @@ class Post_Lists_View_Custom
 		
 		// Default View Setting
 		$Columns = array();
+		$Default_columns = array( 'pages-1' , 'calendar-1' , 'archives-2' , 'meta-2' , 'search-2' , 'text-1' , 'categories-2' , 'recent-posts-2' , 'recent-comments-2' , 'rss-1' , 'tag_cloud-1' , 'nav_menu-1' );
 		foreach($Columns_Def as $column => $name) {
-			$Columns[$column] = array( "use" => 1 , "name" => $name );
+			$group = false;
+			if( !in_array( $column  , $Default_columns ) ) {
+				$group = "plugin";
+			}
+			$Columns[$column] = array( "use" => 1 , "name" => $name , "group" => $group );
 		}
 		unset($Columns_Def);
 
@@ -791,7 +768,7 @@ class Post_Lists_View_Custom
 		// set label
 		$SetColumns = array();
 		foreach( $Columns_Def as $id ) {
-			$SetColumns[$id] = $this->get_columns_label( array( "menus" , $id ) );
+			$SetColumns[$id] = $this->replace_columns_label( array( "menus" , $id ) );
 		}
 		unset($Columns_Def);
 
@@ -813,7 +790,18 @@ class Post_Lists_View_Custom
 		
 		if( !empty( $CustomPosts ) ) {
 			foreach ( $CustomPosts as $CustomPost ) {
-				$Columns['add-'.$CustomPost->name] = array( "use" => 1 , "name" => esc_html( $CustomPost->labels->name ) );
+				$Columns['add-'.$CustomPost->name] = array( "use" => 1 , "name" => esc_html( $CustomPost->labels->name ) , "group" => "custom_post" );
+			}
+		}
+
+		// Custom Taxonomies
+		$CustomTaxonomies = get_taxonomies( array( 'show_in_nav_menus' => true ), 'object' );
+		unset( $CustomTaxonomies["category"] );
+		unset( $CustomTaxonomies["post_tag"] );
+		unset( $CustomTaxonomies["post_format"] );
+		if( !empty( $CustomTaxonomies ) ) {
+			foreach ( $CustomTaxonomies as $CustomTaxonomy ) {
+				$Columns['add-'.$CustomTaxonomy->name] = array( "use" => 1 , "name" => esc_html( $CustomTaxonomy->labels->name ) , "group" => "custom_taxonomy" );
 			}
 		}
 
@@ -832,7 +820,7 @@ class Post_Lists_View_Custom
 		// set label
 		$SetColumns = array();
 		foreach( $Columns_Def as $id ) {
-			$SetColumns[$id] = $this->get_columns_label( array( "menus_adv" , $id ) );
+			$SetColumns[$id] = $this->replace_columns_label( array( "menus_adv" , $id ) );
 		}
 		unset($Columns_Def);
 
@@ -873,7 +861,7 @@ class Post_Lists_View_Custom
 		// set label
 		$SetColumns = array();
 		foreach( $Columns_Def as $id ) {
-			$SetColumns[$id] = $this->get_columns_label( array( "post" , $id ) );
+			$SetColumns[$id] = $this->replace_columns_label( array( "post" , $id ) );
 		}
 		unset($Columns_Def);
 
@@ -903,32 +891,41 @@ class Post_Lists_View_Custom
 	}
 
 	// SetList
-	function get_lists( $type , $Data , $PostType ) {
-		$Contents = '';
-		foreach($Data as $key => $val) {
-			if( !empty( $val[$type] ) ) {
-				$Contents .= '<div id="'.$key.'" class="widget">';
-
-				$Contents .= '<div class="widget-top">';
-				$Contents .= '<div class="widget-title">';
-
-				$Contents .= '<h4>' . stripslashes( $val["name"] ) . '</h4>';
-
-				$Contents .= '</div>';
-				$Contents .= '</div>';
-
-				$Contents .= '<div class="widget-inside">';
-				$Contents .= "\n\n";
-				$Contents .= '<input type="hidden" name="' . $type . '[' . $key . '][name]" value="' . esc_html( stripslashes( $val["name"] ) ) . '" />';
-				
-				$Contents .= "\n\n";
-				$Contents .= '</div>';
-
-				$Contents .= '</div>';
+	function setting_list_widget( $type , $column_id , $column , $page ) {
+		if( !empty( $type ) ) {
+			$class = 'widget';
+			if( !empty( $column["group"] ) ) {
+				$class .= ' ' . $column["group"];
 			}
+?>
+			<div id="<?php echo $column_id; ?>" class="<?php echo $class; ?>">
+				<div class="widget-top">
+					<div class="widget-title">
+						<h4><?php echo stripslashes( $column["name"] ); ?></h4>
+					</div>
+				</div>
+				<div class="widget-inside">
+					<input type="hidden" name="<?php echo $type; ?>[<?php echo $column_id; ?>][name]" value="<?php echo esc_html( stripslashes( $column["name"] ) ); ?>" />
+				</div>
+			</div>
+<?php 
 		}
+	}
 
-		return $Contents;
+	// SetList
+	function setting_list_menu( $Data , $column_id , $column , $page ) {
+		if( !empty( $column_id ) ) {
+			$class = '';
+			if( !empty( $column["group"] ) ) {
+				$class .= ' ' . $column["group"];
+			}
+?>
+			<tr id="<?php echo $column_id; ?>" class="<?php echo $class; ?>">
+				<th><?php echo stripslashes( $column["name"] ); ?></th>
+				<td><label><input type="checkbox" name="not_use[<?php echo $column_id; ?>][name]" value="<?php echo esc_html( stripslashes( $column["name"] ) ); ?>" <?php if( !empty( $Data["not_use"][$column_id] ) ) checked( $column["name"] , $Data["not_use"][$column_id]["name"] ); ?> /> <?php _e ( 'Hide' ); ?></label></td>
+			</tr>
+<?php 
+		}
 	}
 
 	// SetList
@@ -975,44 +972,6 @@ class Post_Lists_View_Custom
 		return $Update;
 	}
 
-	// Update Reset
-	function update_reset( $record ) {
-		$Update = $this->update_validate();
-		if( !empty( $Update ) ) {
-			$this->delete_record( $this->Record[$record] );
-		}
-	}
-
-	// Update Reset
-	function delete_record( $Record ) {
-		if( check_admin_referer( $this->Nonces["value"] , $this->Nonces["field"] ) ) {
-			$Record = apply_filters( 'plvc_pre_delete' , $Record );
-			delete_option( $Record );
-			$this->Msg .= '<div class="updated"><p><strong>' . __('Settings saved.') . '</strong></p></div>';
-		}
-	}
-
-	// DataUpdate
-	function update_record( $Record , $Data ) {
-		if( check_admin_referer( $this->Nonces["value"] , $this->Nonces["field"] ) ) {
-			$Record = apply_filters( 'plvc_pre_update' , $Record );
-			update_option( $Record , $Data );
-			$this->Msg .= '<div class="updated"><p><strong>' . __('Settings saved.') . '</strong></p></div>';
-		}
-	}
-
-	// Update Reset
-	function update_custom_posts_reset( $record ) {
-		$Update = $this->update_validate();
-		if( !empty( $Update ) && check_admin_referer( $this->Nonces["value"] , $this->Nonces["field"] ) ) {
-			$Record_fil = apply_filters( 'plvc_pre_delete' , $this->Record['custom_posts'] );
-			$GetData = get_option( $Record_fil );
-			unset( $GetData[$record] );
-
-			$this->update_record( $this->Record["custom_posts"] , $GetData );
-		}
-	}
-
 	// DataUpdate
 	function DonatingCheck() {
 		$Update = $this->update_validate();
@@ -1029,6 +988,16 @@ class Post_Lists_View_Custom
 
 	}
 
+	// Update Reset
+	function update_reset( $record ) {
+		$Update = $this->update_validate();
+		if( !empty( $Update ) && check_admin_referer( $this->Nonces["value"] , $this->Nonces["field"] ) ) {
+			$record = apply_filters( 'plvc_pre_delete' , $this->Record[$record] );
+			delete_option( $record );
+			$this->Msg .= '<div class="updated"><p><strong>' . __('Settings saved.') . '</strong></p></div>';
+		}
+	}
+
 	// DataUpdate
 	function update_userrole() {
 		$Update = $this->update_validate();
@@ -1042,34 +1011,122 @@ class Post_Lists_View_Custom
 				}
 			}
 
-			$this->update_record( $this->Record["user_role"] , $Update );
+			update_option( $this->Record["user_role"] , $Update );
+			$this->Msg .= '<div class="updated"><p><strong>' . __('Settings saved.') . '</strong></p></div>';
 		}
 	}
 
 	// DataUpdate
-	function update_data( $record ) {
+	function update_data_format( $Update ) {
+		$Modes = array( "use" , "not_use" );
+		foreach($Modes as $mode) {
+			$Update[$mode] = array();
+			if( !empty( $_POST[$mode] ) ) {
+				$Columns = $_POST[$mode];
+				foreach( $Columns as $column_id => $column_name ) {
+					$tmpK = strip_tags( $column_id );
+					$tmpV = stripslashes( $column_name["name"] );
+					$Update[$mode][$tmpK]["name"] = $tmpV;
+				}
+			}
+		}
+
+		return $Update;
+	}
+
+	// DataUpdate
+	function update_post() {
 		$Update = $this->update_validate();
 		if( !empty( $Update ) && check_admin_referer( $this->Nonces["value"] , $this->Nonces["field"] ) ) {
 
-			$Modes = array( "use" , "not_use" );
-			foreach($Modes as $mode) {
-				$Update[$mode] = array();
-				if( !empty( $_POST[$mode] ) ) {
-					$Columns = $_POST[$mode];
-					foreach( $Columns as $column_id => $column_name ) {
-						$tmpK = strip_tags( $column_id );
-						$tmpV = stripslashes( $column_name["name"] );
-						$Update[$mode][$tmpK]["name"] = $tmpV;
-					}
-				}
-			}
-			
-			$this->update_record( $this->Record[$record] , $Update );
+			$Update = $this->update_data_format( $Update );
+			$Record = apply_filters( 'plvc_pre_update' , $this->Record["post"] );
+
+			update_option( $Record , $Update );
+			$this->Msg .= '<div class="updated"><p><strong>' . __('Settings saved.') . '</strong></p></div>';
 		}
 	}
 
 	// DataUpdate
-	function update_thunmbnail( $record ) {
+	function update_page() {
+		$Update = $this->update_validate();
+		if( !empty( $Update ) && check_admin_referer( $this->Nonces["value"] , $this->Nonces["field"] ) ) {
+
+			$Update = $this->update_data_format( $Update );
+			$Record = apply_filters( 'plvc_pre_update' , $this->Record["page"] );
+
+			update_option( $Record , $Update );
+			$this->Msg .= '<div class="updated"><p><strong>' . __('Settings saved.') . '</strong></p></div>';
+		}
+	}
+
+	// DataUpdate
+	function update_media() {
+		$Update = $this->update_validate();
+		if( !empty( $Update ) && check_admin_referer( $this->Nonces["value"] , $this->Nonces["field"] ) ) {
+
+			$Update = $this->update_data_format( $Update );
+			$Record = apply_filters( 'plvc_pre_update' , $this->Record["media"] );
+
+			update_option( $Record , $Update );
+			$this->Msg .= '<div class="updated"><p><strong>' . __('Settings saved.') . '</strong></p></div>';
+		}
+	}
+
+	// DataUpdate
+	function update_comments() {
+		$Update = $this->update_validate();
+		if( !empty( $Update ) && check_admin_referer( $this->Nonces["value"] , $this->Nonces["field"] ) ) {
+
+			$Update = $this->update_data_format( $Update );
+			$Record = apply_filters( 'plvc_pre_update' , $this->Record["comments"] );
+
+			update_option( $Record , $Update );
+			$this->Msg .= '<div class="updated"><p><strong>' . __('Settings saved.') . '</strong></p></div>';
+		}
+	}
+
+	// DataUpdate
+	function update_widgets() {
+		$Update = $this->update_validate();
+		if( !empty( $Update ) && check_admin_referer( $this->Nonces["value"] , $this->Nonces["field"] ) ) {
+			
+			$Update = $this->update_data_format( $Update );
+			$Record = apply_filters( 'plvc_pre_update' , $this->Record["widgets"] );
+
+			update_option( $Record , $Update );
+			$this->Msg .= '<div class="updated"><p><strong>' . __('Settings saved.') . '</strong></p></div>';
+		}
+	}
+
+	// DataUpdate
+	function update_menus() {
+		$Update = $this->update_validate();
+		if( !empty( $Update ) && check_admin_referer( $this->Nonces["value"] , $this->Nonces["field"] ) ) {
+			
+			$Update = $this->update_data_format( $Update );
+			$Record = apply_filters( 'plvc_pre_update' , $this->Record["menus"] );
+
+			update_option( $Record , $Update );
+			$this->Msg .= '<div class="updated"><p><strong>' . __('Settings saved.') . '</strong></p></div>';
+		}
+	}
+
+	// DataUpdate
+	function update_menus_adv() {
+		$Update = $this->update_validate();
+		if( !empty( $Update ) && check_admin_referer( $this->Nonces["value"] , $this->Nonces["field"] ) ) {
+			
+			$Update = $this->update_data_format( $Update );
+			$Record = apply_filters( 'plvc_pre_update' , $this->Record["menus_adv"] );
+
+			update_option( $Record , $Update );
+			$this->Msg .= '<div class="updated"><p><strong>' . __('Settings saved.') . '</strong></p></div>';
+		}
+	}
+
+	// DataUpdate
+	function update_thunmbnail() {
 		$Update = $this->update_validate();
 		if( !empty( $Update ) && check_admin_referer( $this->Nonces["value"] , $this->Nonces["field"] ) ) {
 
@@ -1077,36 +1134,43 @@ class Post_Lists_View_Custom
 				$Update["width"] = intval( $_POST["width"] );
 			}
 			
-			$this->update_record( $this->Record[$record] , $Update );
+			update_option( $this->Record["thunmbnail"] , $Update );
+			$this->Msg .= '<div class="updated"><p><strong>' . __('Settings saved.') . '</strong></p></div>';
 		}
 	}
 
 	// DataUpdate
-	function update_custom_posts_data( $record ) {
+	function update_custom_post() {
 		$Update = $this->update_validate();
 		if( !empty( $Update ) && check_admin_referer( $this->Nonces["value"] , $this->Nonces["field"] ) ) {
 
-			$Record_fil = apply_filters( 'plvc_pre_delete' , $this->Record['custom_posts'] );
-			$GetData = get_option( $Record_fil );
-			unset( $GetData[$record] );
+			$GetData = $this->get_data( 'custom_posts' );
 
-			$Modes = array( "use" , "not_use" );
-			foreach($Modes as $mode) {
-				$GetData[$record][$mode] = array();
-				if( !empty( $_POST[$mode] ) ) {
-					$Columns = $_POST[$mode];
-					foreach( $Columns as $column_id => $column_name ) {
-						$tmpK = strip_tags( $column_id );
-						$tmpV = stripslashes( $column_name["name"] );
-						$GetData[$record][$mode][$tmpK]["name"] = $tmpV;
-					}
-				}
-			}
+			$Update = $this->update_data_format( $Update );
+			unset( $Update["UPFN"] );
+
+			$GetData[strip_tags( $_POST["CustomSelect"] )] = $Update;
+			$Record = apply_filters( 'plvc_pre_update' , $this->Record["custom_posts"] );
+
+			update_option( $Record , $GetData );
+			$this->Msg .= '<div class="updated"><p><strong>' . __('Settings saved.') . '</strong></p></div>';
 			
-			$this->update_record( $this->Record['custom_posts'] , $GetData );
 		}
 	}
 
+	// Update Reset
+	function update_reset_custom_post() {
+		$Update = $this->update_validate();
+		if( !empty( $Update ) && check_admin_referer( $this->Nonces["value"] , $this->Nonces["field"] ) ) {
+
+			$GetData = $this->get_data( 'custom_posts' );
+			unset( $GetData[strip_tags( $_POST["CustomSelect"] )] );
+			$Record = apply_filters( 'plvc_pre_update' , $this->Record["custom_posts"] );
+
+			update_option( $Record , $GetData );
+			$this->Msg .= '<div class="updated"><p><strong>' . __('Settings saved.') . '</strong></p></div>';
+		}
+	}
 
 
 
@@ -1115,6 +1179,9 @@ class Post_Lists_View_Custom
 		if ( is_admin() ) {
 			// default columns load.
 			add_action( 'load-edit.php' , array( $this , 'post_columns_default_load_action' ) );
+
+			// reset css
+			add_action( 'admin_footer' , array( $this , 'include_css' ) );
 			
 			// Filter Set
 			add_action( 'admin_head' , array( $this , 'columns_init' ) );
@@ -1125,6 +1192,16 @@ class Post_Lists_View_Custom
 	function post_columns_default_load_action() {
 		global $typenow;
 		add_filter( "manage_edit-" . $typenow . "_columns" , array( $this , 'post_columns_default_load' ) , 10000 );
+	}
+
+	// FilterStart
+	function include_css() {
+		global $current_screen;
+		
+		$screen_ids = array( 'upload' , 'edit-comments' );
+		if( $current_screen->base == 'edit' or in_array( $current_screen->id , $screen_ids ) ) {
+			wp_enqueue_style( $this->PageSlug . '-table' , $this->Url . $this->PluginSlug . '-table.css' , array() , $this->Ver );
+		}
 	}
 
 	// FilterStart
@@ -1141,77 +1218,77 @@ class Post_Lists_View_Custom
 			if( !is_network_admin() && !empty( $UserRole) ) {
 				if( array_key_exists( $UserRole , $SettingRole ) ) {
 
-						global $current_screen;
+					global $current_screen;
 	
-						$Data = array();
-						if( $current_screen->base == 'edit' ) {
-							if( $current_screen->post_type == 'post' or $current_screen->post_type == 'page' ) {
-								$Data = $this->get_data( $current_screen->post_type );
-							} else {
-								$Custom = $this->get_data( "custom_posts" );
-								if( !empty( $Custom[$current_screen->post_type] ) ) {
-									$Data = $Custom[$current_screen->post_type];
-								}
-							}
-							
-							$hook_header = array( "manage_edit-" . $current_screen->post_type . "_columns" , "PostsColumnHeader" );
-							$hook_body = array( "manage_" . $current_screen->post_type . "_posts_custom_column" , "PostsColumnBody" );
-	
-							if( !empty( $Data ) && !empty( $hook_header ) && !empty( $hook_body ) ) {
-								add_filter( $hook_header[0] , array( $this , $hook_header[1] ) , 10001 );
-								add_action( $hook_body[0] , array( $this , $hook_body[1] ) , 10 , 2 );
+					$Data = array();
+					if( $current_screen->base == 'edit' ) {
+						if( $current_screen->post_type == 'post' or $current_screen->post_type == 'page' ) {
+							$Data = $this->get_filt_data( $current_screen->post_type );
+						} else {
+							$Custom = $this->get_filt_data( "custom_posts" );
+							if( !empty( $Custom[$current_screen->post_type] ) ) {
+								$Data = $Custom[$current_screen->post_type];
 							}
 						}
-	
-						if( $current_screen->base == $current_screen->id && $current_screen->id == 'upload' ) {
-							$Data = $this->get_data( "media" );
 							
-							$hook_header = array( "manage_media_columns" , "MediaColumnHeader" );
-							$hook_body = array( "manage_media_custom_column" , "MediaColumnBody" );
+						$hook_header = array( "manage_edit-" . $current_screen->post_type . "_columns" , "PostsColumnHeader" );
+						$hook_body = array( "manage_" . $current_screen->post_type . "_posts_custom_column" , "PostsColumnBody" );
 	
-							if( !empty( $Data ) && !empty( $hook_header ) && !empty( $hook_body ) ) {
-								add_filter( $hook_header[0] , array( $this , $hook_header[1] ) , 10001 );
-								add_action( $hook_body[0] , array( $this , $hook_body[1] ) , 10 , 2 );
-							}
+						if( !empty( $Data ) && !empty( $hook_header ) && !empty( $hook_body ) ) {
+							add_filter( $hook_header[0] , array( $this , $hook_header[1] ) , 10001 );
+							add_action( $hook_body[0] , array( $this , $hook_body[1] ) , 10 , 2 );
 						}
+					}
+	
+					if( $current_screen->base == $current_screen->id && $current_screen->id == 'upload' ) {
+						$Data = $this->get_filt_data( "media" );
+							
+						$hook_header = array( "manage_media_columns" , "MediaColumnHeader" );
+						$hook_body = array( "manage_media_custom_column" , "MediaColumnBody" );
+	
+						if( !empty( $Data ) && !empty( $hook_header ) && !empty( $hook_body ) ) {
+							add_filter( $hook_header[0] , array( $this , $hook_header[1] ) , 10001 );
+							add_action( $hook_body[0] , array( $this , $hook_body[1] ) , 10 , 2 );
+						}
+					}
 						
-						if( $current_screen->base == $current_screen->id && $current_screen->id == 'edit-comments' ) {
-							$Data = $this->get_data( "comments" );
-							
-							$hook_header = array( "manage_edit-comments_columns" , "CommentsColumnHeader" );
-							$hook_body = array( "manage_comments_custom_column" , "CommentsColumnBody" );
-	
-							if( !empty( $Data ) && !empty( $hook_header ) && !empty( $hook_body ) ) {
-								add_filter( $hook_header[0] , array( $this , $hook_header[1] ) , 10001 );
-								add_action( $hook_body[0] , array( $this , $hook_body[1] ) , 10 , 2 );
-							}
-						}
+					if( $current_screen->base == $current_screen->id && $current_screen->id == 'edit-comments' ) {
+						$Data = $this->get_filt_data( "comments" );
 						
-						if( $current_screen->base == $current_screen->id && $current_screen->id == 'widgets' ) {
-							$Data = $this->get_data( "widgets" );
-							
-							if( !empty( $Data ) ) {
-								add_filter( 'widgets_admin_page' , array( $this , 'WidgetsColumnBody' ) );
-							}
+						$hook_header = array( "manage_edit-comments_columns" , "CommentsColumnHeader" );
+						$hook_body = array( "manage_comments_custom_column" , "CommentsColumnBody" );
+	
+						if( !empty( $Data ) && !empty( $hook_header ) && !empty( $hook_body ) ) {
+							add_filter( $hook_header[0] , array( $this , $hook_header[1] ) , 10001 );
+							add_action( $hook_body[0] , array( $this , $hook_body[1] ) , 10 , 2 );
+						}
+					}
+						
+					if( $current_screen->base == $current_screen->id && $current_screen->id == 'widgets' ) {
+						$Data = $this->get_filt_data( "widgets" );
+						
+						if( !empty( $Data ) ) {
+							add_filter( 'widgets_admin_page' , array( $this , 'WidgetsColumnBody' ) );
+						}
+					}
+	
+					if( $current_screen->base == $current_screen->id && $current_screen->id == 'nav-menus' ) {
+						$Data = $this->get_filt_data( "menus" );
+						
+						if( !empty( $Data ) ) {
+							add_filter( "manage_nav-menus_columns" , array( $this , "MenusMetaBox" ) );
 						}
 	
-						if( $current_screen->base == $current_screen->id && $current_screen->id == 'nav-menus' ) {
-							$Data = $this->get_data( "menus" );
-							
-							if( !empty( $Data ) ) {
-								add_filter( "manage_nav-menus_columns" , array( $this , "MenusMetaBox" ) );
-							}
+						$Data = $this->get_filt_data( "menus_adv" );
+				
+						$hook_header = array( "manage_nav-menus_columns" , "MenusAdvColumnHeader" );
+						$hook_body = array( "manage_nav-menus_columns" , "MenusAdvColumnBody" );
 	
-							$Data = $this->get_data( "menus_adv" );
-							
-							$hook_header = array( "manage_nav-menus_columns" , "MenusAdvColumnHeader" );
-							$hook_body = array( "manage_nav-menus_columns" , "MenusAdvColumnBody" );
-	
-							if( !empty( $Data ) && !empty( $hook_header ) && !empty( $hook_body ) ) {
-								add_filter( $hook_header[0] , array( $this , $hook_header[1] ) );
-								add_action( $hook_body[0] , array( $this , $hook_body[1] ) );
-							}
+						if( !empty( $Data ) && !empty( $hook_header ) && !empty( $hook_body ) ) {
+							add_filter( $hook_header[0] , array( $this , $hook_header[1] ) );
+							add_action( $hook_body[0] , array( $this , $hook_body[1] ) );
 						}
+					}
 					
 				}
 			}
@@ -1225,20 +1302,22 @@ class Post_Lists_View_Custom
 		global $current_screen;
 		
 		if( $current_screen->post_type == 'post' or $current_screen->post_type == 'page' ) {
-			$Data = $this->get_data( $current_screen->post_type );
+			$Data = $this->get_filt_data( $current_screen->post_type );
+			$current_columns = $this->get_list_columns( $current_screen->post_type );
 		} else {
-			$Custom = $this->get_data( "custom_posts" );
+			$Custom = $this->get_filt_data( "custom_posts" );
 			$Data = $Custom[$current_screen->post_type];
+			$current_columns = $this->get_list_columns( "custom_posts" );
 		}
-
 		$FilterColumn = array( "cb" => $columns["cb"] );
+		
 		if( !empty( $Data["use"] ) ) {
 			foreach( $Data["use"] as $id => $name ) {
-				$FilterColumn[$id] = stripslashes( $name["name"] );
+				if( !empty( $current_columns[$id] ) ) {
+					$FilterColumn[$id] = stripslashes( $name["name"] );
+				}
 			}
 		}
-
-		wp_enqueue_style( $this->ltd . '-table' , $this->Dir . dirname( plugin_basename( __FILE__ ) ) . '-table.css' , array() , $this->Ver );
 
 		return $FilterColumn;
 	}
@@ -1247,7 +1326,12 @@ class Post_Lists_View_Custom
 	function PostsColumnBody( $column_name , $post_id ) {
 		$None = '';
 
-		$Thumbnail_setting = $this->get_data_thumbnail();
+		$GetDataThumbnail = get_option( $this->Record["thunmbnail"] );
+		if( !empty( $GetDataThumbnail ) ) {
+			$Thumbnail_setting = intval( $GetDataThumbnail["width"] );
+		} else {
+			$Thumbnail_setting = intval( $this->ThumbnailSize );
+		}
 
 		if($column_name == 'post-formats') {
 			// post-formats
@@ -1271,7 +1355,7 @@ class Post_Lists_View_Custom
 			if( has_post_thumbnail( $post_id ) ) {
 				$thumbnail_id = get_post_thumbnail_id( $post_id );
 				$thumbnail = wp_get_attachment_image_src( $thumbnail_id , 'post-thumbnail', true );
-				echo '<a href="media.php?attachment_id=' . $thumbnail_id . '&action=edit"><img src="' . $thumbnail[0] . '" width="' . $Thumbnail_setting["width"] . '" /></a>';
+				echo '<a href="media.php?attachment_id=' . $thumbnail_id . '&action=edit"><img src="' . $thumbnail[0] . '" width="' . $Thumbnail_setting . '" /></a>';
 			} else {
 				echo $None;
 			}
@@ -1330,7 +1414,7 @@ class Post_Lists_View_Custom
 								if( !empty($post) && intval( $post_meta[0] ) && $post->post_type == 'attachment' ) {
 									$CustomThumbnail = wp_get_attachment_image_src( $post_meta[0] , 'post-thumbnail', true );
 									if(!empty($CustomThumbnail)) {
-										echo '<a href="media.php?attachment_id=' . $post_meta[0] . '&action=edit"><img src="' . $CustomThumbnail[0] . '" width="' . $Thumbnail_setting["width"] . '" /></a>';
+										echo '<a href="media.php?attachment_id=' . $post_meta[0] . '&action=edit"><img src="' . $CustomThumbnail[0] . '" width="' . $Thumbnail_setting . '" /></a>';
 									} else {
 										echo $post_meta[0];
 									}
@@ -1349,7 +1433,7 @@ class Post_Lists_View_Custom
 						if( !empty($post) && intval($post_meta[0]) && $post->post_type == 'attachment' && $post_id == $post->post_parent ) {
 							$CustomThumbnail = wp_get_attachment_image_src( $post_meta[0], 'post-thumbnail', true );
 							if( !empty($CustomThumbnail ) ) {
-								echo '<a href="media.php?attachment_id=' . $post_meta[0] . '&action=edit"><img src="' . $CustomThumbnail[0] . '" width="' . $Thumbnail_setting["width"] . '" /></a>';
+								echo '<a href="media.php?attachment_id=' . $post_meta[0] . '&action=edit"><img src="' . $CustomThumbnail[0] . '" width="' . $Thumbnail_setting . '" /></a>';
 							} else {
 								echo $post_meta[0];
 							}
@@ -1367,7 +1451,7 @@ class Post_Lists_View_Custom
 
 	// FilterStart
 	function MediaColumnHeader( $columns ) {
-		$Data = $this->get_data( 'media' );
+		$Data = $this->get_filt_data( 'media' );
 
 		$FilterColumn = array( "cb" => $columns["cb"] );
 		if( !empty( $Data["use"] ) ) {
@@ -1375,8 +1459,6 @@ class Post_Lists_View_Custom
 				$FilterColumn[$id] = esc_html( $name["name"] );
 			}
 		}
-
-		wp_enqueue_style( $this->ltd . '-table' , $this->Dir . dirname( plugin_basename( __FILE__ ) ) . '-table.css' , array() , $this->Ver );
 
 		return $FilterColumn;
 	}
@@ -1417,7 +1499,7 @@ class Post_Lists_View_Custom
 
 	// FilterStart
 	function CommentsColumnHeader( $columns ) {
-		$Data = $this->get_data( 'comments' );
+		$Data = $this->get_filt_data( 'comments' );
 
 		$FilterColumn = array( "cb" => $columns["cb"] );
 		if( !empty( $Data["use"] ) ) {
@@ -1425,8 +1507,6 @@ class Post_Lists_View_Custom
 				$FilterColumn[$id] = esc_html( $name["name"] );
 			}
 		}
-
-		wp_enqueue_style( $this->ltd . '-table' , $this->Dir . dirname( plugin_basename( __FILE__ ) ) . '-table.css' , array() , $this->Ver );
 
 		return $FilterColumn;
 	}
@@ -1465,7 +1545,7 @@ class Post_Lists_View_Custom
 	function WidgetsColumnBody() {
 		global $wp_registered_widgets;
 		
-		$Data = $this->get_data( "widgets" );
+		$Data = $this->get_filt_data( "widgets" );
 		if( !empty( $Data["not_use"] ) ) {
 			foreach( $wp_registered_widgets as $widget_id => $widget ) {
 				if( array_key_exists( $widget_id , $Data["not_use"] ) !== false ) {
@@ -1478,7 +1558,7 @@ class Post_Lists_View_Custom
 
 	// FilterStart
 	function MenusMetaBox( $columns ) {
-		$Data = $this->get_data( 'menus' );
+		$Data = $this->get_filt_data( 'menus' );
 
 		if( !empty( $Data["not_use"] ) ) {
 			foreach( $Data["not_use"] as $id => $name ) {
@@ -1492,27 +1572,24 @@ class Post_Lists_View_Custom
 	// FilterStart
 	function MenusAdvColumnHeader( $columns ) {
 
-		$Data = $this->get_data( 'menus_adv' );
+		$Data = $this->get_filt_data( 'menus_adv' );
 
-		$FilterColumn = array();
-		if( !empty( $Data["use"] ) ) {
-			foreach( $Data["use"] as $id => $name ) {
-				$FilterColumn[$id] = esc_html( $name["name"] );
+		if( !empty( $Data["not_use"] ) ) {
+			foreach( $Data["not_use"] as $id => $name ) {
+				unset( $columns[$id] );
 			}
 		}
-		
-		if( !empty( $FilterColumn ) ) {
-			$FilterColumn["cb"] = $columns["cb"];
-			$FilterColumn["_title"] = $columns["_title"];
+
+		if( count( $columns ) == 2 ) {
+			$columns = array();
 		}
 
-		return $FilterColumn;
+		return $columns;
 	}
 
 	// FilterStart
 	function MenusAdvColumnBody( $columns ) {
-		$Data = $this->get_data( 'menus_adv' );
-		$user = wp_get_current_user();
+		$Data = $this->get_filt_data( 'menus_adv' );
 
 		$FilterColumn = array();
 		if( !empty( $Data["not_use"] ) ) {
@@ -1530,22 +1607,16 @@ class Post_Lists_View_Custom
 		$hide_set = rtrim( $hide_set , ', ' );
 		$hide_field = rtrim( $hide_field , ', ' );
 
-echo
-'
-<script>
-jQuery(document).ready(function($) {
-	$("' . $hide_set . '").hide();
-	$("' . $hide_field . '").hide();
-});
-</script>
-';
+		if( !empty( $hide_field ) ) {
+			echo '<style>' . $hide_field . ' { display: none; }</style>';
+		}
 
 		return $columns;
 	}
 
 	// FilterStart
 	function layout_footer( $text ) {
-		$text = '<img src="http://www.gravatar.com/avatar/7e05137c5a859aa987a809190b979ed4?s=18" width="18" /> Plugin developer : <a href="'. $this->AuthorUrl . '?utm_source=use_plugin&utm_medium=footer&utm_content=' . $this->ltd . '&utm_campaign=' . str_replace( '.' , '_' , $this->Ver ) . '" target="_blank">gqevu6bsiz</a>';
+		$text = '<img src="' . $this->Schema . 'www.gravatar.com/avatar/7e05137c5a859aa987a809190b979ed4?s=18" width="18" /> Plugin developer : <a href="'. $this->AuthorUrl . '?utm_source=use_plugin&utm_medium=footer&utm_content=' . $this->ltd . '&utm_campaign=' . str_replace( '.' , '_' , $this->Ver ) . '" target="_blank">gqevu6bsiz</a>';
 		return $text;
 	}
 

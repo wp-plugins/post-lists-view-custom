@@ -8,8 +8,8 @@ if( !empty( $_POST["reset"] ) ) {
 
 // include js css
 $ReadedJs = array( 'jquery' );
-wp_enqueue_script( $this->PageSlug ,  $this->Dir . dirname( dirname( plugin_basename( __FILE__ ) ) ) . '.js', $ReadedJs , $this->Ver );
-wp_enqueue_style( $this->PageSlug , $this->Dir . dirname( dirname( plugin_basename( __FILE__ ) ) ) . '.css', array() , $this->Ver );
+wp_enqueue_script( $this->PageSlug ,  $this->Url . $this->PluginSlug . '.js', $ReadedJs , $this->Ver );
+wp_enqueue_style( $this->PageSlug , $this->Url . $this->PluginSlug . '.css', array() , $this->Ver );
 
 // get data
 $Data = $this->get_data( $this->SetPage );
@@ -18,7 +18,7 @@ $Data = $this->get_data( $this->SetPage );
 
 <div class="wrap">
 	<div class="icon32" id="icon-options-general"></div>
-	<h2><?php _e( 'Setting Thumbnail size' , $this->ltd ); ?></h2>
+	<h2><?php echo $this->PageTitle; ?></h2>
 	<?php echo $this->Msg; ?>
 
 	<p><?php _e( 'Change the size of thumbnails displayed in the lists.' , $this->ltd ); ?></p>

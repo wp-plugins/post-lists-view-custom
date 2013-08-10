@@ -68,8 +68,8 @@ msgstr "Wybierz typ niestandardowy Wpisy z tego miejsca."
 msgid "Please rearrange the order in which you want to view by Drag & Drop."
 msgstr "Prosz&#0281; posortowane według przeciągania i upuszczania w kolejno&#347;ci, w której chcesz wy&#347;wietli&#x107;."
 
-msgid "Please drag and drop the column to show. <strong>* Order does not affect.</strong>"
-msgstr "Prosz&#0281; przeci&#261;gn&#261;&#x107; kolumn&#0281;, aby pokaza&#x107;. <strong>Order * nie ma wpływu</strong>."
+msgid "Please select the column item to hide."
+msgstr "Prosz&#281; wybra&#263; pozycj&#281; kolumny do ukrycia."
 
 msgid "Reset settings?"
 msgstr "Zresetowa&#x107; ustawienia?"
@@ -97,4 +97,7 @@ msgstr "Nie mo&#380;na odczyta&#263; kolumny."
 
 msgid "Columns will be loaded automatically when you access <a href=\"%1$s\">%2$s</a>."
 msgstr "Kolumny zostan&#261; za&#x142;adowane automatycznie po <a href=\"%1$s\">%2$s</a>."
+
+msgid "Taxonomy"
+msgstr "Taksonomia"
 

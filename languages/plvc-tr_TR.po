@@ -68,8 +68,8 @@ msgstr "Burada bir &Ouml;zel Yazılar t&uuml;r&uuml; seçin."
 msgid "Please rearrange the order in which you want to view by Drag & Drop."
 msgstr "S&uuml;r&uuml;kle & Bırak ile g&ouml;r&uuml;nt&uuml;lemek istedi&#x11F;iniz sırayı yeniden d&uuml;zenlemek l&uuml;tfen."
 
-msgid "Please drag and drop the column to show. <strong>* Order does not affect.</strong>"
-msgstr "S&uuml;r&uuml;kle ve g&ouml;r&uuml;nt&uuml;lemek istedi&#x11F;iniz &ouml;&#x11F;eleri bırakın. <strong>* Sipari&#x15F; etkilemez.</strong>"
+msgid "Please select the column item to hide."
+msgstr "Gizlemek i&ccedil;in s&uuml;tun &ouml;&#x11F;e se&ccedil;in."
 
 msgid "Reset settings?"
 msgstr "Ayarlarını sıfırlayın?"
@@ -97,4 +97,7 @@ msgstr "S&#252;tunları okunamadı."
 
 msgid "Columns will be loaded automatically when you access <a href=\"%1$s\">%2$s</a>."
 msgstr "S&#252;tun otomatik olarak y&#252;klenecek zaman s <a href=\"%1$s\">%2$s</a>."
+
+msgid "Taxonomy"
+msgstr "Etiketleme"
 

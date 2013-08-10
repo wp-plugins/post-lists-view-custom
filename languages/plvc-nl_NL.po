@@ -68,8 +68,8 @@ msgstr "Selecteer een aangepast Berichten soort uit deze plaats."
 msgid "Please rearrange the order in which you want to view by Drag & Drop."
 msgstr "Gelieve gesorteerd per Drag & Drop in de volgorde waarin u wilt bekijken."
 
-msgid "Please drag and drop the column to show. <strong>* Order does not affect.</strong>"
-msgstr "Sleep de items die u wilt weergeven. <strong>* Orde heeft geen effect.</strong>"
+msgid "Please select the column item to hide."
+msgstr "Selecteer het item dat u wilt verbergen."
 
 msgid "Reset settings?"
 msgstr "Wil je resetten?"
@@ -97,4 +97,7 @@ msgstr "Kon de kolommen niet lezen."
 
 msgid "Columns will be loaded automatically when you access <a href=\"%1$s\">%2$s</a>."
 msgstr "Kolommen worden automatisch geladen wanneer u <a href=\"%1$s\">%2$s</a>."
+
+msgid "Taxonomy"
+msgstr "Taxonomie"
 

@@ -68,8 +68,8 @@ msgstr "Пожалуйста, выберите пользовательский 
 msgid "Please rearrange the order in which you want to view by Drag & Drop."
 msgstr "Пожалуйста, сортируются по перетащить и падение в порядке, в котором вы хотите просмотреть."
 
-msgid "Please drag and drop the column to show. <strong>* Order does not affect.</strong>"
-msgstr "Пожалуйста, перетащить столбец для отображения. <strong>* Заказ никак не влияет.</strong>"
+msgid "Please select the column item to hide."
+msgstr "Пожалуйста, выберите столбец пункта скрывать."
 
 msgid "Reset settings?"
 msgstr "Сброс настройки?"
@@ -97,4 +97,7 @@ msgstr "Не удается выполнить чтение столбцов."
 
 msgid "Columns will be loaded automatically when you access <a href=\"%1$s\">%2$s</a>."
 msgstr "Колонка будет загружен автоматически при с  доступом <a href=\"%1$s\">%2$s</a>."
+
+msgid "Taxonomy"
+msgstr "Таксономия"
 
