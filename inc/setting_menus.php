@@ -97,7 +97,7 @@ $Columns = $this->get_list_columns( $this->SetPage );
 						<input type="submit" class="button-primary" name="update" value="<?php _e( 'Save' ); ?>" />
 					</p>
 					<p class="submit reset">
-						<span class="description"><?php _e( 'Reset settings?' , $this->ltd ); ?></span>
+						<span class="description"><?php _e( 'Reset all settings?' , $this->ltd ); ?></span>
 						<input type="submit" class="button-secondary" name="reset" value="<?php _e( 'Reset' ); ?>" />
 					</p>
 			

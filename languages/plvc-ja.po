@@ -1,102 +1,233 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Post Lists View Custom\n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
-"Last-Translator: Gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
-"Language-Team: Gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-10-05 17:44+0900\n"
+"PO-Revision-Date: 2013-10-05 18:05+0900\n"
+"Last-Translator: gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
+"Language-Team: gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.5\n"
-"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: ../\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "X-Poedit-Language: Japanese\n"
 "X-Poedit-Country: JAPAN\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-SearchPath-0: .\n"
 
-msgid "You can customize the various lists screen."
-msgstr "様々な一覧表示をカスタマイズします。"
+#: post-lists-view-custom.php:4
+msgid "Allow to customizing for the list screen."
+msgstr "一覧画面をカスタマイズすることができるプラグインです。"
 
-msgid "Apply the settings of Post Lists View Custom only user roles selected."
-msgstr "選択された権限のみ Post Lists View Custom の設定を適用します。"
+#: post-lists-view-custom.php:132
+#: post-lists-view-custom.php:204
+msgid " show screen "
+msgstr " 表示項目 "
 
+#: post-lists-view-custom.php:133
+#: post-lists-view-custom.php:214
+msgid " show advanced properties screen "
+msgstr " 詳細設定項目 "
+
+#: post-lists-view-custom.php:133
+msgid " advanced properties"
+msgstr " 詳細項目 "
+
+#: post-lists-view-custom.php:134
+#: post-lists-view-custom.php:135
+#: post-lists-view-custom.php:242
+#: inc/select_custom.php:15
+msgid "Custom Post Type"
+msgstr "カスタム投稿タイプ"
+
+#: post-lists-view-custom.php:245
+#: inc/select_custom.php:37
+msgid "No custom post type found."
+msgstr "カスタム投稿タイプは見つかりませんでした。"
+
+#: post-lists-view-custom.php:246
+msgid "Please select Custom Posts type from here."
+msgstr "ここからカスタム投稿タイプを選択してください。"
+
+#: post-lists-view-custom.php:305
+#, php-format
 msgid "Authority to apply the setting is not selected. <a href=\"%s\">From here</a>, please select the permissions you want to set."
 msgstr "設定を適用する権限が選択されていません。<a href=\"%s\">こちら</a>から設定する権限を選んでください。"
 
-msgid "Please select the user roles that all settings will apply to."
-msgstr "設定を適用する権限を選んでください。"
-
-msgid "All Posts List Customize"
-msgstr "投稿一覧カスタマイズ"
-
-msgid "All Pages List Customize"
-msgstr "固定ページ一覧設定"
-
-msgid "Media Library List Customize"
-msgstr "メディアライブラリ一覧設定"
-
-msgid "Comments List Customize"
-msgstr "コメント一覧設定"
-
-msgid "Available Widgets List Customize"
-msgstr "利用できるウィジェット一覧設定"
-
-msgid "Menus show screen List Customize"
-msgstr "メニュー表示項目一覧設定"
-
-msgid "Menus advanced properties"
-msgstr "詳細メニュー"
-
-msgid "Menus show advanced properties screen List Customize"
-msgstr "詳細メニュー表示項目一覧設定"
-
-msgid "Custom Posts Type"
-msgstr "カスタム投稿タイプ"
-
-msgid "Custom Posts Type List Customize"
-msgstr "カスタム投稿タイプ一覧設定"
-
-msgid "Please choose a custom post type you want to change the list's view."
-msgstr "一覧表示の変更をしたいカスタム投稿タイプを選択してください。"
-
-msgid "No custom post type found."
-msgstr "カスタム投稿タイプがありません。"
-
-msgid "Please select a Custom Posts type from here."
-msgstr "こちらからカスタム投稿タイプを選択してください。"
-
-msgid "Please rearrange the order in which you want to view by Drag & Drop."
-msgstr "表示したい順にドラッグ&ドロップで並べ替えて下さい。"
-
-msgid "Please select the column item to hide."
-msgstr "非表示にしたい項目を選んでください。"
-
-msgid "Reset settings?"
-msgstr "リセットしますか?"
-
-msgid "Setting Thumbnail size"
-msgstr "アイキャッチサイズ設定"
-
-msgid "Change the size of thumbnails displayed in the lists."
-msgstr "一覧に表示されるサムネイルのサイズを設定します。"
-
-msgid "It will be displayed at <strong>%s px</strong> If there is no setting."
-msgstr "設定が無い場合は <strong>%s px</strong> での表示となります。"
-
-msgid "Height will be displayed in proportion to the width."
-msgstr "高さは幅に比例した表示となります。"
-
-msgid "Post, Page, and Custom Post type the applies."
-msgstr "投稿、ページ、カスタム投稿タイプに適用されます。"
-
+#: post-lists-view-custom.php:329
 msgid "Apply user roles"
 msgstr "適用するユーザー権限"
 
+#: post-lists-view-custom.php:443
+msgid "ID"
+msgstr "ID"
+
+#: post-lists-view-custom.php:982
+#: inc/donation.php:5
+msgid "Thank you for your donation."
+msgstr "寄付いただきありがとうございます。"
+
+#: post-lists-view-custom.php:1641
+msgid "To donate if you feel that it is useful, please."
+msgstr "便利に感じたら寄付のご検討をよろしくお願いします。"
+
+#: inc/donation.php:11
+msgid "Thank you for considering donate."
+msgstr "寄付のご検討をお願いします。"
+
+#: inc/donation.php:12
+msgid "Thank you very much for your support."
+msgstr "あなたのサポートを感謝します。"
+
+#: inc/donation.php:14
+msgid "Donate"
+msgstr "寄付について"
+
+#: inc/donation.php:17
+msgid "Please enter the 'Donation delete key' that have been described in the 'Line Break First and End download page'."
+msgstr "'Line Break First and End' ダウンロードページに記載されていた寄付削除キーを入力して、寄付メッセージを削除できます。"
+
+#: inc/donation.php:20
+msgid "Donation delete key"
+msgstr "寄付メッセージ削除キー"
+
+#: inc/donation.php:24
+msgid "I'm looking forward to your proposal."
+msgstr "ご提案をお待ちしています。"
+
+#: inc/donation.php:25
+msgid "Please contact me if you have any good idea."
+msgstr "いいアイデアがありましたらご連絡ください。"
+
+#: inc/donation.php:36
+msgid "Have you want to customize?"
+msgstr "カスタマイズでお困りの事はありませんか？"
+
+#: inc/donation.php:42
+msgid "I am good at Admin Screen Customize."
+msgstr "管理画面のカスタマイズなら得意です。"
+
+#: inc/donation.php:43
+msgid "Please consider the request to me if it is good."
+msgstr "宜しければご相談ください。"
+
+#: inc/donation.php:45
+msgid "Contact"
+msgstr "問い合わせ"
+
+#: inc/donation.php:47
+msgid "Example Customize"
+msgstr "カスタマイズ例"
+
+#: inc/donation.php:53
+msgid "About plugin"
+msgstr "プラグインについて"
+
+#: inc/donation.php:55
+msgid "Version checked"
+msgstr "バージョン確認"
+
+#: inc/donation.php:57
+msgid "Developer's site"
+msgstr "開発者のサイト"
+
+#: inc/donation.php:59
+msgid "Reviews"
+msgstr "レビュー"
+
+#: inc/donation.php:64
+#: inc/setting_default.php:74
+msgid "Would you like to translate?"
+msgstr "翻訳していただけませんか？"
+
+#: inc/donation.php:68
+#: inc/setting_default.php:78
+#, php-format
+msgid "Do you have a proposal you want to improve? Please contact to %s if it is necessary."
+msgstr "このプラグインについて何か提案がありますか？あれば %s までお問い合わせください。"
+
+#: inc/donation.php:73
+msgid "Useful plugins"
+msgstr "便利なプラグイン"
+
+#: inc/donation.php:76
+msgid "This add-on is can be different setting for each user roles."
+msgstr "このアドオンはユーザーの権限グループごとにPost Lists View Custom の設定が可能になるアドオンです。"
+
+#: inc/donation.php:78
+msgid "Customize a variety of screen management."
+msgstr "管理画面の様々なカスタマイズ"
+
+#: inc/donation.php:80
+msgid "Announce to display the dashboard. Change the display to a different user role."
+msgstr "ダッシュボードにお知らせを表示します。ユーザーの権限ごとに表示を変更できます。"
+
+#: inc/donation.php:82
+msgid "The plugin that allows you to add the value of the options. Option value that you have created, can be used in addition to the template tag, Short code can be used in the body of the article."
+msgstr "オプション値作成プラグインです。作成したオプション値は、ショートコードとして記事に、テンプレートタグとしても使用できます。"
+
+#: inc/select_custom.php:26
+msgid "Please choose a custom post type you want to change the list's view."
+msgstr "一覧表示の変更をしたいカスタム投稿タイプを選択してください。"
+
+#: inc/setting_default.php:27
+msgid "Apply the settings of Post Lists View Custom only user roles selected."
+msgstr "選択された権限のみ Post Lists View Custom の設定を適用します。"
+
+#: inc/setting_default.php:28
+msgid "Please select the user roles that all settings will apply to."
+msgstr "設定を適用する権限を選んでください。"
+
+#: inc/setting_default.php:64
+#: inc/setting_lists.php:129
+#: inc/setting_lists_custom_post.php:154
+#: inc/setting_lists_post.php:149
+#: inc/setting_menus.php:100
+#: inc/setting_thumbnail_size.php:59
+msgid "Reset all settings?"
+msgstr "リセットしますか？"
+
+#: inc/setting_lists.php:38
+#: inc/setting_lists_custom_post.php:49
+#: inc/setting_lists_post.php:48
+msgid "Please rearrange the order in which you want to view by Drag & Drop."
+msgstr "表示したい順にドラッグ&ドロップで並べ替えて下さい。"
+
+#: inc/setting_lists_custom_post.php:65
+#: inc/setting_lists_post.php:63
 msgid "Could not read the columns."
 msgstr "カラムの読み取りが出来ませんでした。"
 
-msgid "Columns will be loaded automatically when you access <a href=\"%1$s\">%2$s</a>."
-msgstr "<a href=\"%1$s\">%2$s</a>にアクセスした時にカラムは自動的に読み込まれます。"
+#: inc/setting_lists_custom_post.php:66
+#: inc/setting_lists_post.php:64
+#, php-format
+msgid "Columns will be loaded automatically when you <a href=\"%1$s\">%2$s</a>."
+msgstr "<a href=\"%1$s\">%2$s</a>にアクセスするとカラムは自動的に読み込まれます。"
 
+#: inc/setting_menus.php:44
+msgid "Please select the column item to hide."
+msgstr "非表示にしたい項目を選んでください。"
+
+#: inc/setting_menus.php:81
 msgid "Taxonomy"
 msgstr "タクソノミー"
+
+#: inc/setting_thumbnail_size.php:24
+msgid "Change the size of thumbnails displayed in the lists."
+msgstr "一覧に表示されるサムネイルのサイズを設定します。"
+
+#: inc/setting_thumbnail_size.php:25
+msgid "Post, Page, and Custom Post type the applies."
+msgstr "投稿、ページ、カスタム投稿タイプに適用されます。"
+
+#: inc/setting_thumbnail_size.php:48
+#, php-format
+msgid "It will be displayed at <strong>%s px</strong> If there is no setting."
+msgstr "設定が無い場合は <strong>%s px</strong> での表示となります。"
+
+#: inc/setting_thumbnail_size.php:49
+msgid "Height will be displayed in proportion to the width."
+msgstr "高さは幅に比例した表示となります。"
 

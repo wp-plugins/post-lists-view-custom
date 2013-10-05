@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Post Lists View Custom
-Description: You can customize the various lists screen.
+Description: Allow to customizing for the list screen.
 Plugin URI: http://wordpress.org/extend/plugins/post-lists-view-custom/
-Version: 1.5.4
+Version: 1.5.5
 Author: gqevu6bsiz
-Author URI: http://gqevu6bsiz.chicappa.jp/?utm_source=use_plugin&utm_medium=list&utm_content=plvc&utm_campaign=1_5_4
+Author URI: http://gqevu6bsiz.chicappa.jp/?utm_source=use_plugin&utm_medium=list&utm_content=plvc&utm_campaign=1_5_5
 Text Domain: plvc
 Domain Path: /languages
 */
@@ -53,13 +53,12 @@ class Post_Lists_View_Custom
 
 
 	function __construct() {
-		$this->Ver = '1.5.4';
+		$this->Ver = '1.5.5';
 		$this->Name = 'Post Lists View Custom';
 		$this->Dir = plugin_dir_path( __FILE__ );
 		$this->Url = plugin_dir_url( __FILE__ );
 		$this->AuthorUrl = 'http://gqevu6bsiz.chicappa.jp/';
 		$this->ltd = 'plvc';
-		$this->ltd_p = $this->ltd . '_plugin';
 		$this->Record = array(
 			"user_role" => $this->ltd . '_user_role',
 			"post" => $this->ltd . '_post',
@@ -94,7 +93,6 @@ class Post_Lists_View_Custom
 	function PluginSetup() {
 		// load text domain
 		load_plugin_textdomain( $this->ltd , false , $this->PluginSlug . '/languages' );
-		load_plugin_textdomain( $this->ltd_p , false , $this->PluginSlug . '/languages' );
 
 		// plugin links
 		add_filter( 'plugin_action_links' , array( $this , 'plugin_action_links' ) , 10 , 2 );
@@ -126,16 +124,16 @@ class Post_Lists_View_Custom
 	// PluginSetup
 	function admin_menu() {
 		add_menu_page( 'Post Lists View Custom' , 'Post Lists View Custom' , 'administrator', $this->PageSlug , array( $this , 'setting_default') );
-		add_submenu_page( $this->PageSlug , __( 'All Posts List Customize' , $this->ltd ) , __( 'All Posts' ) , 'administrator' , $this->Record["post"] , array( $this , 'setting_post' ) );
-		add_submenu_page( $this->PageSlug , __( 'All Pages List Customize' , $this->ltd ) , __( 'All Pages' ) , 'administrator' , $this->Record["page"] , array( $this , 'setting_page' ) );
-		add_submenu_page( $this->PageSlug , __( 'Media Library List Customize' , $this->ltd ) , __( 'Media Library' ) , 'administrator' , $this->Record["media"] , array( $this , 'setting_media' ) );
-		add_submenu_page( $this->PageSlug , __( 'Comments List Customize' , $this->ltd ) , __( 'Comments' ) , 'administrator' , $this->Record["comments"] , array( $this , 'setting_comments' ) );
-		add_submenu_page( $this->PageSlug , __( 'Available Widgets List Customize' , $this->ltd ) , __( 'Available Widgets' ) , 'administrator' , $this->Record["widgets"] , array( $this , 'setting_widgets' ) );
-		add_submenu_page( $this->PageSlug , __( 'Menus show screen List Customize' , $this->ltd ) , __( 'Menus' ) , 'administrator' , $this->Record["menus"] , array( $this , 'setting_menus' ) );
-		add_submenu_page( $this->PageSlug , __( 'Menus show advanced properties screen List Customize' , $this->ltd ) , __( 'Menus advanced properties' , $this->ltd ) , 'administrator' , $this->Record["menus_adv"] , array( $this , 'setting_menus_adv' ) );
-		add_submenu_page( $this->PageSlug , __( 'Custom Posts Type' , $this->ltd ) , __( 'Custom Posts Type' , $this->ltd ) , 'administrator' , 'select_custom_posts_list_view_setting' , array( $this , 'select_custom_posts' ) );
-		add_submenu_page( $this->PageSlug , __( 'Custom Posts Type List Customize' , $this->ltd ) , sprintf( '<div style="display: none;">$s</div>' , __( 'Custom Posts Type' , $this->ltd ) ) , 'administrator' , $this->Record["custom_posts"] , array( $this , 'setting_custom_posts' ) );
-		add_submenu_page( $this->PageSlug , __( 'Setting Thumbnail size' , $this->ltd ) , __( 'Setting Thumbnail size' , $this->ltd ) , 'administrator' , $this->Record["thunmbnail"] , array( $this , 'setting_thumbnail' ) );
+		add_submenu_page( $this->PageSlug , __( 'Posts' ) . __( 'List View' ) . __( 'Customize' ) , __( 'All Posts' ) , 'administrator' , $this->Record["post"] , array( $this , 'setting_post' ) );
+		add_submenu_page( $this->PageSlug , __( 'Pages') . __( 'List View' ) . __( 'Customize' ) , __( 'All Pages' ) , 'administrator' , $this->Record["page"] , array( $this , 'setting_page' ) );
+		add_submenu_page( $this->PageSlug , __( 'Media Library' ) . __( 'Customize' ) , __( 'Media Library' ) , 'administrator' , $this->Record["media"] , array( $this , 'setting_media' ) );
+		add_submenu_page( $this->PageSlug , __( 'Comments' ) . __( 'Customize' ) , __( 'Comments' ) , 'administrator' , $this->Record["comments"] , array( $this , 'setting_comments' ) );
+		add_submenu_page( $this->PageSlug , __( 'Available Widgets' ) . __( 'Customize' ) , __( 'Available Widgets' ) , 'administrator' , $this->Record["widgets"] , array( $this , 'setting_widgets' ) );
+		add_submenu_page( $this->PageSlug , __( 'Menus' ) . __( ' show screen ' , $this->ltd ) . __( 'Customize' ) , __( 'Menus' ) , 'administrator' , $this->Record["menus"] , array( $this , 'setting_menus' ) );
+		add_submenu_page( $this->PageSlug , __( 'Menus' ) . __( ' show advanced properties screen ' , $this->ltd ) . __( 'Customize' ) , __( 'Menus' ) . __( ' advanced properties' , $this->ltd ) , 'administrator' , $this->Record["menus_adv"] , array( $this , 'setting_menus_adv' ) );
+		add_submenu_page( $this->PageSlug , __( 'Custom Post Type' , $this->ltd ) , __( 'Custom Post Type' , $this->ltd ) , 'administrator' , 'select_custom_posts_list_view_setting' , array( $this , 'select_custom_posts' ) );
+		add_submenu_page( $this->PageSlug , __( 'Custom Post Type' , $this->ltd )  . __( 'Customize' ) , sprintf( '<div style="display: none;">$s</div>' , __( 'Custom Post Type' , $this->ltd ) ) , 'administrator' , $this->Record["custom_posts"] , array( $this , 'setting_custom_posts' ) );
+		add_submenu_page( $this->PageSlug , __( 'Thumbnail size' ) , __( 'Thumbnail size' ) , 'administrator' , $this->Record["thunmbnail"] , array( $this , 'setting_thumbnail' ) );
 	}
 
 
@@ -153,7 +151,7 @@ class Post_Lists_View_Custom
 	// SettingPage
 	function setting_post() {
 		$this->SetPage = 'post';
-		$this->PageTitle = __( 'All Posts List Customize' , $this->ltd );
+		$this->PageTitle = __( 'Posts' ) . __( 'List View' ) . __( 'Customize' );
 		
 		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
 		$this->DisplayDonation();
@@ -163,7 +161,7 @@ class Post_Lists_View_Custom
 	// SettingPage
 	function setting_page() {
 		$this->SetPage = 'page';
-		$this->PageTitle = __( 'All Pages List Customize' , $this->ltd );
+		$this->PageTitle = __( 'Pages' ) . __( 'List View' ) . __( 'Customize' );
 		
 		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
 		$this->DisplayDonation();
@@ -173,7 +171,7 @@ class Post_Lists_View_Custom
 	// SettingPage
 	function setting_media() {
 		$this->SetPage = 'media';
-		$this->PageTitle = __( 'Media Library List Customize' , $this->ltd );
+		$this->PageTitle = __( 'Media Library' ) . ' ' . __( 'Customize' );
 		
 		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
 		$this->DisplayDonation();
@@ -183,7 +181,7 @@ class Post_Lists_View_Custom
 	// SettingPage
 	function setting_comments() {
 		$this->SetPage = 'comments';
-		$this->PageTitle = __( 'Comments List Customize' , $this->ltd );
+		$this->PageTitle = __( 'Comments' ) . ' ' . __( 'Customize' );
 		
 		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
 		$this->DisplayDonation();
@@ -193,7 +191,7 @@ class Post_Lists_View_Custom
 	// SettingPage
 	function setting_widgets() {
 		$this->SetPage = 'widgets';
-		$this->PageTitle = __( 'Available Widgets List Customize' , $this->ltd );
+		$this->PageTitle = __( 'Available Widgets' ) . ' ' . __( 'Customize' );
 		
 		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
 		$this->DisplayDonation();
@@ -203,7 +201,7 @@ class Post_Lists_View_Custom
 	// SettingPage
 	function setting_menus() {
 		$this->SetPage = 'menus';
-		$this->PageTitle = __( 'Menus show screen List Customize' , $this->ltd );
+		$this->PageTitle = __( 'Menus' ) . __( ' show screen ' , $this->ltd ) . __( 'Customize' );
 		
 		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
 		$this->DisplayDonation();
@@ -213,7 +211,7 @@ class Post_Lists_View_Custom
 	// SettingPage
 	function setting_menus_adv() {
 		$this->SetPage = 'menus_adv';
-		$this->PageTitle = __( 'Menus show advanced properties screen List Customize' , $this->ltd );
+		$this->PageTitle = __( 'Menus' ) . __( ' show advanced properties screen ' , $this->ltd ) . __( 'Customize' );
 		
 		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
 		$this->DisplayDonation();
@@ -241,18 +239,18 @@ class Post_Lists_View_Custom
 
 		if( !empty( $PostSlug ) ) {
 			$PostType = get_post_type_object( $PostSlug );
-			$this->PageTitle = __( 'Custom Posts Type List Customize' , $this->ltd ) . '( ' . esc_html( $PostType->labels->name ) . ' )';
+			$this->PageTitle = __( 'Custom Post Type' , $this->ltd ) . ' ' . __( 'Customize' ) . '( ' . esc_html( $PostType->labels->name ) . ' )';
 			include_once 'inc/setting_lists_custom_post.php';
 		} else {
 			echo sprintf( '<p>%s</p>' , __( 'No custom post type found.' , $this->ltd ) );
-			echo sprintf( '<p><a href="%2$s">%1$s</a></p>' , __( 'Please select a Custom Posts type from here.' , $this->ltd ) , admin_url( 'admin.php?page=select_custom_posts_list_view_setting' ) );
+			echo sprintf( '<p><a href="%2$s">%1$s</a></p>' , __( 'Please select Custom Posts type from here.' , $this->ltd ) , admin_url( 'admin.php?page=select_custom_posts_list_view_setting' ) );
 		}
 	}
 
 	// SettingPage
 	function setting_thumbnail() {
 		$this->SetPage = 'thunmbnail';
-		$this->PageTitle = __( 'Setting Thumbnail size' , $this->ltd );
+		$this->PageTitle = __( 'Thumbnail size' );
 		
 		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
 		$this->DisplayDonation();
@@ -981,7 +979,7 @@ class Post_Lists_View_Custom
 				$SubmitKey = md5( strip_tags( $_POST["donate_key"] ) );
 				if( $this->DonateKey == $SubmitKey ) {
 					update_option( $this->Record["donate"] , $SubmitKey );
-					$this->Msg .= '<div class="updated"><p><strong>' . __( 'Thank you for your donation.' , $this->ltd_p ) . '</strong></p></div>';
+					$this->Msg .= '<div class="updated"><p><strong>' . __( 'Thank you for your donation.' , $this->ltd ) . '</strong></p></div>';
 				}
 			}
 		}
@@ -1174,6 +1172,8 @@ class Post_Lists_View_Custom
 
 
 
+
+
 	// FilterStart
 	function FilterStart() {
 		if ( is_admin() ) {
@@ -1184,7 +1184,7 @@ class Post_Lists_View_Custom
 			add_action( 'admin_footer' , array( $this , 'include_css' ) );
 			
 			// Filter Set
-			add_action( 'admin_head' , array( $this , 'columns_init' ) );
+			add_action( 'admin_init' , array( $this , 'columns_init' ) );
 		}
 	}
 
@@ -1218,29 +1218,39 @@ class Post_Lists_View_Custom
 			if( !is_network_admin() && !empty( $UserRole) ) {
 				if( array_key_exists( $UserRole , $SettingRole ) ) {
 
-					global $current_screen;
-	
+					global $pagenow, $typenow;
+
+					$Req = array( "req_file" => $pagenow , "typenow" => $typenow );
+					if ( $pagenow == 'edit.php' && empty( $typenow ) ) {
+						$Req["typenow"] = 'post';
+					} elseif ( $pagenow == 'admin-ajax.php' && !empty( $_REQUEST["post_type"] ) ) {
+						$Req["req_file"] = 'edit.php';
+						$Req["typenow"] = $_REQUEST["post_type"];
+					}
+					
 					$Data = array();
-					if( $current_screen->base == 'edit' ) {
-						if( $current_screen->post_type == 'post' or $current_screen->post_type == 'page' ) {
-							$Data = $this->get_filt_data( $current_screen->post_type );
+
+					if( $Req["req_file"] == 'edit.php' ) {
+
+						if( $Req["typenow"] == 'post' or $Req["typenow"] == 'page' ) {
+							$Data = $this->get_filt_data( $Req["typenow"] );
 						} else {
 							$Custom = $this->get_filt_data( "custom_posts" );
-							if( !empty( $Custom[$current_screen->post_type] ) ) {
-								$Data = $Custom[$current_screen->post_type];
+							if( !empty( $Custom[$Req["typenow"]] ) ) {
+								$Data = $Custom[$Req["typenow"]];
 							}
 						}
-							
-						$hook_header = array( "manage_edit-" . $current_screen->post_type . "_columns" , "PostsColumnHeader" );
-						$hook_body = array( "manage_" . $current_screen->post_type . "_posts_custom_column" , "PostsColumnBody" );
-	
+								
+						$hook_header = array( "manage_edit-" . $Req["typenow"] . "_columns" , "PostsColumnHeader" );
+						$hook_body = array( "manage_" . $Req["typenow"] . "_posts_custom_column" , "PostsColumnBody" );
+		
 						if( !empty( $Data ) && !empty( $hook_header ) && !empty( $hook_body ) ) {
 							add_filter( $hook_header[0] , array( $this , $hook_header[1] ) , 10001 );
 							add_action( $hook_body[0] , array( $this , $hook_body[1] ) , 10 , 2 );
 						}
-					}
-	
-					if( $current_screen->base == $current_screen->id && $current_screen->id == 'upload' ) {
+
+					} if( $Req["req_file"] == 'upload.php' ) {
+
 						$Data = $this->get_filt_data( "media" );
 							
 						$hook_header = array( "manage_media_columns" , "MediaColumnHeader" );
@@ -1250,9 +1260,9 @@ class Post_Lists_View_Custom
 							add_filter( $hook_header[0] , array( $this , $hook_header[1] ) , 10001 );
 							add_action( $hook_body[0] , array( $this , $hook_body[1] ) , 10 , 2 );
 						}
-					}
-						
-					if( $current_screen->base == $current_screen->id && $current_screen->id == 'edit-comments' ) {
+
+					} if( $Req["req_file"] == 'edit-comments.php' ) {
+
 						$Data = $this->get_filt_data( "comments" );
 						
 						$hook_header = array( "manage_edit-comments_columns" , "CommentsColumnHeader" );
@@ -1262,34 +1272,35 @@ class Post_Lists_View_Custom
 							add_filter( $hook_header[0] , array( $this , $hook_header[1] ) , 10001 );
 							add_action( $hook_body[0] , array( $this , $hook_body[1] ) , 10 , 2 );
 						}
-					}
-						
-					if( $current_screen->base == $current_screen->id && $current_screen->id == 'widgets' ) {
+
+					} if( $Req["req_file"] == 'widgets.php' ) {
+
 						$Data = $this->get_filt_data( "widgets" );
 						
 						if( !empty( $Data ) ) {
 							add_filter( 'widgets_admin_page' , array( $this , 'WidgetsColumnBody' ) );
 						}
-					}
-	
-					if( $current_screen->base == $current_screen->id && $current_screen->id == 'nav-menus' ) {
+
+					} if( $Req["req_file"] == 'nav-menus.php' ) {
+
 						$Data = $this->get_filt_data( "menus" );
 						
 						if( !empty( $Data ) ) {
-							add_filter( "manage_nav-menus_columns" , array( $this , "MenusMetaBox" ) );
+							add_filter( "admin_head-nav-menus.php" , array( $this , "MenusMetaBox" ) );
 						}
 	
 						$Data = $this->get_filt_data( "menus_adv" );
 				
 						$hook_header = array( "manage_nav-menus_columns" , "MenusAdvColumnHeader" );
-						$hook_body = array( "manage_nav-menus_columns" , "MenusAdvColumnBody" );
+						$hook_body = array( "admin_head-nav-menus.php" , "MenusAdvColumnBody" );
 	
 						if( !empty( $Data ) && !empty( $hook_header ) && !empty( $hook_body ) ) {
-							add_filter( $hook_header[0] , array( $this , $hook_header[1] ) );
+							add_filter( $hook_header[0] , array( $this , $hook_header[1] ) , 11 );
 							add_action( $hook_body[0] , array( $this , $hook_body[1] ) );
 						}
+
 					}
-					
+
 				}
 			}
 
@@ -1299,23 +1310,29 @@ class Post_Lists_View_Custom
 
 	// FilterStart
 	function PostsColumnHeader( $columns ) {
-		global $current_screen;
+		global $pagenow, $typenow;
 		
-		if( $current_screen->post_type == 'post' or $current_screen->post_type == 'page' ) {
-			$Data = $this->get_filt_data( $current_screen->post_type );
-			$current_columns = $this->get_list_columns( $current_screen->post_type );
+		$Req = array( "req_file" => $pagenow , "typenow" => $typenow );
+		if ( $pagenow == 'edit.php' && empty( $typenow ) ) {
+			$Req["typenow"] = 'post';
+		} elseif ( $pagenow == 'admin-ajax.php' ) {
+			$Req["req_file"] = 'edit.php';
+			$Req["typenow"] = $_REQUEST["post_type"];
+		}
+
+		if( $Req["typenow"] == 'post' or $Req["typenow"] == 'page' ) {
+			$Data = $this->get_filt_data( $Req["typenow"] );
+			$current_columns = $this->get_list_columns( $Req["typenow"] );
 		} else {
 			$Custom = $this->get_filt_data( "custom_posts" );
-			$Data = $Custom[$current_screen->post_type];
+			$Data = $Custom[$Req["typenow"]];
 			$current_columns = $this->get_list_columns( "custom_posts" );
 		}
 		$FilterColumn = array( "cb" => $columns["cb"] );
 		
 		if( !empty( $Data["use"] ) ) {
 			foreach( $Data["use"] as $id => $name ) {
-				if( !empty( $current_columns[$id] ) ) {
-					$FilterColumn[$id] = stripslashes( $name["name"] );
-				}
+				$FilterColumn[$id] = stripslashes( $name["name"] );
 			}
 		}
 
@@ -1571,7 +1588,6 @@ class Post_Lists_View_Custom
 
 	// FilterStart
 	function MenusAdvColumnHeader( $columns ) {
-
 		$Data = $this->get_filt_data( 'menus_adv' );
 
 		if( !empty( $Data["not_use"] ) ) {
@@ -1588,7 +1604,7 @@ class Post_Lists_View_Custom
 	}
 
 	// FilterStart
-	function MenusAdvColumnBody( $columns ) {
+	function MenusAdvColumnBody() {
 		$Data = $this->get_filt_data( 'menus_adv' );
 
 		$FilterColumn = array();
@@ -1610,8 +1626,6 @@ class Post_Lists_View_Custom
 		if( !empty( $hide_field ) ) {
 			echo '<style>' . $hide_field . ' { display: none; }</style>';
 		}
-
-		return $columns;
 	}
 
 	// FilterStart
@@ -1624,7 +1638,7 @@ class Post_Lists_View_Custom
 	function DisplayDonation() {
 		$donation = get_option( $this->ltd . '_donated' );
 		if( $this->DonateKey != $donation ) {
-			$this->Msg .= '<div class="updated" style="background: #E5FFE2; border-color: #7BE762;"><p><strong>' . __( 'To donate if you feel that it is useful, please.' , $this->ltd_p ) . '</strong></p></div>';
+			$this->Msg .= '<div class="updated" style="background: #E5FFE2; border-color: #7BE762;"><p><strong>' . __( 'To donate if you feel that it is useful, please.' , $this->ltd ) . '</strong></p></div>';
 		}
 	}
 

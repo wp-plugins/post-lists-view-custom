@@ -12,7 +12,7 @@ wp_enqueue_style( $this->PageSlug , $this->Url . $this->PluginSlug . '.css', arr
 
 <div class="wrap">
 	<div class="icon32" id="icon-options-general"></div>
-	<h2><?php _e( 'Custom Posts Type List Customize' , $this->ltd ); ?></h2>
+	<h2><?php _e( 'Custom Post Type' , $this->ltd ); ?> <?php _e( 'Customize' ); ?></h2>
 	<?php echo $this->Msg; ?>
 
 	<?php $class = $this->ltd; ?>

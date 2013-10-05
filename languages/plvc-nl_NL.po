@@ -1,103 +1,233 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Post Lists View Custom\n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
-"Last-Translator: Gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
-"Language-Team: Gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-10-05 17:44+0900\n"
+"PO-Revision-Date: 2013-10-05 18:20+0900\n"
+"Last-Translator: gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
+"Language-Team: gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.5\n"
-"Language: ja\n"
-"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: ../\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "X-Poedit-Language: Dutch\n"
 "X-Poedit-Country: NEW ZEALAND\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-SearchPath-0: .\n"
 
-msgid "You can customize the various lists screen."
-msgstr "U kunt de verschillende scherm lijsten aan te passen."
+#: post-lists-view-custom.php:4
+msgid "Allow to customizing for the list screen."
+msgstr "Laten aanpassen voor de lijst scherm."
 
-msgid "Apply the settings of Post Lists View Custom only user roles selected."
-msgstr "Instellingen zijn alleen van toepassing autoriteit die is geselecteerd."
+#: post-lists-view-custom.php:132
+#: post-lists-view-custom.php:204
+msgid " show screen "
+msgstr " het scherm tonen "
 
-msgid "Authority to apply the setting is not selected. <a href=\"%s\">From here</a>, please select the permissions you want to set."
-msgstr "Bevoegdheid om de instelling toe te passen wordt niet geselecteerd. <a href=\"%s\">Vanaf hier</a>, selecteert u de gewenste machtigingen in te stellen."
+#: post-lists-view-custom.php:133
+#: post-lists-view-custom.php:214
+msgid " show advanced properties screen "
+msgstr " geavanceerde menu eigenschappen tonen "
 
-msgid "Please select the user roles that all settings will apply to."
-msgstr "Selecteer de gebruiker rollen die alle instellingen hebben betrekking op."
+#: post-lists-view-custom.php:133
+msgid " advanced properties"
+msgstr " geavanceerde eigenschappen "
 
-msgid "All Posts List Customize"
-msgstr "Berichten Lijst Customization"
-
-msgid "All Pages List Customize"
-msgstr "Pagina's Lijst Customization"
-
-msgid "Media Library List Customize"
-msgstr "Mediabibliotheek Lijst Customization"
-
-msgid "Comments List Customize"
-msgstr "Reacties Lijst Customization"
-
-msgid "Available Widgets List Customize"
-msgstr "Beschikbare widgets Lijst Customization"
-
-msgid "Menus show screen List Customize"
-msgstr "Op het scherm tonen Lijst Customization"
-
-msgid "Menus advanced properties"
-msgstr "Geavanceerde menu eigenschappen tonen"
-
-msgid "Menus show advanced properties screen List Customize"
-msgstr "Geavanceerde menu eigenschappen tonen Lijst Customization"
-
-msgid "Custom Posts Type"
+#: post-lists-view-custom.php:134
+#: post-lists-view-custom.php:135
+#: post-lists-view-custom.php:242
+#: inc/select_custom.php:15
+msgid "Custom Post Type"
 msgstr "Aangepast Berichten Type"
 
-msgid "Custom Posts Type List Customize"
-msgstr "Aangepast Berichten Type Lijst Customization"
-
-msgid "Please choose a custom post type you want to change the list's view."
-msgstr "Selecteer een aangepaste Berichten type waarvoor u de lijst wilt wijzigen."
-
+#: post-lists-view-custom.php:245
+#: inc/select_custom.php:37
 msgid "No custom post type found."
 msgstr "Beschikt niet over een aangepaste Berichten type."
 
-msgid "Please select a Custom Posts type from here."
+#: post-lists-view-custom.php:246
+msgid "Please select Custom Posts type from here."
 msgstr "Selecteer een aangepast Berichten soort uit deze plaats."
 
-msgid "Please rearrange the order in which you want to view by Drag & Drop."
-msgstr "Gelieve gesorteerd per Drag & Drop in de volgorde waarin u wilt bekijken."
+#: post-lists-view-custom.php:305
+#, php-format
+msgid "Authority to apply the setting is not selected. <a href=\"%s\">From here</a>, please select the permissions you want to set."
+msgstr "Bevoegdheid om de instelling toe te passen wordt niet geselecteerd. <a href=\"%s\">Vanaf hier</a>, selecteert u de gewenste machtigingen in te stellen."
 
-msgid "Please select the column item to hide."
-msgstr "Selecteer het item dat u wilt verbergen."
-
-msgid "Reset settings?"
-msgstr "Wil je resetten?"
-
-msgid "Setting Thumbnail size"
-msgstr "Afbeelding grootte instelling"
-
-msgid "Change the size of thumbnails displayed in the lists."
-msgstr "Verander de grootte van afbeelding weergegeven in de lijsten."
-
-msgid "It will be displayed at <strong>%s px</strong> If there is no setting."
-msgstr "Zal worden getoond in <strong>% s px</strong> Als er geen instelling."
-
-msgid "Height will be displayed in proportion to the width."
-msgstr "Hoogte wordt in verhouding tot de breedte."
-
-msgid "Post, Page, and Custom Post type the applies."
-msgstr "Het geldt berichten, pagina's, aangepaste Berichten typen aan."
-
+#: post-lists-view-custom.php:329
 msgid "Apply user roles"
 msgstr "Gebruikersrechten toe te passen"
 
+#: post-lists-view-custom.php:443
+msgid "ID"
+msgstr "ID"
+
+#: post-lists-view-custom.php:982
+#: inc/donation.php:5
+msgid "Thank you for your donation."
+msgstr "Dank u voor uw donatie."
+
+#: post-lists-view-custom.php:1641
+msgid "To donate if you feel that it is useful, please."
+msgstr "Te doneren als je het gevoel dat het nuttig is, gelieve. Alstublieft."
+
+#: inc/donation.php:11
+msgid "Thank you for considering donate."
+msgstr "Dank u voor uw donatie."
+
+#: inc/donation.php:12
+msgid "Thank you very much for your support."
+msgstr "Ik wil u bedanken voor uw steun."
+
+#: inc/donation.php:14
+msgid "Donate"
+msgstr "Donaties"
+
+#: inc/donation.php:17
+msgid "Please enter the 'Donation delete key' that have been described in the 'Line Break First and End download page'."
+msgstr "Voer de sleutel donatie schrappen wat niet geschreven is in 'Line Break First and End' download pagina kunt u de donatie bericht verwijderen."
+
+#: inc/donation.php:20
+msgid "Donation delete key"
+msgstr "Donatie bericht delete-toets"
+
+#: inc/donation.php:24
+msgid "I'm looking forward to your proposal."
+msgstr "Ik kijk uit naar uw voorstel."
+
+#: inc/donation.php:25
+msgid "Please contact me if you have any good idea."
+msgstr "Neem contact met me op als u een goed idee."
+
+#: inc/donation.php:36
+msgid "Have you want to customize?"
+msgstr "Heeft u wilt aanpassen?"
+
+#: inc/donation.php:42
+msgid "I am good at Admin Screen Customize."
+msgstr "Ik ben goed in het Admin scherm aanpassen."
+
+#: inc/donation.php:43
+msgid "Please consider the request to me if it is good."
+msgstr "Kunt u overwegen het verzoek om mij als het goed is."
+
+#: inc/donation.php:45
+msgid "Contact"
+msgstr "Contacteer ons"
+
+#: inc/donation.php:47
+msgid "Example Customize"
+msgstr "voorbeeld Pas"
+
+#: inc/donation.php:53
+msgid "About plugin"
+msgstr "Over Plugin"
+
+#: inc/donation.php:55
+msgid "Version checked"
+msgstr "versie gecontroleerd"
+
+#: inc/donation.php:57
+msgid "Developer's site"
+msgstr "Website van de ontwikkelaar"
+
+#: inc/donation.php:59
+msgid "Reviews"
+msgstr "beoordelingen"
+
+#: inc/donation.php:64
+#: inc/setting_default.php:74
+msgid "Would you like to translate?"
+msgstr "Wilt u vertalen?"
+
+#: inc/donation.php:68
+#: inc/setting_default.php:78
+#, php-format
+msgid "Do you have a proposal you want to improve? Please contact to %s if it is necessary."
+msgstr "Heeft u suggesties over deze plugin? Neem contact met ons op %s als er een."
+
+#: inc/donation.php:73
+msgid "Useful plugins"
+msgstr "Nuttige plugins"
+
+#: inc/donation.php:76
+msgid "This add-on is can be different setting for each user roles."
+msgstr "Deze add-on maakt het mogelijk om machtigingen voor elke groep gebruikers instellen."
+
+#: inc/donation.php:78
+msgid "Customize a variety of screen management."
+msgstr "Pas een verscheidenheid van het scherm beheer."
+
+#: inc/donation.php:80
+msgid "Announce to display the dashboard. Change the display to a different user role."
+msgstr "Bekijk Aankondiging op het dashboard. U kunt ook de gebruikersrechten voor elke verandering."
+
+#: inc/donation.php:82
+msgid "The plugin that allows you to add the value of the options. Option value that you have created, can be used in addition to the template tag, Short code can be used in the body of the article."
+msgstr "Optie waarde gecre&euml;erd plugin. Kan een sjabloon of korte code gebruiken."
+
+#: inc/select_custom.php:26
+msgid "Please choose a custom post type you want to change the list's view."
+msgstr "Selecteer een aangepaste Berichten type waarvoor u de lijst wilt wijzigen."
+
+#: inc/setting_default.php:27
+msgid "Apply the settings of Post Lists View Custom only user roles selected."
+msgstr "Instellingen zijn alleen van toepassing autoriteit die is geselecteerd."
+
+#: inc/setting_default.php:28
+msgid "Please select the user roles that all settings will apply to."
+msgstr "Selecteer de gebruiker rollen die alle instellingen hebben betrekking op."
+
+#: inc/setting_default.php:64
+#: inc/setting_lists.php:129
+#: inc/setting_lists_custom_post.php:154
+#: inc/setting_lists_post.php:149
+#: inc/setting_menus.php:100
+#: inc/setting_thumbnail_size.php:59
+msgid "Reset all settings?"
+msgstr "Reset settings?"
+
+#: inc/setting_lists.php:38
+#: inc/setting_lists_custom_post.php:49
+#: inc/setting_lists_post.php:48
+msgid "Please rearrange the order in which you want to view by Drag & Drop."
+msgstr "Gelieve gesorteerd per Drag & Drop in de volgorde waarin u wilt bekijken."
+
+#: inc/setting_lists_custom_post.php:65
+#: inc/setting_lists_post.php:63
 msgid "Could not read the columns."
 msgstr "Kon de kolommen niet lezen."
 
-msgid "Columns will be loaded automatically when you access <a href=\"%1$s\">%2$s</a>."
+#: inc/setting_lists_custom_post.php:66
+#: inc/setting_lists_post.php:64
+#, php-format
+msgid "Columns will be loaded automatically when you <a href=\"%1$s\">%2$s</a>."
 msgstr "Kolommen worden automatisch geladen wanneer u <a href=\"%1$s\">%2$s</a>."
 
+#: inc/setting_menus.php:44
+msgid "Please select the column item to hide."
+msgstr "Selecteer het item dat u wilt verbergen."
+
+#: inc/setting_menus.php:81
 msgid "Taxonomy"
 msgstr "Taxonomie"
+
+#: inc/setting_thumbnail_size.php:24
+msgid "Change the size of thumbnails displayed in the lists."
+msgstr "Verander de grootte van afbeelding weergegeven in de lijsten."
+
+#: inc/setting_thumbnail_size.php:25
+msgid "Post, Page, and Custom Post type the applies."
+msgstr "Het geldt berichten, pagina's, aangepaste Berichten typen aan."
+
+#: inc/setting_thumbnail_size.php:48
+#, php-format
+msgid "It will be displayed at <strong>%s px</strong> If there is no setting."
+msgstr "Zal worden getoond in <strong>% s px</strong> Als er geen instelling."
+
+#: inc/setting_thumbnail_size.php:49
+msgid "Height will be displayed in proportion to the width."
+msgstr "Hoogte wordt in verhouding tot de breedte."
 

@@ -61,7 +61,7 @@ $Columns = $this->get_list_columns( $this->SetPage );
 
 				<?php $edit_url = self_admin_url( '/edit.php?post_type=' . $this->SetPage ); ?>
 				<p><?php _e( 'Could not read the columns.' , $this->ltd ); ?></p>
-				<p><?php echo sprintf( __( 'Columns will be loaded automatically when you access <a href="%1$s">%2$s</a>.' , $this->ltd ) , $edit_url , $PostType->labels->all_items ); ?></p>
+				<p><?php echo sprintf( __( 'Columns will be loaded automatically when you <a href="%1$s">%2$s</a>.' , $this->ltd ) , $edit_url , $PostType->labels->all_items ); ?></p>
 
 			<?php else: ?>
 
@@ -146,7 +146,7 @@ $Columns = $this->get_list_columns( $this->SetPage );
 						<input type="submit" class="button-primary" name="update" value="<?php _e( 'Save' ); ?>" />
 					</p>
 					<p class="submit reset">
-						<span class="description"><?php _e( 'Reset settings?' , $this->ltd ); ?></span>
+						<span class="description"><?php _e( 'Reset all settings?' , $this->ltd ); ?></span>
 						<input type="submit" class="button-secondary" name="reset" value="<?php _e( 'Reset' ); ?>" />
 					</p>
 			

@@ -61,7 +61,7 @@ wp_enqueue_style( $this->PageSlug , $this->Url . $this->PluginSlug . '.css', arr
 				</p>
 		
 				<p class="submit reset">
-					<span class="description"><?php _e( 'Reset settings?' , $this->ltd ); ?></span>
+					<span class="description"><?php _e( 'Reset all settings?' , $this->ltd ); ?></span>
 					<input type="submit" class="button-secondary" name="reset" value="<?php _e('Reset'); ?>" />
 				</p>
 
@@ -71,11 +71,11 @@ wp_enqueue_style( $this->PageSlug , $this->Url . $this->PluginSlug . '.css', arr
 
 			<p><strong>Translate Help</strong></p>
 			<p>
-				<?php echo _e( 'Would you like to translate?' , $this->ltd_p ); ?>
+				<?php echo _e( 'Would you like to translate?' , $this->ltd ); ?>
 				<a href="<?php echo $this->AuthorUrl; ?>please-translation/?utm_source=use_plugin&utm_medium=side&utm_content=<?php echo $this->ltd; ?>&utm_campaign=<?php echo str_replace( '.' , '_' , $this->Ver ); ?>" target="_blank">Translation</a>
 			</p>
 			<p><strong>Bug reports and suggestions</strong></p>
-			<p><?php echo sprintf( __( 'Do you have a proposal you want to improve? Please contact to %s if it is necessary.' , $this->ltd_p ) , '<a href="http://wordpress.org/support/plugin/' . $this->PluginSlug . '" target="_blank">' . __( 'Support Forums' ) . '</a>' ); ?></p>
+			<p><?php echo sprintf( __( 'Do you have a proposal you want to improve? Please contact to %s if it is necessary.' , $this->ltd ) , '<a href="http://wordpress.org/support/plugin/' . $this->PluginSlug . '" target="_blank">' . __( 'Support Forums' ) . '</a>' ); ?></p>
 
 		</div>
 

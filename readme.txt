@@ -1,26 +1,26 @@
 === Post Lists View Custom ===
 Contributors: gqevu6bsiz
-Donate link: http://gqevu6bsiz.chicappa.jp/please-donation/?utm_source=wporg&utm_medium=donate&utm_content=plvc&utm_campaign=1_5_4
+Donate link: http://gqevu6bsiz.chicappa.jp/please-donation/?utm_source=wporg&utm_medium=donate&utm_content=plvc&utm_campaign=1_5_5
 Tags: admin, post, posts, page, upload, media, attachment, lists, view, custom, customfield, field, custom_post, navi, menu, comment, widgets
 Requires at least: 3.5.2
-Tested up to: 3.6
-Stable tag: 1.5.4
+Tested up to: 3.6.1
+Stable tag: 1.5.5
 License: GPL2
 
 Customize the list of the post and page and the custom post type.
 
 == Description ==
 
-* Posts lists
-* Pages lists
-* Custom Posts Type lists
-* Media lists
-* Comments lists
-* Available Widgets lists
+* All Posts List View
+* All Page List View
+* Custom Post Type List View
+* Media Library	List View
+* Comments List View
+* Available Widgets List View
 * Menus to show on screen
 * Menus to show advanced menu properties
 
-These lists to Customization is possible.
+These list to customization is possible.
 
 == Installation ==
 
@@ -45,6 +45,10 @@ These lists to Customization is possible.
 7. With MP6
 
 == Changelog ==
+
+= 1.5.5 =
+* Supported: Quick edit.
+* Updated: Translations.
 
 = 1.5.4 =
 * Support on SSL.
