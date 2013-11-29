@@ -1,6 +1,6 @@
 === Post Lists View Custom ===
 Contributors: gqevu6bsiz
-Donate link: http://gqevu6bsiz.chicappa.jp/please-donation/?utm_source=wporg&utm_medium=donate&utm_content=plvc&utm_campaign=1_5_5
+Donate link: http://gqevu6bsiz.chicappa.jp/please-donation/?utm_source=wporg&utm_medium=donate&utm_content=plvc&utm_campaign=1_5_5_1
 Tags: admin, post, posts, page, upload, media, attachment, lists, view, custom, customfield, field, custom_post, navi, menu, comment, widgets
 Requires at least: 3.5.2
 Tested up to: 3.6.1
@@ -45,6 +45,10 @@ These list to customization is possible.
 7. With MP6
 
 == Changelog ==
+
+= 1.5.5.1 =
+* Added: Translation for Serbo-Croatian.
+* Updated: Translation for German.
 
 = 1.5.5 =
 * Supported: Quick edit.

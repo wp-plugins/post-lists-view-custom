@@ -52,7 +52,7 @@ if( $donatedKey == $this->DonateKey ) :
 			<div class="stuffbox" id="aboutbox">
 				<h3><span class="hndle"><?php _e( 'About plugin' , $this->ltd ); ?></span></h3>
 				<div class="inside">
-					<p><?php _e( 'Version checked' , $this->ltd ); ?> : 3.4.2 - 3.6.1</p>
+					<p><?php _e( 'Version checked' , $this->ltd ); ?> : 3.4.2 - 3.7.1</p>
 					<ul>
 						<li><a href="<?php echo $this->AuthorUrl; ?>?utm_source=use_plugin&utm_medium=side&utm_content=<?php echo $this->ltd; ?>&utm_campaign=<?php echo str_replace( '.' , '_' , $this->Ver ); ?>" target="_blank"><?php _e( 'Developer\'s site' , $this->ltd ); ?></a></li>
 						<li><a href="http://wordpress.org/support/plugin/<?php echo $this->PluginSlug; ?>" target="_blank"><?php _e( 'Support Forums' ); ?></a></li>

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Post Lists View Custom\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-05 17:44+0900\n"
-"PO-Revision-Date: 2013-10-05 19:13+0900\n"
+"POT-Creation-Date: 2013-11-20 22:40+0900\n"
+"PO-Revision-Date: 2013-11-20 22:43+0900\n"
 "Last-Translator: gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
 "Language-Team: gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -23,17 +23,16 @@ msgstr "Permettre à la personnalisation de l'écran de liste."
 
 #: post-lists-view-custom.php:132
 #: post-lists-view-custom.php:204
-msgid " show screen "
-msgstr " Afficher l’écran "
+msgid "show screen"
+msgstr "Afficher l’écran"
 
 #: post-lists-view-custom.php:133
-#: post-lists-view-custom.php:214
-msgid " show advanced properties screen "
-msgstr " Afficher les propriétés avancées "
+msgid "show advanced properties screen"
+msgstr "Afficher les propriétés avancées"
 
 #: post-lists-view-custom.php:133
-msgid " advanced properties"
-msgstr " propriétés avancées "
+msgid "advanced properties"
+msgstr "propriétés avancées"
 
 #: post-lists-view-custom.php:134
 #: post-lists-view-custom.php:135
@@ -41,6 +40,23 @@ msgstr " propriétés avancées "
 #: inc/select_custom.php:15
 msgid "Custom Post Type"
 msgstr "Articles de type personnalis&eacute;"
+
+#: post-lists-view-custom.php:154
+#: post-lists-view-custom.php:164
+#: post-lists-view-custom.php:174
+#: post-lists-view-custom.php:184
+#: post-lists-view-custom.php:194
+#: post-lists-view-custom.php:204
+#: post-lists-view-custom.php:242
+#: post-lists-view-custom.php:253
+#: inc/select_custom.php:15
+#, php-format
+msgid "%2$s for %3$s %1$s"
+msgstr "%2$s pour %3$s %1$s"
+
+#: post-lists-view-custom.php:214
+msgid "Menus of advanced feature adapted to the screen"
+msgstr "Menus des fonctions avancées adaptées à l'écran"
 
 #: post-lists-view-custom.php:245
 #: inc/select_custom.php:37
@@ -188,6 +204,10 @@ msgstr "S'il vous pla&icirc;t choisir l'autorit&eacute; pour appliquer les param
 #: inc/setting_thumbnail_size.php:59
 msgid "Reset all settings?"
 msgstr "R&eacute;initialiser les param&eacute;tres?"
+
+#: inc/setting_default.php:77
+msgid "Bug reports and suggestions"
+msgstr "Les rapports de bogues et suggestions"
 
 #: inc/setting_lists.php:38
 #: inc/setting_lists_custom_post.php:49

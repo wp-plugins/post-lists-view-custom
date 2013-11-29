@@ -3,9 +3,9 @@
 Plugin Name: Post Lists View Custom
 Description: Allow to customizing for the list screen.
 Plugin URI: http://wordpress.org/extend/plugins/post-lists-view-custom/
-Version: 1.5.5
+Version: 1.5.5.1
 Author: gqevu6bsiz
-Author URI: http://gqevu6bsiz.chicappa.jp/?utm_source=use_plugin&utm_medium=list&utm_content=plvc&utm_campaign=1_5_5
+Author URI: http://gqevu6bsiz.chicappa.jp/?utm_source=use_plugin&utm_medium=list&utm_content=plvc&utm_campaign=1_5_5_1
 Text Domain: plvc
 Domain Path: /languages
 */
@@ -53,7 +53,7 @@ class Post_Lists_View_Custom
 
 
 	function __construct() {
-		$this->Ver = '1.5.5';
+		$this->Ver = '1.5.5.1';
 		$this->Name = 'Post Lists View Custom';
 		$this->Dir = plugin_dir_path( __FILE__ );
 		$this->Url = plugin_dir_url( __FILE__ );
@@ -129,8 +129,8 @@ class Post_Lists_View_Custom
 		add_submenu_page( $this->PageSlug , __( 'Media Library' ) . __( 'Customize' ) , __( 'Media Library' ) , 'administrator' , $this->Record["media"] , array( $this , 'setting_media' ) );
 		add_submenu_page( $this->PageSlug , __( 'Comments' ) . __( 'Customize' ) , __( 'Comments' ) , 'administrator' , $this->Record["comments"] , array( $this , 'setting_comments' ) );
 		add_submenu_page( $this->PageSlug , __( 'Available Widgets' ) . __( 'Customize' ) , __( 'Available Widgets' ) , 'administrator' , $this->Record["widgets"] , array( $this , 'setting_widgets' ) );
-		add_submenu_page( $this->PageSlug , __( 'Menus' ) . __( ' show screen ' , $this->ltd ) . __( 'Customize' ) , __( 'Menus' ) , 'administrator' , $this->Record["menus"] , array( $this , 'setting_menus' ) );
-		add_submenu_page( $this->PageSlug , __( 'Menus' ) . __( ' show advanced properties screen ' , $this->ltd ) . __( 'Customize' ) , __( 'Menus' ) . __( ' advanced properties' , $this->ltd ) , 'administrator' , $this->Record["menus_adv"] , array( $this , 'setting_menus_adv' ) );
+		add_submenu_page( $this->PageSlug , __( 'Menus' ) . ' '. __( 'show screen' , $this->ltd ) . ' '. __( 'Customize' ) , __( 'Menus' ) , 'administrator' , $this->Record["menus"] , array( $this , 'setting_menus' ) );
+		add_submenu_page( $this->PageSlug , __( 'Menus' ) . ' '. __( 'show advanced properties screen' , $this->ltd ) . ' '. __( 'Customize' ) , __( 'Menus' ) . ' ' . __( 'advanced properties' , $this->ltd ) , 'administrator' , $this->Record["menus_adv"] , array( $this , 'setting_menus_adv' ) );
 		add_submenu_page( $this->PageSlug , __( 'Custom Post Type' , $this->ltd ) , __( 'Custom Post Type' , $this->ltd ) , 'administrator' , 'select_custom_posts_list_view_setting' , array( $this , 'select_custom_posts' ) );
 		add_submenu_page( $this->PageSlug , __( 'Custom Post Type' , $this->ltd )  . __( 'Customize' ) , sprintf( '<div style="display: none;">$s</div>' , __( 'Custom Post Type' , $this->ltd ) ) , 'administrator' , $this->Record["custom_posts"] , array( $this , 'setting_custom_posts' ) );
 		add_submenu_page( $this->PageSlug , __( 'Thumbnail size' ) , __( 'Thumbnail size' ) , 'administrator' , $this->Record["thunmbnail"] , array( $this , 'setting_thumbnail' ) );
@@ -151,7 +151,7 @@ class Post_Lists_View_Custom
 	// SettingPage
 	function setting_post() {
 		$this->SetPage = 'post';
-		$this->PageTitle = __( 'Posts' ) . __( 'List View' ) . __( 'Customize' );
+		$this->PageTitle = sprintf( __( '%2$s for %3$s %1$s' , $this->ltd ) , __( 'Customize' ) , __( 'List View' ) , __( 'Posts' ) ) ;
 		
 		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
 		$this->DisplayDonation();
@@ -161,7 +161,7 @@ class Post_Lists_View_Custom
 	// SettingPage
 	function setting_page() {
 		$this->SetPage = 'page';
-		$this->PageTitle = __( 'Pages' ) . __( 'List View' ) . __( 'Customize' );
+		$this->PageTitle = sprintf( __( '%2$s for %3$s %1$s' , $this->ltd ) , __( 'Customize' ) , __( 'List View' ) , __( 'Pages' ) ) ;
 		
 		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
 		$this->DisplayDonation();
@@ -171,7 +171,7 @@ class Post_Lists_View_Custom
 	// SettingPage
 	function setting_media() {
 		$this->SetPage = 'media';
-		$this->PageTitle = __( 'Media Library' ) . ' ' . __( 'Customize' );
+		$this->PageTitle = sprintf( __( '%2$s for %3$s %1$s' , $this->ltd ) , __( 'Customize' ) , __( 'List View' ) , __( 'Media Library' ) ) ;
 		
 		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
 		$this->DisplayDonation();
@@ -181,7 +181,7 @@ class Post_Lists_View_Custom
 	// SettingPage
 	function setting_comments() {
 		$this->SetPage = 'comments';
-		$this->PageTitle = __( 'Comments' ) . ' ' . __( 'Customize' );
+		$this->PageTitle = sprintf( __( '%2$s for %3$s %1$s' , $this->ltd ) , __( 'Customize' ) , __( 'List View' ) , __( 'Comments' ) ) ;
 		
 		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
 		$this->DisplayDonation();
@@ -191,7 +191,7 @@ class Post_Lists_View_Custom
 	// SettingPage
 	function setting_widgets() {
 		$this->SetPage = 'widgets';
-		$this->PageTitle = __( 'Available Widgets' ) . ' ' . __( 'Customize' );
+		$this->PageTitle = sprintf( __( '%2$s for %3$s %1$s' , $this->ltd ) , __( 'Customize' ) , __( 'List View' ) , __( 'Available Widgets' ) ) ;
 		
 		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
 		$this->DisplayDonation();
@@ -201,7 +201,7 @@ class Post_Lists_View_Custom
 	// SettingPage
 	function setting_menus() {
 		$this->SetPage = 'menus';
-		$this->PageTitle = __( 'Menus' ) . __( ' show screen ' , $this->ltd ) . __( 'Customize' );
+		$this->PageTitle = sprintf( __( '%2$s for %3$s %1$s' , $this->ltd ) , __( 'Customize' ) , __( 'List View' ) , __( 'Menus' ) . ' ' . __( 'show screen' , $this->ltd ) ) . ' ' ;
 		
 		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
 		$this->DisplayDonation();
@@ -211,7 +211,7 @@ class Post_Lists_View_Custom
 	// SettingPage
 	function setting_menus_adv() {
 		$this->SetPage = 'menus_adv';
-		$this->PageTitle = __( 'Menus' ) . __( ' show advanced properties screen ' , $this->ltd ) . __( 'Customize' );
+		$this->PageTitle = __( 'Menus of advanced feature adapted to the screen' , $this->ltd );
 		
 		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
 		$this->DisplayDonation();
@@ -239,7 +239,7 @@ class Post_Lists_View_Custom
 
 		if( !empty( $PostSlug ) ) {
 			$PostType = get_post_type_object( $PostSlug );
-			$this->PageTitle = __( 'Custom Post Type' , $this->ltd ) . ' ' . __( 'Customize' ) . '( ' . esc_html( $PostType->labels->name ) . ' )';
+			$this->PageTitle = sprintf( __( '%2$s for %3$s %1$s' , $this->ltd ) , __( 'Customize' ) , __( 'List View' ) , __( 'Custom Post Type' , $this->ltd ) . ' ( ' . esc_html( $PostType->labels->name ) . ' )' ) ;
 			include_once 'inc/setting_lists_custom_post.php';
 		} else {
 			echo sprintf( '<p>%s</p>' , __( 'No custom post type found.' , $this->ltd ) );
@@ -250,7 +250,7 @@ class Post_Lists_View_Custom
 	// SettingPage
 	function setting_thumbnail() {
 		$this->SetPage = 'thunmbnail';
-		$this->PageTitle = __( 'Thumbnail size' );
+		$this->PageTitle = sprintf( __( '%2$s for %3$s %1$s' , $this->ltd ) , __( 'Customize' ) , __( 'List View' ) , __( 'Thumbnail size' ) ) ;
 		
 		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
 		$this->DisplayDonation();
