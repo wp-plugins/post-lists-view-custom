@@ -1,0 +1,255 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Post Lists View Custom\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-11-20 22:40+0900\n"
+"PO-Revision-Date: 2013-11-20 22:49+0900\n"
+"Last-Translator: gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
+"Language-Team: gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: ../\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"Language: sr_RS\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-Language: Serbo-Croatian\n"
+"X-Poedit-Country: CROATIA\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: post-lists-view-custom.php:4
+msgid "Allow to customizing for the list screen."
+msgstr "Dozvoliti custom-izaciju za listu ekrana."
+
+#: post-lists-view-custom.php:132
+#: post-lists-view-custom.php:204
+msgid "show screen"
+msgstr "prikaži ekran"
+
+#: post-lists-view-custom.php:133
+msgid "show advanced properties screen"
+msgstr "prikaži unapredjene funkcije ekrana"
+
+#: post-lists-view-custom.php:133
+msgid "advanced properties"
+msgstr "unapredjene funkcije"
+
+#: post-lists-view-custom.php:134
+#: post-lists-view-custom.php:135
+#: post-lists-view-custom.php:242
+#: inc/select_custom.php:15
+msgid "Custom Post Type"
+msgstr "Custom tip posta"
+
+#: post-lists-view-custom.php:154
+#: post-lists-view-custom.php:164
+#: post-lists-view-custom.php:174
+#: post-lists-view-custom.php:184
+#: post-lists-view-custom.php:194
+#: post-lists-view-custom.php:204
+#: post-lists-view-custom.php:242
+#: post-lists-view-custom.php:253
+#: inc/select_custom.php:15
+#, php-format
+msgid "%2$s for %3$s %1$s"
+msgstr "%2$s за %3$s %1$s"
+
+#: post-lists-view-custom.php:214
+msgid "Menus of advanced feature adapted to the screen"
+msgstr "Izbornici unapredjenih funkcija ekrana prilagodjeni"
+
+#: post-lists-view-custom.php:245
+#: inc/select_custom.php:37
+msgid "No custom post type found."
+msgstr "Nijeda custom tip posta nije pronadjen."
+
+#: post-lists-view-custom.php:246
+msgid "Please select Custom Posts type from here."
+msgstr "Izaberite Custom Postove odavde."
+
+#: post-lists-view-custom.php:305
+#, php-format
+msgid "Authority to apply the setting is not selected. <a href=\"%s\">From here</a>, please select the permissions you want to set."
+msgstr "Autorizacija za primenu postavki nije izabrana. <a href=\"%s\">Odavde</a>, izaberite dozvolu koju želite da postavite."
+
+#: post-lists-view-custom.php:329
+msgid "Apply user roles"
+msgstr "Primeni uloge korisnika"
+
+#: post-lists-view-custom.php:443
+msgid "ID"
+msgstr "ID"
+
+#: post-lists-view-custom.php:982
+#: inc/donation.php:5
+msgid "Thank you for your donation."
+msgstr "Hvala na donaciji."
+
+#: post-lists-view-custom.php:1641
+msgid "To donate if you feel that it is useful, please."
+msgstr "Da biste donirali ako mislite da je koristan plugin."
+
+#: inc/donation.php:11
+msgid "Thank you for considering donate."
+msgstr "Hvala što ste razmislili i doniranju."
+
+#: inc/donation.php:12
+msgid "Thank you very much for your support."
+msgstr "Hvala na podršci."
+
+#: inc/donation.php:14
+msgid "Donate"
+msgstr "Donirati"
+
+#: inc/donation.php:17
+msgid "Please enter the 'Donation delete key' that have been described in the 'Line Break First and End download page'."
+msgstr "Molim vas unesite 'Ključ za brisanje donacije' koju ste opisali kao  'Linija gornje i donje download stranice'."
+
+#: inc/donation.php:20
+msgid "Donation delete key"
+msgstr "Ključ za brisanje donacije"
+
+#: inc/donation.php:24
+msgid "I'm looking forward to your proposal."
+msgstr "Radujem se vašoj ponudi."
+
+#: inc/donation.php:25
+msgid "Please contact me if you have any good idea."
+msgstr "Molim vas kontaktirajte me ako imate neku dobru ideju."
+
+#: inc/donation.php:36
+msgid "Have you want to customize?"
+msgstr "Da li ste želeli da prepravite?"
+
+#: inc/donation.php:42
+msgid "I am good at Admin Screen Customize."
+msgstr "Dobar sam u Admin Screen Customize."
+
+#: inc/donation.php:43
+msgid "Please consider the request to me if it is good."
+msgstr "Molim vas da razmotrite zahtev ya mene ako je dobar."
+
+#: inc/donation.php:45
+msgid "Contact"
+msgstr "Kontakt"
+
+#: inc/donation.php:47
+msgid "Example Customize"
+msgstr "Primer customizacije"
+
+#: inc/donation.php:53
+msgid "About plugin"
+msgstr "O pluginu"
+
+#: inc/donation.php:55
+msgid "Version checked"
+msgstr "Proverena verzija"
+
+#: inc/donation.php:57
+msgid "Developer's site"
+msgstr "Sajt programera"
+
+#: inc/donation.php:59
+msgid "Reviews"
+msgstr "Pregledi"
+
+#: inc/donation.php:64
+#: inc/setting_default.php:74
+msgid "Would you like to translate?"
+msgstr "Da li biste hteli da prevedete?"
+
+#: inc/donation.php:68
+#: inc/setting_default.php:78
+#, php-format
+msgid "Do you have a proposal you want to improve? Please contact to %s if it is necessary."
+msgstr "Da li imate predlog za poboljšanje?Kontaktirajte nas na  %s ako je neophodno."
+
+#: inc/donation.php:73
+msgid "Useful plugins"
+msgstr "Korisni pluginovi"
+
+#: inc/donation.php:76
+msgid "This add-on is can be different setting for each user roles."
+msgstr "Ovaj add-on može biti drugačije postavljen za upotrebu svakih uloga."
+
+#: inc/donation.php:78
+msgid "Customize a variety of screen management."
+msgstr "Customizacija raznog menadžmenta ekrana."
+
+#: inc/donation.php:80
+msgid "Announce to display the dashboard. Change the display to a different user role."
+msgstr "Najavljuje prikaz dashboard-a.Promena prikaza u drugačijoj ulozi korisnika."
+
+#: inc/donation.php:82
+msgid "The plugin that allows you to add the value of the options. Option value that you have created, can be used in addition to the template tag, Short code can be used in the body of the article."
+msgstr "Plugin koji vam omogućava da dodate vrednost opcija . Opcija vrednosti koje ste napravili , može da se koristi kao dodatak tagu template, skraćenicaj može da se koristi u telu članka ."
+
+#: inc/select_custom.php:26
+msgid "Please choose a custom post type you want to change the list's view."
+msgstr "Molimo izaberite custom tip poruka koje želite da promenite ulisti pregleda.Primeni postavke "
+
+#: inc/setting_default.php:27
+msgid "Apply the settings of Post Lists View Custom only user roles selected."
+msgstr "Primeni postavke "
+
+#: inc/setting_default.php:28
+msgid "Please select the user roles that all settings will apply to."
+msgstr "Molimo izaberite korisničke uloge na koje će sva podešavanja da se primenjuju."
+
+#: inc/setting_default.php:64
+#: inc/setting_lists.php:129
+#: inc/setting_lists_custom_post.php:154
+#: inc/setting_lists_post.php:149
+#: inc/setting_menus.php:100
+#: inc/setting_thumbnail_size.php:59
+msgid "Reset all settings?"
+msgstr "Resetovati sve postavke?"
+
+#: inc/setting_default.php:77
+msgid "Bug reports and suggestions"
+msgstr "Извештаја о грешкама и сугестије"
+
+#: inc/setting_lists.php:38
+#: inc/setting_lists_custom_post.php:49
+#: inc/setting_lists_post.php:48
+msgid "Please rearrange the order in which you want to view by Drag & Drop."
+msgstr "Molimo preuredite redosled koji želite da vidite pomoću Drag & Drop ."
+
+#: inc/setting_lists_custom_post.php:65
+#: inc/setting_lists_post.php:63
+msgid "Could not read the columns."
+msgstr "Nije bilo moguće pročitati kolone"
+
+#: inc/setting_lists_custom_post.php:66
+#: inc/setting_lists_post.php:64
+#, php-format
+msgid "Columns will be loaded automatically when you <a href=\"%1$s\">%2$s</a>."
+msgstr "Kolone će se automatski učitati kada<a href=\"%1$s\">%2$s</a>."
+
+#: inc/setting_menus.php:44
+msgid "Please select the column item to hide."
+msgstr "Izaberite opciju za skrivanje kolone ."
+
+#: inc/setting_menus.php:81
+msgid "Taxonomy"
+msgstr "Taxonomy"
+
+#: inc/setting_thumbnail_size.php:24
+msgid "Change the size of thumbnails displayed in the lists."
+msgstr "Promena veličine sličica prikazanih u spiskovima ."
+
+#: inc/setting_thumbnail_size.php:25
+msgid "Post, Page, and Custom Post type the applies."
+msgstr "Post , stranica , i Custom post tip važi ."
+
+#: inc/setting_thumbnail_size.php:48
+#, php-format
+msgid "It will be displayed at <strong>%s px</strong> If there is no setting."
+msgstr "Biće prikazana na<strong>%s px</strong>  Ako ne postoji podešavanje ."
+
+#: inc/setting_thumbnail_size.php:49
+msgid "Height will be displayed in proportion to the width."
+msgstr "Visina će biti prikazana u odnosu na širinu "
+
