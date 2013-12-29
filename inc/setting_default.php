@@ -1,14 +1,6 @@
 <?php
 
-
-if( !empty( $_POST["donate_key"] ) ) {
-	$this->DonatingCheck();
-} elseif( !empty( $_POST["reset"] ) ) {
-	$this->update_reset( "user_role" );
-} elseif( !empty( $_POST["update"] ) ) {
-	$this->update_userrole();
-}
-
+global $wp_version;
 
 $Data = $this->get_data( 'user_role' );
 $UserRoles = $this->get_user_role();
@@ -16,7 +8,12 @@ $UserRoles = $this->get_user_role();
 // include js css
 $ReadedJs = array( 'jquery' , 'jquery-ui-sortable' );
 wp_enqueue_script( $this->PageSlug ,  $this->Url . $this->PluginSlug . '.js', $ReadedJs , $this->Ver );
-wp_enqueue_style( $this->PageSlug , $this->Url . $this->PluginSlug . '.css', array() , $this->Ver );
+
+if ( version_compare( $wp_version , '3.8' , '<' ) ) {
+	wp_enqueue_style( $this->PageSlug , $this->Url . $this->PluginSlug . '-3.7.css', array() , $this->Ver );
+} else {
+	wp_enqueue_style( $this->PageSlug , $this->Url . $this->PluginSlug . '.css', array() , $this->Ver );
+}
 
 ?>
 
@@ -35,9 +32,10 @@ wp_enqueue_style( $this->PageSlug , $this->Url . $this->PluginSlug . '.css', arr
 
 		<div id="postbox-container-1" class="postbox-container">
 
-			<form id="plvc_setting_default" class="plvc_form" method="post" action="">
+			<form id="plvc_setting_default" class="plvc_form" method="post" action="<?php echo remove_query_arg( $this->MsgQ ); ?>">
 				<input type="hidden" name="<?php echo $this->UPFN; ?>" value="Y" />
 				<?php wp_nonce_field( $this->Nonces["value"] , $this->Nonces["field"] ); ?>
+				<input type="hidden" name="record_field" value="user_role" />
 
 				<div class="postbox">
 					<h3 class="hndle"><span><?php _e( 'User Roles' ); ?></span></h3>
@@ -62,7 +60,7 @@ wp_enqueue_style( $this->PageSlug , $this->Url . $this->PluginSlug . '.css', arr
 		
 				<p class="submit reset">
 					<span class="description"><?php _e( 'Reset all settings?' , $this->ltd ); ?></span>
-					<input type="submit" class="button-secondary" name="reset" value="<?php _e('Reset'); ?>" />
+					<input type="submit" class="button-secondary" name="reset" value="<?php _e( 'Reset settings' , $this->ltd ); ?>" />
 				</p>
 
 				<p>&nbsp;</p>

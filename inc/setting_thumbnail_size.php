@@ -1,15 +1,16 @@
 <?php
 
-if( !empty( $_POST["reset"] ) ) {
-	$this->update_reset( $this->SetPage );
-} elseif( !empty( $_POST["update"] ) ) {
-	$this->update_thunmbnail( $this->SetPage );
-}
+global $wp_version;
 
 // include js css
 $ReadedJs = array( 'jquery' );
 wp_enqueue_script( $this->PageSlug ,  $this->Url . $this->PluginSlug . '.js', $ReadedJs , $this->Ver );
-wp_enqueue_style( $this->PageSlug , $this->Url . $this->PluginSlug . '.css', array() , $this->Ver );
+
+if ( version_compare( $wp_version , '3.8' , '<' ) ) {
+	wp_enqueue_style( $this->PageSlug , $this->Url . $this->PluginSlug . '-3.7.css', array() , $this->Ver );
+} else {
+	wp_enqueue_style( $this->PageSlug , $this->Url . $this->PluginSlug . '.css', array() , $this->Ver );
+}
 
 // get data
 $Data = $this->get_data( $this->SetPage );
@@ -30,10 +31,10 @@ $Data = $this->get_data( $this->SetPage );
 
 		<div id="postbox-container-1" class="postbox-container">
 
-			<form id="post_lists_view_custom_form" method="post" action="">
+			<form id="post_lists_view_custom_form" method="post" action="<?php echo remove_query_arg( $this->MsgQ ); ?>">
 				<input type="hidden" name="<?php echo $this->UPFN; ?>" value="Y">
 				<?php wp_nonce_field( $this->Nonces["value"] , $this->Nonces["field"] ); ?>
-		
+				<input type="hidden" name="record_field" value="<?php echo $this->SetPage; ?>" />
 				<input type="hidden" name="SetPage" value="<?php echo $this->SetPage; ?>">
 				<table class="form-table">
 					<tbody>
@@ -57,7 +58,7 @@ $Data = $this->get_data( $this->SetPage );
 				</p>
 				<p class="submit reset">
 					<span class="description"><?php _e( 'Reset all settings?' , $this->ltd ); ?></span>
-					<input type="submit" class="button-secondary" name="reset" value="<?php _e( 'Reset' ); ?>" />
+					<input type="submit" class="button-secondary" name="reset" value="<?php _e( 'Reset settings' , $this->ltd ); ?>" />
 				</p>
 		
 			</form>

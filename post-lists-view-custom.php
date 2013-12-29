@@ -3,9 +3,9 @@
 Plugin Name: Post Lists View Custom
 Description: Allow to customizing for the list screen.
 Plugin URI: http://wordpress.org/extend/plugins/post-lists-view-custom/
-Version: 1.5.5.1
+Version: 1.5.6
 Author: gqevu6bsiz
-Author URI: http://gqevu6bsiz.chicappa.jp/?utm_source=use_plugin&utm_medium=list&utm_content=plvc&utm_campaign=1_5_5_1
+Author URI: http://gqevu6bsiz.chicappa.jp/?utm_source=use_plugin&utm_medium=list&utm_content=plvc&utm_campaign=1_5_6
 Text Domain: plvc
 Domain Path: /languages
 */
@@ -49,11 +49,12 @@ class Post_Lists_View_Custom
 		$Schema,
 		$PageTitle,
 		$UPFN,
-		$Msg;
+		$Msg,
+		$MsgQ;
 
 
 	function __construct() {
-		$this->Ver = '1.5.5.1';
+		$this->Ver = '1.5.6';
 		$this->Name = 'Post Lists View Custom';
 		$this->Dir = plugin_dir_path( __FILE__ );
 		$this->Url = plugin_dir_url( __FILE__ );
@@ -84,6 +85,7 @@ class Post_Lists_View_Custom
 		$this->UPFN = 'Y';
 		$this->DonateKey = 'd77aec9bc89d445fd54b4c988d090f03';
 		$this->Msg = '';
+		$this->MsgQ = $this->ltd . '_msg';
 
 		$this->PluginSetup();
 		$this->FilterStart();
@@ -99,6 +101,9 @@ class Post_Lists_View_Custom
 
 		// add menu
 		add_action( 'admin_menu' , array( $this , 'admin_menu' ) , 2 );
+
+		// data update
+		add_action( 'admin_init' , array( $this , 'dataUpdate') );
 
 		// get donation toggle
 		add_action( 'wp_ajax_plvc_get_donation_toggle' , array( $this , 'wp_ajax_plvc_get_donation_toggle' ) );
@@ -143,7 +148,7 @@ class Post_Lists_View_Custom
 	// SettingPage
 	function setting_default() {
 		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
-		
+		$this->display_msg();
 		$this->DisplayDonation();
 		include_once 'inc/setting_default.php';
 	}
@@ -154,6 +159,7 @@ class Post_Lists_View_Custom
 		$this->PageTitle = sprintf( __( '%2$s for %3$s %1$s' , $this->ltd ) , __( 'Customize' ) , __( 'List View' ) , __( 'Posts' ) ) ;
 		
 		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
+		$this->display_msg();
 		$this->DisplayDonation();
 		include_once 'inc/setting_lists_post.php';
 	}
@@ -164,6 +170,7 @@ class Post_Lists_View_Custom
 		$this->PageTitle = sprintf( __( '%2$s for %3$s %1$s' , $this->ltd ) , __( 'Customize' ) , __( 'List View' ) , __( 'Pages' ) ) ;
 		
 		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
+		$this->display_msg();
 		$this->DisplayDonation();
 		include_once 'inc/setting_lists_post.php';
 	}
@@ -174,6 +181,7 @@ class Post_Lists_View_Custom
 		$this->PageTitle = sprintf( __( '%2$s for %3$s %1$s' , $this->ltd ) , __( 'Customize' ) , __( 'List View' ) , __( 'Media Library' ) ) ;
 		
 		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
+		$this->display_msg();
 		$this->DisplayDonation();
 		include_once 'inc/setting_lists.php';
 	}
@@ -184,6 +192,7 @@ class Post_Lists_View_Custom
 		$this->PageTitle = sprintf( __( '%2$s for %3$s %1$s' , $this->ltd ) , __( 'Customize' ) , __( 'List View' ) , __( 'Comments' ) ) ;
 		
 		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
+		$this->display_msg();
 		$this->DisplayDonation();
 		include_once 'inc/setting_lists.php';
 	}
@@ -194,6 +203,7 @@ class Post_Lists_View_Custom
 		$this->PageTitle = sprintf( __( '%2$s for %3$s %1$s' , $this->ltd ) , __( 'Customize' ) , __( 'List View' ) , __( 'Available Widgets' ) ) ;
 		
 		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
+		$this->display_msg();
 		$this->DisplayDonation();
 		include_once 'inc/setting_menus.php';
 	}
@@ -204,6 +214,7 @@ class Post_Lists_View_Custom
 		$this->PageTitle = sprintf( __( '%2$s for %3$s %1$s' , $this->ltd ) , __( 'Customize' ) , __( 'List View' ) , __( 'Menus' ) . ' ' . __( 'show screen' , $this->ltd ) ) . ' ' ;
 		
 		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
+		$this->display_msg();
 		$this->DisplayDonation();
 		include_once 'inc/setting_menus.php';
 	}
@@ -214,6 +225,7 @@ class Post_Lists_View_Custom
 		$this->PageTitle = __( 'Menus of advanced feature adapted to the screen' , $this->ltd );
 		
 		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
+		$this->display_msg();
 		$this->DisplayDonation();
 		include_once 'inc/setting_menus.php';
 	}
@@ -221,6 +233,7 @@ class Post_Lists_View_Custom
 	// SettingPage
 	function select_custom_posts() {
 		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
+		$this->display_msg();
 		$this->DisplayDonation();
 		include_once 'inc/select_custom.php';
 	}
@@ -230,6 +243,7 @@ class Post_Lists_View_Custom
 		$this->SetPage = 'custom_posts';
 
 		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
+		$this->display_msg();
 		$this->DisplayDonation();
 
 		$PostSlug = '';
@@ -253,6 +267,7 @@ class Post_Lists_View_Custom
 		$this->PageTitle = sprintf( __( '%2$s for %3$s %1$s' , $this->ltd ) , __( 'Customize' ) , __( 'List View' ) , __( 'Thumbnail size' ) ) ;
 		
 		add_filter( 'admin_footer_text' , array( $this , 'layout_footer' ) );
+		$this->display_msg();
 		$this->DisplayDonation();
 		include_once 'inc/setting_thumbnail_size.php';
 	}
@@ -386,7 +401,8 @@ class Post_Lists_View_Custom
 		$MatchUnset = array( 'field_' );
 		foreach( $MatchUnset as $name ) {
 			foreach( $All_custom_columns as $key => $val ) {
-				if( strpos( $val , $name ) !== false ) {
+				preg_match( '/^' . $name . '/' , $val , $match );
+				if( !empty( $match ) ) {
 					unset( $All_custom_columns[$key] );
 				}
 			}
@@ -420,8 +436,6 @@ class Post_Lists_View_Custom
 
 	// SetList
 	function replace_columns_label( $column ) {
-		global $wp_version;
-
 		$post_type = strip_tags( $column[0] );
 		$column_name = strip_tags( $column[1] );
 		$Label = '';
@@ -469,19 +483,11 @@ class Post_Lists_View_Custom
 
 		} elseif( $column_name == 'parent' ) {
 
-			if ( version_compare( $wp_version, "3.5", '>=' ) ) {
-				$Label = _x( 'Uploaded to' , 'column name' );
-			} else {
-				$Label = _x( 'Attached to' , 'column name' );
-			}
+			$Label = _x( 'Uploaded to' , 'column name' );
 
 		} elseif( $column_name == 'image_alt' ) {
 
-			if ( version_compare( $wp_version, "3.5", '>=' ) ) {
-				$Label = __( 'Alternative Text' );
-			} else {
-				$Label = __( 'Alternate Text' );
-			}
+			$Label = __( 'Alternative Text' );
 
 		} elseif( $column_name == 'date' ) {
 
@@ -493,11 +499,7 @@ class Post_Lists_View_Custom
 
 		} elseif( $column_name == 'add-custom-links' ) {
 
-			if ( version_compare( $wp_version, "3.5.2", '>' ) ) {
-				$Label = __( 'Links' );
-			} else {
-				$Label = __( 'Custom Links' );
-			}
+			$Label = __( 'Links' );
 
 		} else {
 
@@ -748,19 +750,15 @@ class Post_Lists_View_Custom
 
 	// SetList
 	function get_menus_columns() {
-		global $wp_version;
-
 		// Default colum
 		$Columns_Def = array(
 			"nav-menu-theme-locations" , "add-custom-links" , "add-page" ,
 			"add-category" , "add-post_format" , "add-post" , "add-post_tag" , 
 		);
 
-		if ( version_compare( $wp_version, "3.5.2", '>' ) ) {
-			if( in_array( "nav-menu-theme-locations" , $Columns_Def ) ) {
-				$index = array_search( "nav-menu-theme-locations" , $Columns_Def );
-				unset( $Columns_Def[$index] );
-			}
+		if( in_array( "nav-menu-theme-locations" , $Columns_Def ) ) {
+			$index = array_search( "nav-menu-theme-locations" , $Columns_Def );
+			unset( $Columns_Def[$index] );
 		}
 
 		// set label
@@ -954,7 +952,49 @@ class Post_Lists_View_Custom
 
 
 
+	// DataUpdate
+	function dataUpdate() {
 
+		$RecordField = false;
+		
+		if( !empty( $_POST["record_field"] ) ) {
+			$RecordField = strip_tags( $_POST["record_field"] );
+		}
+
+		if( !empty( $RecordField ) && !empty( $_POST["update"] ) ) {
+			if( $RecordField == 'user_role' ) {
+				$this->update_userrole();
+			} elseif( $RecordField == 'post' ) {
+				$this->update_post();
+			} elseif( $RecordField == 'page' ) {
+				$this->update_page();
+			} elseif( $RecordField == 'media' ) {
+				$this->update_media();
+			} elseif( $RecordField == 'comments' ) {
+				$this->update_comments();
+			} elseif( $RecordField == 'widgets' ) {
+				$this->update_widgets();
+			} elseif( $RecordField == 'menus' ) {
+				$this->update_menus();
+			} elseif( $RecordField == 'menus_adv' ) {
+				$this->update_menus_adv();
+			} elseif( $RecordField == 'thunmbnail' ) {
+				$this->update_thunmbnail();
+			} elseif( $RecordField == 'custom_posts' ) {
+				$this->update_custom_post();
+			}
+		}
+		if( !empty( $RecordField ) && $RecordField == 'custom_posts' && !empty( $_POST["reset"] ) ) {
+			$this->update_reset_custom_post();
+		} elseif( !empty( $RecordField ) && !empty( $_POST["reset"] ) ) {
+			$this->update_reset( $RecordField );
+		}
+
+		if( !empty( $RecordField ) && $RecordField == 'donate' && !empty( $_POST["donate_key"] ) ) {
+			$this->DonatingCheck();
+		}
+
+	}
 
 	// DataUpdate
 	function update_validate() {
@@ -979,7 +1019,8 @@ class Post_Lists_View_Custom
 				$SubmitKey = md5( strip_tags( $_POST["donate_key"] ) );
 				if( $this->DonateKey == $SubmitKey ) {
 					update_option( $this->Record["donate"] , $SubmitKey );
-					$this->Msg .= '<div class="updated"><p><strong>' . __( 'Thank you for your donation.' , $this->ltd ) . '</strong></p></div>';
+					wp_redirect( add_query_arg( $this->MsgQ , 'donated' ) );
+					exit;
 				}
 			}
 		}
@@ -992,7 +1033,7 @@ class Post_Lists_View_Custom
 		if( !empty( $Update ) && check_admin_referer( $this->Nonces["value"] , $this->Nonces["field"] ) ) {
 			$record = apply_filters( 'plvc_pre_delete' , $this->Record[$record] );
 			delete_option( $record );
-			$this->Msg .= '<div class="updated"><p><strong>' . __('Settings saved.') . '</strong></p></div>';
+			wp_redirect( add_query_arg( $this->MsgQ , 'delete' , stripslashes( $_POST["_wp_http_referer"] ) ) );
 		}
 	}
 
@@ -1010,7 +1051,8 @@ class Post_Lists_View_Custom
 			}
 
 			update_option( $this->Record["user_role"] , $Update );
-			$this->Msg .= '<div class="updated"><p><strong>' . __('Settings saved.') . '</strong></p></div>';
+			wp_redirect( add_query_arg( $this->MsgQ , 'update' , stripslashes( $_POST["_wp_http_referer"] ) ) );
+			exit;
 		}
 	}
 
@@ -1041,7 +1083,8 @@ class Post_Lists_View_Custom
 			$Record = apply_filters( 'plvc_pre_update' , $this->Record["post"] );
 
 			update_option( $Record , $Update );
-			$this->Msg .= '<div class="updated"><p><strong>' . __('Settings saved.') . '</strong></p></div>';
+			wp_redirect( add_query_arg( $this->MsgQ , 'update' , stripslashes( $_POST["_wp_http_referer"] ) ) );
+			exit;
 		}
 	}
 
@@ -1054,7 +1097,8 @@ class Post_Lists_View_Custom
 			$Record = apply_filters( 'plvc_pre_update' , $this->Record["page"] );
 
 			update_option( $Record , $Update );
-			$this->Msg .= '<div class="updated"><p><strong>' . __('Settings saved.') . '</strong></p></div>';
+			wp_redirect( add_query_arg( $this->MsgQ , 'update' , stripslashes( $_POST["_wp_http_referer"] ) ) );
+			exit;
 		}
 	}
 
@@ -1067,7 +1111,8 @@ class Post_Lists_View_Custom
 			$Record = apply_filters( 'plvc_pre_update' , $this->Record["media"] );
 
 			update_option( $Record , $Update );
-			$this->Msg .= '<div class="updated"><p><strong>' . __('Settings saved.') . '</strong></p></div>';
+			wp_redirect( add_query_arg( $this->MsgQ , 'update' , stripslashes( $_POST["_wp_http_referer"] ) ) );
+			exit;
 		}
 	}
 
@@ -1080,7 +1125,8 @@ class Post_Lists_View_Custom
 			$Record = apply_filters( 'plvc_pre_update' , $this->Record["comments"] );
 
 			update_option( $Record , $Update );
-			$this->Msg .= '<div class="updated"><p><strong>' . __('Settings saved.') . '</strong></p></div>';
+			wp_redirect( add_query_arg( $this->MsgQ , 'update' , stripslashes( $_POST["_wp_http_referer"] ) ) );
+			exit;
 		}
 	}
 
@@ -1093,7 +1139,8 @@ class Post_Lists_View_Custom
 			$Record = apply_filters( 'plvc_pre_update' , $this->Record["widgets"] );
 
 			update_option( $Record , $Update );
-			$this->Msg .= '<div class="updated"><p><strong>' . __('Settings saved.') . '</strong></p></div>';
+			wp_redirect( add_query_arg( $this->MsgQ , 'update' , stripslashes( $_POST["_wp_http_referer"] ) ) );
+			exit;
 		}
 	}
 
@@ -1106,7 +1153,8 @@ class Post_Lists_View_Custom
 			$Record = apply_filters( 'plvc_pre_update' , $this->Record["menus"] );
 
 			update_option( $Record , $Update );
-			$this->Msg .= '<div class="updated"><p><strong>' . __('Settings saved.') . '</strong></p></div>';
+			wp_redirect( add_query_arg( $this->MsgQ , 'update' , stripslashes( $_POST["_wp_http_referer"] ) ) );
+			exit;
 		}
 	}
 
@@ -1119,7 +1167,8 @@ class Post_Lists_View_Custom
 			$Record = apply_filters( 'plvc_pre_update' , $this->Record["menus_adv"] );
 
 			update_option( $Record , $Update );
-			$this->Msg .= '<div class="updated"><p><strong>' . __('Settings saved.') . '</strong></p></div>';
+			wp_redirect( add_query_arg( $this->MsgQ , 'update' , stripslashes( $_POST["_wp_http_referer"] ) ) );
+			exit;
 		}
 	}
 
@@ -1133,7 +1182,8 @@ class Post_Lists_View_Custom
 			}
 			
 			update_option( $this->Record["thunmbnail"] , $Update );
-			$this->Msg .= '<div class="updated"><p><strong>' . __('Settings saved.') . '</strong></p></div>';
+			wp_redirect( add_query_arg( $this->MsgQ , 'update' , stripslashes( $_POST["_wp_http_referer"] ) ) );
+			exit;
 		}
 	}
 
@@ -1151,7 +1201,8 @@ class Post_Lists_View_Custom
 			$Record = apply_filters( 'plvc_pre_update' , $this->Record["custom_posts"] );
 
 			update_option( $Record , $GetData );
-			$this->Msg .= '<div class="updated"><p><strong>' . __('Settings saved.') . '</strong></p></div>';
+			wp_redirect( add_query_arg( $this->MsgQ , 'update' , stripslashes( $_POST["_wp_http_referer"] ) ) );
+			exit;
 			
 		}
 	}
@@ -1163,10 +1214,13 @@ class Post_Lists_View_Custom
 
 			$GetData = $this->get_data( 'custom_posts' );
 			unset( $GetData[strip_tags( $_POST["CustomSelect"] )] );
+			unset( $GetData["use"] );
+			unset( $GetData["not_use"] );
 			$Record = apply_filters( 'plvc_pre_update' , $this->Record["custom_posts"] );
 
 			update_option( $Record , $GetData );
-			$this->Msg .= '<div class="updated"><p><strong>' . __('Settings saved.') . '</strong></p></div>';
+			wp_redirect( add_query_arg( $this->MsgQ , 'update' , stripslashes( $_POST["_wp_http_referer"] ) ) );
+			exit;
 		}
 	}
 
@@ -1629,6 +1683,18 @@ class Post_Lists_View_Custom
 	}
 
 	// FilterStart
+	function display_msg() {
+		if( !empty( $_GET[$this->MsgQ] ) ) {
+			$msg = strip_tags(  $_GET[$this->MsgQ] );
+			if( $msg == 'update' or $msg == 'delete' ) {
+				$this->Msg .= '<div class="updated"><p><strong>' . __( 'Settings saved.' ) . '</strong></p></div>';
+			} elseif( $msg == 'donated' ) {
+				$this->Msg .= '<div class="updated"><p><strong>' . __( 'Thank you for your donation.' , $this->ltd ) . '</strong></p></div>';
+			}
+		}
+	}
+
+	// FilterStart
 	function layout_footer( $text ) {
 		$text = '<img src="' . $this->Schema . 'www.gravatar.com/avatar/7e05137c5a859aa987a809190b979ed4?s=18" width="18" /> Plugin developer : <a href="'. $this->AuthorUrl . '?utm_source=use_plugin&utm_medium=footer&utm_content=' . $this->ltd . '&utm_campaign=' . str_replace( '.' , '_' , $this->Ver ) . '" target="_blank">gqevu6bsiz</a>';
 		return $text;
@@ -1638,7 +1704,7 @@ class Post_Lists_View_Custom
 	function DisplayDonation() {
 		$donation = get_option( $this->ltd . '_donated' );
 		if( $this->DonateKey != $donation ) {
-			$this->Msg .= '<div class="updated" style="background: #E5FFE2; border-color: #7BE762;"><p><strong>' . __( 'To donate if you feel that it is useful, please.' , $this->ltd ) . '</strong></p></div>';
+			$this->Msg .= '<div class="updated"><p><strong>' . __( 'To donate if you feel that it is useful, please.' , $this->ltd ) . '</strong></p></div>';
 		}
 	}
 

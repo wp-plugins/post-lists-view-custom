@@ -2,14 +2,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Post Lists View Custom\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-20 22:40+0900\n"
-"PO-Revision-Date: 2013-11-22 20:49-0000\n"
-"Last-Translator: Henry <wp@petzold.it>\n"
+"POT-Creation-Date: 2013-12-29 15:51+0900\n"
+"PO-Revision-Date: 2013-12-29 15:56+0900\n"
+"Last-Translator: gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
 "Language-Team: gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
-"Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: de_DE\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: ../\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -19,80 +19,79 @@ msgstr ""
 
 #: post-lists-view-custom.php:4
 msgid "Allow to customizing for the list screen."
-msgstr ""
-"Individuell einstellbare Listenansicht f&uuml;r Beitr&auml;ge, Seiten und "
-"benutzerdefinierte Inhaltstypen."
+msgstr "Individuell einstellbare Listenansicht f&uuml;r Beitr&auml;ge, Seiten und benutzerdefinierte Inhaltstypen."
 
-#: post-lists-view-custom.php:132 post-lists-view-custom.php:204
+#: post-lists-view-custom.php:137
+#: post-lists-view-custom.php:214
 msgid "show screen"
 msgstr "Zeige Ansicht"
 
-#: post-lists-view-custom.php:133
+#: post-lists-view-custom.php:138
 msgid "show advanced properties screen"
 msgstr "Erweiterte Men&uuml;eigenschaften"
 
-#: post-lists-view-custom.php:133
+#: post-lists-view-custom.php:138
 msgid "advanced properties"
 msgstr "Erweiterte Einstellungen"
 
-#: post-lists-view-custom.php:134 post-lists-view-custom.php:135
-#: post-lists-view-custom.php:242 inc/select_custom.php:15
+#: post-lists-view-custom.php:139
+#: post-lists-view-custom.php:140
+#: post-lists-view-custom.php:256
+#: inc/select_custom.php:22
 msgid "Custom Post Type"
 msgstr "Benutzerdefinierte Inhaltstypen"
 
-#: post-lists-view-custom.php:154 post-lists-view-custom.php:164
-#: post-lists-view-custom.php:174 post-lists-view-custom.php:184
-#: post-lists-view-custom.php:194 post-lists-view-custom.php:204
-#: post-lists-view-custom.php:242 post-lists-view-custom.php:253
-#: inc/select_custom.php:15
+#: post-lists-view-custom.php:159
+#: post-lists-view-custom.php:170
+#: post-lists-view-custom.php:181
+#: post-lists-view-custom.php:192
+#: post-lists-view-custom.php:203
+#: post-lists-view-custom.php:214
+#: post-lists-view-custom.php:256
+#: post-lists-view-custom.php:267
+#: inc/select_custom.php:22
 #, php-format
 msgid "%2$s for %3$s %1$s"
 msgstr "%2$s f&uuml;r %3$s %1$s"
 
-#: post-lists-view-custom.php:214
+#: post-lists-view-custom.php:225
 msgid "Menus of advanced feature adapted to the screen"
 msgstr "Anpassen der Ansicht f&uuml;r erweiterte Men&uuml;anzeige"
 
-#: post-lists-view-custom.php:245 inc/select_custom.php:37
+#: post-lists-view-custom.php:259
+#: inc/select_custom.php:44
 msgid "No custom post type found."
 msgstr "Keine benutzerdefinierte Inhaltstypen gefunden."
 
-#: post-lists-view-custom.php:246
+#: post-lists-view-custom.php:260
 msgid "Please select Custom Posts type from here."
 msgstr "W&auml;hle einen benutzerdefinierten Inhaltstypen."
 
-#: post-lists-view-custom.php:305
+#: post-lists-view-custom.php:320
 #, php-format
-msgid ""
-"Authority to apply the setting is not selected. <a href=\"%s\">From here</"
-"a>, please select the permissions you want to set."
-msgstr ""
-"Keine Berechtigung gesetzt. W&auml;hle  <a href=\"%s\">hier</a> die "
-"Berechtigungen aus, die Du festlegen m&ouml;chtest."
+msgid "Authority to apply the setting is not selected. <a href=\"%s\">From here</a>, please select the permissions you want to set."
+msgstr "Keine Berechtigung gesetzt. W&auml;hle  <a href=\"%s\">hier</a> die Berechtigungen aus, die Du festlegen m&ouml;chtest."
 
-#: post-lists-view-custom.php:329
+#: post-lists-view-custom.php:344
 msgid "Apply user roles"
 msgstr "Benutzerrolle festlegen."
 
-#: post-lists-view-custom.php:443
+#: post-lists-view-custom.php:457
 msgid "ID"
 msgstr "ID"
 
-#: post-lists-view-custom.php:982 inc/donation.php:5
+#: post-lists-view-custom.php:1692
+#: inc/donation.php:5
 msgid "Thank you for your donation."
 msgstr "Vielen Dank f&uuml;r Deine Unterst&uuml;tzung."
 
-#: post-lists-view-custom.php:1641
+#: post-lists-view-custom.php:1707
 msgid "To donate if you feel that it is useful, please."
-msgstr ""
-"Gerne kannst Du mich mit einer Spende unterst&uuml;tzen. Ich bedanke mich "
-"herzlich."
+msgstr "Gerne kannst Du mich mit einer Spende unterst&uuml;tzen. Ich bedanke mich herzlich."
 
 #: inc/donation.php:11
 msgid "Thank you for considering donate."
-msgstr ""
-"Vielen Dank daf&uuml;r, da&szlig; Du meine Arbeit unterst&uuml;tzen m&ouml;"
-"chtest."
+msgstr "Vielen Dank daf&uuml;r, da&szlig; Du meine Arbeit unterst&uuml;tzen m&ouml;chtest."
 
 #: inc/donation.php:12
 msgid "Thank you very much for your support."
@@ -103,179 +102,161 @@ msgid "Donate"
 msgstr "Spenden"
 
 #: inc/donation.php:17
-msgid ""
-"Please enter the 'Donation delete key' that have been described in the 'Line "
-"Break First and End download page'."
-msgstr ""
-"Nach Erhalt der Best&auml;tigung Deiner Spende gib hier Deinen 'Donation "
-"delete key' ein."
+msgid "Please enter the 'Donation delete key' that have been described in the 'Line Break First and End download page'."
+msgstr "Nach Erhalt der Best&auml;tigung Deiner Spende gib hier Deinen 'Donation delete key' ein."
 
-#: inc/donation.php:20
+#: inc/donation.php:21
 msgid "Donation delete key"
 msgstr "Donation delete key"
 
-#: inc/donation.php:24
+#: inc/donation.php:25
 msgid "I'm looking forward to your proposal."
 msgstr "Ich freue mich auf Anregungen."
 
-#: inc/donation.php:25
+#: inc/donation.php:26
 msgid "Please contact me if you have any good idea."
-msgstr ""
-"Bitte kontaktiere mich, um Vorschl&auml;ge oder W&uuml;nsche mitzuteilen."
+msgstr "Bitte kontaktiere mich, um Vorschl&auml;ge oder W&uuml;nsche mitzuteilen."
 
-#: inc/donation.php:36
+#: inc/donation.php:37
 msgid "Have you want to customize?"
-msgstr ""
-"Du ben&ouml;tigst eine individuelle Einrichtung Deiner Administrationsseiten?"
-
-#: inc/donation.php:42
-msgid "I am good at Admin Screen Customize."
-msgstr ""
-"Die Anpassung der Administrationsoberfl&auml;che ist meine Hauptgebiet."
+msgstr "Du ben&ouml;tigst eine individuelle Einrichtung Deiner Administrationsseiten?"
 
 #: inc/donation.php:43
+msgid "I am good at Admin Screen Customize."
+msgstr "Die Anpassung der Administrationsoberfl&auml;che ist meine Hauptgebiet."
+
+#: inc/donation.php:44
 msgid "Please consider the request to me if it is good."
 msgstr "Bitte pr&uuml;fe, ob Deine Anfrage an mich vollst&auml;ndig ist."
 
-#: inc/donation.php:45
+#: inc/donation.php:46
 msgid "Contact"
 msgstr "Kontakt (engl.)"
 
-#: inc/donation.php:47
+#: inc/donation.php:48
 msgid "Example Customize"
 msgstr "Anpassungsbeispiel."
 
-#: inc/donation.php:53
+#: inc/donation.php:54
 msgid "About plugin"
 msgstr "&Uuml;ber das Plugin"
 
-#: inc/donation.php:55
+#: inc/donation.php:56
 msgid "Version checked"
 msgstr "Version gepr&uuml;ft"
 
-#: inc/donation.php:57
+#: inc/donation.php:58
 msgid "Developer's site"
 msgstr "Die Entwickler Website"
 
-#: inc/donation.php:59
+#: inc/donation.php:60
 msgid "Reviews"
 msgstr "Bewertungen"
 
-#: inc/donation.php:64 inc/setting_default.php:74
+#: inc/donation.php:65
+#: inc/setting_default.php:72
 msgid "Would you like to translate?"
 msgstr "M&ouml;chtest Du &uuml;bersetzen?"
 
-#: inc/donation.php:68 inc/setting_default.php:78
+#: inc/donation.php:69
+#: inc/setting_default.php:76
 #, php-format
-msgid ""
-"Do you have a proposal you want to improve? Please contact to %s if it is "
-"necessary."
-msgstr ""
-"Hast Du einen Verbesserungsvorschlag? Bitte schreibe mich hier % s, wenn Du "
-"m&ouml;chtest."
+msgid "Do you have a proposal you want to improve? Please contact to %s if it is necessary."
+msgstr "Hast Du einen Verbesserungsvorschlag? Bitte schreibe mich hier % s, wenn Du m&ouml;chtest."
 
-#: inc/donation.php:73
+#: inc/donation.php:74
 msgid "Useful plugins"
 msgstr "N&uuml;tzliche Plugins"
 
-#: inc/donation.php:76
+#: inc/donation.php:77
 msgid "This add-on is can be different setting for each user roles."
-msgstr ""
-"Mithilfe dieses Add-ons kann die Anpassung in \"Post Lists View Custom\" "
-"f&uuml;r verschiedene Benutzer eingestellt werden."
+msgstr "Mithilfe dieses Add-ons kann die Anpassung in \"Post Lists View Custom\" f&uuml;r verschiedene Benutzer eingestellt werden."
 
-#: inc/donation.php:78
+#: inc/donation.php:79
 msgid "Customize a variety of screen management."
-msgstr ""
-"Für eine Vielzahl von Ansichten lassen sich die Bildschirmausgaben anpassen."
+msgstr "Für eine Vielzahl von Ansichten lassen sich die Bildschirmausgaben anpassen."
 
-#: inc/donation.php:80
-msgid ""
-"Announce to display the dashboard. Change the display to a different user "
-"role."
-msgstr ""
-"Nachrichten/Notitzblock f&uuml;r das Dashboard. Die Einstellungen lassen "
-"sich auf Benutzerrollen differenzieren."
+#: inc/donation.php:81
+msgid "Announce to display the dashboard. Change the display to a different user role."
+msgstr "Nachrichten/Notitzblock f&uuml;r das Dashboard. Die Einstellungen lassen sich auf Benutzerrollen differenzieren."
 
-#: inc/donation.php:82
-msgid ""
-"The plugin that allows you to add the value of the options. Option value "
-"that you have created, can be used in addition to the template tag, Short "
-"code can be used in the body of the article."
-msgstr ""
-"Plugin zum Anlegen von Werten f&uuml;r  Optionen. Der Wert einer Option kann "
-"als Erg&auml;nzung zum Template Tag verwendet werden oder als Shortcode im "
-"Nachrichtenfeld eines Beitrages."
+#: inc/donation.php:83
+msgid "The plugin that allows you to add the value of the options. Option value that you have created, can be used in addition to the template tag, Short code can be used in the body of the article."
+msgstr "Plugin zum Anlegen von Werten f&uuml;r  Optionen. Der Wert einer Option kann als Erg&auml;nzung zum Template Tag verwendet werden oder als Shortcode im Nachrichtenfeld eines Beitrages."
 
-#: inc/select_custom.php:26
+#: inc/select_custom.php:33
 msgid "Please choose a custom post type you want to change the list's view."
-msgstr ""
-"Bitte w&auml;hle einen benutzerdefinierte Inhaltstypen, um die Liste der "
-"Ansicht zu &auml;ndern."
+msgstr "Bitte w&auml;hle einen benutzerdefinierte Inhaltstypen, um die Liste der Ansicht zu &auml;ndern."
 
-#: inc/setting_default.php:27
+#: inc/setting_default.php:24
 msgid "Apply the settings of Post Lists View Custom only user roles selected."
-msgstr ""
-"Die vorgenommenen individuellen Einstellungen werden nur f&uuml;r die unten "
-"ausgew&auml;hlte(n) Benutzergruppen ausgef&uuml;hrt."
+msgstr "Die vorgenommenen individuellen Einstellungen werden nur f&uuml;r die unten ausgew&auml;hlte(n) Benutzergruppen ausgef&uuml;hrt."
 
-#: inc/setting_default.php:28
+#: inc/setting_default.php:25
 msgid "Please select the user roles that all settings will apply to."
-msgstr ""
-"Bitte w&auml;hle die Benutzergruppen, f&uuml;r die Einstellungen &uuml;"
-"bernommen werden sollen."
+msgstr "Bitte w&auml;hle die Benutzergruppen, f&uuml;r die Einstellungen &uuml;bernommen werden sollen."
 
-#: inc/setting_default.php:64 inc/setting_lists.php:129
-#: inc/setting_lists_custom_post.php:154 inc/setting_lists_post.php:149
-#: inc/setting_menus.php:100 inc/setting_thumbnail_size.php:59
+#: inc/setting_default.php:62
+#: inc/setting_lists.php:117
+#: inc/setting_lists_custom_post.php:149
+#: inc/setting_lists_post.php:137
+#: inc/setting_menus.php:82
+#: inc/setting_thumbnail_size.php:60
 msgid "Reset all settings?"
 msgstr "Einstellungen zur&uuml;cksetzen?"
 
-#: inc/setting_default.php:77
+#: inc/setting_default.php:63
+#: inc/setting_lists.php:118
+#: inc/setting_lists_custom_post.php:150
+#: inc/setting_lists_post.php:138
+#: inc/setting_menus.php:83
+#: inc/setting_thumbnail_size.php:61
+msgid "Reset settings"
+msgstr "Einstellungen zur&uuml;cksetzen"
+
+#: inc/setting_default.php:75
 msgid "Bug reports and suggestions"
 msgstr "Fehlermeldungen und Anregungen"
 
-#: inc/setting_lists.php:38 inc/setting_lists_custom_post.php:49
-#: inc/setting_lists_post.php:48
+#: inc/setting_lists.php:26
+#: inc/setting_lists_custom_post.php:43
+#: inc/setting_lists_post.php:36
 msgid "Please rearrange the order in which you want to view by Drag & Drop."
 msgstr "Bitte sortiere per Drag & Drop in die gew&uuml;nschte Reihenfolge."
 
-#: inc/setting_lists_custom_post.php:65 inc/setting_lists_post.php:63
+#: inc/setting_lists_custom_post.php:59
+#: inc/setting_lists_post.php:51
 msgid "Could not read the columns."
 msgstr "Die Eintr&auml;ge sind noch nicht eingelesen worden."
 
-#: inc/setting_lists_custom_post.php:66 inc/setting_lists_post.php:64
+#: inc/setting_lists_custom_post.php:60
+#: inc/setting_lists_post.php:52
 #, php-format
-msgid ""
-"Columns will be loaded automatically when you <a href=\"%1$s\">%2$s</a>."
-msgstr ""
-"Die Eintr&auml;ge werden automatisch geladen, wenn Du <a href=\"%1$s\">%2$s</"
-"a> anklickst."
+msgid "Columns will be loaded automatically when you <a href=\"%1$s\">%2$s</a>."
+msgstr "Die Eintr&auml;ge werden automatisch geladen, wenn Du <a href=\"%1$s\">%2$s</a> anklickst."
 
-#: inc/setting_menus.php:44
+#: inc/setting_menus.php:26
 msgid "Please select the column item to hide."
 msgstr "Selektiere die Eintr&auml;ge, die Du ausblenden m&ouml;chtest."
 
-#: inc/setting_menus.php:81
+#: inc/setting_menus.php:63
 msgid "Taxonomy"
 msgstr "Taxonomis"
 
-#: inc/setting_thumbnail_size.php:24
+#: inc/setting_thumbnail_size.php:25
 msgid "Change the size of thumbnails displayed in the lists."
 msgstr "&Auml;ndern der Gr&ouml;&szlig;e der Vorschaubilder."
 
-#: inc/setting_thumbnail_size.php:25
+#: inc/setting_thumbnail_size.php:26
 msgid "Post, Page, and Custom Post type the applies."
-msgstr ""
-"Gilt f&uuml;r Beitr&auml;ge, Seiten und benutzerdefinierte Inhaltstypen."
-
-#: inc/setting_thumbnail_size.php:48
-#, php-format
-msgid "It will be displayed at <strong>%s px</strong> If there is no setting."
-msgstr ""
-"Wenn keine Einstellungen vorgenommen wurden, wird <strong>%s px</strong> "
-"angezeigt."
+msgstr "Gilt f&uuml;r Beitr&auml;ge, Seiten und benutzerdefinierte Inhaltstypen."
 
 #: inc/setting_thumbnail_size.php:49
+#, php-format
+msgid "It will be displayed at <strong>%s px</strong> If there is no setting."
+msgstr "Wenn keine Einstellungen vorgenommen wurden, wird <strong>%s px</strong> angezeigt."
+
+#: inc/setting_thumbnail_size.php:50
 msgid "Height will be displayed in proportion to the width."
 msgstr "Das Seitenverh&auml;ltnis H&ouml;he zur Breite bleibt erhalten."
+

@@ -1,5 +1,6 @@
 <?php
 
+global $wp_version;
 
 $PostType = get_post_type_object( $this->SetPage );
 
@@ -11,28 +12,15 @@ if( !empty( $tmp[$this->SetPage] ) ) {
 unset( $tmp );
 
 
-if( !empty( $_POST["SetPage"] ) ) {
-
-	if( $this->SetPage == 'post' ) {
-		if( !empty( $_POST["reset"] ) ) {
-			$this->update_reset( $this->SetPage );
-		} elseif( !empty( $_POST["update"] ) ) {
-			$this->update_post();
-		}
-	} elseif( $this->SetPage == 'page' ) {
-		if( !empty( $_POST["reset"] ) ) {
-			$this->update_reset( $this->SetPage );
-		} elseif( !empty( $_POST["update"] ) ) {
-			$this->update_page();
-		}
-	}
-	
-}
-
 // include js css
 $ReadedJs = array( 'jquery' , 'jquery-ui-sortable' );
 wp_enqueue_script( $this->PageSlug ,  $this->Url . $this->PluginSlug . '.js', $ReadedJs , $this->Ver );
-wp_enqueue_style( $this->PageSlug , $this->Url . $this->PluginSlug . '.css', array() , $this->Ver );
+
+if ( version_compare( $wp_version , '3.8' , '<' ) ) {
+	wp_enqueue_style( $this->PageSlug , $this->Url . $this->PluginSlug . '-3.7.css', array() , $this->Ver );
+} else {
+	wp_enqueue_style( $this->PageSlug , $this->Url . $this->PluginSlug . '.css', array() , $this->Ver );
+}
 
 // get data
 $Data = $this->get_data( $this->SetPage );
@@ -65,10 +53,10 @@ $Columns = $this->get_list_columns( $this->SetPage );
 
 			<?php else: ?>
 
-				<form id="post_lists_view_custom_form" method="post" action="">
+				<form id="post_lists_view_custom_form" method="post" action="<?php echo remove_query_arg( $this->MsgQ ); ?>">
 					<input type="hidden" name="<?php echo $this->UPFN; ?>" value="Y">
 					<?php wp_nonce_field( $this->Nonces["value"] , $this->Nonces["field"] ); ?>
-			
+					<input type="hidden" name="record_field" value="<?php echo $this->SetPage; ?>" />
 					<input type="hidden" name="SetPage" value="<?php echo $this->SetPage; ?>" />
 
 					<div class="example_widgets">
@@ -147,7 +135,7 @@ $Columns = $this->get_list_columns( $this->SetPage );
 					</p>
 					<p class="submit reset">
 						<span class="description"><?php _e( 'Reset all settings?' , $this->ltd ); ?></span>
-						<input type="submit" class="button-secondary" name="reset" value="<?php _e( 'Reset' ); ?>" />
+						<input type="submit" class="button-secondary" name="reset" value="<?php _e( 'Reset settings' , $this->ltd ); ?>" />
 					</p>
 			
 				</form>

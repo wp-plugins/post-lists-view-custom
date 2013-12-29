@@ -13,10 +13,11 @@ if( $donatedKey == $this->DonateKey ) :
 					<p style="text-align: center;">
 						<a href="<?php echo $this->AuthorUrl; ?>please-donation/?utm_source=use_plugin&utm_medium=donate&utm_content=<?php echo $this->ltd; ?>&utm_campaign=<?php echo str_replace( '.' , '_' , $this->Ver ); ?>" class="button-primary" target="_blank"><?php _e( 'Donate' , $this->ltd ); ?></a>
 					</p>
-					<form id="donation_form" class="plvc_form" method="post" action="<?php echo self_admin_url( 'admin.php?page=' . $this->PageSlug ); ?>">
+					<form id="donation_form" class="plvc_form" method="post" action="<?php echo remove_query_arg( $this->MsgQ ); ?>">
 						<p style="color: #FFF;"><?php _e( 'Please enter the \'Donation delete key\' that have been described in the \'Line Break First and End download page\'.' , $this->ltd ); ?></p>
 						<input type="hidden" name="<?php echo $this->UPFN; ?>" value="Y" />
 						<?php wp_nonce_field(); ?>
+						<input type="hidden" name="record_field" value="donate" />
 						<label for="donate_key"><span style="color: #FFF; "><?php _e( 'Donation delete key' , $this->ltd ); ?></span></label>
 						<input type="text" name="donate_key" id="donate_key" value="" class="small-text" />
 						<input type="submit" class="button-secondary" name="submit" value="<?php _e( 'Submit' ); ?>" />
@@ -52,7 +53,7 @@ if( $donatedKey == $this->DonateKey ) :
 			<div class="stuffbox" id="aboutbox">
 				<h3><span class="hndle"><?php _e( 'About plugin' , $this->ltd ); ?></span></h3>
 				<div class="inside">
-					<p><?php _e( 'Version checked' , $this->ltd ); ?> : 3.4.2 - 3.7.1</p>
+					<p><?php _e( 'Version checked' , $this->ltd ); ?> : 3.6.1 - 3.8</p>
 					<ul>
 						<li><a href="<?php echo $this->AuthorUrl; ?>?utm_source=use_plugin&utm_medium=side&utm_content=<?php echo $this->ltd; ?>&utm_campaign=<?php echo str_replace( '.' , '_' , $this->Ver ); ?>" target="_blank"><?php _e( 'Developer\'s site' , $this->ltd ); ?></a></li>
 						<li><a href="http://wordpress.org/support/plugin/<?php echo $this->PluginSlug; ?>" target="_blank"><?php _e( 'Support Forums' ); ?></a></li>
