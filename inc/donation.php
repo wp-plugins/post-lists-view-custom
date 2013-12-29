@@ -16,7 +16,7 @@ if( $donatedKey == $this->DonateKey ) :
 					<form id="donation_form" class="plvc_form" method="post" action="<?php echo remove_query_arg( $this->MsgQ ); ?>">
 						<p style="color: #FFF;"><?php _e( 'Please enter the \'Donation delete key\' that have been described in the \'Line Break First and End download page\'.' , $this->ltd ); ?></p>
 						<input type="hidden" name="<?php echo $this->UPFN; ?>" value="Y" />
-						<?php wp_nonce_field(); ?>
+						<?php wp_nonce_field( $this->Nonces["value"] , $this->Nonces["field"] ); ?>
 						<input type="hidden" name="record_field" value="donate" />
 						<label for="donate_key"><span style="color: #FFF; "><?php _e( 'Donation delete key' , $this->ltd ); ?></span></label>
 						<input type="text" name="donate_key" id="donate_key" value="" class="small-text" />

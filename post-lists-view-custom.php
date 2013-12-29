@@ -3,9 +3,9 @@
 Plugin Name: Post Lists View Custom
 Description: Allow to customizing for the list screen.
 Plugin URI: http://wordpress.org/extend/plugins/post-lists-view-custom/
-Version: 1.5.6.1
+Version: 1.5.6.2
 Author: gqevu6bsiz
-Author URI: http://gqevu6bsiz.chicappa.jp/?utm_source=use_plugin&utm_medium=list&utm_content=plvc&utm_campaign=1_5_6_1
+Author URI: http://gqevu6bsiz.chicappa.jp/?utm_source=use_plugin&utm_medium=list&utm_content=plvc&utm_campaign=1_5_6_2
 Text Domain: plvc
 Domain Path: /languages
 */
@@ -54,7 +54,7 @@ class Post_Lists_View_Custom
 
 
 	function __construct() {
-		$this->Ver = '1.5.6.1';
+		$this->Ver = '1.5.6.2';
 		$this->Name = 'Post Lists View Custom';
 		$this->Dir = plugin_dir_path( __FILE__ );
 		$this->Url = plugin_dir_url( __FILE__ );
@@ -957,41 +957,43 @@ class Post_Lists_View_Custom
 
 		$RecordField = false;
 		
-		if( !empty( $_POST["record_field"] ) ) {
-			$RecordField = strip_tags( $_POST["record_field"] );
-		}
-
-		if( !empty( $RecordField ) && !empty( $_POST["update"] ) ) {
-			if( $RecordField == 'user_role' ) {
-				$this->update_userrole();
-			} elseif( $RecordField == 'post' ) {
-				$this->update_post();
-			} elseif( $RecordField == 'page' ) {
-				$this->update_page();
-			} elseif( $RecordField == 'media' ) {
-				$this->update_media();
-			} elseif( $RecordField == 'comments' ) {
-				$this->update_comments();
-			} elseif( $RecordField == 'widgets' ) {
-				$this->update_widgets();
-			} elseif( $RecordField == 'menus' ) {
-				$this->update_menus();
-			} elseif( $RecordField == 'menus_adv' ) {
-				$this->update_menus_adv();
-			} elseif( $RecordField == 'thunmbnail' ) {
-				$this->update_thunmbnail();
-			} elseif( $RecordField == 'custom_posts' ) {
-				$this->update_custom_post();
+		if( !empty( $_POST[$this->Nonces["field"]] ) ) {
+			if( !empty( $_POST["record_field"] ) ) {
+				$RecordField = strip_tags( $_POST["record_field"] );
 			}
-		}
-		if( !empty( $RecordField ) && $RecordField == 'custom_posts' && !empty( $_POST["reset"] ) ) {
-			$this->update_reset_custom_post();
-		} elseif( !empty( $RecordField ) && !empty( $_POST["reset"] ) ) {
-			$this->update_reset( $RecordField );
-		}
 
-		if( !empty( $RecordField ) && $RecordField == 'donate' && !empty( $_POST["donate_key"] ) ) {
-			$this->DonatingCheck();
+			if( !empty( $RecordField ) && !empty( $_POST["update"] ) ) {
+				if( $RecordField == 'user_role' ) {
+					$this->update_userrole();
+				} elseif( $RecordField == 'post' ) {
+					$this->update_post();
+				} elseif( $RecordField == 'page' ) {
+					$this->update_page();
+				} elseif( $RecordField == 'media' ) {
+					$this->update_media();
+				} elseif( $RecordField == 'comments' ) {
+					$this->update_comments();
+				} elseif( $RecordField == 'widgets' ) {
+					$this->update_widgets();
+				} elseif( $RecordField == 'menus' ) {
+					$this->update_menus();
+				} elseif( $RecordField == 'menus_adv' ) {
+					$this->update_menus_adv();
+				} elseif( $RecordField == 'thunmbnail' ) {
+					$this->update_thunmbnail();
+				} elseif( $RecordField == 'custom_posts' ) {
+					$this->update_custom_post();
+				}
+			}
+			if( !empty( $RecordField ) && $RecordField == 'custom_posts' && !empty( $_POST["reset"] ) ) {
+				$this->update_reset_custom_post();
+			} elseif( !empty( $RecordField ) && !empty( $_POST["reset"] ) ) {
+				$this->update_reset( $RecordField );
+			}
+
+			if( !empty( $RecordField ) && $RecordField == 'donate' && !empty( $_POST["donate_key"] ) ) {
+				$this->DonatingCheck();
+			}
 		}
 
 	}
