@@ -3,9 +3,9 @@
 Plugin Name: Post Lists View Custom
 Description: Allow to customizing for the list screen.
 Plugin URI: http://wordpress.org/extend/plugins/post-lists-view-custom/
-Version: 1.5.6
+Version: 1.5.6.1
 Author: gqevu6bsiz
-Author URI: http://gqevu6bsiz.chicappa.jp/?utm_source=use_plugin&utm_medium=list&utm_content=plvc&utm_campaign=1_5_6
+Author URI: http://gqevu6bsiz.chicappa.jp/?utm_source=use_plugin&utm_medium=list&utm_content=plvc&utm_campaign=1_5_6_1
 Text Domain: plvc
 Domain Path: /languages
 */
@@ -54,7 +54,7 @@ class Post_Lists_View_Custom
 
 
 	function __construct() {
-		$this->Ver = '1.5.6';
+		$this->Ver = '1.5.6.1';
 		$this->Name = 'Post Lists View Custom';
 		$this->Dir = plugin_dir_path( __FILE__ );
 		$this->Url = plugin_dir_url( __FILE__ );
@@ -1034,6 +1034,7 @@ class Post_Lists_View_Custom
 			$record = apply_filters( 'plvc_pre_delete' , $this->Record[$record] );
 			delete_option( $record );
 			wp_redirect( add_query_arg( $this->MsgQ , 'delete' , stripslashes( $_POST["_wp_http_referer"] ) ) );
+			exit;
 		}
 	}
 
