@@ -52,26 +52,38 @@
 
 
 
-form#post_lists_view_custom_form table td div#use,
-form#post_lists_view_custom_form table td div#not_use {
-	margin: 0;
-	padding: 10px 0;
-	clear: both;
+form#post_lists_view_custom_form .widgets-holder-wrap .widgets-sortables .widget-list#use {
+	padding: 10px;
 }
-form#post_lists_view_custom_form table td div#use div.widget,
-form#post_lists_view_custom_form table td div#not_use div.widget {
+form#post_lists_view_custom_form .widgets-holder-wrap .widgets-sortables .widget-list,
+form#post_lists_view_custom_form .widgets-holder .widget-list {
+	min-height: 80px;
+}
+form#post_lists_view_custom_form .widgets-holder-wrap .widgets-sortables .widget-list .widget,
+form#post_lists_view_custom_form .widgets-holder .widget-list .widget {
 	width: 200px;
 	float: left;
 	margin: 0 14px 20px 0;
 	height: auto;
 }
-form#post_lists_view_custom_form table td div#use .widget-placeholder,
-form#post_lists_view_custom_form table td div#not_use .widget-placeholder {
-	background-color: #FFF8D9;
-	display: inline-block;
+form#post_lists_view_custom_form .widgets-holder-wrap .widgets-sortables .widget-placeholder,
+form#post_lists_view_custom_form .widgets-holder .widget-list .widget-placeholder {
+	display: block;
 	float: left;
 	width: 220px;
 	margin-right: 14px;
+}
+form#post_lists_view_custom_form .widgets-holder #not_use.widget-list .widget .widget-top .widget-title-action {
+	display: none;
+}
+form#post_lists_view_custom_form .drag_desc {
+	background: transparent url(./images/drag_desc.png) no-repeat center top;
+	text-align: center;
+	padding: 88px 0 0 0;
+	margin-bottom: 20px;
+}
+form#post_lists_view_custom_form .drag_desc .description {
+	font-size: 16px;
 }
 
 
@@ -80,13 +92,16 @@ form#post_lists_view_custom_form table.menu-lists {
 	border-collapse: separate;
 	border-spacing: 0;
 }
-form#post_lists_view_custom_form table.widefat td div.widget.plugin,
-form#post_lists_view_custom_form table.widefat td div.widget.plugin .widget-top,
+form#post_lists_view_custom_form .widgets-holder-wrap .widgets-sortables .widget-list .widget.plugin,
+form#post_lists_view_custom_form .widgets-holder .widget-list .widget.plugin,
+form#post_lists_view_custom_form .widgets-holder-wrap .widgets-sortables .widget-list .widget.plugin .widget-top,
+form#post_lists_view_custom_form .widgets-holder .widget-list .widget.plugin .widget-top,
 form#post_lists_view_custom_form .example_widgets .widget.plugin,
 form#post_lists_view_custom_form .example_widgets .widget.plugin .widget-top {
 	border-color: #CFE1EF;
 }
-form#post_lists_view_custom_form table.widefat td div.widget.plugin .widget-top,
+form#post_lists_view_custom_form .widgets-holder-wrap .widgets-sortables .widget-list .widget.plugin .widget-top,
+form#post_lists_view_custom_form .widgets-holder .widget-list .widget.plugin .widget-top,
 form#post_lists_view_custom_form .example_widgets .widget.plugin .widget-top,
 form#post_lists_view_custom_form table.menu-lists tr.plugin th,
 form#post_lists_view_custom_form table.menu-lists tr.plugin td {
@@ -97,13 +112,16 @@ form#post_lists_view_custom_form table.menu-lists tr.plugin td {
 	background-image: -o-linear-gradient(bottom,#E2EDF5,#F4F8FB);
 	background-image: linear-gradient(to top,#E2EDF5,#F4F8FB);
 }
-form#post_lists_view_custom_form table.widefat td div.widget.custom_fields,
-form#post_lists_view_custom_form table.widefat td div.widget.custom_fields .widget-top,
+form#post_lists_view_custom_form .widgets-holder-wrap .widgets-sortables .widget-list .widget.custom_fields,
+form#post_lists_view_custom_form .widgets-holder .widget-list .widget.custom_fields,
+form#post_lists_view_custom_form .widgets-holder-wrap .widgets-sortables .widget-list .widget.custom_fields .widget-top,
+form#post_lists_view_custom_form .widgets-holder .widget-list .widget.custom_fields .widget-top,
 form#post_lists_view_custom_form .example_widgets .widget.custom_fields,
 form#post_lists_view_custom_form .example_widgets .widget.custom_fields .widget-top {
 	border-color: #F3CAD5;
 }
-form#post_lists_view_custom_form table.widefat td div.widget.custom_fields .widget-top,
+form#post_lists_view_custom_form .widgets-holder-wrap .widgets-sortables .widget-list .widget.custom_fields .widget-top,
+form#post_lists_view_custom_form .widgets-holder .widget-list .widget.custom_fields .widget-top,
 form#post_lists_view_custom_form .example_widgets .widget.custom_fields .widget-top,
 form#post_lists_view_custom_form table.menu-lists tr.custom_fields th,
 form#post_lists_view_custom_form table.menu-lists tr.custom_fields td {

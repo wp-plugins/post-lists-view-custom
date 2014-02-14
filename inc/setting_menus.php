@@ -59,7 +59,7 @@ $Columns = $this->get_list_columns( $this->SetPage );
 							<div class="widget"><div class="widget-top"><div class="widget-title"><h4><?php _e( 'Default' ); ?></h4></div></div></div>
 							<div class="widget plugin"><div class="widget-top"><div class="widget-title"><h4><?php _e( 'Plugin' ); ?></h4></div></div></div>
 							<div class="widget custom_fields"><div class="widget-top"><div class="widget-title"><h4><?php _e( 'Custom Fields' ); ?></h4></div></div></div>
-							<div class="widget custom_post"><div class="widget-top"><div class="widget-title"><h4><?php _e( 'Custom' ); ?><?php _e( 'Post' ); ?></h4></div></div></div>
+							<div class="widget custom_post"><div class="widget-top"><div class="widget-title"><h4><?php _e( 'Custom' ); ?><?php _e( 'Posts' ); ?></h4></div></div></div>
 							<div class="widget custom_taxonomy"><div class="widget-top"><div class="widget-title"><h4><?php _e( 'Custom' ); ?><?php _e( 'Taxonomy' , $this->ltd ); ?></h4></div></div></div>
 							<div class="clear"></div>
 						</div>

@@ -4,20 +4,41 @@ jQuery(document).ready(function($) {
 
 	if( 0 < $("#use" , $Form).size() ) {
 
+		// Show spec information
+		$(document).on('click', '.widget .widget-title-action a.widget-action', function( ev ) {
+			
+			var Available_type = $(ev.target).parent().parent().parent().parent().prop('id');
+			
+			if( Available_type == 'use' ) {
+				$(ev.target).parent().parent().parent().find('.widget-inside').slideToggle();
+			}
+			
+			return false;
+		});
+
 		// sortable
-		$("div#use, div#not_use").sortable({
+		$("#use, #not_use").sortable({
 			placeholder: "widget-placeholder",
 			connectWith: ".widget-list",
-			stop: function(event, ui) {
-				var Before = $(this).attr("id");
-				var After = ui.item.parent().attr("id");
+			stop: function( ev , ui ) {
+				var Before = $(ev.target).prop('id');
+				var After = ui.item.parent().prop('id');
 				
 				if(Before != After) {
-					ui.item.children(".widget-inside").children("input").each(function() {
-						var ItemName = $(this).attr("name");
-						$(this).attr("name", ItemName.replace(Before, After));
+					ui.item.find('input').each(function( key , el ) {
+						var ItemName = $(el).prop('name');
+						ui.item.find('input:eq(' + key + ')').prop('name', ItemName.replace( Before , After ) );
+					});
+					ui.item.find('select').each(function( key , el ) {
+						var ItemName = $(el).prop('name');
+						ui.item.find('select:eq(' + key + ')').prop('name', ItemName.replace( Before , After ) );
 					});
 				}
+				
+				if( After == 'not_use' ) {
+					ui.item.find('.widget-inside').hide()
+				}
+				
 			}
 		}).disableSelection();
 
@@ -31,7 +52,7 @@ jQuery(document).ready(function($) {
 		}
 	}
 
-	$(".toggle-plugin .icon a" , $(".plvc") ).click(function() {
+	$('.plvc .toggle-plugin .icon a').on('click', function() {
 
 		if( $(".plvc").hasClass('full-width') ) {
 			donation_toggle_set( false );

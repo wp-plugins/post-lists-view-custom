@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Post Lists View Custom\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-29 15:51+0900\n"
-"PO-Revision-Date: 2013-12-29 15:51+0900\n"
+"POT-Creation-Date: 2014-02-14 17:43+0900\n"
+"PO-Revision-Date: 2014-02-14 17:43+0900\n"
 "Last-Translator: gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
 "Language-Team: gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -18,71 +18,71 @@ msgstr ""
 msgid "Allow to customizing for the list screen."
 msgstr ""
 
-#: post-lists-view-custom.php:137
-#: post-lists-view-custom.php:214
+#: post-lists-view-custom.php:145
+#: post-lists-view-custom.php:222
 msgid "show screen"
 msgstr ""
 
-#: post-lists-view-custom.php:138
+#: post-lists-view-custom.php:146
 msgid "show advanced properties screen"
 msgstr ""
 
-#: post-lists-view-custom.php:138
+#: post-lists-view-custom.php:146
 msgid "advanced properties"
 msgstr ""
 
-#: post-lists-view-custom.php:139
-#: post-lists-view-custom.php:140
-#: post-lists-view-custom.php:256
+#: post-lists-view-custom.php:147
+#: post-lists-view-custom.php:148
+#: post-lists-view-custom.php:264
 #: inc/select_custom.php:22
 msgid "Custom Post Type"
 msgstr ""
 
-#: post-lists-view-custom.php:159
-#: post-lists-view-custom.php:170
-#: post-lists-view-custom.php:181
-#: post-lists-view-custom.php:192
-#: post-lists-view-custom.php:203
-#: post-lists-view-custom.php:214
-#: post-lists-view-custom.php:256
-#: post-lists-view-custom.php:267
+#: post-lists-view-custom.php:167
+#: post-lists-view-custom.php:178
+#: post-lists-view-custom.php:189
+#: post-lists-view-custom.php:200
+#: post-lists-view-custom.php:211
+#: post-lists-view-custom.php:222
+#: post-lists-view-custom.php:264
+#: post-lists-view-custom.php:275
 #: inc/select_custom.php:22
 #, php-format
 msgid "%2$s for %3$s %1$s"
 msgstr ""
 
-#: post-lists-view-custom.php:225
+#: post-lists-view-custom.php:233
 msgid "Menus of advanced feature adapted to the screen"
 msgstr ""
 
-#: post-lists-view-custom.php:259
+#: post-lists-view-custom.php:267
 #: inc/select_custom.php:44
 msgid "No custom post type found."
 msgstr ""
 
-#: post-lists-view-custom.php:260
+#: post-lists-view-custom.php:268
 msgid "Please select Custom Posts type from here."
 msgstr ""
 
-#: post-lists-view-custom.php:320
+#: post-lists-view-custom.php:328
 #, php-format
 msgid "Authority to apply the setting is not selected. <a href=\"%s\">From here</a>, please select the permissions you want to set."
 msgstr ""
 
-#: post-lists-view-custom.php:344
+#: post-lists-view-custom.php:352
 msgid "Apply user roles"
 msgstr ""
 
-#: post-lists-view-custom.php:457
+#: post-lists-view-custom.php:497
 msgid "ID"
 msgstr ""
 
-#: post-lists-view-custom.php:1692
+#: post-lists-view-custom.php:1775
 #: inc/donation.php:5
 msgid "Thank you for your donation."
 msgstr ""
 
-#: post-lists-view-custom.php:1707
+#: post-lists-view-custom.php:1790
 msgid "To donate if you feel that it is useful, please."
 msgstr ""
 
@@ -181,6 +181,10 @@ msgstr ""
 msgid "The plugin that allows you to add the value of the options. Option value that you have created, can be used in addition to the template tag, Short code can be used in the body of the article."
 msgstr ""
 
+#: inc/donation.php:85
+msgid "All Plugins"
+msgstr ""
+
 #: inc/select_custom.php:33
 msgid "Please choose a custom post type you want to change the list's view."
 msgstr ""
@@ -194,18 +198,18 @@ msgid "Please select the user roles that all settings will apply to."
 msgstr ""
 
 #: inc/setting_default.php:62
-#: inc/setting_lists.php:117
-#: inc/setting_lists_custom_post.php:149
-#: inc/setting_lists_post.php:137
+#: inc/setting_lists.php:108
+#: inc/setting_lists_custom_post.php:140
+#: inc/setting_lists_post.php:128
 #: inc/setting_menus.php:82
 #: inc/setting_thumbnail_size.php:60
 msgid "Reset all settings?"
 msgstr ""
 
 #: inc/setting_default.php:63
-#: inc/setting_lists.php:118
-#: inc/setting_lists_custom_post.php:150
-#: inc/setting_lists_post.php:138
+#: inc/setting_lists.php:109
+#: inc/setting_lists_custom_post.php:141
+#: inc/setting_lists_post.php:129
 #: inc/setting_menus.php:83
 #: inc/setting_thumbnail_size.php:61
 msgid "Reset settings"
@@ -219,6 +223,12 @@ msgstr ""
 #: inc/setting_lists_custom_post.php:43
 #: inc/setting_lists_post.php:36
 msgid "Please rearrange the order in which you want to view by Drag & Drop."
+msgstr ""
+
+#: inc/setting_lists.php:80
+#: inc/setting_lists_custom_post.php:112
+#: inc/setting_lists_post.php:100
+msgid "Please drag and drop the columns you want to show."
 msgstr ""
 
 #: inc/setting_lists_custom_post.php:59

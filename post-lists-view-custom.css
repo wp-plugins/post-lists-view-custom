@@ -52,28 +52,46 @@
 
 
 
-form#post_lists_view_custom_form table td div#use,
-form#post_lists_view_custom_form table td div#not_use {
-	margin: 0;
-	padding: 10px 0;
-	clear: both;
+form#post_lists_view_custom_form .widgets-holder-wrap .widgets-sortables .widget-list#use {
+	padding: 10px;
 }
-form#post_lists_view_custom_form table td div.widget:hover {
-	outline: 1px solid #999;
+form#post_lists_view_custom_form .widgets-holder-wrap .widgets-sortables .widget-list,
+form#post_lists_view_custom_form .widgets-holder .widget-list {
+	min-height: 80px;
 }
-form#post_lists_view_custom_form table td div#use div.widget,
-form#post_lists_view_custom_form table td div#not_use div.widget {
+form#post_lists_view_custom_form .widgets-holder-wrap .widgets-sortables .widget-list .widget,
+form#post_lists_view_custom_form .widgets-holder .widget-list .widget {
 	width: 200px;
 	float: left;
 	margin: 0 14px 20px 0;
 	height: auto;
 }
-form#post_lists_view_custom_form table td div#use .widget-placeholder,
-form#post_lists_view_custom_form table td div#not_use .widget-placeholder {
-	display: inline-block;
+form#post_lists_view_custom_form .widgets-holder-wrap .widgets-sortables .widget-list .widget:hover,
+form#post_lists_view_custom_form .widgets-holder .widget-list .widget:hover {
+	outline: 1px solid #999;
+}
+form#post_lists_view_custom_form .widgets-holder-wrap .widgets-sortables .widget-placeholder,
+form#post_lists_view_custom_form .widgets-holder .widget-list .widget-placeholder {
+	display: block;
 	float: left;
 	width: 220px;
 	margin-right: 14px;
+}
+form#post_lists_view_custom_form .widgets-holder-wrap .widgets-sortables .widget-list .widget .widget-top,
+form#post_lists_view_custom_form .widgets-holder .widget-list .widget .widget-top {
+	height: 44px;
+}
+form#post_lists_view_custom_form .widgets-holder #not_use.widget-list .widget .widget-top .widget-title-action {
+	display: none;
+}
+form#post_lists_view_custom_form .drag_desc {
+	background: transparent url(./images/drag_desc.png) no-repeat center top;
+	text-align: center;
+	padding: 88px 0 0 0;
+	margin-bottom: 20px;
+}
+form#post_lists_view_custom_form .drag_desc .description {
+	font-size: 16px;
 }
 
 
@@ -82,34 +100,49 @@ form#post_lists_view_custom_form table.menu-lists {
 	border-collapse: separate;
 	border-spacing: 0;
 }
-form#post_lists_view_custom_form table.widefat td div.widget.plugin .widget-top,
+form#post_lists_view_custom_form .widgets-holder-wrap .widgets-sortables .widget-list .widget.plugin .widget-top,
+form#post_lists_view_custom_form .widgets-holder .widget-list .widget.plugin .widget-top,
 form#post_lists_view_custom_form .example_widgets .widget.plugin .widget-top,
 form#post_lists_view_custom_form table.menu-lists tr.plugin th,
 form#post_lists_view_custom_form table.menu-lists tr.plugin td {
 	background: #0074a2;
 	color: #fff;
 }
-form#post_lists_view_custom_form table.widefat td div.widget.custom_fields .widget-top,
+form#post_lists_view_custom_form .widgets-holder-wrap .widgets-sortables .widget-list .widget.custom_fields .widget-top,
+form#post_lists_view_custom_form .widgets-holder .widget-list .widget.custom_fields .widget-top,
 form#post_lists_view_custom_form .example_widgets .widget.custom_fields .widget-top,
 form#post_lists_view_custom_form table.menu-lists tr.custom_fields th,
 form#post_lists_view_custom_form table.menu-lists tr.custom_fields td {
 	background: #e14d43;
 	color: #fff;
 }
-form#post_lists_view_custom_form table.widefat td div.widget.custom_post .widget-top,
+form#post_lists_view_custom_form .widgets-holder-wrap .widgets-sortables .widget-list .widget.custom_post .widget-top,
+form#post_lists_view_custom_form .widgets-holder .widget-list .widget.custom_post .widget-top,
 form#post_lists_view_custom_form .example_widgets .widget.custom_post .widget-top,
 form#post_lists_view_custom_form table.menu-lists tr.custom_post th,
 form#post_lists_view_custom_form table.menu-lists tr.custom_post td {
 	background: #a3b745;
 	color: #fff;
 }
-form#post_lists_view_custom_form table.widefat td div.widget.custom_taxonomy .widget-top,
+form#post_lists_view_custom_form .widgets-holder-wrap .widgets-sortables .widget-list .widget.custom_taxonomy .widget-top,
+form#post_lists_view_custom_form .widgets-holder .widget-list .widget.custom_taxonomy .widget-top,
 form#post_lists_view_custom_form .example_widgets .widget.custom_taxonomy .widget-top,
 form#post_lists_view_custom_form table.menu-lists tr.custom_taxonomy th,
 form#post_lists_view_custom_form table.menu-lists tr.custom_taxonomy td {
 	background: #c7a589;
 	color: #fff;
 }
+form#post_lists_view_custom_form .widgets-holder-wrap .widgets-sortables .widget-list .widget.plugin .widget-top .widget-title .in-widget-title,
+form#post_lists_view_custom_form .widgets-holder .widget-list .widget.plugin .widget-top .widget-title .in-widget-title,
+form#post_lists_view_custom_form .widgets-holder-wrap .widgets-sortables .widget-list .widget.custom_fields .widget-top .widget-title .in-widget-title,
+form#post_lists_view_custom_form .widgets-holder .widget-list .widget.custom_fields .widget-top .widget-title .in-widget-title {
+	color: #fff;
+	font-weight: normal;
+	opacity: 0.7;
+}
+
+
+
 
 form#post_lists_view_custom_form .example_widgets {
 	padding: 0 0 16px 0;

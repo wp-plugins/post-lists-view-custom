@@ -3,9 +3,9 @@
 Plugin Name: Post Lists View Custom
 Description: Allow to customizing for the list screen.
 Plugin URI: http://wordpress.org/extend/plugins/post-lists-view-custom/
-Version: 1.5.6.2
+Version: 1.5.7
 Author: gqevu6bsiz
-Author URI: http://gqevu6bsiz.chicappa.jp/?utm_source=use_plugin&utm_medium=list&utm_content=plvc&utm_campaign=1_5_6_2
+Author URI: http://gqevu6bsiz.chicappa.jp/?utm_source=use_plugin&utm_medium=list&utm_content=plvc&utm_campaign=1_5_7
 Text Domain: plvc
 Domain Path: /languages
 */
@@ -45,6 +45,7 @@ class Post_Lists_View_Custom
 		$PluginSlug,
 		$SetPage,
 		$ThumbnailSize,
+		$CustomFields,
 		$Nonces,
 		$Schema,
 		$PageTitle,
@@ -54,7 +55,7 @@ class Post_Lists_View_Custom
 
 
 	function __construct() {
-		$this->Ver = '1.5.6.2';
+		$this->Ver = '1.5.7';
 		$this->Name = 'Post Lists View Custom';
 		$this->Dir = plugin_dir_path( __FILE__ );
 		$this->Url = plugin_dir_url( __FILE__ );
@@ -79,6 +80,7 @@ class Post_Lists_View_Custom
 		$this->PageSlug = 'post_lists_view_custom';
 		$this->PluginSlug = dirname( plugin_basename( __FILE__ ) );
 		$this->ThumbnailSize = 50;
+		$this->CustomFields = array();
 		$this->Nonces = array( "field" => $this->ltd . '_field' , "value" => $this->ltd . '_value' );
 		$this->Schema = is_ssl() ? 'https://' : 'http://';
 		$this->PageTitle = $this->Name;
@@ -113,6 +115,12 @@ class Post_Lists_View_Custom
 
 		// setting check user role
 		add_action( 'admin_notices' , array( $this , 'settingCheck' ) ) ;
+
+		// default columns load.
+		add_action( 'load-edit.php' , array( $this , 'post_columns_default_load_action' ) );
+
+		// get all custom_fields
+		add_action( 'admin_init' , array( $this , 'get_all_custom_fields') );
 	}
 
 	// PluginSetup
@@ -380,7 +388,7 @@ class Post_Lists_View_Custom
 	}
 
 	// SetList
-	function get_custom_fields_columns( $Columns ) {
+	function get_all_custom_fields() {
 		global $wpdb;
 
 		// All Post Custom Field meta
@@ -407,13 +415,54 @@ class Post_Lists_View_Custom
 				}
 			}
 		}
+		$this->CustomFields = $All_custom_columns;
+	}
 
-		foreach($All_custom_columns as $name) {
+	// SetList
+	function get_custom_fields_columns( $Columns ) {
+		foreach( $this->CustomFields as $name ) {
 			$Columns[$name] = array( "not_use" => 1 , "name" => $name , "group" => "custom_fields" );
 		}
 		unset($All_custom_columns);
 
 		return $Columns;
+	}
+
+	// SetList
+	function check_column_type( $post_type , $column_id ) {
+		$check = false;
+		
+		if( $post_type == 'post' or $post_type == 'page' ) {
+			$Default_columns = $this->get_default_columns_type( $post_type );
+		} else {
+			$Default_columns = $this->get_default_columns_type( 'custom_posts' );
+		}
+
+		if( !in_array( $column_id, $Default_columns ) ) {
+
+			$RegistColumns = $this->get_data( 'regist_columns' );
+			$all_custom_fields = $this->CustomFields;
+
+			if( in_array( $column_id, $all_custom_fields ) ) {
+
+				$check = 'custom_fields';
+
+			} elseif( !empty( $RegistColumns[$post_type] ) ) {
+
+				$CurrentColumns = $RegistColumns[$post_type];
+				foreach( $Default_columns as $column_name ) {
+					unset( $CurrentColumns[$column_name] );
+				}
+				if( array_key_exists( $column_id , $CurrentColumns ) ) {
+					$check = 'plugin';
+				}
+
+			}
+
+		}
+
+		return $check;
+
 	}
 
 	// SetList
@@ -502,7 +551,6 @@ class Post_Lists_View_Custom
 			$Label = __( 'Links' );
 
 		} else {
-
 			
 			if( $post_type == 'menus' ) {
 
@@ -570,29 +618,73 @@ class Post_Lists_View_Custom
 	}
 
 	// SetList
+	function get_default_columns_type( $post_type ) {
+		$Default_columns = array();
+		
+		if( !empty( $post_type ) ) {
+
+			if( $post_type == 'post' or $post_type == 'custom_posts' ) {
+
+				$Default_columns = array(
+					"title" , "author" , "categories" , "tags" , "comments" , "date" , "slug" , "excerpt" , "id"
+				);
+				
+				// Theme Support colum
+				$ThemeSupports = array( 'post-thumbnails' , 'post-formats' );
+				foreach( $ThemeSupports as $name ) {
+					$Support = current_theme_supports( $name );
+					if(!empty($Support)) {
+						$Default_columns[] = $name;
+					}
+				}
+				unset( $ThemeSupports );
+
+			} elseif( $post_type == 'page' ) {
+
+				$Default_columns = array(
+					"title" , "author" , "comments" , "date" , "slug" , "excerpt" , "id"
+				);
+				
+				// Theme Support colum
+				$ThemeSupports = array( 'post-thumbnails' , 'post-formats' );
+				foreach( $ThemeSupports as $name ) {
+					$Support = current_theme_supports( $name );
+					if(!empty($Support)) {
+						$Default_columns[] = $name;
+					}
+				}
+				unset( $ThemeSupports );
+
+			} elseif( $post_type == 'media' ) {
+
+				$Default_columns = array(
+					"icon" , "title" , "author" , "parent" , "comments" , "date" , "media_title" , "image_alt" , "post_excerpt" , "post_content" , "id"
+				);
+				
+			} elseif( $post_type == 'comments' ) {
+
+				$Default_columns = array(
+					"author" , "comment" , "response" , "newcomment_author" , "newcomment_author_email" , "newcomment_author_url" , "id"
+				);
+				
+			}
+
+		}
+
+		return $Default_columns;
+	}
+
+	// SetList
 	function get_post_columns() {
 		// Default colum
-		$Columns_Def = array(
-			"title" , "author" , "categories" , "tags" , "comments" , "date" ,
-			"slug" , "excerpt" , "id"
-		);
-		
-		// Theme Support colum
-		$ThemeSupports = array( 'post-thumbnails' , 'post-formats' );
-		foreach( $ThemeSupports as $name ) {
-			$Support = current_theme_supports( $name );
-			if(!empty($Support)) {
-				$Columns_Def[] = $name;
-			}
-		}
-		unset($ThemeSupports);
+		$Default_columns = $this->get_default_columns_type( 'post' );
 
 		// set label
 		$SetColumns = array();
-		foreach( $Columns_Def as $id ) {
-			$SetColumns[$id] = $this->replace_columns_label( array( "post" , $id ) );
+		foreach( $Default_columns as $id ) {
+			$SetColumns[$id] = $this->replace_columns_label( array( "page" , $id ) );
 		}
-		unset($Columns_Def);
+		unset($Default_columns);
 
 		// Default View Setting
 		$Columns = array();
@@ -617,27 +709,14 @@ class Post_Lists_View_Custom
 	// SetList
 	function get_page_columns() {
 		// Default colum
-		$Columns_Def = array(
-			"title" , "author" , "comments" , "date" ,
-			"slug" , "excerpt" , "id"
-		);
-
-		// Theme Support colum
-		$ThemeSupports = array( 'post-thumbnails' );
-		foreach( $ThemeSupports as $name ) {
-			$Support = current_theme_supports( $name );
-			if(!empty($Support)) {
-				$Columns_Def[] = $name;
-			}
-		}
-		unset($ThemeSupports);
+		$Default_columns = $this->get_default_columns_type( 'page' );
 
 		// set label
 		$SetColumns = array();
-		foreach( $Columns_Def as $id ) {
+		foreach( $Default_columns as $id ) {
 			$SetColumns[$id] = $this->replace_columns_label( array( "page" , $id ) );
 		}
-		unset($Columns_Def);
+		unset($Default_columns);
 
 		// Default View Setting
 		$Columns = array();
@@ -663,17 +742,14 @@ class Post_Lists_View_Custom
 	// SetList
 	function get_media_columns() {
 		// Default colum
-		$Columns_Def = array(
-			"icon" , "title" , "author" , "parent" , "comments" , "date" ,
-			"media_title" , "image_alt" , "post_excerpt" , "post_content" , "id"
-		);
+		$Default_columns = $this->get_default_columns_type( 'media' );
 
 		// set label
 		$SetColumns = array();
-		foreach( $Columns_Def as $id ) {
+		foreach( $Default_columns as $id ) {
 			$SetColumns[$id] = $this->replace_columns_label( array( "media" , $id ) );
 		}
-		unset($Columns_Def);
+		unset($Default_columns);
 
 		// Default View Setting
 		$Columns = array();
@@ -692,19 +768,15 @@ class Post_Lists_View_Custom
 
 	// SetList
 	function get_comments_columns() {
-
 		// Default colum
-		$Columns_Def = array(
-			"author" , "comment" , "response" , 
-			"newcomment_author" , "newcomment_author_email" , "newcomment_author_url" , "id"
-		);
+		$Default_columns = $this->get_default_columns_type( 'comments' );
 
 		// set label
 		$SetColumns = array();
-		foreach( $Columns_Def as $id ) {
+		foreach( $Default_columns as $id ) {
 			$SetColumns[$id] = $this->replace_columns_label( array( "comments" , $id ) );
 		}
-		unset($Columns_Def);
+		unset($Default_columns);
 
 		// Default View Setting
 		$Columns = array();
@@ -839,27 +911,14 @@ class Post_Lists_View_Custom
 	// SetList
 	function get_custom_posts_columns() {
 		// Default colum
-		$Columns_Def = array(
-			"title" , "author" , "categories" , "tags" , "comments" , "date" ,
-			"slug" , "excerpt" , "id"
-		);
-		
-		// Theme Support colum
-		$ThemeSupports = array( 'post-thumbnails' , 'post-formats' );
-		foreach( $ThemeSupports as $name ) {
-			$Support = current_theme_supports( $name );
-			if(!empty($Support)) {
-				$Columns_Def[] = $name;
-			}
-		}
-		unset($ThemeSupports);
+		$Default_columns = $this->get_default_columns_type( 'custom_posts' );
 
 		// set label
 		$SetColumns = array();
-		foreach( $Columns_Def as $id ) {
+		foreach( $Default_columns as $id ) {
 			$SetColumns[$id] = $this->replace_columns_label( array( "post" , $id ) );
 		}
-		unset($Columns_Def);
+		unset($Default_columns);
 
 		// Default View Setting
 		$Columns = array();
@@ -887,21 +946,52 @@ class Post_Lists_View_Custom
 	}
 
 	// SetList
-	function setting_list_widget( $type , $column_id , $column , $page ) {
+	function setting_list_widget( $type , $column_id , $column , $post_type ) {
 		if( !empty( $type ) ) {
 			$class = 'widget';
+			
+			$group = '';
+
 			if( !empty( $column["group"] ) ) {
-				$class .= ' ' . $column["group"];
+
+				$group = strip_tags( $column["group"] );
+
+			} else {
+
+				$column_type = $this->check_column_type( $post_type , $column_id );
+				if( !empty( $column_type ) ) {
+					$group = $column_type;
+				}
+
 			}
+
+			$class .= ' ' . $group;
+				
 ?>
 			<div id="<?php echo $column_id; ?>" class="<?php echo $class; ?>">
 				<div class="widget-top">
+						<div class="widget-title-action">
+							<a class="widget-action hide-if-no-js" href="#available-widgets"></a>
+						</div>
 					<div class="widget-title">
-						<h4><?php echo stripslashes( $column["name"] ); ?></h4>
+						<h4>
+							<?php echo stripslashes( $column["name"] ); ?>
+							<span class="in-widget-title">: <?php echo strip_tags( $column_id ); ?></span>
+						</h4>
 					</div>
 				</div>
 				<div class="widget-inside">
-					<input type="hidden" name="<?php echo $type; ?>[<?php echo $column_id; ?>][name]" value="<?php echo esc_html( stripslashes( $column["name"] ) ); ?>" />
+					<div class="widget-content">
+						<p><?php _e( 'Column' ); ?>: <?php echo strip_tags( $column_id ); ?></p>
+						<p>
+							<label>
+								<?php _e( 'Name' ); ?>:<br />
+								<input type="text" name="<?php echo $type; ?>[<?php echo $column_id; ?>][name]" value="<?php echo esc_html( stripslashes( $column["name"] ) ); ?>" class="large-text" />
+							</label>
+						</p>
+					</div>
+					<input type="hidden" name="<?php echo $type; ?>[<?php echo $column_id; ?>][id]" value="<?php echo strip_tags( $column_id ); ?>" />
+					<input type="hidden" name="<?php echo $type; ?>[<?php echo $column_id; ?>][group]" value="<?php echo $group; ?>" />
 				</div>
 			</div>
 <?php 
@@ -909,7 +999,7 @@ class Post_Lists_View_Custom
 	}
 
 	// SetList
-	function setting_list_menu( $Data , $column_id , $column , $page ) {
+	function setting_list_menu( $Data , $column_id , $column , $post_type ) {
 		if( !empty( $column_id ) ) {
 			$class = '';
 			if( !empty( $column["group"] ) ) {
@@ -948,6 +1038,14 @@ class Post_Lists_View_Custom
 		update_option( $this->ltd . '_donate_width' , strip_tags( $_POST["f"] ) );
 		die();
 	}
+
+	// SetList
+	function post_columns_default_load_action() {
+		global $typenow;
+		add_filter( "manage_edit-" . $typenow . "_columns" , array( $this , 'post_columns_default_load' ) , 10000 );
+		//add_filter( "manage_edit-" . $typenow . "_sortable_columns" , array( $this , 'post_sortable_columns_default_load' ) , 10000 );
+	}
+
 
 
 
@@ -1084,7 +1182,7 @@ class Post_Lists_View_Custom
 
 			$Update = $this->update_data_format( $Update );
 			$Record = apply_filters( 'plvc_pre_update' , $this->Record["post"] );
-
+			
 			update_option( $Record , $Update );
 			wp_redirect( add_query_arg( $this->MsgQ , 'update' , stripslashes( $_POST["_wp_http_referer"] ) ) );
 			exit;
@@ -1234,21 +1332,12 @@ class Post_Lists_View_Custom
 	// FilterStart
 	function FilterStart() {
 		if ( is_admin() ) {
-			// default columns load.
-			add_action( 'load-edit.php' , array( $this , 'post_columns_default_load_action' ) );
-
 			// reset css
 			add_action( 'admin_footer' , array( $this , 'include_css' ) );
 			
 			// Filter Set
 			add_action( 'admin_init' , array( $this , 'columns_init' ) );
 		}
-	}
-
-	// FilterStart
-	function post_columns_default_load_action() {
-		global $typenow;
-		add_filter( "manage_edit-" . $typenow . "_columns" , array( $this , 'post_columns_default_load' ) , 10000 );
 	}
 
 	// FilterStart
@@ -1588,10 +1677,9 @@ class Post_Lists_View_Custom
 	// FilterStart
 	function CommentsColumnBody( $column_name , $comment_id ) {
 		$None = '';
-		$comments = get_comments( array( 'ID' => $comment_id ) );
+		$comment = get_comment( $comment_id );
 		
-		if( !empty( $comments[0] ) ) {
-			$comment = $comments[0];
+		if( !empty( $comment ) ) {
 
 			if($column_name == 'id') {
 				// post ID

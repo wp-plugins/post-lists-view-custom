@@ -79,68 +79,59 @@ if( !empty( $tmpData[$PostType->name] ) ) {
 						<div class="clear"></div>
 					</div>
 
-					<table cellspacing="0" class="widefat fixed">
-						<thead>
-							<tr>
-								<th><?php _e( 'Show' ); ?></th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>
-									<div id="use" class="widget-list">
-										<?php if( empty( $Data ) ) : ?>
-											<?php foreach( $Columns as $column_id => $column ) : ?>
-												<?php if( !empty( $column["use"] ) ) : ?>
-													<?php $this->setting_list_widget( 'use' , $column_id , $column , $this->SetPage ); ?>
-												<?php endif; ?>
-											<?php endforeach; ?>
-										<?php else : ?>
-											<?php if( !empty( $Data["use"] ) ) : ?>
-												<?php foreach( $Data["use"] as $column_id => $column ) : ?>
-													<?php if( !empty( $Columns[$column_id] ) ) : ?>
-														<?php $this->setting_list_widget( 'use' , $column_id , $Columns[$column_id] , $this->SetPage ); ?>
-														<?php unset( $Columns[$column_id] ); ?>
-													<?php endif; ?>
-												<?php endforeach; ?>
-											<?php endif; ?>
-										<?php endif; ?>
-									</div>
-									<div class="clear"></div>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-			
+					<hr />
 					<p>&nbsp;</p>
-			
-					<table cellspacing="0" class="widefat fixed">
-						<thead>
-							<tr>
-								<th><?php _e('Hide'); ?></th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>
-									<div id="not_use" class="widget-list">
-										<?php if( empty( $Data ) ) : ?>
-											<?php foreach( $Columns as $column_id => $column ) : ?>
-												<?php if( !empty( $column["not_use"] ) ) : ?>
-													<?php $this->setting_list_widget( 'not_use' , $column_id , $column , $this->SetPage ); ?>
-												<?php endif; ?>
-											<?php endforeach; ?>
-										<?php else : ?>
-											<?php foreach( $Columns as $column_id => $column ) : ?>
-												<?php $this->setting_list_widget( 'not_use' , $column_id , $column , $this->SetPage ); ?>
-											<?php endforeach; ?>
+					
+					<h3><?php _e( 'Show' ); ?> <?php _e( 'Columns' ); ?></h3>
+					<div class="widgets-holder-wrap">
+						<div class="widgets-sortables">
+							<div id="use" class="widget-list">
+								<?php if( empty( $Data ) ) : ?>
+									<?php foreach( $Columns as $column_id => $column ) : ?>
+										<?php if( !empty( $column["use"] ) ) : ?>
+											<?php $this->setting_list_widget( 'use' , $column_id , $column , $PostType->name ); ?>
 										<?php endif; ?>
-									</div>
-									<div class="clear"></div>
-								</td>
-							</tr>
-						</tbody>
-					</table>
+									<?php endforeach; ?>
+								<?php else : ?>
+									<?php if( !empty( $Data["use"] ) ) : ?>
+										<?php foreach( $Data["use"] as $column_id => $column ) : ?>
+											<?php if( !empty( $Columns[$column_id] ) ) : ?>
+												<?php $this->setting_list_widget( 'use' , $column_id , $column , $PostType->name ); ?>
+												<?php unset( $Columns[$column_id] ); ?>
+											<?php endif; ?>
+										<?php endforeach; ?>
+									<?php endif; ?>
+								<?php endif; ?>
+							</div>
+							<div class="clear"></div>
+						</div>
+					</div>
+					<p>&nbsp;</p>
+					
+					<div class="drag_desc">
+						<p class="description"><?php _e ( 'Please drag and drop the columns you want to show.' , $this->ltd ); ?></p>
+					</div>
+			
+					<h3>
+						<?php _e( 'Hide' ); ?> <?php _e( 'Columns' ); ?>
+						<span id="removing-widget"><?php _e( 'Hide' ); ?> <span></span></span>
+					</h3>
+					<div class="widgets-holder">
+						<div id="not_use" class="widget-list">
+							<?php if( empty( $Data ) ) : ?>
+								<?php foreach( $Columns as $column_id => $column ) : ?>
+									<?php if( !empty( $column["not_use"] ) ) : ?>
+										<?php $this->setting_list_widget( 'not_use' , $column_id , $column , $PostType->name ); ?>
+									<?php endif; ?>
+								<?php endforeach; ?>
+							<?php else : ?>
+								<?php foreach( $Columns as $column_id => $column ) : ?>
+									<?php $this->setting_list_widget( 'not_use' , $column_id , $column , $PostType->name ); ?>
+								<?php endforeach; ?>
+							<?php endif; ?>
+						</div>
+						<div class="clear"></div>
+					</div>
 			
 					<p class="submit">
 						<input type="submit" class="button-primary" name="update" value="<?php _e( 'Save' ); ?>" />
