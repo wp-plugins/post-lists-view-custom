@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Post Lists View Custom\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-14 17:43+0900\n"
-"PO-Revision-Date: 2014-02-14 17:58+0900\n"
+"POT-Creation-Date: 2014-03-24 21:49+0900\n"
+"PO-Revision-Date: 2014-03-24 22:11+0900\n"
 "Last-Translator: gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
 "Language-Team: gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,7 @@ msgid "Allow to customizing for the list screen."
 msgstr "Dozvoliti custom-izaciju za listu ekrana."
 
 #: post-lists-view-custom.php:145
-#: post-lists-view-custom.php:222
+#: post-lists-view-custom.php:388
 msgid "show screen"
 msgstr "prikaži ekran"
 
@@ -38,56 +38,60 @@ msgstr "unapredjene funkcije"
 
 #: post-lists-view-custom.php:147
 #: post-lists-view-custom.php:148
-#: post-lists-view-custom.php:264
-#: inc/select_custom.php:22
+#: post-lists-view-custom.php:425
+#: inc/select_custom.php:21
 msgid "Custom Post Type"
 msgstr "Custom tip posta"
 
-#: post-lists-view-custom.php:167
-#: post-lists-view-custom.php:178
-#: post-lists-view-custom.php:189
-#: post-lists-view-custom.php:200
-#: post-lists-view-custom.php:211
-#: post-lists-view-custom.php:222
-#: post-lists-view-custom.php:264
-#: post-lists-view-custom.php:275
-#: inc/select_custom.php:22
-#, php-format
-msgid "%2$s for %3$s %1$s"
-msgstr "%2$s за %3$s %1$s"
-
-#: post-lists-view-custom.php:233
-msgid "Menus of advanced feature adapted to the screen"
-msgstr "Izbornici unapredjenih funkcija ekrana prilagodjeni"
-
-#: post-lists-view-custom.php:267
-#: inc/select_custom.php:44
-msgid "No custom post type found."
-msgstr "Nijeda custom tip posta nije pronadjen."
-
-#: post-lists-view-custom.php:268
-msgid "Please select Custom Posts type from here."
-msgstr "Izaberite Custom Postove odavde."
-
-#: post-lists-view-custom.php:328
+#: post-lists-view-custom.php:149
+#: post-lists-view-custom.php:441
+#: post-lists-view-custom.php:319
 #, php-format
 msgid "Authority to apply the setting is not selected. <a href=\"%s\">From here</a>, please select the permissions you want to set."
 msgstr "Autorizacija za primenu postavki nije izabrana. <a href=\"%s\">Odavde</a>, izaberite dozvolu koju želite da postavite."
 
+#: post-lists-view-custom.php:343
 #: post-lists-view-custom.php:352
+#: post-lists-view-custom.php:361
+#: post-lists-view-custom.php:370
+#: post-lists-view-custom.php:379
+#: post-lists-view-custom.php:388
+#: post-lists-view-custom.php:425
+#: post-lists-view-custom.php:441
+#: inc/select_custom.php:21
+#, php-format
+msgid "%2$s for %3$s %1$s"
+msgstr "%2$s за %3$s %1$s"
+
+#: post-lists-view-custom.php:397
+msgid "Menus of advanced feature adapted to the screen"
+msgstr "Izbornici unapredjenih funkcija ekrana prilagodjeni"
+
+#: post-lists-view-custom.php:428
+#: post-lists-view-custom.php:433
+#: inc/select_custom.php:43
+msgid "No custom post type found."
+msgstr "Nijeda custom tip posta nije pronadjen."
+
+#: post-lists-view-custom.php:429
+#: post-lists-view-custom.php:434
+msgid "Please select Custom Posts type from here."
+msgstr "Izaberite Custom Postove odavde."
+
+#: post-lists-view-custom.php:513
 msgid "Apply user roles"
 msgstr "Primeni uloge korisnika"
 
-#: post-lists-view-custom.php:497
+#: post-lists-view-custom.php:854
 msgid "ID"
 msgstr "ID"
 
-#: post-lists-view-custom.php:1775
+#: post-lists-view-custom.php:1758
 #: inc/donation.php:5
 msgid "Thank you for your donation."
 msgstr "Hvala na donaciji."
 
-#: post-lists-view-custom.php:1790
+#: post-lists-view-custom.php:1773
 msgid "To donate if you feel that it is useful, please."
 msgstr "Da biste donirali ako mislite da je koristan plugin."
 
@@ -156,12 +160,12 @@ msgid "Reviews"
 msgstr "Pregledi"
 
 #: inc/donation.php:65
-#: inc/setting_default.php:72
+#: inc/setting_default.php:71
 msgid "Would you like to translate?"
 msgstr "Da li biste hteli da prevedete?"
 
 #: inc/donation.php:69
-#: inc/setting_default.php:76
+#: inc/setting_default.php:75
 #, php-format
 msgid "Do you have a proposal you want to improve? Please contact to %s if it is necessary."
 msgstr "Da li imate predlog za poboljšanje?Kontaktirajte nas na  %s ako je neophodno."
@@ -190,85 +194,76 @@ msgstr "Plugin koji vam omogućava da dodate vrednost opcija . Opcija vrednosti
 msgid "All Plugins"
 msgstr "Svi Plugins"
 
-#: inc/select_custom.php:33
+#: inc/select_custom.php:32
 msgid "Please choose a custom post type you want to change the list's view."
 msgstr "Molimo izaberite custom tip poruka koje želite da promenite ulisti pregleda.Primeni postavke "
 
-#: inc/setting_default.php:24
+#: inc/setting_default.php:23
 msgid "Apply the settings of Post Lists View Custom only user roles selected."
 msgstr "Primeni postavke "
 
-#: inc/setting_default.php:25
+#: inc/setting_default.php:24
 msgid "Please select the user roles that all settings will apply to."
 msgstr "Molimo izaberite korisničke uloge na koje će sva podešavanja da se primenjuju."
 
-#: inc/setting_default.php:62
-#: inc/setting_lists.php:108
-#: inc/setting_lists_custom_post.php:140
-#: inc/setting_lists_post.php:128
-#: inc/setting_menus.php:82
-#: inc/setting_thumbnail_size.php:60
+#: inc/setting_default.php:61
+#: inc/setting_lists.php:106
+#: inc/setting_menus.php:79
+#: inc/setting_thumbnail_size.php:59
 msgid "Reset all settings?"
 msgstr "Resetovati sve postavke?"
 
-#: inc/setting_default.php:63
-#: inc/setting_lists.php:109
-#: inc/setting_lists_custom_post.php:141
-#: inc/setting_lists_post.php:129
-#: inc/setting_menus.php:83
-#: inc/setting_thumbnail_size.php:61
+#: inc/setting_default.php:62
+#: inc/setting_lists.php:107
+#: inc/setting_menus.php:80
+#: inc/setting_thumbnail_size.php:60
 msgid "Reset settings"
 msgstr "Resetovati postavke"
 
-#: inc/setting_default.php:75
+#: inc/setting_default.php:74
 msgid "Bug reports and suggestions"
 msgstr "Извештаја о грешкама и сугестије"
 
-#: inc/setting_lists.php:26
-#: inc/setting_lists_custom_post.php:43
-#: inc/setting_lists_post.php:36
+#: inc/setting_lists.php:39
+#, php-format
+msgid "Could not read the columns. Please load the %s."
+msgstr "Ne mogu čitati stupaca. Molimo učitati %s."
+
+#: inc/setting_lists.php:41
+#, php-format
+msgid "Load the %s"
+msgstr "Uložite %s"
+
+#: inc/setting_lists.php:50
 msgid "Please rearrange the order in which you want to view by Drag & Drop."
 msgstr "Molimo preuredite redosled koji želite da vidite pomoću Drag & Drop ."
 
-#: inc/setting_lists.php:80
-#: inc/setting_lists_custom_post.php:112
-#: inc/setting_lists_post.php:100
+#: inc/setting_lists.php:86
 msgid "Please drag and drop the columns you want to show."
 msgstr "Molimo povucite i ispustite stupce koje želite pokazati."
 
-#: inc/setting_lists_custom_post.php:59
-#: inc/setting_lists_post.php:51
-msgid "Could not read the columns."
-msgstr "Nije bilo moguće pročitati kolone"
-
-#: inc/setting_lists_custom_post.php:60
-#: inc/setting_lists_post.php:52
-#, php-format
-msgid "Columns will be loaded automatically when you <a href=\"%1$s\">%2$s</a>."
-msgstr "Kolone će se automatski učitati kada<a href=\"%1$s\">%2$s</a>."
-
-#: inc/setting_menus.php:26
+#: inc/setting_menus.php:32
 msgid "Please select the column item to hide."
 msgstr "Izaberite opciju za skrivanje kolone ."
 
-#: inc/setting_menus.php:63
+#: inc/setting_menus.php:60
 msgid "Taxonomy"
 msgstr "Taxonomy"
 
-#: inc/setting_thumbnail_size.php:25
+#: inc/setting_thumbnail_size.php:24
 msgid "Change the size of thumbnails displayed in the lists."
 msgstr "Promena veličine sličica prikazanih u spiskovima ."
 
-#: inc/setting_thumbnail_size.php:26
+#: inc/setting_thumbnail_size.php:25
 msgid "Post, Page, and Custom Post type the applies."
 msgstr "Post , stranica , i Custom post tip važi ."
 
-#: inc/setting_thumbnail_size.php:49
+#: inc/setting_thumbnail_size.php:48
 #, php-format
 msgid "It will be displayed at <strong>%s px</strong> If there is no setting."
 msgstr "Biće prikazana na<strong>%s px</strong>  Ako ne postoji podešavanje ."
 
-#: inc/setting_thumbnail_size.php:50
+#: inc/setting_thumbnail_size.php:49
 msgid "Height will be displayed in proportion to the width."
 msgstr "Visina će biti prikazana u odnosu na širinu "
 

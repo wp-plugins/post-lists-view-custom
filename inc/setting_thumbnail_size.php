@@ -2,6 +2,9 @@
 
 global $wp_version;
 
+// get data
+$Data = $this->get_data( $this->SetPage );
+
 // include js css
 $ReadedJs = array( 'jquery' );
 wp_enqueue_script( $this->PageSlug ,  $this->Url . $this->PluginSlug . '.js', $ReadedJs , $this->Ver );
@@ -11,10 +14,6 @@ if ( version_compare( $wp_version , '3.8' , '<' ) ) {
 } else {
 	wp_enqueue_style( $this->PageSlug , $this->Url . $this->PluginSlug . '.css', array() , $this->Ver );
 }
-
-// get data
-$Data = $this->get_data( $this->SetPage );
-
 ?>
 
 <div class="wrap">

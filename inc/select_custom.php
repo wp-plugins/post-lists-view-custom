@@ -2,11 +2,11 @@
 
 global $wp_version;
 
-$args = array( 'public' => true, '_builtin' => false );
-$PostTypes = get_post_types( $args , 'objects' );
+// get all custom posts
+$Get_all_custom_posts = $this->get_all_customposts();
 
 // include js css
-$ReadedJs = array( 'jquery' , 'jquery-ui-sortable' );
+$ReadedJs = array( 'jquery' );
 wp_enqueue_script( $this->PageSlug ,  $this->Url . $this->PluginSlug . '.js', $ReadedJs , $this->Ver );
 
 if ( version_compare( $wp_version , '3.8' , '<' ) ) {
@@ -14,7 +14,6 @@ if ( version_compare( $wp_version , '3.8' , '<' ) ) {
 } else {
 	wp_enqueue_style( $this->PageSlug , $this->Url . $this->PluginSlug . '.css', array() , $this->Ver );
 }
-
 ?>
 
 <div class="wrap">
@@ -28,14 +27,14 @@ if ( version_compare( $wp_version , '3.8' , '<' ) ) {
 
 		<div id="postbox-container-1" class="postbox-container">
 
-			<?php if( !empty( $PostTypes ) && is_array( $PostTypes ) ) : ?>
+			<?php if( !empty( $Get_all_custom_posts ) ) : ?>
 		
 				<p><?php _e( 'Please choose a custom post type you want to change the list\'s view.' , $this->ltd ); ?></p>
 				<p>&nbsp;</p>
 
 				<ul>
-					<?php foreach($PostTypes as $name => $Type) : ?>
-						<li><a href="<?php echo self_admin_url( 'admin.php?page=' . $this->Record["custom_posts"] . '&setname=custom_posts&name=' . esc_html( $name ) ); ?>"><?php echo esc_html( $Type->labels->name ); ?></a> <span class="description">[ <?php echo esc_html( $name ); ?> ]</span></li>
+					<?php foreach( $Get_all_custom_posts as $post_name => $post_set ) : ?>
+						<li><a href="<?php echo self_admin_url( 'admin.php?page=' . $this->Record["custom_posts"] . '&setname=custom_posts&name=' . $post_name ); ?>"><?php echo $post_set["name"]; ?></a> <span class="description">[ <?php echo $post_name; ?> ]</span></li>
 					<?php endforeach; ?>
 				</ul>
 

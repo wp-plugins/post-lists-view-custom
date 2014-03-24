@@ -42,6 +42,23 @@ jQuery(document).ready(function($) {
 			}
 		}).disableSelection();
 
+	} else {
+
+		$('#column_load').on('click', function( ev ) {
+			var load_url = $(ev.target).prop('href');
+			
+			$.ajax({
+				url: load_url,
+				beforeSend: function( xhr ) {
+					$(ev.target).parent().parent().find('.loading').show();
+				}
+			}).done(function( data ) {
+				location.reload();
+			});
+	
+			return false;
+		});
+
 	}
 
 	function donation_toggle_set( s ) {
@@ -53,24 +70,23 @@ jQuery(document).ready(function($) {
 	}
 
 	$('.plvc .toggle-plugin .icon a').on('click', function() {
-
+		var Action = 'plvc_donation_toggle';
 		if( $(".plvc").hasClass('full-width') ) {
 			donation_toggle_set( false );
 			$.post(ajaxurl, {
-				'action': 'plvc_set_donation_toggle',
+				'action': Action,
 				'f': 0,
 			});
 
 		} else {
 			donation_toggle_set( true );
 			$.post(ajaxurl, {
-				'action': 'plvc_set_donation_toggle',
+				'action': Action,
 				'f': 1,
 			});
 		}
 
 		return false;
 	});
-
 
 });

@@ -14,7 +14,6 @@ if ( version_compare( $wp_version , '3.8' , '<' ) ) {
 } else {
 	wp_enqueue_style( $this->PageSlug , $this->Url . $this->PluginSlug . '.css', array() , $this->Ver );
 }
-
 ?>
 
 <div class="wrap">

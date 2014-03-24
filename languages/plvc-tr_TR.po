@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Post Lists View Custom\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-03-24 21:49+0900\n"
-"PO-Revision-Date: 2014-03-24 21:56+0900\n"
+"PO-Revision-Date: 2014-03-24 22:27+0900\n"
 "Last-Translator: gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
 "Language-Team: gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -12,41 +12,39 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: ../\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Poedit-Language: Japanese\n"
-"X-Poedit-Country: JAPAN\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Poedit-SearchPath-0: .\n"
+"Language: tr_TR\n"
 
 #: post-lists-view-custom.php:4
 msgid "Allow to customizing for the list screen."
-msgstr "一覧画面をカスタマイズすることができるプラグインです。"
+msgstr "Listesi ekranına için özelleştirmeye izin verin."
 
 #: post-lists-view-custom.php:145
 #: post-lists-view-custom.php:388
 msgid "show screen"
-msgstr "表示項目"
+msgstr "ekranı göstermek"
 
 #: post-lists-view-custom.php:146
 msgid "show advanced properties screen"
-msgstr "詳細設定項目"
+msgstr "Gelişmiş özellikleri ekran gösteriyor"
 
 #: post-lists-view-custom.php:146
 msgid "advanced properties"
-msgstr "詳細項目"
+msgstr "gelişmiş Özellikler"
 
 #: post-lists-view-custom.php:147
 #: post-lists-view-custom.php:148
 #: post-lists-view-custom.php:425
 #: inc/select_custom.php:21
 msgid "Custom Post Type"
-msgstr "カスタム投稿タイプ"
+msgstr "Gönderi tiplerini özelleştir"
 
 #: post-lists-view-custom.php:149
 #: post-lists-view-custom.php:441
 #: post-lists-view-custom.php:319
 #, php-format
 msgid "Authority to apply the setting is not selected. <a href=\"%s\">From here</a>, please select the permissions you want to set."
-msgstr "設定を適用する権限が選択されていません。<a href=\"%s\">こちら</a>から設定する権限を選んでください。"
+msgstr "Ayarı uygulamak için Yetki seçili değil. Burada </ a> dan <a href=\"%s\">, ayarlamak istediğiniz izinleri seçin lütfen."
 
 #: post-lists-view-custom.php:343
 #: post-lists-view-custom.php:352
@@ -59,209 +57,209 @@ msgstr "設定を適用する権限が選択されていません。<a href=\"%s
 #: inc/select_custom.php:21
 #, php-format
 msgid "%2$s for %3$s %1$s"
-msgstr "%3$s %2$s %1$s"
+msgstr "%2$s %3$s %1$s için"
 
 #: post-lists-view-custom.php:397
 msgid "Menus of advanced feature adapted to the screen"
-msgstr "詳細メニューの表示項目"
+msgstr "Gelişmiş özelliği menüler ekrana uyarlanmış"
 
 #: post-lists-view-custom.php:428
 #: post-lists-view-custom.php:433
 #: inc/select_custom.php:43
 msgid "No custom post type found."
-msgstr "カスタム投稿タイプは見つかりませんでした。"
+msgstr "Özel yazı tipi bulunamadı."
 
 #: post-lists-view-custom.php:429
 #: post-lists-view-custom.php:434
 msgid "Please select Custom Posts type from here."
-msgstr "ここからカスタム投稿タイプを選択してください。"
+msgstr "Buradan Özel Mesajlar türünü seçiniz."
 
 #: post-lists-view-custom.php:513
 msgid "Apply user roles"
-msgstr "適用するユーザー権限"
+msgstr "Kullanıcı rolleri Uygula"
 
 #: post-lists-view-custom.php:854
 msgid "ID"
-msgstr "ID"
+msgstr "kimlik"
 
 #: post-lists-view-custom.php:1758
 #: inc/donation.php:5
 msgid "Thank you for your donation."
-msgstr "寄付いただきありがとうございます。"
+msgstr "Bağışınız için teşekkür ederim"
 
 #: post-lists-view-custom.php:1773
 msgid "To donate if you feel that it is useful, please."
-msgstr "便利に感じたら寄付のご検討をよろしくお願いします。"
+msgstr "Eğer, yararlı lütfen düşünüyorsanız bağışlamak."
 
 #: inc/donation.php:11
 msgid "Thank you for considering donate."
-msgstr "寄付のご検討をお願いします。"
+msgstr "Bağış gördüğünüz için teşekkür ederiz."
 
 #: inc/donation.php:12
 msgid "Thank you very much for your support."
-msgstr "あなたのサポートを感謝します。"
+msgstr "Desteğiniz için çok teşekkür ederiz."
 
 #: inc/donation.php:14
 msgid "Donate"
-msgstr "寄付について"
+msgstr "bağışlamak"
 
 #: inc/donation.php:17
 msgid "Please enter the 'Donation delete key' that have been described in the 'Line Break First and End download page'."
-msgstr "'Line Break First and End' ダウンロードページに記載されていた寄付削除キーを入力して、寄付メッセージを削除できます。"
+msgstr "Sayfada belirtildiği gibi bir bağış kodu girin lütfen"
 
 #: inc/donation.php:21
 msgid "Donation delete key"
-msgstr "寄付メッセージ削除キー"
+msgstr "Bağışı sil"
 
 #: inc/donation.php:25
 msgid "I'm looking forward to your proposal."
-msgstr "ご提案をお待ちしています。"
+msgstr "Ben önerisi arıyorum."
 
 #: inc/donation.php:26
 msgid "Please contact me if you have any good idea."
-msgstr "いいアイデアがありましたらご連絡ください。"
+msgstr "Eğer iyi bir fikir varsa lütfen bana ulaşın."
 
 #: inc/donation.php:37
 msgid "Have you want to customize?"
-msgstr "カスタマイズでお困りの事はありませんか？"
+msgstr "Özlleştirme yapmak ister misiniz ?"
 
 #: inc/donation.php:43
 msgid "I am good at Admin Screen Customize."
-msgstr "管理画面のカスタマイズなら得意です。"
+msgstr "Ben iyi bir yönetici paneli özelleştiricsiyim"
 
 #: inc/donation.php:44
 msgid "Please consider the request to me if it is good."
-msgstr "宜しければご相談ください。"
+msgstr "Eklentim iyi isi lütfen belirtin ( puan verin )"
 
 #: inc/donation.php:46
 msgid "Contact"
-msgstr "問い合わせ"
+msgstr "Bana ulaşın"
 
 #: inc/donation.php:48
 msgid "Example Customize"
-msgstr "カスタマイズ例"
+msgstr "Örnek özelleştirme"
 
 #: inc/donation.php:54
 msgid "About plugin"
-msgstr "プラグインについて"
+msgstr "Eklenti hakkında"
 
 #: inc/donation.php:56
 msgid "Version checked"
-msgstr "バージョン確認"
+msgstr "Versiyon kontrolü"
 
 #: inc/donation.php:58
 msgid "Developer's site"
-msgstr "開発者のサイト"
+msgstr "Geliştiricinin web sitesi"
 
 #: inc/donation.php:60
 msgid "Reviews"
-msgstr "レビュー"
+msgstr "Değerlendirmeler"
 
 #: inc/donation.php:65
 #: inc/setting_default.php:71
 msgid "Would you like to translate?"
-msgstr "翻訳していただけませんか？"
+msgstr "Eğer çevirmek ister misiniz?"
 
 #: inc/donation.php:69
 #: inc/setting_default.php:75
 #, php-format
 msgid "Do you have a proposal you want to improve? Please contact to %s if it is necessary."
-msgstr "このプラグインについて何か提案がありますか？あれば %s までお問い合わせください。"
+msgstr "Eğer geliştirmek istediğiniz bir öneri var mı? Gerekirse% s başvurun."
 
 #: inc/donation.php:74
 msgid "Useful plugins"
-msgstr "便利なプラグイン"
+msgstr "Faydalı eklentiler"
 
 #: inc/donation.php:77
 msgid "This add-on is can be different setting for each user roles."
-msgstr "このアドオンはユーザーの権限グループごとにPost Lists View Custom の設定が可能になるアドオンです。"
+msgstr "Bu eklenti her kullanıcı rolleri için farklı ayar olabilir."
 
 #: inc/donation.php:79
 msgid "Customize a variety of screen management."
-msgstr "管理画面の様々なカスタマイズ"
+msgstr "Ekran özelliklerinin özelleştirilmesi"
 
 #: inc/donation.php:81
 msgid "Announce to display the dashboard. Change the display to a different user role."
-msgstr "ダッシュボードにお知らせを表示します。ユーザーの権限ごとに表示を変更できます。"
+msgstr "Bidirim ekranının özelleştirilmesi. Ekranı kullanıcıya göre şekillendirin."
 
 #: inc/donation.php:83
 msgid "The plugin that allows you to add the value of the options. Option value that you have created, can be used in addition to the template tag, Short code can be used in the body of the article."
-msgstr "オプション値作成プラグインです。作成したオプション値は、ショートコードとして記事に、テンプレートタグとしても使用できます。"
+msgstr "Eğer seçeneklerin değerini eklemenizi sağlar eklentisi. Eğer oluşturduk Seçenek değeri, şablon etiketi ek olarak kullanılabilir Kısa kod eşyanın gövdesinde kullanılabilir."
 
 #: inc/donation.php:85
 msgid "All Plugins"
-msgstr "プラグイン一覧"
+msgstr "Tüm eklentiler"
 
 #: inc/select_custom.php:32
 msgid "Please choose a custom post type you want to change the list's view."
-msgstr "一覧表示の変更をしたいカスタム投稿タイプを選択してください。"
+msgstr "Eğer listenin görünümünü değiştirmek istediğiniz özel yazı tipini seçin."
 
 #: inc/setting_default.php:23
 msgid "Apply the settings of Post Lists View Custom only user roles selected."
-msgstr "選択された権限のみ Post Lists View Custom の設定を適用します。"
+msgstr "Mesaj Listelerinin ayarları seçilen Custom sadece kullanıcı rolleri bilgileri uygulayın."
 
 #: inc/setting_default.php:24
 msgid "Please select the user roles that all settings will apply to."
-msgstr "設定を適用する権限を選んでください。"
+msgstr "Tüm ayarlar için geçerli olacak kullanıcı rollerini seçiniz."
 
 #: inc/setting_default.php:61
 #: inc/setting_lists.php:106
 #: inc/setting_menus.php:79
 #: inc/setting_thumbnail_size.php:59
 msgid "Reset all settings?"
-msgstr "リセットしますか？"
+msgstr "Bütün ayarları sıfırlayın"
 
 #: inc/setting_default.php:62
 #: inc/setting_lists.php:107
 #: inc/setting_menus.php:80
 #: inc/setting_thumbnail_size.php:60
 msgid "Reset settings"
-msgstr "設定をリセット"
+msgstr "Ayarları sıfırlayın"
 
 #: inc/setting_default.php:74
 msgid "Bug reports and suggestions"
-msgstr "バグの報告と機能の提案"
+msgstr "Hata raporları ve önerileri"
 
 #: inc/setting_lists.php:39
 #, php-format
 msgid "Could not read the columns. Please load the %s."
-msgstr "カラムの読み取りが出来ませんでした。 %s を読み込んでください。"
+msgstr "Sütunları okuyamadı. %s yüklenemedi lütfen."
 
 #: inc/setting_lists.php:41
 #, php-format
 msgid "Load the %s"
-msgstr "%s の読み込み"
+msgstr "%s yükleyin"
 
 #: inc/setting_lists.php:50
 msgid "Please rearrange the order in which you want to view by Drag & Drop."
-msgstr "表示したい順にドラッグ&ドロップで並べ替えて下さい。"
+msgstr "Eğer Drag & Drop ile görüntülemek istediğiniz sırasını yeniden düzenlemek ediniz."
 
 #: inc/setting_lists.php:86
 msgid "Please drag and drop the columns you want to show."
-msgstr "表示したいカラムをドラッグ＆ドロップしてください。"
+msgstr "Sürükleyin ve göstermek istediğiniz sütunları bırakın lütfen."
 
 #: inc/setting_menus.php:32
 msgid "Please select the column item to hide."
-msgstr "非表示にしたい項目を選んでください。"
+msgstr "Gizlemek için sütun öğeyi seçiniz."
 
 #: inc/setting_menus.php:60
 msgid "Taxonomy"
-msgstr "タクソノミー"
+msgstr "Sınıfları"
 
 #: inc/setting_thumbnail_size.php:24
 msgid "Change the size of thumbnails displayed in the lists."
-msgstr "一覧に表示されるサムネイルのサイズを設定します。"
+msgstr "Listelerde gösterilen küçük resimlerin boyutunu değiştirin."
 
 #: inc/setting_thumbnail_size.php:25
 msgid "Post, Page, and Custom Post type the applies."
-msgstr "投稿、ページ、カスタム投稿タイプに適用されます。"
+msgstr "Mesaj, Sayfa ve Özel Post tipi uygular."
 
 #: inc/setting_thumbnail_size.php:48
 #, php-format
 msgid "It will be displayed at <strong>%s px</strong> If there is no setting."
-msgstr "設定が無い場合は <strong>%s px</strong> での表示となります。"
+msgstr "Hiçbir ayarı varsa o <strong>%s px </ strong> görüntülenir."
 
 #: inc/setting_thumbnail_size.php:49
 msgid "Height will be displayed in proportion to the width."
-msgstr "高さは幅に比例した表示となります。"
+msgstr "Boyut genişliğine orantılı olarak görüntülenir."
 
