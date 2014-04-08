@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Post Lists View Custom\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-24 21:49+0900\n"
-"PO-Revision-Date: 2014-03-24 22:27+0900\n"
+"POT-Creation-Date: 2014-04-08 12:49+0900\n"
+"PO-Revision-Date: 2014-04-08 13:14+0900\n"
 "Last-Translator: gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
 "Language-Team: gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -19,75 +19,77 @@ msgstr ""
 msgid "Allow to customizing for the list screen."
 msgstr "Listesi ekranına için özelleştirmeye izin verin."
 
-#: post-lists-view-custom.php:145
-#: post-lists-view-custom.php:388
+#: post-lists-view-custom.php:148
+#: post-lists-view-custom.php:401
 msgid "show screen"
 msgstr "ekranı göstermek"
 
-#: post-lists-view-custom.php:146
+#: post-lists-view-custom.php:149
 msgid "show advanced properties screen"
 msgstr "Gelişmiş özellikleri ekran gösteriyor"
 
-#: post-lists-view-custom.php:146
+#: post-lists-view-custom.php:149
 msgid "advanced properties"
 msgstr "gelişmiş Özellikler"
 
-#: post-lists-view-custom.php:147
-#: post-lists-view-custom.php:148
-#: post-lists-view-custom.php:425
+#: post-lists-view-custom.php:150
+#: post-lists-view-custom.php:151
+#: post-lists-view-custom.php:438
 #: inc/select_custom.php:21
 msgid "Custom Post Type"
 msgstr "Gönderi tiplerini özelleştir"
 
-#: post-lists-view-custom.php:149
-#: post-lists-view-custom.php:441
-#: post-lists-view-custom.php:319
+#: post-lists-view-custom.php:152
+#: post-lists-view-custom.php:454
+msgid "Other Settings"
+msgstr "diğer Ayarlar"
+
+#: post-lists-view-custom.php:322
 #, php-format
 msgid "Authority to apply the setting is not selected. <a href=\"%s\">From here</a>, please select the permissions you want to set."
 msgstr "Ayarı uygulamak için Yetki seçili değil. Burada </ a> dan <a href=\"%s\">, ayarlamak istediğiniz izinleri seçin lütfen."
 
-#: post-lists-view-custom.php:343
-#: post-lists-view-custom.php:352
-#: post-lists-view-custom.php:361
-#: post-lists-view-custom.php:370
-#: post-lists-view-custom.php:379
-#: post-lists-view-custom.php:388
-#: post-lists-view-custom.php:425
-#: post-lists-view-custom.php:441
+#: post-lists-view-custom.php:356
+#: post-lists-view-custom.php:365
+#: post-lists-view-custom.php:374
+#: post-lists-view-custom.php:383
+#: post-lists-view-custom.php:392
+#: post-lists-view-custom.php:401
+#: post-lists-view-custom.php:438
 #: inc/select_custom.php:21
 #, php-format
 msgid "%2$s for %3$s %1$s"
 msgstr "%2$s %3$s %1$s için"
 
-#: post-lists-view-custom.php:397
+#: post-lists-view-custom.php:410
 msgid "Menus of advanced feature adapted to the screen"
 msgstr "Gelişmiş özelliği menüler ekrana uyarlanmış"
 
-#: post-lists-view-custom.php:428
-#: post-lists-view-custom.php:433
+#: post-lists-view-custom.php:441
+#: post-lists-view-custom.php:446
 #: inc/select_custom.php:43
 msgid "No custom post type found."
 msgstr "Özel yazı tipi bulunamadı."
 
-#: post-lists-view-custom.php:429
-#: post-lists-view-custom.php:434
+#: post-lists-view-custom.php:442
+#: post-lists-view-custom.php:447
 msgid "Please select Custom Posts type from here."
 msgstr "Buradan Özel Mesajlar türünü seçiniz."
 
-#: post-lists-view-custom.php:513
+#: post-lists-view-custom.php:526
 msgid "Apply user roles"
 msgstr "Kullanıcı rolleri Uygula"
 
-#: post-lists-view-custom.php:854
+#: post-lists-view-custom.php:867
 msgid "ID"
 msgstr "kimlik"
 
-#: post-lists-view-custom.php:1758
+#: post-lists-view-custom.php:1782
 #: inc/donation.php:5
 msgid "Thank you for your donation."
 msgstr "Bağışınız için teşekkür ederim"
 
-#: post-lists-view-custom.php:1773
+#: post-lists-view-custom.php:1797
 msgid "To donate if you feel that it is useful, please."
 msgstr "Eğer, yararlı lütfen düşünüyorsanız bağışlamak."
 
@@ -205,14 +207,14 @@ msgstr "Tüm ayarlar için geçerli olacak kullanıcı rollerini seçiniz."
 #: inc/setting_default.php:61
 #: inc/setting_lists.php:106
 #: inc/setting_menus.php:79
-#: inc/setting_thumbnail_size.php:59
+#: inc/setting_other.php:81
 msgid "Reset all settings?"
 msgstr "Bütün ayarları sıfırlayın"
 
 #: inc/setting_default.php:62
 #: inc/setting_lists.php:107
 #: inc/setting_menus.php:80
-#: inc/setting_thumbnail_size.php:60
+#: inc/setting_other.php:82
 msgid "Reset settings"
 msgstr "Ayarları sıfırlayın"
 
@@ -246,20 +248,34 @@ msgstr "Gizlemek için sütun öğeyi seçiniz."
 msgid "Taxonomy"
 msgstr "Sınıfları"
 
-#: inc/setting_thumbnail_size.php:24
-msgid "Change the size of thumbnails displayed in the lists."
-msgstr "Listelerde gösterilen küçük resimlerin boyutunu değiştirin."
+#: inc/setting_other.php:37
+msgid "Automatic width conversion of List table"
+msgstr "Liste tablonun genişliği otomatik dönüştürme"
 
-#: inc/setting_thumbnail_size.php:25
-msgid "Post, Page, and Custom Post type the applies."
-msgstr "Mesaj, Sayfa ve Özel Post tipi uygular."
+#: inc/setting_other.php:42
+msgid "Width setting of cell"
+msgstr "Hücrenin genişliği ayarı"
 
-#: inc/setting_thumbnail_size.php:48
-#, php-format
-msgid "It will be displayed at <strong>%s px</strong> If there is no setting."
-msgstr "Hiçbir ayarı varsa o <strong>%s px </ strong> görüntülenir."
+#: inc/setting_other.php:45
+msgid "Automatic"
+msgstr "otomatik"
 
-#: inc/setting_thumbnail_size.php:49
+#: inc/setting_other.php:45
+msgid "Not automatic"
+msgstr "otomatik değil"
+
+#: inc/setting_other.php:52
+msgid "This means is include the CSS for auto width settings on List page."
+msgstr "Bu demektir Listesi sayfasında otomatik genişlik ayarları için CSS eklemek olduğunu."
+
+#: inc/setting_other.php:53
+msgid "Automatic width setting CSS file"
+msgstr "Otomatik genişlik ayarı CSS dosyası"
+
+#: inc/setting_other.php:60
+msgid "Change the Thumbnail size for Post, Page, and Custom Post type."
+msgstr "Post, Page Küçük boyutu ve Özel Post türünü değiştirin."
+
+#: inc/setting_other.php:71
 msgid "Height will be displayed in proportion to the width."
 msgstr "Boyut genişliğine orantılı olarak görüntülenir."
-

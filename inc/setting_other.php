@@ -21,9 +21,6 @@ if ( version_compare( $wp_version , '3.8' , '<' ) ) {
 	<h2><?php echo $this->PageTitle; ?></h2>
 	<?php echo $this->Msg; ?>
 
-	<p><?php _e( 'Change the size of thumbnails displayed in the lists.' , $this->ltd ); ?></p>
-	<p class="description"><?php _e( 'Post, Page, and Custom Post type the applies.' , $this->ltd ); ?></p>
-
 	<?php $class = $this->ltd; ?>
 	<?php if( get_option( $this->Record["donate_width"] ) ) $class .= ' full-width'; ?>
 	<div class="metabox-holder columns-2 <?php echo $class; ?>">
@@ -35,6 +32,32 @@ if ( version_compare( $wp_version , '3.8' , '<' ) ) {
 				<?php wp_nonce_field( $this->Nonces["value"] , $this->Nonces["field"] ); ?>
 				<input type="hidden" name="record_field" value="<?php echo $this->SetPage; ?>" />
 				<input type="hidden" name="SetPage" value="<?php echo $this->SetPage; ?>">
+
+
+				<h3><?php _e( 'Automatic width conversion of List table' , $this->ltd ); ?></h3>
+				<table class="form-table">
+					<tbody>
+						<tr>
+							<th>
+								<?php _e( 'Width setting of cell' , $this->ltd ); ?>
+							</th>
+							<td>
+								<?php $arr = array( __( 'Automatic' , $this->ltd ) , __( 'Not automatic' , $this->ltd ) ); ?>
+								<select name="data[cell_auto]">
+									<?php $selected = 0; if( !empty( $Data['cell_auto'] ) ) $selected = 1; ?>
+									<?php foreach( $arr as $key => $label ) : ?>
+										<option value="<?php echo $key; ?>" <?php selected( $key , $selected ); ?>><?php echo $label; ?></option>
+									<?php endforeach; ?>
+								</select>
+								<p class="description"><?php _e( 'This means is include the CSS for auto width settings on List page.' , $this->ltd ); ?></p>
+								<p><a href="<?php echo $this->Url; ?><?php echo $this->PluginSlug; ?>-table.css" target="_blank"><?php _e( 'Automatic width setting CSS file' , $this->ltd ); ?></a></p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<p>&nbsp;</p>
+				
+				<h3><?php _e( 'Change the Thumbnail size for Post, Page, and Custom Post type.' , $this->ltd ); ?></h3>
 				<table class="form-table">
 					<tbody>
 						<tr>
@@ -43,9 +66,8 @@ if ( version_compare( $wp_version , '3.8' , '<' ) ) {
 							</th>
 							<td>
 								<label for="width"><?php _e( 'Width' ); ?></label>
-								<?php $val = ''; if( !empty( $Data["width"] ) ) : $val = intval( $Data["width"] ); endif; ?>
-								<input type="number" step="1" min="0" name="width" id="width" class="small-text" value="<?php echo $val; ?>" />px
-								<p class="description"><?php echo sprintf( __( 'It will be displayed at <strong>%s px</strong> If there is no setting.' , $this->ltd ) , $this->ThumbnailSize ); ?></p>
+								<?php $val = ''; if( !empty( $Data['thumbnail']['width'] ) ) : $val = intval( $Data['thumbnail']['width'] ); endif; ?>
+								<input type="number" step="1" min="0" name="data[thumbnail][width]" id="width" class="small-text" value="<?php echo $val; ?>" placeholder="<?php echo $this->ThumbnailSize; ?>" />px
 								<p class="description"><?php _e( 'Height will be displayed in proportion to the width.' , $this->ltd ); ?></p>
 							</td>
 						</tr>

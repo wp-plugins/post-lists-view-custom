@@ -1,10 +1,10 @@
 === Post Lists View Custom ===
 Contributors: gqevu6bsiz
-Donate link: http://gqevu6bsiz.chicappa.jp/please-donation/?utm_source=wporg&utm_medium=donate&utm_content=plvc&utm_campaign=1_5_8
+Donate link: http://gqevu6bsiz.chicappa.jp/please-donation/?utm_source=wporg&utm_medium=donate&utm_content=plvc&utm_campaign=1_5_9
 Tags: admin, post, posts, page, upload, media, attachment, lists, view, custom, customfield, field, custom_post, navi, menu, comment, widgets
 Requires at least: 3.6.1
 Tested up to: 3.8.1
-Stable tag: 1.5.8
+Stable tag: 1.5.9
 License: GPL2
 
 Customize the list of the post and page and the custom post type.
@@ -43,6 +43,10 @@ These list to customization is possible.
 5. Screen Widgets
 
 == Changelog ==
+
+= 1.5.9 =
+* Added: Automatic setting of the cell width of list table.
+* Updated: Non settings for unknown widgets.
 
 = 1.5.8 =
 * Updated: Change the way of columns load.

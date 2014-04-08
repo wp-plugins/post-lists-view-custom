@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Post Lists View Custom\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-24 21:49+0900\n"
-"PO-Revision-Date: 2014-03-24 22:03+0900\n"
+"POT-Creation-Date: 2014-04-08 12:49+0900\n"
+"PO-Revision-Date: 2014-04-08 13:07+0900\n"
 "Last-Translator: gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
 "Language-Team: gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -21,75 +21,77 @@ msgstr ""
 msgid "Allow to customizing for the list screen."
 msgstr "Permettre à la personnalisation de l'écran de liste."
 
-#: post-lists-view-custom.php:145
-#: post-lists-view-custom.php:388
+#: post-lists-view-custom.php:148
+#: post-lists-view-custom.php:401
 msgid "show screen"
 msgstr "Afficher l’écran"
 
-#: post-lists-view-custom.php:146
+#: post-lists-view-custom.php:149
 msgid "show advanced properties screen"
 msgstr "Afficher les propriétés avancées"
 
-#: post-lists-view-custom.php:146
+#: post-lists-view-custom.php:149
 msgid "advanced properties"
 msgstr "propriétés avancées"
 
-#: post-lists-view-custom.php:147
-#: post-lists-view-custom.php:148
-#: post-lists-view-custom.php:425
+#: post-lists-view-custom.php:150
+#: post-lists-view-custom.php:151
+#: post-lists-view-custom.php:438
 #: inc/select_custom.php:21
 msgid "Custom Post Type"
 msgstr "Articles de type personnalis&eacute;"
 
-#: post-lists-view-custom.php:149
-#: post-lists-view-custom.php:441
-#: post-lists-view-custom.php:319
+#: post-lists-view-custom.php:152
+#: post-lists-view-custom.php:454
+msgid "Other Settings"
+msgstr "autres paramètres"
+
+#: post-lists-view-custom.php:322
 #, php-format
 msgid "Authority to apply the setting is not selected. <a href=\"%s\">From here</a>, please select the permissions you want to set."
 msgstr "Autorit&eacute; pour appliquer le param&eacute;tre n'est pas s&eacute;lectionn&eacute;. <a href=\"%s\">A partir de l&agrave;</a>, s'il vous pla&icirc;t s&eacute;lectionnez les autorisations que vous souhaitez d&eacute;finir."
 
-#: post-lists-view-custom.php:343
-#: post-lists-view-custom.php:352
-#: post-lists-view-custom.php:361
-#: post-lists-view-custom.php:370
-#: post-lists-view-custom.php:379
-#: post-lists-view-custom.php:388
-#: post-lists-view-custom.php:425
-#: post-lists-view-custom.php:441
+#: post-lists-view-custom.php:356
+#: post-lists-view-custom.php:365
+#: post-lists-view-custom.php:374
+#: post-lists-view-custom.php:383
+#: post-lists-view-custom.php:392
+#: post-lists-view-custom.php:401
+#: post-lists-view-custom.php:438
 #: inc/select_custom.php:21
 #, php-format
 msgid "%2$s for %3$s %1$s"
 msgstr "%2$s pour %3$s %1$s"
 
-#: post-lists-view-custom.php:397
+#: post-lists-view-custom.php:410
 msgid "Menus of advanced feature adapted to the screen"
 msgstr "Menus des fonctions avancées adaptées à l'écran"
 
-#: post-lists-view-custom.php:428
-#: post-lists-view-custom.php:433
+#: post-lists-view-custom.php:441
+#: post-lists-view-custom.php:446
 #: inc/select_custom.php:43
 msgid "No custom post type found."
 msgstr "Ne pas avoir un type de Articles personnalis&eacute;."
 
-#: post-lists-view-custom.php:429
-#: post-lists-view-custom.php:434
+#: post-lists-view-custom.php:442
+#: post-lists-view-custom.php:447
 msgid "Please select Custom Posts type from here."
 msgstr "S'il vous pla&icirc;t choisir un type de Articles personnalis&eacute;s &agrave; partir d'ici."
 
-#: post-lists-view-custom.php:513
+#: post-lists-view-custom.php:526
 msgid "Apply user roles"
 msgstr "Apply user roles"
 
-#: post-lists-view-custom.php:854
+#: post-lists-view-custom.php:867
 msgid "ID"
 msgstr "ID"
 
-#: post-lists-view-custom.php:1758
+#: post-lists-view-custom.php:1782
 #: inc/donation.php:5
 msgid "Thank you for your donation."
 msgstr "Nous vous remercions de votre don."
 
-#: post-lists-view-custom.php:1773
+#: post-lists-view-custom.php:1797
 msgid "To donate if you feel that it is useful, please."
 msgstr "Pour faire un don si vous vous sentez qu'il est utile, s'il vous plaît. Merci d'avance."
 
@@ -207,14 +209,14 @@ msgstr "S'il vous pla&icirc;t choisir l'autorit&eacute; pour appliquer les param
 #: inc/setting_default.php:61
 #: inc/setting_lists.php:106
 #: inc/setting_menus.php:79
-#: inc/setting_thumbnail_size.php:59
+#: inc/setting_other.php:81
 msgid "Reset all settings?"
 msgstr "R&eacute;initialiser les param&eacute;tres?"
 
 #: inc/setting_default.php:62
 #: inc/setting_lists.php:107
 #: inc/setting_menus.php:80
-#: inc/setting_thumbnail_size.php:60
+#: inc/setting_other.php:82
 msgid "Reset settings"
 msgstr "r&eacute;initialiser les param&egrave;tres"
 
@@ -248,20 +250,34 @@ msgstr "S'il vous pla&icirc;t s&eacute;lectionner l'&eacute;l&eacute;ment que vo
 msgid "Taxonomy"
 msgstr "Taxinomie"
 
-#: inc/setting_thumbnail_size.php:24
-msgid "Change the size of thumbnails displayed in the lists."
-msgstr "Changer la taille des vignettes affich&eacute;es dans les listes."
+#: inc/setting_other.php:37
+msgid "Automatic width conversion of List table"
+msgstr "Conversion automatique de la largeur de la table de la liste"
 
-#: inc/setting_thumbnail_size.php:25
-msgid "Post, Page, and Custom Post type the applies."
-msgstr "Articles, Page et d'un type de Articles le s'applique."
+#: inc/setting_other.php:42
+msgid "Width setting of cell"
+msgstr "Réglage de la largeur de la cellule"
 
-#: inc/setting_thumbnail_size.php:48
-#, php-format
-msgid "It will be displayed at <strong>%s px</strong> If there is no setting."
-msgstr "Il sera affich&eacute; au <strong>%s px</strong> S'il n'ya pas de r&eacute;glage."
+#: inc/setting_other.php:45
+msgid "Automatic"
+msgstr "automatique"
 
-#: inc/setting_thumbnail_size.php:49
+#: inc/setting_other.php:45
+msgid "Not automatic"
+msgstr "pas automatique"
+
+#: inc/setting_other.php:52
+msgid "This means is include the CSS for auto width settings on List page."
+msgstr "Ce moyen est notamment le CSS pour les réglages de la largeur de l'automobile sur la Liste page."
+
+#: inc/setting_other.php:53
+msgid "Automatic width setting CSS file"
+msgstr "Largeur automatique fichier paramètre CSS"
+
+#: inc/setting_other.php:60
+msgid "Change the Thumbnail size for Post, Page, and Custom Post type."
+msgstr "Modifier la taille Vignette pour la Poste, la page et le type de message personnalisé."
+
+#: inc/setting_other.php:71
 msgid "Height will be displayed in proportion to the width."
 msgstr "Hauteur s'affiche en proportion de la largeur."
-
