@@ -1,0 +1,240 @@
+.columns-2.plvc {
+	margin-right: 360px;
+}
+.columns-2.plvc #postbox-container-1 {
+	float: right;
+	width: 340px;
+	margin-right: -360px;
+}
+.columns-2.plvc #postbox-container-2 {
+	width: 100%;
+}
+
+.columns-2.plvc.full-width {
+	margin-right: 100px;
+}
+.columns-2.plvc.full-width #postbox-container-1 {
+	width: 80px;
+	margin-right: -100px;
+}
+.columns-2.plvc .postbox-container .postbox .hndle {
+	cursor: default; 	
+}
+.columns-2.plvc.full-width #postbox-container-1 .stuffbox {
+	display: none;
+}
+.columns-2.plvc.full-width #postbox-container-1 .donated_message {
+	display: none;
+}
+
+
+
+
+.columns-2.plvc .possible_lists {
+	margin-bottom: 40px;
+}
+.columns-2.plvc .possible_lists.adding .spinner {
+	display: inline-block;
+	float: none;
+}
+
+
+.columns-2.plvc table.wp-list-table thead tr th:not(:first-child) {
+	border-left: 1px solid #ccc;
+}
+.columns-2.plvc table.wp-list-table thead tr th:hover {
+	cursor: move;
+}
+.columns-2.plvc table.wp-list-table thead tr th {
+	width: auto;
+}
+.columns-2.plvc table.wp-list-table thead tr th.collapse {
+	width: 40%;
+}
+.columns-2.plvc table.wp-list-table thead tr th.collapse .edit-field {
+	display: block;
+}
+.columns-2.plvc table.wp-list-table thead tr th .show-field {
+	position: relative;
+}
+.columns-2.plvc table.wp-list-table thead tr th .show-field .column-toggle {
+	cursor: pointer;
+	color: #aaa;
+	position: absolute;
+	top: 0;
+	right: 0;
+	display: block;
+}
+.columns-2.plvc table.wp-list-table thead tr th .show-field .column-toggle:before {
+	content: '\f140';
+	top: 4px;
+	right: 0;
+	font: 400 20px/1 dashicons;
+	display: inline-block;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-decoration: none!important;
+}
+.columns-2.plvc table.wp-list-table thead tr th.collapse .show-field .column-toggle:before {
+	content: '\f142';
+}
+.columns-2.plvc table.wp-list-table thead tr th .show-field .column-toggle:hover {
+	color: #777;
+}
+.columns-2.plvc table.wp-list-table thead tr th .edit-field {
+	display: none;
+	margin-top: 8px;
+}
+.columns-2.plvc table.wp-list-table thead tr th .edit-field input.input-column-name {
+	margin: 0;
+}
+.columns-2.plvc table.wp-list-table thead tr th .edit-field .remove-action {
+	padding-top: 16px;
+}
+.columns-2.plvc table.wp-list-table thead tr.widgets-sortables th:hover {
+	outline: 1px solid #999;
+}
+.columns-2.plvc table.wp-list-table thead tr.widgets-sortables th.ui-sortable-helper {
+	width: 1%;
+}
+.columns-2.plvc table.wp-list-table.widefat thead tr.widgets-sortables th.widget-placeholder {
+	width: auto;
+	border-style: dashed;
+	background: #bbb;
+}
+
+
+
+.columns-2.plvc table.menu-lists th {
+	width: 30%;
+}
+.columns-2.plvc table.wp-list-table thead tr th.plugin,
+.columns-2.plvc table.menu-lists tr.plugin th,
+.columns-2.plvc table.menu-lists tr.plugin td {
+	background: #098DAE;
+	color: #fff;
+}
+.columns-2.plvc table.wp-list-table thead tr th.plugin .edit-field .description,
+.columns-2.plvc table.wp-list-table thead tr th.plugin .edit-field .remove-action a {
+	color: #fff;
+}
+.columns-2.plvc table.wp-list-table thead tr th.custom_field,
+.columns-2.plvc table.menu-lists tr.custom_field th,
+.columns-2.plvc table.menu-lists tr.custom_field td {
+	background: #9F293A;
+	color: #fff;
+}
+.columns-2.plvc table.wp-list-table thead tr th.custom_field .edit-field .description,
+.columns-2.plvc table.wp-list-table thead tr th.custom_field .edit-field .remove-action a {
+	color: #fff;
+}
+.columns-2.plvc table.menu-lists tr.custom_post th,
+.columns-2.plvc table.menu-lists tr.custom_post td {
+	background: #F47400;
+	color: #fff;
+}
+.columns-2.plvc table.menu-lists tr.custom_post td .description {
+	color: #fff;
+}
+.columns-2.plvc table.menu-lists tr.custom_taxonomy th,
+.columns-2.plvc table.menu-lists tr.custom_taxonomy td {
+	background: #3BA610;
+	color: #fff;
+}
+.columns-2.plvc table.menu-lists tr.custom_taxonomy td .description {
+	color: #fff;
+}
+
+
+
+
+
+
+.columns-2.plvc .loading {
+	display: none;
+	line-height: 24px;
+}
+.columns-2.plvc .loading .spinner {
+	display: block;
+	float: left;
+}
+
+
+
+
+
+#plvc_other_form .width_auto_cell_description {
+	text-align: center;
+	display: none;
+}
+#plvc_other_form .width_auto_cell_description h4 {
+	font-size: 18px;
+	line-height: 25px;
+}
+#plvc_other_form .width_auto_cell_description img {
+	max-width: 100%;
+	width: auto;
+}
+#plvc_other_form .help_width_auto_cell_description {
+	background-image: url(../../../wp-admin/images/arrows.png);
+	background-repeat: no-repeat;
+	background-position: 4px 4px;
+	padding-left: 20px;
+}
+
+
+
+
+.plvc .toggle-width {
+	margin-bottom: 20px;
+}
+.plvc .toggle-width .collapse-sidebar {
+	left: 0;
+	z-index: 50;
+	display: block;
+	width: 19px;
+	height: 19px;
+	padding: 0;
+	-webkit-border-radius: 50%;
+	border-radius: 50%;
+	color: #777;
+	text-decoration: none;
+	border: 0 none;
+	position: relative;
+}
+.plvc .toggle-width .collapse-sidebar .collapse-sidebar-arrow {
+	position: static;
+	margin-top: 0;
+	margin-left: 0;
+	display: block;
+	width: auto;
+	height: auto;
+	background: 0 0;
+}
+.plvc .toggle-width .collapse-sidebar .collapse-sidebar-arrow:before {
+	-webkit-border-radius: 50%;
+	border-radius: 50%;
+	float: left;
+	content: "\f148";
+	background: #eee;
+	font: 400 20px/1 dashicons;
+	speak: none;
+	display: block;
+	padding: 0;
+	text-indent: 0;
+	text-align: center;
+	position: relative;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-decoration: none!important;
+	transform: rotate(180deg);
+}
+.columns-2.plvc.full-width .toggle-width .collapse-sidebar .collapse-sidebar-arrow:before {
+	transform: rotate(0deg);
+}
+.columns-2.plvc .toggle-width .collapse-sidebar .collapse-sidebar-label {
+	position: absolute;
+	left: 100%;
+	line-height: 20px;
+	margin-left: 10px;
+}
