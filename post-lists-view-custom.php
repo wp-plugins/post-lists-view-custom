@@ -3,9 +3,9 @@
 Plugin Name: Post Lists View Custom
 Description: Allow to customizing for the list screen.
 Plugin URI: http://wordpress.org/extend/plugins/post-lists-view-custom/
-Version: 1.6
+Version: 1.6.1
 Author: gqevu6bsiz
-Author URI: http://gqevu6bsiz.chicappa.jp/?utm_source=use_plugin&utm_medium=list&utm_content=plvc&utm_campaign=1_6
+Author URI: http://gqevu6bsiz.chicappa.jp/?utm_source=use_plugin&utm_medium=list&utm_content=plvc&utm_campaign=1_6_1
 Text Domain: plvc
 Domain Path: /languages
 */
@@ -403,6 +403,7 @@ class Post_Lists_View_Custom
 	// FilterStart
 	function admin_print_scripts() {
 		
+		global $pagenow;
 		global $Plvc;
 		
 		if( $this->is_list_page() && $this->is_apply_user() ) {
@@ -411,6 +412,17 @@ class Post_Lists_View_Custom
 			if( empty( $Data['cell_auto'] ) )
 				wp_enqueue_style( $Plvc->Plugin['ltd'] , $Plvc->Plugin['url'] . 'admin/assets/list-table.css', array() , $Plvc->Plugin['ver'] );
 
+			if( !empty( $pagenow ) && $pagenow == 'edit.php' ) {
+				
+				$thumbnail_size = $this->ClassConfig->get_default_thumbnail_size();
+				
+				$GetOtherData = $this->ClassData->get_data_others();
+				if( !empty( $GetOtherData ) && !empty( $GetOtherData['thumbnail'] ) && !empty( $GetOtherData['thumbnail']['width'] ) )
+					$thumbnail_size = intval( $GetOtherData['thumbnail']['width'] );
+
+				printf( '<style>.wp-list-table thead tr th.column-post-thumbnails { width: %spx; }</style>' , $thumbnail_size );
+				
+			}
 		}
 		
 	}

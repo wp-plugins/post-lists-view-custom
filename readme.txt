@@ -1,9 +1,9 @@
 === Post Lists View Custom ===
 Contributors: gqevu6bsiz
-Donate link: http://gqevu6bsiz.chicappa.jp/please-donation/?utm_source=wporg&utm_medium=donate&utm_content=plvc&utm_campaign=1_6
+Donate link: http://gqevu6bsiz.chicappa.jp/please-donation/?utm_source=wporg&utm_medium=donate&utm_content=plvc&utm_campaign=1_6_1
 Tags: admin, post, posts, page, upload, media, attachment, lists, view, custom, customfield, field, custom_post, navi, menu, comment, widgets
 Requires at least: 3.6.1
-Tested up to: 3.9.1
+Tested up to: 3.9.2
 Stable tag: 1.6
 License: GPL2
 
@@ -43,6 +43,10 @@ These list to customization is possible.
 5. Screen Widgets
 
 == Changelog ==
+
+= 1.6.1 =
+* Updated: List table also apply to the width of Thumbnail.
+* Updated: Default width size is change of the Thumbnail.
 
 = 1.6 =
 * Updated: Useful settings interface.

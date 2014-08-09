@@ -19,7 +19,7 @@ class Plvc_Config
 		
 		global $Plvc;
 		
-		$Plvc->Plugin['ver']              = '1.6';
+		$Plvc->Plugin['ver']              = '1.6.1';
 		$Plvc->Plugin['plugin_slug']      = 'post-lists-view-custom';
 		$Plvc->Plugin['dir']              = trailingslashit( dirname( dirname( __FILE__ ) ) );
 		$Plvc->Plugin['name']             = 'Post Lists View Custom';
@@ -140,7 +140,7 @@ class Plvc_Config
 	}
 	
 	function get_default_thumbnail_size() {
-		return 50;
+		return 80;
 	}
 	
 	function get_all_custom_fields() {
