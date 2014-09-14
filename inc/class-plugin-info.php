@@ -5,29 +5,15 @@ if ( !class_exists( 'Plvc_Plugin_Info' ) ) :
 class Plvc_Plugin_Info
 {
 
-	var $links = array();
-	var $DonateKey = 'd77aec9bc89d445fd54b4c988d090f03';
-	var $DonateRecord = '';
-	var $DonateOptionRecord = '';
+	var $nonces = array();
+
+	private $DonateKey = 'd77aec9bc89d445fd54b4c988d090f03';
+	private $DonateRecord = '';
+	private $DonateOptionRecord = '';
 
 	function __construct() {
 		
-		add_action( 'plugins_loaded' , array( $this , 'set_links' ) , 20 );
-		add_action( 'plugins_loaded' , array( $this , 'setup' ) , 20 );
-		add_action( 'plugins_loaded' , array( $this , 'set_ajax' ) , 20 );
-		
-	}
-
-	function set_links() {
-		
-		global $Plvc;
-
-		$this->links['author'] = 'http://gqevu6bsiz.chicappa.jp/';
-		$this->links['forum'] = 'http://wordpress.org/support/plugin/' . $Plvc->Plugin['plugin_slug'];
-		$this->links['review'] = 'http://wordpress.org/support/view/plugin-reviews/' . $Plvc->Plugin['plugin_slug'];
-		$this->links['profile'] = 'http://profiles.wordpress.org/gqevu6bsiz';
-		
-		$this->links['setting'] = admin_url( 'admin.php?page=' . $Plvc->Plugin['page_slug'] );
+		add_action( 'wp_loaded' , array( $this , 'setup' ) , 20 );
 		
 	}
 
@@ -37,27 +23,45 @@ class Plvc_Plugin_Info
 		
 		$this->DonateRecord = $Plvc->Plugin['ltd'] . '_donated';
 		$this->DonateOptionRecord = $Plvc->Plugin['ltd'] . '_donate_width';
+		$this->nonces = array( 'field' => $Plvc->Plugin['nonces']['field'] . '_donate' , 'value' => $Plvc->Plugin['nonces']['value'] . '_donate' );
 		
-	}
-	
-	function set_ajax() {
-		
-		global $Plvc;
-		
-		if( $Plvc->Current['admin'] && $Plvc->Current['ajax'] ) {
-			add_action( 'wp_ajax_plvc_donation_toggle' , array( $this , 'wp_ajax_donation_toggle' ) );
+		if( $Plvc->Current['admin'] && $Plvc->ClassManager->is_manager ) {
+
+			if( !$Plvc->Current['ajax'] ) {
+
+				if( $Plvc->Current['multisite'] ) {
+
+					add_action( 'network_admin_notices' , array( $this , 'donate_notice' ) );
+
+				} else {
+
+					add_action( 'admin_notices' , array( $this , 'donate_notice' ) );
+
+				}
+
+				add_action( 'admin_init' , array( $this , 'dataUpdate' ) );
+
+			} else {
+
+				add_action( 'wp_ajax_' . $Plvc->Plugin['ltd'] . '_donation_toggle' , array( $this , 'ajax_donation_toggle' ) );
+
+			}
+
 		}
 
 	}
-
-	function wp_ajax_donation_toggle() {
+	
+	function ajax_donation_toggle() {
 		
-		global $Plvc;
-
 		if( isset( $_POST['f'] ) ) {
 
-			$val = intval( $_POST['f'] );
-			$Plvc->ClassData->update_donate_toggle( $val );
+			$is_donated = $this->is_donated();
+			
+			if( !empty( $is_donated ) ) {
+
+				$this->update_donate_toggle( intval( $_POST['f'] ) );
+
+			}
 
 		}
 		
@@ -65,6 +69,44 @@ class Plvc_Plugin_Info
 		
 	}
 
+	function is_donated() {
+		
+		$donated = false;
+		$donateKey = $this->get_donate_key( $this->DonateRecord );
+
+		if( !empty( $donateKey ) && $donateKey == $this->DonateKey ) {
+			$donated = true;
+		}
+
+		return $donated;
+
+	}
+
+	function donate_notice() {
+		
+		global $Plvc;
+		
+		$setting_page = $Plvc->ClassManager->is_settings_page();
+		
+		if( !empty( $setting_page ) ) {
+			
+			if( !empty( $_GET ) && !empty( $_GET[$Plvc->Plugin['msg_notice']] ) && $_GET[$Plvc->Plugin['msg_notice']] == 'donated' ) {
+
+				printf( '<div class="updated"><p><strong>%s</strong></p></div>' , __( 'Thank you for your donation.' , $Plvc->Plugin['ltd'] ) );
+
+			} else {
+
+				$is_donated = $this->is_donated();
+	
+				if( empty( $is_donated ) )
+					printf( '<div class="updated"><p><strong><a href="%1$s" target="_blank">%2$s</a></strong></p></div>' , $this->author_url( array( 'donate' => 1 , 'tp' => 'use_plugin' , 'lc' => 'footer' ) ) , __( 'Please consider making a donation.' , $Plvc->Plugin['ltd'] ) );
+					
+			}
+
+		}
+
+	}
+	
 	function version_checked() {
 
 		global $Plvc;
@@ -88,8 +130,6 @@ class Plvc_Plugin_Info
 
 	function author_url( $args ) {
 		
-		global $Plvc;
-
 		$url = 'http://gqevu6bsiz.chicappa.jp/';
 		
 		if( !empty( $args['translate'] ) ) {
@@ -115,13 +155,13 @@ class Plvc_Plugin_Info
 		$url = '?utm_source=' . $args['tp'];
 		$url .= '&utm_medium=' . $args['lc'];
 		$url .= '&utm_content=' . $Plvc->Plugin['ltd'];
-		$url .= '&utm_campaign=' . str_replace( '.' , '_' , $Plvc->Plugin['ver'] );
+		$url .= '&utm_campaign=' . str_replace( '.' , '_' , $Plvc->Ver );
 
 		return $url;
 
 	}
 
-	function is_donate_key_check( $key ) {
+	private function is_donate_key_check( $key ) {
 		
 		$check = false;
 		$key = md5( strip_tags( $key ) );
@@ -132,21 +172,6 @@ class Plvc_Plugin_Info
 
 	}
 
-	function is_donated() {
-		
-		global $Plvc;
-
-		$donated = false;
-		$donateKey = $Plvc->ClassData->get_donate_key( $this->DonateRecord );
-
-		if( !empty( $donateKey ) && $donateKey == $this->DonateKey ) {
-			$donated = true;
-		}
-
-		return $donated;
-
-	}
-
 	function get_width_class() {
 		
 		global $Plvc;
@@ -154,10 +179,12 @@ class Plvc_Plugin_Info
 		$class = $Plvc->Plugin['ltd'];
 		
 		if( $this->is_donated() ) {
-			$width_option = $Plvc->ClassData->get_donate_width();
-			if( !empty( $width_option ) ) {
+
+			$width_option = $this->get_donate_width();
+
+			if( !empty( $width_option ) )
 				$class .= ' full-width';
-			}
+
 		}
 		
 		return $class;
@@ -184,16 +211,116 @@ class Plvc_Plugin_Info
 		
 	}
 
-	function donate_notice() {
+	private function get_donate_key( $record ) {
+		
+		global $Plvc;
+
+		if( $Plvc->Current['multisite'] ) {
+
+			$donateKey = get_site_option( $record );
+
+		} else {
+
+			$donateKey = get_option( $record );
+
+		}
+		
+		return $donateKey;
+
+	}
+
+	private function get_donate_width() {
 		
 		global $Plvc;
 		
-		$is_donated = $this->is_donated();
-		if( empty( $is_donated ) )
-			printf( '<div class="updated"><p><strong><a href="%1$s" target="_blank">%2$s</a></strong></p></div>' , $this->author_url( array( 'donate' => 1 , 'tp' => 'use_plugin' , 'lc' => 'footer' ) ) , __( 'Please consider making a donation.' , $Plvc->Plugin['ltd'] ) );
+		$width = false;
+
+		if( $Plvc->Current['multisite'] ) {
+
+			$GetData = get_site_option( $this->DonateOptionRecord );
+
+		} else {
+
+			$GetData = get_option( $this->DonateOptionRecord );
+
+		}
+
+		if( !empty( $GetData ) )
+			$width = true;
+
+		return $width;
 
 	}
 	
+	function dataUpdate() {
+		
+		global $Plvc;
+		
+		$RecordField = false;
+		
+		if( !empty( $_POST ) && !empty( $Plvc->ClassManager->is_manager ) && !empty( $_POST[$Plvc->Plugin['form']['field']] ) && $_POST[$Plvc->Plugin['form']['field']] == $Plvc->Plugin['UPFN'] ) {
+
+			if( !empty( $_POST[$this->nonces['field']] ) && check_admin_referer( $this->nonces['value'] , $this->nonces['field'] ) ) {
+					
+				$this->update_donate();
+					
+			}
+
+		}
+
+	}
+	
+	private function update_donate() {
+		
+		global $Plvc;
+
+		$is_donate_check = false;
+		$submit_key = false;
+
+		if( !empty( $_POST['donate_key'] ) ) {
+
+			$is_donate_check = $this->is_donate_key_check( $_POST['donate_key'] );
+
+			if( !empty( $is_donate_check ) ) {
+
+				if( !empty( $Plvc->Current['multisite'] ) ) {
+							
+					update_site_option( $this->DonateRecord , $is_donate_check );
+							
+				} else {
+				
+					update_option( $this->DonateRecord , $is_donate_check );
+		
+				}
+
+				wp_redirect( add_query_arg( $Plvc->Plugin['msg_notice'] , 'donated' ) );
+
+			}
+
+		}
+
+	}
+
+	private function update_donate_toggle( $Data ) {
+		
+		global $Plvc;
+
+		if( $Plvc->ClassManager->is_manager ) {
+
+			if( $Plvc->Current['multisite'] ) {
+						
+				update_site_option( $this->DonateOptionRecord , $Data );
+						
+			} else {
+			
+				update_option( $this->DonateOptionRecord , $Data );
+
+			}
+			
+		}
+
+	}
+
 }
 
 endif;

@@ -25,7 +25,7 @@ $Data = $Plvc->ClassData->get_data_user_role();
 		<div id="postbox-container-2" class="postbox-container">
 
 			<form id="<?php echo $Plvc->Plugin['ltd']; ?>_user_role_form" class="<?php echo $Plvc->Plugin['ltd']; ?>_form" method="post" action="<?php echo $this->get_action_link(); ?>">
-				<input type="hidden" name="<?php echo $Plvc->Plugin['ltd']; ?>_settings" value="Y">
+				<input type="hidden" name="<?php echo $Plvc->Plugin['form']['field']; ?>" value="Y">
 				<?php wp_nonce_field( $Plvc->Plugin['nonces']['value'] , $Plvc->Plugin['nonces']['field'] ); ?>
 				<input type="hidden" name="record_field" value="<?php echo $Plvc->Plugin['record']['user_role']; ?>" />
 
@@ -50,7 +50,7 @@ $Data = $Plvc->ClassData->get_data_user_role();
 			</form>
 
 			<form id="<?php echo $Plvc->Plugin['ltd']; ?>_user_role_reset_form" class="<?php echo $Plvc->Plugin['ltd']; ?>_form" method="post" action="<?php echo $this->get_action_link(); ?>">
-				<input type="hidden" name="<?php echo $Plvc->Plugin['ltd']; ?>_settings" value="Y">
+				<input type="hidden" name="<?php echo $Plvc->Plugin['form']['field']; ?>" value="Y">
 				<?php wp_nonce_field( $Plvc->Plugin['nonces']['value'] , $Plvc->Plugin['nonces']['field'] ); ?>
 				<input type="hidden" name="record_field" value="<?php echo $Plvc->Plugin['record']['user_role']; ?>" />
 				<input type="hidden" name="reset" value="1" />
@@ -65,7 +65,7 @@ $Data = $Plvc->ClassData->get_data_user_role();
 				<a href="<?php echo $Plvc->ClassInfo->author_url( array( 'translate' => 1 , 'tp' => 'use_plugin' , 'lc' => 'footer' ) ); ?>" target="_blank">Translation</a>
 			</p>
 			<p><strong><?php _e( 'Bug reports and suggestions' , $Plvc->Plugin['ltd'] ); ?></strong></p>
-			<p><?php echo sprintf( __( 'Do you have a proposal you want to improve? Please contact to %s if it is necessary.' , $Plvc->Plugin['ltd'] ) , '<a href="' . $Plvc->ClassInfo->links['forum'] . '" target="_blank">' . __( 'Support Forums' ) . '</a>' ); ?></p>
+			<p><?php echo sprintf( __( 'Do you have a proposal you want to improve? Please contact to %s if it is necessary.' , $Plvc->Plugin['ltd'] ) , '<a href="' . $Plvc->Plugin['links']['forum'] . '" target="_blank">' . __( 'Support Forums' ) . '</a>' ); ?></p>
 
 		</div>
 

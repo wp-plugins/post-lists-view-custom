@@ -29,7 +29,7 @@ $menus = $this->get_data_menus( $this->menu_type );
 
 				<form id="<?php echo $Plvc->Plugin['ltd']; ?>_<?php echo $this->menu_type; ?>_form" class="<?php echo $Plvc->Plugin['ltd']; ?>_form" method="post" action="<?php echo $this->get_action_link(); ?>">
 	
-					<input type="hidden" name="<?php echo $Plvc->Plugin['ltd']; ?>_settings" value="Y">
+					<input type="hidden" name="<?php echo $Plvc->Plugin['form']['field']; ?>" value="Y">
 					<?php wp_nonce_field( $Plvc->Plugin['nonces']['value'] , $Plvc->Plugin['nonces']['field'] ); ?>
 					<input type="hidden" name="record_field" value="<?php echo $Plvc->Plugin['record'][$this->menu_type]; ?>" />
 					<input type="hidden" name="menu_type" value="<?php echo $this->menu_type; ?>" />
@@ -72,7 +72,7 @@ $menus = $this->get_data_menus( $this->menu_type );
 	
 				<form id="<?php echo $Plvc->Plugin['ltd']; ?>_<?php echo $this->menu_type; ?>_reset_form" class="<?php echo $Plvc->Plugin['ltd']; ?>_form" method="post" action="<?php echo $this->get_action_link(); ?>">
 	
-					<input type="hidden" name="<?php echo $Plvc->Plugin['ltd']; ?>_settings" value="Y">
+					<input type="hidden" name="<?php echo $Plvc->Plugin['form']['field']; ?>" value="Y">
 					<?php wp_nonce_field( $Plvc->Plugin['nonces']['value'] , $Plvc->Plugin['nonces']['field'] ); ?>
 					<input type="hidden" name="record_field" value="<?php echo $Plvc->Plugin['record'][$this->menu_type]; ?>" />
 					<input type="hidden" name="menu_type" value="<?php echo $this->menu_type; ?>" />

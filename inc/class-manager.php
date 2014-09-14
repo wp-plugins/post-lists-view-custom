@@ -13,8 +13,12 @@ class Plvc_Manager
 	
 	function __construct() {
 		
-		if( is_admin() )
-			add_action( 'plugins_loaded' , array( $this , 'set_manager' ) , 20 );
+		if( is_admin() ) {
+
+			add_action( 'init' , array( $this , 'set_manager' ) , 20 );
+			add_action( 'init' , array( $this , 'init' ) , 20 );
+			
+		}
 
 	}
 
@@ -24,15 +28,7 @@ class Plvc_Manager
 
 		$cap = false;
 
-		if( is_multisite() ) {
-
-			$cap = $Plvc->Plugin['default_role']['network'];
-
-		} else {
-
-			$cap = $Plvc->Plugin['default_role']['child'];
-
-		}
+		$cap = $Plvc->Plugin['default_role']['child'];
 		
 		$other_data = $Plvc->ClassData->get_data_others();
 		if( !empty( $other_data['capability'] ) )
@@ -54,15 +50,21 @@ class Plvc_Manager
 		
 		global $Plvc;
 
-		if( is_admin() && $this->is_manager && !$Plvc->Current['ajax'] ) {
+		if( $Plvc->Current['admin'] && $this->is_manager && !$Plvc->Current['ajax'] ) {
 			
 			$base_plugin = trailingslashit( $Plvc->Plugin['plugin_slug'] ) . $Plvc->Plugin['plugin_slug'] . '.php';
 			
 			add_filter( 'plugin_action_links_' . $base_plugin , array( $this , 'plugin_action_links' ) );
 			add_action( 'admin_menu' , array( $this , 'admin_menu' ) );
 			add_action( 'admin_notices' , array( $this , 'update_notice' ) );
-			add_action( 'admin_notices' , array( $this , 'donate_notice' ) );
+				
 			add_action( 'admin_print_scripts' , array( $this , 'admin_print_scripts' ) );
+		
+		}
+
+		if( $Plvc->Current['admin'] && $this->is_manager && $Plvc->Current['ajax'] ) {
+			
+			add_action( 'wp_ajax_' . $Plvc->Plugin['ltd'] . '_add_list' , array( $this , 'ajax_add_list' ) );
 			
 		}
 		
@@ -72,8 +74,8 @@ class Plvc_Manager
 
 		global $Plvc;
 		
-		$link_setting = sprintf( '<a href="%1$s">%2$s</a>' , $Plvc->ClassInfo->links['setting'] , __( 'Settings' ) );
-		$link_support = sprintf( '<a href="%1$s" target="_blank">%2$s</a>' , $Plvc->ClassInfo->links['forum'] , __( 'Support Forums' ) );
+		$link_setting = sprintf( '<a href="%1$s">%2$s</a>' , $Plvc->Plugin['links']['setting'] , __( 'Settings' ) );
+		$link_support = sprintf( '<a href="%1$s" target="_blank">%2$s</a>' , $Plvc->Plugin['links']['forum'] , __( 'Support Forums' ) );
 
 		array_unshift( $links , $link_setting, $link_support );
 
@@ -108,7 +110,18 @@ class Plvc_Manager
 		global $Plvc;
 		
 		$is_settings_page = false;
-		$setting_pages = array( $Plvc->Plugin['page_slug'] , $Plvc->Plugin['ltd'] . '_post' , $Plvc->Plugin['ltd'] . '_page' , $Plvc->Plugin['ltd'] . '_media' , $Plvc->Plugin['ltd'] . '_comments' , $Plvc->Plugin['ltd'] . '_widgets' , $Plvc->Plugin['ltd'] . '_menus' , $Plvc->Plugin['ltd'] . '_menus_adv' , $Plvc->Plugin['ltd'] . '_custom_posts' , $Plvc->Plugin['ltd'] . '_other' );
+		$setting_pages = array(
+			$Plvc->Plugin['page_slug'],
+			$Plvc->Plugin['record']['post'],
+			$Plvc->Plugin['record']['page'],
+			$Plvc->Plugin['record']['media'],
+			$Plvc->Plugin['record']['comments'],
+			$Plvc->Plugin['record']['widgets'],
+			$Plvc->Plugin['record']['menus'],
+			$Plvc->Plugin['record']['menus_adv'],
+			$Plvc->Plugin['record']['custom_posts'],
+			$Plvc->Plugin['record']['other']
+		);
 		
 		if( in_array( $plugin_page , $setting_pages ) )
 			$is_settings_page = true;
@@ -119,18 +132,17 @@ class Plvc_Manager
 
 	function admin_print_scripts() {
 		
-		global $plugin_page;
 		global $wp_version;
 		global $Plvc;
 		
 		if( $this->is_settings_page() ) {
 			
 			$ReadedJs = array( 'jquery' , 'jquery-ui-sortable' );
-			wp_enqueue_script( $Plvc->Plugin['page_slug'] ,  $Plvc->Plugin['url'] . $Plvc->Plugin['ltd'] . '.js', $ReadedJs , $Plvc->Plugin['ver'] );
+			wp_enqueue_script( $Plvc->Plugin['page_slug'] ,  $Plvc->Plugin['url'] . $Plvc->Plugin['ltd'] . '.js', $ReadedJs , $Plvc->Ver );
 			
-			wp_enqueue_style( $Plvc->Plugin['page_slug'] , $Plvc->Plugin['url'] . $Plvc->Plugin['ltd'] . '.css', array() , $Plvc->Plugin['ver'] );
+			wp_enqueue_style( $Plvc->Plugin['page_slug'] , $Plvc->Plugin['url'] . $Plvc->Plugin['ltd'] . '.css', array() , $Plvc->Ver );
 			if( version_compare( $wp_version , '3.8' , '<' ) )
-				wp_enqueue_style( $Plvc->Plugin['page_slug'] . '-37' , $Plvc->Plugin['url'] . $Plvc->Plugin['ltd'] . '-3.7.css', array() , $Plvc->Plugin['ver'] );
+				wp_enqueue_style( $Plvc->Plugin['page_slug'] . '-37' , $Plvc->Plugin['url'] . $Plvc->Plugin['ltd'] . '-3.7.css', array() , $Plvc->Ver );
 
 		}
 		
@@ -227,7 +239,7 @@ class Plvc_Manager
 				
 			}
 			
-			add_filter( 'admin_footer_text' , array( $this , 'admin_footer_text' ) );
+			add_filter( 'admin_footer_text' , array( $Plvc->ClassInfo , 'admin_footer_text' ) );
 			
 		}
 		
@@ -257,10 +269,6 @@ class Plvc_Manager
 
 					printf( '<div class="updated"><p><strong>%s</strong></p></div>' , __( 'Settings saved.' ) );
 
-				} elseif( $update_nag == 'donated' ) {
-					
-					printf( '<div class="updated"><p><strong>%s</strong></p></div>' , __( 'Thank you for your donation.' , $Plvc->Plugin['ltd'] ) );
-					
 				}
 				
 			}
@@ -277,7 +285,7 @@ class Plvc_Manager
 		if( !empty( $apply_user_roles['UPFN'] ) )
 			unset( $apply_user_roles['UPFN'] );
 
-		$Contents =  __( 'Apply user roles' , $Plvc->Plugin['ltd'] ) . ' : ';
+		$Contents =  __( 'Apply user roles: ' , $Plvc->Plugin['ltd'] );
 
 		if( !empty( $apply_user_roles ) ) {
 			
@@ -304,28 +312,68 @@ class Plvc_Manager
 		
 	}
 	
-	function donate_notice() {
-		
+	function load_list() {
+
+		global $wp_version;
 		global $Plvc;
 
-		if( $this->is_settings_page() ) {
+		$custom_posts_types = $Plvc->ClassConfig->get_all_custom_posts();
+		$load_list = array( 'link' => self_admin_url( 'edit.php' ) , 'label' => __( 'Posts' ) );
+		
+		if( $this->list_type == 'page' ) {
 			
-			$Plvc->ClassInfo->donate_notice();
+			$load_list = array( 'link' => self_admin_url( 'edit.php?post_type=page' ) , 'label' => __( 'Pages' ) );
+			
+		} elseif( $this->list_type == 'media' ) {
+			
+			$load_list = array( 'link' => self_admin_url( 'upload.php?mode=list' ) , 'label' => __( 'Media Library' ) );
 
+			if( version_compare( $wp_version , '4.0' , '<' ) )
+				$load_list['link'] = self_admin_url( 'upload.php' );
+			
+			
+		} elseif( $this->list_type == 'comments' ) {
+			
+			$load_list = array( 'link' => self_admin_url( 'edit-comments.php' ) , 'label' => __( 'Comments' ) );
+			
+		} elseif( $this->list_type == 'custom_posts' ) {
+			
+			$load_list = array( 'link' => self_admin_url( 'edit.php?post_type=' . $this->list_name ) , 'label' => $custom_posts_types[$this->list_name]['name'] );
+			
 		}
 		
-	}
-
-	function admin_footer_text( $text ) {
-		
-		global $Plvc;
-		
-		$text = $Plvc->ClassInfo->admin_footer_text();
-		
-		return $text;
+		return $load_list;
 		
 	}
 	
+	function ajax_add_list() {
+		
+		global $Plvc;
+
+		if( empty( $_POST['column_id'] ) or empty( $_POST['list_name'] ) or empty( $_POST['list_type'] ) )
+			return false;
+
+		$column_id = strip_tags( $_POST['column_id'] );
+		$list_type = strip_tags( $_POST['list_type'] );
+		$list_name = strip_tags( $_POST['list_name'] );
+
+		$Columns = $Plvc->ClassConfig->get_registed_columns( $list_name );
+		
+		$add_column = array();
+
+		foreach( $Columns as $use_type => $column ) {
+
+			if( array_key_exists( $column_id , $column ) )
+				$add_column = $Columns[$use_type][$column_id];
+
+		}
+
+		$Plvc->setting_list_post( $_POST['list_type'] , $_POST['list_name'] , 'use' , $_POST['column_id'] , $add_column );
+
+		die();
+		
+	}
+
 	function get_data_menus( $menu_type ) {
 		
 		global $Plvc;
@@ -335,18 +383,19 @@ class Plvc_Manager
 		if( $menu_type == 'widgets' ) {
 			
 			$Menus = $Plvc->ClassConfig->get_registed_widgets();
+			$Data = $Plvc->ClassData->get_data_widgets();
 
 		} elseif( $menu_type == 'menus' ) {
 			
 			$Menus = $Plvc->ClassConfig->get_registed_menu_items();
+			$Data = $Plvc->ClassData->get_data_menus();
 
 		} elseif( $menu_type == 'menus_adv' ) {
 			
 			$Menus = $Plvc->ClassConfig->get_registed_menu_advance();
-
+			$Data = $Plvc->ClassData->get_data_menus_adv();
+			
 		}
-		
-		$Data = $Plvc->ClassData->get_record( $Plvc->Plugin['record'][$menu_type] );
 		
 		if( !empty( $Data ) && !empty( $Data['not_use'] ) ) {
 			
@@ -375,18 +424,26 @@ class Plvc_Manager
 		
 		if( !empty( $Columns ) ) {
 			
-			if( in_array( $list_type , array( 'post' , 'page' , 'media' , 'comments' ) ) ) {
+			if( $list_type == 'post' ) {
 				
-				$Data = $Plvc->ClassData->get_record( $Plvc->Plugin['record'][$list_type] );
+				$Data = $Plvc->ClassData->get_data_post();
+			
+			} elseif( $list_type == 'page' ) {
+				
+				$Data = $Plvc->ClassData->get_data_page();
+			
+			} elseif( $list_type == 'media' ) {
+				
+				$Data = $Plvc->ClassData->get_data_media();
+			
+			} elseif( $list_type == 'comments' ) {
+				
+				$Data = $Plvc->ClassData->get_data_comments();
 			
 			} else {
 
-				$Data = array();
-				$CustomPostsData = $Plvc->ClassData->get_record( $Plvc->Plugin['record']['custom_posts'] );
+				$Data = $Plvc->ClassData->get_data_custom_post( $list_type );
 				
-				if( !empty( $CustomPostsData[$list_type] ) )
-					$Data = $CustomPostsData[$list_type];
-	
 			}
 			
 			if( !empty( $Data ) ) {
@@ -402,13 +459,17 @@ class Plvc_Manager
 					
 					foreach( $Data['use'] as $column_id => $column ) {
 						
-						if( !isset( $column['sort'] ) )
-							$column['sort'] = false;
+						if( !isset( $column['sort'] ) ) {
+							
+							$column['sort'] = $Columns['not_use'][$column_id]['sort'];
+							
+						}
 						
 						if( !empty( $Columns['not_use'][$column_id] ) ) {
 							
 							$Columns['use'][$column_id]['name'] = $column['name'];
 							$Columns['use'][$column_id]['sort'] = $column['sort'];
+							$Columns['use'][$column_id]['orderby'] = $Columns['not_use'][$column_id]['orderby'];
 							$Columns['use'][$column_id]['group'] = $Columns['not_use'][$column_id]['group'];
 							$Columns['use'][$column_id]['default_name'] = $Columns['not_use'][$column_id]['default_name'];
 							unset( $Columns['not_use'][$column_id] );

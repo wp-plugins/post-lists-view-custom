@@ -27,7 +27,7 @@ $default_thumbnail_size = $Plvc->ClassConfig->get_default_thumbnail_size();
 		<div id="postbox-container-2" class="postbox-container">
 
 			<form id="<?php echo $Plvc->Plugin['ltd']; ?>_other_form" class="<?php echo $Plvc->Plugin['ltd']; ?>_form" method="post" action="<?php echo $this->get_action_link(); ?>">
-				<input type="hidden" name="<?php echo $Plvc->Plugin['ltd']; ?>_settings" value="Y">
+				<input type="hidden" name="<?php echo $Plvc->Plugin['form']['field']; ?>" value="Y">
 				<?php wp_nonce_field( $Plvc->Plugin['nonces']['value'] , $Plvc->Plugin['nonces']['field'] ); ?>
 				<input type="hidden" name="record_field" value="<?php echo $Plvc->Plugin['record']['other']; ?>" />
 
@@ -112,7 +112,7 @@ $default_thumbnail_size = $Plvc->ClassConfig->get_default_thumbnail_size();
 			<p>&nbsp;</p>
 
 			<form id="<?php echo $Plvc->Plugin['ltd']; ?>_other_reset_form" class="<?php echo $Plvc->Plugin['ltd']; ?>_form" method="post" action="<?php echo $this->get_action_link(); ?>">
-				<input type="hidden" name="<?php echo $Plvc->Plugin['ltd']; ?>_settings" value="Y">
+				<input type="hidden" name="<?php echo $Plvc->Plugin['form']['field']; ?>" value="Y">
 				<?php wp_nonce_field( $Plvc->Plugin['nonces']['value'] , $Plvc->Plugin['nonces']['field'] ); ?>
 				<input type="hidden" name="record_field" value="<?php echo $Plvc->Plugin['record']['other']; ?>" />
 				<input type="hidden" name="reset" value="1" />

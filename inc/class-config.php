@@ -9,9 +9,11 @@ class Plvc_Config
 		
 		add_action( 'plugins_loaded' , array( $this , 'setup_config' ) );
 		add_action( 'plugins_loaded' , array( $this , 'setup_record' ) );
-		add_action( 'plugins_loaded' , array( $this , 'setup_site_env' ) );
-		add_action( 'plugins_loaded' , array( $this , 'setup_current_env' ) );
-		add_action( 'plugins_loaded' , array( $this , 'setup_third_party' ) );
+		add_action( 'init' , array( $this , 'setup_site_env' ) );
+		add_action( 'init' , array( $this , 'setup_current_env' ) );
+		add_action( 'init' , array( $this , 'setup_current_user' ) );
+		add_action( 'init' , array( $this , 'setup_links' ) );
+		add_action( 'init' , array( $this , 'setup_third_party' ) );
 		
 	}
 
@@ -19,7 +21,6 @@ class Plvc_Config
 		
 		global $Plvc;
 		
-		$Plvc->Plugin['ver']              = '1.6.1';
 		$Plvc->Plugin['plugin_slug']      = 'post-lists-view-custom';
 		$Plvc->Plugin['dir']              = trailingslashit( dirname( dirname( __FILE__ ) ) );
 		$Plvc->Plugin['name']             = 'Post Lists View Custom';
@@ -27,9 +28,10 @@ class Plvc_Config
 		$Plvc->Plugin['url']              = plugin_dir_url( dirname( __FILE__ ) );
 		$Plvc->Plugin['ltd']              = 'plvc';
 		$Plvc->Plugin['nonces']           = array( 'field' => $Plvc->Plugin['ltd'] . '_field' , 'value' => $Plvc->Plugin['ltd'] . '_value' );
+		$Plvc->Plugin['form']             = array( 'field' => $Plvc->Plugin['ltd'] . '_settings' );
 		$Plvc->Plugin['UPFN']             = 'Y';
 		$Plvc->Plugin['msg_notice']       = $Plvc->Plugin['ltd'] . '_msg';
-		$Plvc->Plugin['default_role']     = array( 'child' => 'manage_options' , 'network' => 'manage_network' );
+		$Plvc->Plugin['default_role']     = array( 'child' => 'manage_options' , 'network' => 'manage_options' );
 		
 		$Plvc->Plugin['dir_admin_assets'] = $Plvc->Plugin['url'] . trailingslashit( 'admin' ) . trailingslashit( 'assets' );
 
@@ -62,8 +64,11 @@ class Plvc_Config
 		$Plvc->Current['blog_id'] = get_current_blog_id();
 
 		$Plvc->Current['main_blog'] = false;
+
 		if( $Plvc->Current['blog_id'] == 1 ) {
+
 			$Plvc->Current['main_blog'] = true;
+
 		}
 		
 	}
@@ -73,22 +78,8 @@ class Plvc_Config
 		global $Plvc;
 		
 		$Plvc->Current['admin']         = is_admin();
-		$Plvc->Current['ajax']          = false;
-		$Plvc->Current['user_role']     = false;
-		$Plvc->Current['user_login']    = is_user_logged_in();
 		$Plvc->Current['network_admin'] = is_network_admin();
-		$Plvc->Current['superadmin']    = false;
-
-		if( $Plvc->Current['multisite'] )
-			$Plvc->Current['superadmin']    = is_super_admin();
-
-		$User = wp_get_current_user();
-		if( !empty( $User->roles ) ) {
-			foreach( $User->roles as $role ) {
-				$Plvc->Current['user_role'] = $role;
-				break;
-			}
-		}
+		$Plvc->Current['ajax']          = false;
 
 		if( defined( 'DOING_AJAX' ) )
 			$Plvc->Current['ajax'] = true;
@@ -97,6 +88,50 @@ class Plvc_Config
 
 	}
 	
+	function setup_current_user() {
+		
+		global $Plvc;
+		
+		$Plvc->Current['user_login'] = is_user_logged_in();
+		$Plvc->Current['user_role']  = false;
+
+		$User = wp_get_current_user();
+		
+		if( !empty( $User->roles ) ) {
+			foreach( $User->roles as $role ) {
+				$Plvc->Current['user_role'] = $role;
+				break;
+			}
+		}
+
+		$Plvc->Current['superadmin'] = false;
+
+		if( $Plvc->Current['multisite'] )
+			$Plvc->Current['superadmin'] = is_super_admin();
+
+	}
+
+	function setup_links() {
+		
+		global $Plvc;
+		
+		$Plvc->Plugin['links']['author'] = 'http://gqevu6bsiz.chicappa.jp/';
+		$Plvc->Plugin['links']['forum'] = 'http://wordpress.org/support/plugin/' . $Plvc->Plugin['plugin_slug'];
+		$Plvc->Plugin['links']['review'] = 'http://wordpress.org/support/view/plugin-reviews/' . $Plvc->Plugin['plugin_slug'];
+		$Plvc->Plugin['links']['profile'] = 'http://profiles.wordpress.org/gqevu6bsiz';
+		
+		if( $Plvc->Current['multisite'] ) {
+
+			$Plvc->Plugin['links']['setting'] = admin_url( 'admin.php?page=' . $Plvc->Plugin['page_slug'] );
+
+		} else {
+
+			$Plvc->Plugin['links']['setting'] = admin_url( 'admin.php?page=' . $Plvc->Plugin['page_slug'] );
+
+		}
+		
+	}
+
 	function setup_third_party() {
 		
 		global $Plvc;
@@ -121,16 +156,22 @@ class Plvc_Config
 
 		$UserRole = array();
 		$all_user_roles = $wp_roles->roles;
+
 		foreach ( $all_user_roles as $role => $user ) {
+
 			$user['label'] = translate_user_role( $user['name'] );
 			$UserRole[$role] = $user;
+
 		}
 		
 		if( !empty( $Plvc->Current['multisite'] ) && !empty( $Plvc->Current['network_admin'] ) && !empty( $Plvc->Current['superadmin'] ) ) {
 			
 			$add_caps = array( 'manage_network' , 'manage_network_users' , 'manage_network_themes' , 'manage_network_plugins' , 'manage_network_options' );
+
 			foreach( $add_caps as $cap ) {
+
 				$UserRole[$Plvc->Current['user_role']]['capabilities'][$cap] = 1;
+
 			}
 			
 		}
@@ -192,7 +233,7 @@ class Plvc_Config
 
 	}
 	
-	function get_all_custom_posts() {
+	function get_all_custom_posts( $in_nav = false ) {
 		
 		$post_types = array();
 		$custom_posts = get_post_types( array( 'public' => true, '_builtin' => false ) , 'objects' );
@@ -201,7 +242,16 @@ class Plvc_Config
 			
 			foreach( $custom_posts as $post_name => $post_type_obj ) {
 				
-				$post_types[$post_name] = array( 'name' => $post_type_obj->labels->name );
+				if( !empty( $in_nav ) ) {
+					
+					if( !empty( $post_type_obj->show_in_nav_menus ) )
+						$post_types[$post_name] = array( 'name' => $post_type_obj->labels->name );
+					
+				} else {
+					
+					$post_types[$post_name] = array( 'name' => $post_type_obj->labels->name );
+					
+				}
 				
 			}
 			
@@ -211,15 +261,26 @@ class Plvc_Config
 
 	}
 	
-	function get_all_custom_taxonomies() {
+	function get_all_custom_taxonomies( $in_nav = false ) {
 		
 		$taxonomies = array();
 		$custom_taxonomies = get_taxonomies( array( 'public' => true, '_builtin' => false ), 'object' );
 
 		if( !empty( $custom_taxonomies ) ) {
-
+			
 			foreach( $custom_taxonomies as $tax_name => $tax_obj ) {
-				$taxonomies[$tax_name] = array( 'name' => $tax_obj->labels->name );
+
+				if( !empty( $in_nav ) ) {
+					
+					if( !empty( $tax_obj->show_in_nav_menus ) )
+						$taxonomies[$tax_name] = array( 'name' => $tax_obj->labels->name );
+					
+				} else {
+					
+					$taxonomies[$tax_name] = array( 'name' => $tax_obj->labels->name );
+					
+				}
+
 			}
 
 		}
@@ -231,22 +292,22 @@ class Plvc_Config
 	function get_core_posts_columns() {
 		
 		$columns = array(
-			'title'      => array( 'sort' => true , 'label' => __( 'Title' ) ),
-			'author'     => array( 'sort' => false , 'label' => __( 'Author' ) ),
-			'categories' => array( 'sort' => false , 'label' => __( 'Categories' ) ),
-			'tags'       => array( 'sort' => false , 'label' => __( 'Tags' ) ),
-			'comments'   => array( 'sort' => true , 'label' => '<span class="vers"><div title="' . esc_attr__( 'Comments' ) . '" class="comment-grey-bubble"></div></span>' ),
-			'date'       => array( 'sort' => true , 'label' => __( 'Date' ) ),
-			'slug'       => array( 'sort' => false , 'label' => __( 'Slug' ) ),
-			'excerpt'    => array( 'sort' => false , 'label' => __( 'Excerpt' ) ),
-			'id'         => array( 'sort' => false , 'label' => __( 'ID' ) ),
+			'title'      => array( 'sort' => true  , 'orderby' => 'title' , 'label' => __( 'Title' ) ),
+			'author'     => array( 'sort' => false , 'orderby' => 'author' , 'label' => __( 'Author' ) ),
+			'categories' => array( 'sort' => false , 'orderby' => '' , 'label' => __( 'Categories' ) ),
+			'tags'       => array( 'sort' => false , 'orderby' => '' , 'label' => __( 'Tags' ) ),
+			'comments'   => array( 'sort' => true  , 'orderby' => 'comment_count' , 'label' => '<span class="vers"><div title="' . esc_attr__( 'Comments' ) . '" class="comment-grey-bubble"></div></span>' ),
+			'date'       => array( 'sort' => false , 'orderby' => 'date' , 'label' => __( 'Date' ) ),
+			'slug'       => array( 'sort' => false , 'orderby' => 'name' , 'label' => __( 'Slug' ) ),
+			'excerpt'    => array( 'sort' => false , 'orderby' => 'post_excerpt' , 'label' => __( 'Excerpt' ) ),
+			'id'         => array( 'sort' => false , 'orderby' => 'ID' , 'label' => __( 'ID' ) ),
 		);
 		
 		if( current_theme_supports( 'post-thumbnails' ) )
-			$columns['post-thumbnails'] = array( 'sort' => false , 'label' => __( 'Featured Image' ) );
+			$columns['post-thumbnails'] = array( 'sort' => false , 'orderby' => 'post-thumbnails' , 'label' => __( 'Featured Image' ) );
 
 		if( current_theme_supports( 'post-formats' ) )
-			$columns['post-formats'] = array( 'sort' => false , 'label' => __( 'Format' ) );
+			$columns['post-formats'] = array( 'sort' => false , 'orderby' => '' , 'label' => _x( 'Format' , 'post format' ) );
 		
 		return $columns;
 
@@ -255,17 +316,17 @@ class Plvc_Config
 	function get_core_media_columns() {
 		
 		$columns = array(
-			'icon'         => array( 'sort' => false , 'label' => '' ),
-			'title'        => array( 'sort' => true , 'label' => _x( 'File' , 'column name' ) ),
-			'author'       => array( 'sort' => true , 'label' => __( 'Author' ) ),
-			'parent'       => array( 'sort' => true , 'label' => _x( 'Uploaded to' , 'column name' ) ),
-			'comments'     => array( 'sort' => true , 'label' => '<span class="vers"><div title="' . esc_attr__( 'Comments' ) . '" class="comment-grey-bubble"></div></span>' ),
-			'date'         => array( 'sort' => true , 'label' => _x( 'Date' , 'column name' ) ),
-			'media_title'  => array( 'sort' => false , 'label' => __( 'Title' ) ),
-			'image_alt'    => array( 'sort' => false , 'label' => __( 'Alternative Text' ) ),
-			'post_excerpt' => array( 'sort' => false , 'label' => __( 'Caption' ) ),
-			'post_content' => array( 'sort' => false , 'label' => __( 'Details' ) ),
-			'id'           => array( 'sort' => false , 'label' => __( 'ID' ) ),
+			'icon'         => array( 'sort' => false , 'orderby' => '' , 'label' => '' ),
+			'title'        => array( 'sort' => true , 'orderby' => 'title' , 'label' => _x( 'File' , 'column name' ) ),
+			'author'       => array( 'sort' => true , 'orderby' => 'author' , 'label' => __( 'Author' ) ),
+			'parent'       => array( 'sort' => true , 'orderby' => 'parent' , 'label' => _x( 'Uploaded to' , 'column name' ) ),
+			'comments'     => array( 'sort' => true , 'orderby' => 'comment_count' , 'label' => '<span class="vers"><div title="' . esc_attr__( 'Comments' ) . '" class="comment-grey-bubble"></div></span>' ),
+			'date'         => array( 'sort' => true , 'orderby' => 'date' , 'label' => _x( 'Date' , 'column name' ) ),
+			'media_title'  => array( 'sort' => false , 'orderby' => 'title' , 'label' => __( 'Title' ) ),
+			'image_alt'    => array( 'sort' => false , 'orderby' => 'image_alt' , 'label' => __( 'Alternative Text' ) ),
+			'post_excerpt' => array( 'sort' => false , 'orderby' => 'post_excerpt' , 'label' => __( 'Caption' ) ),
+			'post_content' => array( 'sort' => false , 'orderby' => '' , 'label' => __( 'Details' ) ),
+			'id'           => array( 'sort' => false , 'orderby' => 'ID' , 'label' => __( 'ID' ) ),
 		);
 		
 		return $columns;
@@ -275,13 +336,13 @@ class Plvc_Config
 	function get_core_comments_columns() {
 		
 		$columns = array(
-			'author'                  => array( 'sort' => true , 'label' => __( 'Author' ) ),
-			'comment'                 => array( 'sort' => false , 'label' => __( 'Comments' ) ),
-			'response'                => array( 'sort' => true , 'label' => _x( 'In Response To' , 'column name' ) ),
-			'newcomment_author'       => array( 'sort' => false , 'label' => __( 'Name' ) ),
-			'newcomment_author_email' => array( 'sort' => false , 'label' => __( 'E-mail' ) ),
-			'newcomment_author_url'   => array( 'sort' => false , 'label' => __( 'URL' ) ),
-			'id'                      => array( 'sort' => false , 'label' => __( 'ID' ) ),
+			'author'                  => array( 'sort' => true , 'orderby' => 'comment_author' , 'label' => __( 'Author' ) ),
+			'comment'                 => array( 'sort' => true , 'orderby' => '' , 'label' => __( 'Comments' ) ),
+			'response'                => array( 'sort' => true , 'orderby' => 'comment_post_ID' , 'label' => _x( 'In Response To' , 'column name' ) ),
+			'newcomment_author'       => array( 'sort' => false , 'orderby' => 'comment_author' , 'label' => __( 'Name' ) ),
+			'newcomment_author_email' => array( 'sort' => false , 'orderby' => 'comment_author_email' , 'label' => __( 'E-mail' ) ),
+			'newcomment_author_url'   => array( 'sort' => false , 'orderby' => 'comment_author_url' , 'label' => __( 'URL' ) ),
+			'id'                      => array( 'sort' => false , 'orderby' => 'comment_ID' , 'label' => __( 'ID' ) ),
 		);
 		
 		return $columns;
@@ -343,6 +404,7 @@ class Plvc_Config
 		
 		$columns = array();
 		$registed_columns = $Plvc->ClassData->get_registed_columns( $list_type );
+		$registed_sortable_columns = $Plvc->ClassData->get_registed_sortable_columns( $list_type );
 		
 		if( empty( $registed_columns ) )
 			return false;
@@ -352,6 +414,34 @@ class Plvc_Config
 			
 		if( !empty( $registed_columns ) ) {
 			
+			if( !empty( $registed_columns ) ) {
+				
+				foreach( $registed_columns as $column_id => $column_name ) {
+					
+					$orderby = false;
+					$sort = false;
+
+					if( !empty( $registed_sortable_columns[$column_id] ) ) {
+						
+						$sort = true;
+
+						if( is_array( $registed_sortable_columns[$column_id] ) ) {
+							
+							$orderby = $column_id;
+
+						} else {
+							
+							$orderby = $registed_sortable_columns[$column_id];
+							
+						}
+
+					}
+					$columns['use'][$column_id] = array( 'name' => $column_name , 'group' => 'plugin' , 'sort' => $sort , 'orderby' => $orderby );
+	
+				}
+				
+			}
+
 			if( $list_type == 'media' ) {
 
 				$core_columns = $this->get_core_media_columns();
@@ -363,9 +453,12 @@ class Plvc_Config
 			} else {
 
 				$core_columns = $this->get_core_posts_columns();
+
 				if( $list_type == 'page' ) {
+
 					unset( $core_columns['categories'] );
 					unset( $core_columns['tags'] );
+
 				}
 
 			}
@@ -374,35 +467,35 @@ class Plvc_Config
 				
 				if( array_key_exists( $column_id , $registed_columns ) ) {
 
-					$columns['use'][$column_id] = array( 'name' => $column['label'] , 'group' => '' , 'sort' => $column['sort'] );
+					if( !empty( $columns['use'][$column_id] ) ) {
+						
+						$columns['use'][$column_id]['group'] = false;
+						$columns['use'][$column_id]['sort'] = $column['sort'];
+						$columns['use'][$column_id]['orderby'] = $column['orderby'];
+
+					} else {
+
+						$columns['use'][$column_id] = array( 'name' => $column['label'] , 'group' => '' , 'sort' => $column['sort'] , 'orderby' => $column['orderby'] );
+
+					}
 					unset( $registed_columns[$column_id] );
 
 				} else {
 
-					$columns['not_use'][$column_id] = array( 'name' => $column['label'] , 'group' => '' , 'sort' => $column['sort'] );
+					$columns['not_use'][$column_id] = array( 'name' => $column['label'] , 'group' => '' , 'sort' => $column['sort'] , 'orderby' => $column['orderby'] );
 					unset( $registed_columns[$column_id] );
 
 				}
 				
 			}
 			
-			if( !empty( $registed_columns ) ) {
-				
-				foreach( $registed_columns as $column_id => $column_name ) {
-					
-					$columns['use'][$column_id] = array( 'name' => $column_name , 'group' => 'plugin' , 'sort' => false );
-	
-				}
-				
-			}
-
 			$custom_fields = $this->get_all_custom_fields();
 	
 			if( !empty( $custom_fields ) && !in_array( $list_type , array( 'media' , 'comments' ) ) ) {
 						
 				foreach( $custom_fields as $field_name ) {
 					
-					$columns['not_use'][$field_name] = array( 'name' => $field_name , 'group' => 'custom_field' , 'sort' => false );
+					$columns['not_use'][$field_name] = array( 'name' => $field_name , 'group' => 'custom_field' , 'sort' => true , 'orderby' => $field_name );
 						
 				}
 						
@@ -411,13 +504,40 @@ class Plvc_Config
 		}
 		
 		if( !empty( $columns ) ) {
-			foreach( $columns as $use_type => $column ) {
-				foreach( $column as $column_id => $column_setting ) {
-					$columns[$use_type][$column_id]['default_name'] = $column_setting['name'];
+
+			if( !empty( $registed_sortable_columns ) ) {
+				
+				foreach( $registed_sortable_columns as $sortable_id => $sortable ) {
+					
+					foreach( $columns as $use_type => $column ) {
+						
+						foreach( $column as $column_id => $column_setting ) {
+							
+							if( $column_id == $sortable_id ) {
+								
+								$columns[$use_type][$column_id]['sort'] = true;
+								
+							}
+							
+						}
+						
+					}
+					
 				}
+				
 			}
-		}
 		
+			foreach( $columns as $use_type => $column ) {
+
+				foreach( $column as $column_id => $column_setting ) {
+
+					$columns[$use_type][$column_id]['default_name'] = $column_setting['name'];
+
+				}
+
+			}
+
+		}
 		
 		return $columns;
 
@@ -485,7 +605,8 @@ class Plvc_Config
 
 		}
 		
-		$custom_posts = $this->get_all_custom_posts();
+		$custom_posts = $this->get_all_custom_posts( true );
+
 		if( !empty( $custom_posts ) ) {
 			
 			foreach( $custom_posts as $post_name => $custom_post ) {
@@ -497,7 +618,8 @@ class Plvc_Config
 			
 		}
 
-		$custom_taxonomies = $this->get_all_custom_taxonomies();
+		$custom_taxonomies = $this->get_all_custom_taxonomies( true );
+
 		if( !empty( $custom_taxonomies ) ) {
 			
 			foreach( $custom_taxonomies as $tax_name => $taxonomy ) {

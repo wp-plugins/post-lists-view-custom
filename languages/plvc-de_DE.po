@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Post Lists View Custom\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-08 12:49+0900\n"
-"PO-Revision-Date: 2014-04-08 13:04+0900\n"
+"POT-Creation-Date: 2014-09-14 14:08+0900\n"
+"PO-Revision-Date: 2014-09-14 14:18+0900\n"
 "Last-Translator: gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
 "Language-Team: gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -21,263 +21,257 @@ msgstr ""
 msgid "Allow to customizing for the list screen."
 msgstr "Individuell einstellbare Listenansicht f&uuml;r Beitr&auml;ge, Seiten und benutzerdefinierte Inhaltstypen."
 
-#: post-lists-view-custom.php:148
-#: post-lists-view-custom.php:401
+#: post-lists-view-custom.php:212
+msgid "Sort"
+msgstr "Art"
+
+#: post-lists-view-custom.php:274
+msgid "Taxonomy"
+msgstr "Taxonomis"
+
+#: inc/class-config.php:658
+msgid "Automatic"
+msgstr "Automatisch"
+
+#: inc/class-config.php:659
+msgid "Not automatic"
+msgstr "Nicht automatische"
+
+#: inc/class-manager.php:100
+#: inc/class-manager.php:223
 msgid "show screen"
 msgstr "Zeige Ansicht"
 
-#: post-lists-view-custom.php:149
+#: inc/class-manager.php:101
 msgid "show advanced properties screen"
 msgstr "Erweiterte Men&uuml;eigenschaften"
 
-#: post-lists-view-custom.php:149
+#: inc/class-manager.php:101
 msgid "advanced properties"
 msgstr "Erweiterte Einstellungen"
 
-#: post-lists-view-custom.php:150
-#: post-lists-view-custom.php:151
-#: post-lists-view-custom.php:438
-#: inc/select_custom.php:21
+#: inc/class-manager.php:102
+#: inc/class-manager.php:191
 msgid "Custom Post Type"
 msgstr "Benutzerdefinierte Inhaltstypen"
 
-#: post-lists-view-custom.php:152
-#: post-lists-view-custom.php:454
+#: inc/class-manager.php:103
+#: inc/class-manager.php:236
+#: inc/setting_other.php:34
 msgid "Other Settings"
 msgstr "Andere Einstellungen"
 
-#: post-lists-view-custom.php:322
-#, php-format
-msgid "Authority to apply the setting is not selected. <a href=\"%s\">From here</a>, please select the permissions you want to set."
-msgstr "Keine Berechtigung gesetzt. W&auml;hle  <a href=\"%s\">hier</a> die Berechtigungen aus, die Du festlegen m&ouml;chtest."
-
-#: post-lists-view-custom.php:356
-#: post-lists-view-custom.php:365
-#: post-lists-view-custom.php:374
-#: post-lists-view-custom.php:383
-#: post-lists-view-custom.php:392
-#: post-lists-view-custom.php:401
-#: post-lists-view-custom.php:438
-#: inc/select_custom.php:21
+#: inc/class-manager.php:168
+#: inc/class-manager.php:175
+#: inc/class-manager.php:191
+#: inc/class-manager.php:196
+#: inc/class-manager.php:203
+#: inc/class-manager.php:210
+#: inc/class-manager.php:217
+#: inc/class-manager.php:223
 #, php-format
 msgid "%2$s for %3$s %1$s"
 msgstr "%2$s f&uuml;r %3$s %1$s"
 
-#: post-lists-view-custom.php:410
+#: inc/class-manager.php:229
 msgid "Menus of advanced feature adapted to the screen"
 msgstr "Anpassen der Ansicht f&uuml;r erweiterte Men&uuml;anzeige"
 
-#: post-lists-view-custom.php:441
-#: post-lists-view-custom.php:446
-#: inc/select_custom.php:43
-msgid "No custom post type found."
-msgstr "Keine benutzerdefinierte Inhaltstypen gefunden."
+#: inc/class-manager.php:288
+msgid "Apply user roles: "
+msgstr "Benutzerrolle festlegen: "
 
-#: post-lists-view-custom.php:442
-#: post-lists-view-custom.php:447
-msgid "Please select Custom Posts type from here."
-msgstr "W&auml;hle einen benutzerdefinierten Inhaltstypen."
+#: inc/class-manager.php:303
+#, php-format
+msgid "Authority to apply the setting is not selected. <a href=\"%s\">From here</a>, please select the permissions you want to set."
+msgstr "Keine Berechtigung gesetzt. W&auml;hle  <a href=\"%s\">hier</a> die Berechtigungen aus, die Du festlegen m&ouml;chtest."
 
-#: post-lists-view-custom.php:526
-msgid "Apply user roles"
-msgstr "Benutzerrolle festlegen."
-
-#: post-lists-view-custom.php:867
-msgid "ID"
-msgstr "ID"
-
-#: post-lists-view-custom.php:1782
-#: inc/donation.php:5
+#: inc/class-plugin-info.php:95
+#: inc/information.php:3
 msgid "Thank you for your donation."
 msgstr "Vielen Dank f&uuml;r Deine Unterst&uuml;tzung."
 
-#: post-lists-view-custom.php:1797
-msgid "To donate if you feel that it is useful, please."
-msgstr "Gerne kannst Du mich mit einer Spende unterst&uuml;tzen. Ich bedanke mich herzlich."
+#: inc/class-plugin-info.php:102
+#: inc/information.php:14
+msgid "Please consider making a donation."
+msgstr "Erw&auml;gen Sie bitte eine Spende."
 
-#: inc/donation.php:11
-msgid "Thank you for considering donate."
-msgstr "Vielen Dank daf&uuml;r, da&szlig; Du meine Arbeit unterst&uuml;tzen m&ouml;chtest."
-
-#: inc/donation.php:12
+#: inc/information.php:16
 msgid "Thank you very much for your support."
 msgstr "Bitte dr&uuml;cke den Spenden-Button."
 
-#: inc/donation.php:14
+#: inc/information.php:17
 msgid "Donate"
 msgstr "Spenden"
 
-#: inc/donation.php:17
+#: inc/information.php:18
 msgid "Please enter the 'Donation delete key' that have been described in the 'Line Break First and End download page'."
 msgstr "Nach Erhalt der Best&auml;tigung Deiner Spende gib hier Deinen 'Donation delete key' ein."
 
-#: inc/donation.php:21
+#: inc/information.php:22
 msgid "Donation delete key"
 msgstr "Donation delete key"
 
-#: inc/donation.php:25
+#: inc/information.php:27
 msgid "I'm looking forward to your proposal."
 msgstr "Ich freue mich auf Anregungen."
 
-#: inc/donation.php:26
+#: inc/information.php:28
 msgid "Please contact me if you have any good idea."
 msgstr "Bitte kontaktiere mich, um Vorschl&auml;ge oder W&uuml;nsche mitzuteilen."
 
-#: inc/donation.php:37
+#: inc/information.php:35
 msgid "Have you want to customize?"
 msgstr "Du ben&ouml;tigst eine individuelle Einrichtung Deiner Administrationsseiten?"
 
-#: inc/donation.php:43
+#: inc/information.php:42
 msgid "I am good at Admin Screen Customize."
 msgstr "Die Anpassung der Administrationsoberfl&auml;che ist meine Hauptgebiet."
 
-#: inc/donation.php:44
+#: inc/information.php:43
 msgid "Please consider the request to me if it is good."
 msgstr "Bitte pr&uuml;fe, ob Deine Anfrage an mich vollst&auml;ndig ist."
 
-#: inc/donation.php:46
+#: inc/information.php:45
 msgid "Contact"
 msgstr "Kontakt (engl.)"
 
-#: inc/donation.php:48
+#: inc/information.php:47
 msgid "Example Customize"
 msgstr "Anpassungsbeispiel."
 
-#: inc/donation.php:54
+#: inc/information.php:52
 msgid "About plugin"
 msgstr "&Uuml;ber das Plugin"
 
-#: inc/donation.php:56
+#: inc/information.php:54
 msgid "Version checked"
 msgstr "Version gepr&uuml;ft"
 
-#: inc/donation.php:58
+#: inc/information.php:56
 msgid "Developer's site"
 msgstr "Die Entwickler Website"
 
-#: inc/donation.php:60
+#: inc/information.php:58
 msgid "Reviews"
 msgstr "Bewertungen"
 
-#: inc/donation.php:65
-#: inc/setting_default.php:71
+#: inc/information.php:63
+#: inc/setting.php:64
 msgid "Would you like to translate?"
 msgstr "M&ouml;chtest Du &uuml;bersetzen?"
 
-#: inc/donation.php:69
-#: inc/setting_default.php:75
+#: inc/information.php:64
+#: inc/setting.php:68
 #, php-format
 msgid "Do you have a proposal you want to improve? Please contact to %s if it is necessary."
 msgstr "Hast Du einen Verbesserungsvorschlag? Bitte schreibe mich hier % s, wenn Du m&ouml;chtest."
 
-#: inc/donation.php:74
+#: inc/information.php:69
 msgid "Useful plugins"
 msgstr "N&uuml;tzliche Plugins"
 
-#: inc/donation.php:77
+#: inc/information.php:72
 msgid "This add-on is can be different setting for each user roles."
 msgstr "Mithilfe dieses Add-ons kann die Anpassung in \"Post Lists View Custom\" f&uuml;r verschiedene Benutzer eingestellt werden."
 
-#: inc/donation.php:79
+#: inc/information.php:74
 msgid "Customize a variety of screen management."
 msgstr "Für eine Vielzahl von Ansichten lassen sich die Bildschirmausgaben anpassen."
 
-#: inc/donation.php:81
+#: inc/information.php:76
 msgid "Announce to display the dashboard. Change the display to a different user role."
 msgstr "Nachrichten/Notitzblock f&uuml;r das Dashboard. Die Einstellungen lassen sich auf Benutzerrollen differenzieren."
 
-#: inc/donation.php:83
+#: inc/information.php:78
 msgid "The plugin that allows you to add the value of the options. Option value that you have created, can be used in addition to the template tag, Short code can be used in the body of the article."
 msgstr "Plugin zum Anlegen von Werten f&uuml;r  Optionen. Der Wert einer Option kann als Erg&auml;nzung zum Template Tag verwendet werden oder als Shortcode im Nachrichtenfeld eines Beitrages."
 
-#: inc/donation.php:85
-msgid "All Plugins"
-msgstr "Alle Plugins"
-
-#: inc/select_custom.php:32
-msgid "Please choose a custom post type you want to change the list's view."
-msgstr "Bitte w&auml;hle einen benutzerdefinierte Inhaltstypen, um die Liste der Ansicht zu &auml;ndern."
-
-#: inc/setting_default.php:23
+#: inc/setting.php:12
 msgid "Apply the settings of Post Lists View Custom only user roles selected."
 msgstr "Die vorgenommenen individuellen Einstellungen werden nur f&uuml;r die unten ausgew&auml;hlte(n) Benutzergruppen ausgef&uuml;hrt."
 
-#: inc/setting_default.php:24
+#: inc/setting.php:13
 msgid "Please select the user roles that all settings will apply to."
 msgstr "Bitte w&auml;hle die Benutzergruppen, f&uuml;r die Einstellungen &uuml;bernommen werden sollen."
 
-#: inc/setting_default.php:61
-#: inc/setting_lists.php:106
-#: inc/setting_menus.php:79
-#: inc/setting_other.php:81
+#: inc/setting.php:57
+#: inc/setting_menu.php:81
+#: inc/setting_other.php:119
+#: inc/setting_post.php:102
 msgid "Reset all settings?"
 msgstr "Einstellungen zur&uuml;cksetzen?"
 
-#: inc/setting_default.php:62
-#: inc/setting_lists.php:107
-#: inc/setting_menus.php:80
-#: inc/setting_other.php:82
+#: inc/setting.php:58
+#: inc/setting_menu.php:82
+#: inc/setting_other.php:120
+#: inc/setting_post.php:103
 msgid "Reset settings"
 msgstr "Einstellungen zur&uuml;cksetzen"
 
-#: inc/setting_default.php:74
+#: inc/setting.php:67
 msgid "Bug reports and suggestions"
 msgstr "Fehlermeldungen und Anregungen"
 
-#: inc/setting_lists.php:39
+#: inc/setting_menu.php:28
+msgid "Please select the column item to hide."
+msgstr "Selektiere die Eintr&auml;ge, die Du ausblenden m&ouml;chtest."
+
+#: inc/setting_other.php:43
+#, php-format
+msgid "Please choose the minimum role that can modify %s settings."
+msgstr "Bitte w&auml;hle die Benutzergruppen, f&uuml;r die Einstellungen &uuml;bernommen werden %s sollen."
+
+#: inc/setting_other.php:55
+msgid "Automatic width conversion of List table"
+msgstr "Automatische Breiten Umwandlung der Liste Tabelle"
+
+#: inc/setting_other.php:58
+msgid "This means is include the CSS for auto width settings on List page."
+msgstr "Diese Mittel umfassen die CSS f&uuml;r Auto-Breite-Einstellungen auf der Seite Liste."
+
+#: inc/setting_other.php:60
+msgid "Width setting of cell"
+msgstr "Breite Einstellung der Zelle"
+
+#: inc/setting_other.php:69
+msgid "Automatic width setting CSS file"
+msgstr "Automatische Breiteneinstellung CSS Datei"
+
+#: inc/setting_other.php:97
+msgid "Change the Thumbnail size for Post, Page, and Custom Post type."
+msgstr "&Auml;ndern Sie die Thumbnail-Gr&ouml;&szlig;e f&uuml;r Post, Seite, und benutzerdefinierten Post-Typ."
+
+#: inc/setting_other.php:101
+msgid "Height will be displayed in proportion to the width."
+msgstr "Das Seitenverh&auml;ltnis H&ouml;he zur Breite bleibt erhalten."
+
+#: inc/setting_post.php:30
+msgid "Please lists view customize to sort by Drag & Drop."
+msgstr "Bitte Listen-Ansicht anpassen, um per Drag &amp; Drop sortieren."
+
+#: inc/setting_post.php:37
+msgid "Add new Column"
+msgstr "Neue Spalte hinzuf&uuml;gen"
+
+#: inc/setting_post.php:59
+msgid "Add New"
+msgstr "Neu hinzuf&uuml;gen"
+
+#: inc/setting_post.php:109
 #, php-format
 msgid "Could not read the columns. Please load the %s."
 msgstr "Die Spalten konnte nicht gelesen werden. Bitte laden Sie die %s."
 
-#: inc/setting_lists.php:41
+#: inc/setting_post.php:112
 #, php-format
 msgid "Load the %s"
 msgstr "Legen Sie die %s"
 
-#: inc/setting_lists.php:50
-msgid "Please rearrange the order in which you want to view by Drag & Drop."
-msgstr "Bitte sortiere per Drag & Drop in die gew&uuml;nschte Reihenfolge."
+#: inc/setting_select_post.php:24
+msgid "Please choose a custom post type you want to change the list's view."
+msgstr "Bitte w&auml;hle einen benutzerdefinierte Inhaltstypen, um die Liste der Ansicht zu &auml;ndern."
 
-#: inc/setting_lists.php:86
-msgid "Please drag and drop the columns you want to show."
-msgstr "Bitte ziehen Sie die Spalten, die Sie anzeigen möchten."
-
-#: inc/setting_menus.php:32
-msgid "Please select the column item to hide."
-msgstr "Selektiere die Eintr&auml;ge, die Du ausblenden m&ouml;chtest."
-
-#: inc/setting_menus.php:60
-msgid "Taxonomy"
-msgstr "Taxonomis"
-
-#: inc/setting_other.php:37
-msgid "Automatic width conversion of List table"
-msgstr "Automatische Breiten Umwandlung der Liste Tabelle"
-
-#: inc/setting_other.php:42
-msgid "Width setting of cell"
-msgstr "Breite Einstellung der Zelle"
-
-#: inc/setting_other.php:45
-msgid "Automatic"
-msgstr "Automatisch"
-
-#: inc/setting_other.php:45
-msgid "Not automatic"
-msgstr "Nicht automatische"
-
-#: inc/setting_other.php:52
-msgid "This means is include the CSS for auto width settings on List page."
-msgstr "Diese Mittel umfassen die CSS f&uuml;r Auto-Breite-Einstellungen auf der Seite Liste."
-
-#: inc/setting_other.php:53
-msgid "Automatic width setting CSS file"
-msgstr "Automatische Breiteneinstellung CSS Datei"
-
-#: inc/setting_other.php:60
-msgid "Change the Thumbnail size for Post, Page, and Custom Post type."
-msgstr "&Auml;ndern Sie die Thumbnail-Gr&ouml;&szlig;e f&uuml;r Post, Seite, und benutzerdefinierten Post-Typ."
-
-#: inc/setting_other.php:71
-msgid "Height will be displayed in proportion to the width."
-msgstr "Das Seitenverh&auml;ltnis H&ouml;he zur Breite bleibt erhalten."
+#: inc/setting_select_post.php:37
+msgid "No custom post type found."
+msgstr "Keine benutzerdefinierte Inhaltstypen gefunden."

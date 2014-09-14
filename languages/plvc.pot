@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Post Lists View Custom\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-05 18:07+0900\n"
-"PO-Revision-Date: 2014-08-05 18:07+0900\n"
+"POT-Creation-Date: 2014-09-14 14:08+0900\n"
+"PO-Revision-Date: 2014-09-14 14:08+0900\n"
 "Last-Translator: gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
 "Language-Team: gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -18,73 +18,77 @@ msgstr ""
 msgid "Allow to customizing for the list screen."
 msgstr ""
 
-#: post-lists-view-custom.php:283
+#: post-lists-view-custom.php:212
+msgid "Sort"
+msgstr ""
+
+#: post-lists-view-custom.php:274
 msgid "Taxonomy"
 msgstr ""
 
-#: inc/class-config.php:536
+#: inc/class-config.php:658
 msgid "Automatic"
 msgstr ""
 
-#: inc/class-config.php:537
+#: inc/class-config.php:659
 msgid "Not automatic"
 msgstr ""
 
-#: inc/class-manager.php:98
-#: inc/class-manager.php:211
+#: inc/class-manager.php:100
+#: inc/class-manager.php:223
 msgid "show screen"
 msgstr ""
 
-#: inc/class-manager.php:99
+#: inc/class-manager.php:101
 msgid "show advanced properties screen"
 msgstr ""
 
-#: inc/class-manager.php:99
+#: inc/class-manager.php:101
 msgid "advanced properties"
 msgstr ""
 
-#: inc/class-manager.php:100
-#: inc/class-manager.php:179
+#: inc/class-manager.php:102
+#: inc/class-manager.php:191
 msgid "Custom Post Type"
 msgstr ""
 
-#: inc/class-manager.php:101
-#: inc/class-manager.php:224
+#: inc/class-manager.php:103
+#: inc/class-manager.php:236
 #: inc/setting_other.php:34
 msgid "Other Settings"
 msgstr ""
 
-#: inc/class-manager.php:156
-#: inc/class-manager.php:163
-#: inc/class-manager.php:179
-#: inc/class-manager.php:184
+#: inc/class-manager.php:168
+#: inc/class-manager.php:175
 #: inc/class-manager.php:191
-#: inc/class-manager.php:198
-#: inc/class-manager.php:205
-#: inc/class-manager.php:211
+#: inc/class-manager.php:196
+#: inc/class-manager.php:203
+#: inc/class-manager.php:210
+#: inc/class-manager.php:217
+#: inc/class-manager.php:223
 #, php-format
 msgid "%2$s for %3$s %1$s"
 msgstr ""
 
-#: inc/class-manager.php:217
+#: inc/class-manager.php:229
 msgid "Menus of advanced feature adapted to the screen"
 msgstr ""
 
-#: inc/class-manager.php:262
-#: inc/information.php:3
-msgid "Thank you for your donation."
+#: inc/class-manager.php:288
+msgid "Apply user roles: "
 msgstr ""
 
-#: inc/class-manager.php:280
-msgid "Apply user roles"
-msgstr ""
-
-#: inc/class-manager.php:295
+#: inc/class-manager.php:303
 #, php-format
 msgid "Authority to apply the setting is not selected. <a href=\"%s\">From here</a>, please select the permissions you want to set."
 msgstr ""
 
-#: inc/class-plugin-info.php:193
+#: inc/class-plugin-info.php:95
+#: inc/information.php:3
+msgid "Thank you for your donation."
+msgstr ""
+
+#: inc/class-plugin-info.php:102
 #: inc/information.php:14
 msgid "Please consider making a donation."
 msgstr ""
@@ -101,82 +105,82 @@ msgstr ""
 msgid "Please enter the 'Donation delete key' that have been described in the 'Line Break First and End download page'."
 msgstr ""
 
-#: inc/information.php:23
+#: inc/information.php:22
 msgid "Donation delete key"
 msgstr ""
 
-#: inc/information.php:28
+#: inc/information.php:27
 msgid "I'm looking forward to your proposal."
 msgstr ""
 
-#: inc/information.php:29
+#: inc/information.php:28
 msgid "Please contact me if you have any good idea."
 msgstr ""
 
-#: inc/information.php:36
+#: inc/information.php:35
 msgid "Have you want to customize?"
 msgstr ""
 
-#: inc/information.php:43
+#: inc/information.php:42
 msgid "I am good at Admin Screen Customize."
 msgstr ""
 
-#: inc/information.php:44
+#: inc/information.php:43
 msgid "Please consider the request to me if it is good."
 msgstr ""
 
-#: inc/information.php:46
+#: inc/information.php:45
 msgid "Contact"
 msgstr ""
 
-#: inc/information.php:48
+#: inc/information.php:47
 msgid "Example Customize"
 msgstr ""
 
-#: inc/information.php:53
+#: inc/information.php:52
 msgid "About plugin"
 msgstr ""
 
-#: inc/information.php:55
+#: inc/information.php:54
 msgid "Version checked"
 msgstr ""
 
-#: inc/information.php:57
+#: inc/information.php:56
 msgid "Developer's site"
 msgstr ""
 
-#: inc/information.php:59
+#: inc/information.php:58
 msgid "Reviews"
 msgstr ""
 
-#: inc/information.php:64
+#: inc/information.php:63
 #: inc/setting.php:64
 msgid "Would you like to translate?"
 msgstr ""
 
-#: inc/information.php:65
+#: inc/information.php:64
 #: inc/setting.php:68
 #, php-format
 msgid "Do you have a proposal you want to improve? Please contact to %s if it is necessary."
 msgstr ""
 
-#: inc/information.php:70
+#: inc/information.php:69
 msgid "Useful plugins"
 msgstr ""
 
-#: inc/information.php:73
+#: inc/information.php:72
 msgid "This add-on is can be different setting for each user roles."
 msgstr ""
 
-#: inc/information.php:75
+#: inc/information.php:74
 msgid "Customize a variety of screen management."
 msgstr ""
 
-#: inc/information.php:77
+#: inc/information.php:76
 msgid "Announce to display the dashboard. Change the display to a different user role."
 msgstr ""
 
-#: inc/information.php:79
+#: inc/information.php:78
 msgid "The plugin that allows you to add the value of the options. Option value that you have created, can be used in addition to the template tag, Short code can be used in the body of the article."
 msgstr ""
 
@@ -191,14 +195,14 @@ msgstr ""
 #: inc/setting.php:57
 #: inc/setting_menu.php:81
 #: inc/setting_other.php:119
-#: inc/setting_post.php:112
+#: inc/setting_post.php:102
 msgid "Reset all settings?"
 msgstr ""
 
 #: inc/setting.php:58
 #: inc/setting_menu.php:82
 #: inc/setting_other.php:120
-#: inc/setting_post.php:113
+#: inc/setting_post.php:103
 msgid "Reset settings"
 msgstr ""
 
@@ -247,22 +251,18 @@ msgstr ""
 msgid "Add new Column"
 msgstr ""
 
-#: inc/setting_post.php:69
+#: inc/setting_post.php:59
 msgid "Add New"
 msgstr ""
 
-#: inc/setting_post.php:136
+#: inc/setting_post.php:109
 #, php-format
 msgid "Could not read the columns. Please load the %s."
 msgstr ""
 
-#: inc/setting_post.php:139
+#: inc/setting_post.php:112
 #, php-format
 msgid "Load the %s"
-msgstr ""
-
-#: inc/setting_post.php:144
-msgid "Loading&hellip;"
 msgstr ""
 
 #: inc/setting_select_post.php:24

@@ -49,13 +49,20 @@
 	width: auto;
 }
 .columns-2.plvc table.wp-list-table thead tr th.collapse {
-	width: 40%;
+	width: 30%;
 }
 .columns-2.plvc table.wp-list-table thead tr th.collapse .edit-field {
 	display: block;
 }
+.columns-2.plvc table.wp-list-table thead tr th.collapse .edit-field .sort_label {
+	display: block;
+	margin-top: 8px;
+}
 .columns-2.plvc table.wp-list-table thead tr th .show-field {
 	position: relative;
+}
+.columns-2.plvc table.wp-list-table thead tr th .show-field .column-title {
+	min-height: 19px;
 }
 .columns-2.plvc table.wp-list-table thead tr th .show-field .column-toggle {
 	cursor: pointer;
@@ -114,8 +121,10 @@
 	background: #098DAE;
 	color: #fff;
 }
-.columns-2.plvc table.wp-list-table thead tr th.plugin .edit-field .description,
-.columns-2.plvc table.wp-list-table thead tr th.plugin .edit-field .remove-action a {
+.columns-2.plvc table.wp-list-table thead tr th.plugin .edit-field .remove-action a,
+.columns-2.plvc table.wp-list-table thead tr th.custom_field .edit-field .remove-action a,
+.columns-2.plvc table.wp-list-table thead tr th.plugin .show-field .column-toggle,
+.columns-2.plvc table.wp-list-table thead tr th.custom_field .show-field .column-toggle {
 	color: #fff;
 }
 .columns-2.plvc table.wp-list-table thead tr th.custom_field,
@@ -124,16 +133,9 @@
 	background: #9F293A;
 	color: #fff;
 }
-.columns-2.plvc table.wp-list-table thead tr th.custom_field .edit-field .description,
-.columns-2.plvc table.wp-list-table thead tr th.custom_field .edit-field .remove-action a {
-	color: #fff;
-}
 .columns-2.plvc table.menu-lists tr.custom_post th,
 .columns-2.plvc table.menu-lists tr.custom_post td {
 	background: #F47400;
-	color: #fff;
-}
-.columns-2.plvc table.menu-lists tr.custom_post td .description {
 	color: #fff;
 }
 .columns-2.plvc table.menu-lists tr.custom_taxonomy th,
@@ -141,10 +143,14 @@
 	background: #3BA610;
 	color: #fff;
 }
+.columns-2.plvc table.wp-list-table thead tr th.plugin .edit-field .description,
+.columns-2.plvc table.wp-list-table thead tr th.custom_field .edit-field .description,
+.columns-2.plvc table.menu-lists tr.plugin td .description,
+.columns-2.plvc table.menu-lists tr.custom_post td .description,
 .columns-2.plvc table.menu-lists tr.custom_taxonomy td .description {
 	color: #fff;
+	opacity: 0.7;
 }
-
 
 
 

@@ -1,9 +1,9 @@
 === Post Lists View Custom ===
 Contributors: gqevu6bsiz
-Donate link: http://gqevu6bsiz.chicappa.jp/please-donation/?utm_source=wporg&utm_medium=donate&utm_content=plvc&utm_campaign=1_6_1
+Donate link: http://gqevu6bsiz.chicappa.jp/please-donation/?utm_source=wporg&utm_medium=donate&utm_content=plvc&utm_campaign=1_7
 Tags: admin, post, posts, page, upload, media, attachment, lists, view, custom, customfield, field, custom_post, navi, menu, comment, widgets
 Requires at least: 3.6.1
-Tested up to: 3.9.2
+Tested up to: 4.0
 Stable tag: 1.6.1
 License: GPL2
 
@@ -43,6 +43,16 @@ These list to customization is possible.
 5. Screen Widgets
 
 == Changelog ==
+
+= 1.7 =
+* Updated: Media Library support when list view with WP 4.0.
+* Added: Possible to sortable on List table customize.
+* Fixed: Text color showing on customizing.
+* Fixed: Javascript error when Add new columns with WP 4.0.
+* Fixed: Change the priority of some hooks.
+* Fixed: Change the show to custom posts and custom taxonomy that is displayed on the Menu.
+* Fixed: Setting the automatic width of the ID column.
+* Fixed: Sort the columns.
 
 = 1.6.1 =
 * Updated: List table also apply to the width of Thumbnail.

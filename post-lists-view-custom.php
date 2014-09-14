@@ -3,9 +3,9 @@
 Plugin Name: Post Lists View Custom
 Description: Allow to customizing for the list screen.
 Plugin URI: http://wordpress.org/extend/plugins/post-lists-view-custom/
-Version: 1.6.1
+Version: 1.7-beta1
 Author: gqevu6bsiz
-Author URI: http://gqevu6bsiz.chicappa.jp/?utm_source=use_plugin&utm_medium=list&utm_content=plvc&utm_campaign=1_6_1
+Author URI: http://gqevu6bsiz.chicappa.jp/?utm_source=use_plugin&utm_medium=list&utm_content=plvc&utm_campaign=1_7
 Text Domain: plvc
 Domain Path: /languages
 */
@@ -32,6 +32,8 @@ if ( !class_exists( 'Plvc' ) ) :
 
 class Post_Lists_View_Custom
 {
+
+	var	$Ver = '1.7-beta1';
 
 	var $Plugin = array();
 	var $Current = array();
@@ -64,16 +66,10 @@ class Post_Lists_View_Custom
 		
 		load_plugin_textdomain( $this->Plugin['ltd'] , false , $this->Plugin['plugin_slug'] . '/languages' );
 
-		$this->ClassManager->init();
-
 		add_action( 'load-edit.php' , array( $this , 'registed_columns_load_action' ) );
 		add_action( 'load-edit-comments.php' , array( $this , 'registed_columns_load_action' ) );
 		add_action( 'load-upload.php' , array( $this , 'registed_columns_load_action' ) );
 		
-		if( $this->Current['admin'] && $this->Current['ajax'] ) {
-			add_action( 'wp_ajax_plvc_add_list' , array( $this , 'wp_ajax_plvc_add_list' ) );
-		}
-
 		add_action( 'wp_loaded' , array( $this , 'FilterStart' ) );
 
 	}
@@ -120,8 +116,6 @@ class Post_Lists_View_Custom
 
 		if( $this->ClassManager->is_manager ) {
 			
-			$GetData = $this->ClassData->get_record( $this->Plugin['record']['regist_columns'] );
-
 			$column_type = false;
 
 			if( $pagenow == 'edit-comments.php' ) {
@@ -143,11 +137,9 @@ class Post_Lists_View_Custom
 				$check_column = $columns['cb'];
 				unset( $columns['cb'] );
 				
-				$GetData[$column_type] = $columns;
-				update_option( $this->Plugin['record']['regist_columns'] , $GetData );
+				$this->ClassData->update_registed_columns( $column_type , $columns );
 
 			}
-
 			
 		}
 
@@ -155,16 +147,15 @@ class Post_Lists_View_Custom
 		
 	}
 
+	// SetList
 	function registed_sortable_loading( $columns ) {
 
 		global $typenow, $pagenow;
 		
 		$default_columns = $columns;
-
+		
 		if( $this->ClassManager->is_manager ) {
 			
-			$GetData = $this->ClassData->get_record( $this->Plugin['record']['regist_sortable_columns'] );
-
 			$column_type = false;
 
 			if( $pagenow == 'edit-comments.php' ) {
@@ -183,11 +174,9 @@ class Post_Lists_View_Custom
 			
 			if( !empty( $column_type ) ) {
 
-				$GetData[$column_type] = $columns;
-				update_option( $this->Plugin['record']['regist_sortable_columns'] , $GetData );
+				$this->ClassData->update_registed_sortable_columns( $column_type , $columns );
 
 			}
-
 			
 		}		
 		
@@ -218,7 +207,9 @@ class Post_Lists_View_Custom
 
 		echo '<div class="edit-field">';
 		printf( '<input type="text" name="use[%2$s][name]" class="large-text input-column-name" value="%1$s" />' , esc_html( $column_name ) , $column_id );
-		//printf( '<label><input type="checkbox" name="use[%3$s][sort]" value="1" %2$s /> %1$s</label>' , __( 'Sort' , $this->Plugin['ltd'] ) , checked( $column_setting['sort'] , 1 , false ) , $column_id );
+		
+		if( !empty( $column_setting['orderby'] ) )
+			printf( '<label class="sort_label"><input type="checkbox" name="use[%2$s][sort]" value="1" %3$s /> %1$s</label>' , __( 'Sort' , $this->Plugin['ltd'] ) , $column_id , checked( $column_setting['sort'] , 1 , false ) );
 		
 		if( !empty( $group ) ) {
 				
@@ -290,29 +281,6 @@ class Post_Lists_View_Custom
 				
 	}
 
-	// Ajax
-	function wp_ajax_plvc_add_list() {
-		
-		if( empty( $_POST['column_id'] ) or empty( $_POST['list_name'] ) or empty( $_POST['list_type'] ) )
-			return false;
-
-		$column_id = strip_tags( $_POST['column_id'] );
-		$list_type = strip_tags( $_POST['list_type'] );
-		$list_name = strip_tags( $_POST['list_name'] );
-		$Columns = $this->ClassConfig->get_registed_columns( $list_name );
-		
-		$add_column = array();
-		foreach( $Columns as $use_type => $column ) {
-			if( array_key_exists( $column_id , $column ) )
-				$add_column = $Columns[$use_type][$column_id];
-		}
-
-		$this->setting_list_post( $_POST['list_type'] , $_POST['list_name'] , 'use' , $_POST['column_id'] , $add_column );
-
-		die();
-		
-	}
-
 	// SetList
 	function is_list_page() {
 		
@@ -368,7 +336,7 @@ class Post_Lists_View_Custom
 
 		$setting_roles = $this->ClassData->get_data_user_role();
 		$setting_roles = apply_filters( 'plvc_pre_setting_roles' , $setting_roles );
-
+		
 		if( !empty( $setting_roles['UPFN'] ) )
 			unset( $setting_roles['UPFN'] );
 
@@ -388,7 +356,7 @@ class Post_Lists_View_Custom
 		if( !$this->Current['network_admin'] && $this->Current['admin'] ) {
 			
 			if( !$this->Current['ajax'] ) {
-			
+				
 				add_action( 'admin_print_scripts' , array( $this , 'admin_print_scripts' ) );
 				add_action( 'admin_init' , array( $this , 'menus_init' ) , 100 );
 				
@@ -409,8 +377,9 @@ class Post_Lists_View_Custom
 		if( $this->is_list_page() && $this->is_apply_user() ) {
 
 			$Data = $this->ClassData->get_data_others();
+
 			if( empty( $Data['cell_auto'] ) )
-				wp_enqueue_style( $Plvc->Plugin['ltd'] , $Plvc->Plugin['url'] . 'admin/assets/list-table.css', array() , $Plvc->Plugin['ver'] );
+				wp_enqueue_style( $Plvc->Plugin['ltd'] , $Plvc->Plugin['url'] . 'admin/assets/list-table.css', array() , $this->Ver );
 
 			if( !empty( $pagenow ) && $pagenow == 'edit.php' ) {
 				
@@ -463,6 +432,85 @@ class Post_Lists_View_Custom
 		}
 
 	}
+	
+	// FilterStart
+	function sortable_request( $request ) {
+		
+		if( !empty( $request['orderby'] ) ) {
+			
+			if( $request['orderby'] == 'post-thumbnails' ) {
+				
+				$request['meta_key'] = '_thumbnail_id';
+				$request['orderby'] = 'meta_value';
+				
+			} elseif( $request['orderby'] == 'image_alt' ) {
+				
+				$request['meta_key'] = '_wp_attachment_image_alt';
+				$request['orderby'] = 'meta_value';
+
+			} else {
+				
+				$list_type = $request['post_type'];
+
+				if( $list_type == 'attachment' )
+					$list_type = 'media';
+
+				$registed_columns = $this->ClassConfig->get_registed_columns( $list_type );
+				
+				$orderby_id = $request['orderby'];
+				
+				if( !empty( $registed_columns ) ) {
+				
+					foreach( $registed_columns as $use_type => $columns ) {
+						
+						if( !empty( $columns[$orderby_id] ) && !empty( $columns[$orderby_id]['group'] ) && $columns[$orderby_id]['group'] == 'custom_field' ) {
+							
+							$request['meta_key'] = $orderby_id;
+							$request['orderby'] = 'meta_value';
+							
+							break;
+	
+						}
+						
+					}
+					
+				}
+				
+			}
+			
+		}
+		
+		return $request;
+
+	}
+	
+	// FilterStart
+	function sortable_posts_orderby( $orderby_statement ) {
+		
+		global $wpdb;
+		global $wp_query;
+		
+		$orderby = $wp_query->get( 'orderby' );
+		
+		if( !empty( $orderby ) ) {
+
+			$order = $wp_query->get( 'order' );
+
+			if( strstr( $orderby_statement, 'post_date' ) ) {
+				
+				if( $orderby == 'post_excerpt' ) {
+		
+					$orderby_statement = sprintf( '%1$s.%2$s %3$s' , $wpdb->posts , $orderby , $order );
+					
+				}
+
+			}
+			
+		}
+		
+		return $orderby_statement;
+
+	}
 
 	// FilterStart
 	function menus_init() {
@@ -512,17 +560,15 @@ class Post_Lists_View_Custom
 			
 			if( $list_type == 'post' ) {
 				
-				$Data = $this->ClassData->get_filt_record( $this->Plugin['record']['post'] );
+				$Data = $this->ClassData->get_data_post( true );
 				
 			} elseif( $list_type == 'page' ) {
 				
-				$Data = $this->ClassData->get_filt_record( $this->Plugin['record']['page'] );
+				$Data = $this->ClassData->get_data_page( true );
 				
 			} else {
 				
-				$GetCusomPosts = $this->ClassData->get_filt_record( $this->Plugin['record']['custom_posts'] );
-				if( !empty( $GetCusomPosts[$list_type] ) )
-					$Data = $GetCusomPosts[$list_type];
+				$Data = $this->ClassData->get_data_custom_post( $list_type , true );
 				
 			}
 			
@@ -530,6 +576,9 @@ class Post_Lists_View_Custom
 
 				add_filter( 'manage_edit-' . $list_type . '_columns' , array( $this , 'posts_columns_header' ) , 10001 );
 				add_action( 'manage_' . $list_type . '_posts_custom_column' , array( $this , 'posts_columns_body' ) , 10 , 2 );
+				add_filter( 'manage_edit-' . $list_type . '_sortable_columns', array( $this , 'posts_sortable_columns' ) , 10001 );
+				add_filter( 'request' , array( $this , 'sortable_request' ) );
+				add_filter( 'posts_orderby',  array( $this , 'sortable_posts_orderby' ) );
 
 			}
 
@@ -542,11 +591,15 @@ class Post_Lists_View_Custom
 		
 		if( $this->is_list_page() && $this->is_apply_user() ) {
 			
-			$Data = $this->ClassData->get_filt_record( $this->Plugin['record']['media'] );
-			if( !empty( $Data ) ) {
+			$Data = $this->ClassData->get_data_media( true );
 
+			if( !empty( $Data ) ) {
+				
 				add_filter( 'manage_media_columns' , array( $this , 'media_columns_header' ) , 10001 );
 				add_action( 'manage_media_custom_column' , array( $this , 'media_columns_body' ) , 10 , 2 );
+				add_filter( 'manage_upload_sortable_columns', array( $this , 'media_sortable_columns' ) , 10001 );
+				add_filter( 'request' , array( $this , 'sortable_request' ) );
+				add_filter( 'posts_orderby',  array( $this , 'sortable_posts_orderby' ) );
 
 			}
 
@@ -559,11 +612,13 @@ class Post_Lists_View_Custom
 		
 		if( $this->is_list_page() && $this->is_apply_user() ) {
 			
-			$Data = $this->ClassData->get_filt_record( $this->Plugin['record']['comments'] );
+			$Data = $this->ClassData->get_data_comments( true );
+
 			if( !empty( $Data ) ) {
 
 				add_filter( 'manage_edit-comments_columns' , array( $this , 'comments_columns_header' ) , 10001 );
 				add_action( 'manage_comments_custom_column' , array( $this , 'comments_columns_body' ) , 10 , 2 );
+				add_filter( 'manage_edit-comments_sortable_columns', array( $this , 'comments_sortable_columns' ) , 10001 );
 
 			}
 
@@ -576,7 +631,8 @@ class Post_Lists_View_Custom
 		
 		if( $this->is_menu_page() && $this->is_apply_user() ) {
 			
-			$Data = $this->ClassData->get_filt_record( $this->Plugin['record']['widgets'] );
+			$Data = $this->ClassData->get_data_widgets( true );
+
 			if( !empty( $Data ) ) {
 
 				add_filter( 'widgets_admin_page' , array( $this , 'widgets_menu' ) );
@@ -592,14 +648,16 @@ class Post_Lists_View_Custom
 		
 		if( $this->is_menu_page() && $this->is_apply_user() ) {
 			
-			$Data = $this->ClassData->get_filt_record( $this->Plugin['record']['menus'] );
+			$Data = $this->ClassData->get_data_menus( true );
+
 			if( !empty( $Data ) ) {
 
 				add_filter( 'admin_head-nav-menus.php' , array( $this , 'nav_menu_metabox' ) );
 
 			}
 
-			$Data = $this->ClassData->get_filt_record( $this->Plugin['record']['menus_adv'] );
+			$Data = $this->ClassData->get_data_menus_adv( true );
+
 			if( !empty( $Data ) ) {
 
 				add_filter( 'manage_nav-menus_columns' , array( $this , 'menu_columns_header' ) , 11 );
@@ -636,24 +694,22 @@ class Post_Lists_View_Custom
 
 		if( $list_type == 'post' ) {
 				
-			$Data = $this->ClassData->get_filt_record( $this->Plugin['record']['post'] );
+			$Data = $this->ClassData->get_data_post( true );
 				
 		} elseif( $list_type == 'page' ) {
 				
-			$Data = $this->ClassData->get_filt_record( $this->Plugin['record']['page'] );
+			$Data = $this->ClassData->get_data_page( true );
 				
 		} else {
-				
-			$GetCusomPosts = $this->ClassData->get_filt_record( $this->Plugin['record']['custom_posts'] );
-			if( !empty( $GetCusomPosts[$list_type] ) )
-				$Data = $GetCusomPosts[$list_type];
+			
+			$Data = $this->ClassData->get_data_custom_post( $list_type , true );
 				
 		}
 		
 		$default_columns = $this->ClassConfig->get_registed_columns( $list_type );
 		$FilterColumn = array( 'cb' => $columns['cb'] );
 		
-		if( !empty( $Data['use'] ) ) {
+		if( !empty( $Data['use'] ) && !empty( $default_columns ) ) {
 
 			foreach( $Data['use'] as $column_id => $column ) {
 
@@ -662,6 +718,10 @@ class Post_Lists_View_Custom
 				
 			}
 
+		} else {
+			
+			$FilterColumn = $columns;
+			
 		}
 
 		return $FilterColumn;
@@ -683,8 +743,9 @@ class Post_Lists_View_Custom
 			$content = $post_id;
 				
 		} elseif( $column_name == 'slug' ) {
-				
-			$content = urldecode( get_page_uri( $post_id ) );
+			
+			$post = get_post( $post_id );
+			$content = sanitize_title( $post->post_name );
 
 		} elseif( $column_name == 'post-formats' ) {
 				
@@ -692,16 +753,17 @@ class Post_Lists_View_Custom
 
 		} elseif( $column_name == 'excerpt' ) {
 				
-			$excerpt = get_post( $post_id );
-			if( !empty( $excerpt->post_excerpt ) ) {
+			$post = get_post( $post_id );
+
+			if( !empty( $post->post_excerpt ) ) {
 
 				if( function_exists( 'mb_substr' ) ) {
 
-					$content = mb_substr( strip_tags( $excerpt->post_excerpt ) , 0 , 20 ) . '.';
+					$content = mb_substr( strip_tags( $post->post_excerpt ) , 0 , 20 ) . '.';
 
 				} else {
 
-					$content = substr( strip_tags( $excerpt->post_excerpt ) , 0 , 20 ) . '.';
+					$content = substr( strip_tags( $post->post_excerpt ) , 0 , 20 ) . '.';
 
 				}
 
@@ -775,13 +837,85 @@ class Post_Lists_View_Custom
 	}
 
 	// FilterStart
+	function posts_sortable_columns( $sortables ) {
+		
+		global $typenow;
+		
+		$list_type = $typenow;
+
+		$Data = array();
+
+		if( $list_type == 'post' ) {
+			
+			$Data = $this->ClassData->get_data_post( true );
+				
+		} elseif( $list_type == 'page' ) {
+				
+			$Data = $this->ClassData->get_data_page( true );
+				
+		} else {
+			
+			$Data = $this->ClassData->get_data_custom_post( $list_type , true );
+				
+		}
+		
+		if( !empty( $Data['use'] ) ) {
+
+			$registed_columns = $this->ClassConfig->get_registed_columns( $list_type );
+			
+			if( !empty( $registed_columns ) ) {
+			
+				foreach( $Data['use'] as $column_id => $column ) {
+					
+					if( isset( $column['sort'] ) ) {
+						
+						if( $column['sort'] ) {
+							
+							if( empty( $sortables[$column_id] ) ) {
+								
+								if( !empty( $registed_columns['use'][$column_id]['orderby'] ) ) {
+	
+									$sortables[$column_id] = $registed_columns['use'][$column_id]['orderby'];
+									
+								} elseif( !empty( $registed_columns['not_use'][$column_id]['orderby'] ) ) {
+	
+									$sortables[$column_id] = $registed_columns['not_use'][$column_id]['orderby'];
+									
+								} else {
+	
+									$sortables[$column_id] = $column_id;
+									
+								}
+								
+							}
+							
+						} else {
+							
+							if( !empty( $sortables[$column_id] ) )
+								unset( $sortables[$column_id] );
+	
+						}
+						
+					}
+					
+				}
+				
+			}
+
+		}
+		
+		return $sortables;
+
+	}
+
+	// FilterStart
 	function media_columns_header( $columns ) {
 		
-		$Data = $this->ClassData->get_filt_record( $this->Plugin['record']['media'] );
+		$Data = $this->ClassData->get_data_media( true );
 		$FilterColumn = array( 'cb' => $columns['cb'] );
 		$default_columns = $this->ClassConfig->get_registed_columns( 'media' );
 
-		if( !empty( $Data['use'] ) ) {
+		if( !empty( $Data['use'] ) && !empty( $default_columns ) ) {
 
 			foreach( $Data['use'] as $column_id => $column ) {
 
@@ -790,6 +924,10 @@ class Post_Lists_View_Custom
 				
 			}
 
+		} else {
+			
+			$FilterColumn = $columns;
+			
 		}
 
 		return $FilterColumn;
@@ -836,13 +974,67 @@ class Post_Lists_View_Custom
 	}
 
 	// FilterStart
+	function media_sortable_columns( $sortables ) {
+		
+		$Data = $this->ClassData->get_data_media( true );
+		
+		if( !empty( $Data['use'] ) ) {
+			
+			$registed_columns = $this->ClassConfig->get_registed_columns( 'media' );
+			
+			if( !empty( $registed_columns ) ) {
+			
+				foreach( $Data['use'] as $column_id => $column ) {
+					
+					if( isset( $column['sort'] ) ) {
+						
+						if( $column['sort'] ) {
+							
+							if( empty( $sortables[$column_id] ) ) {
+								
+								if( !empty( $registed_columns['use'][$column_id]['orderby'] ) ) {
+	
+									$sortables[$column_id] = $registed_columns['use'][$column_id]['orderby'];
+									
+								} elseif( !empty( $registed_columns['not_use'][$column_id]['orderby'] ) ) {
+	
+									$sortables[$column_id] = $registed_columns['not_use'][$column_id]['orderby'];
+									
+								} else {
+	
+									$sortables[$column_id] = $column_id;
+									
+								}
+								
+							}
+							
+						} else {
+							
+							if( !empty( $sortables[$column_id] ) )
+								unset( $sortables[$column_id] );
+	
+						}
+						
+					}
+					
+				}
+				
+			}
+
+		}
+		
+		return $sortables;
+
+	}
+
+	// FilterStart
 	function comments_columns_header( $columns ) {
 		
-		$Data = $this->ClassData->get_filt_record( $this->Plugin['record']['comments'] );
+		$Data = $this->ClassData->get_data_comments( true );
 		$FilterColumn = array( 'cb' => $columns['cb'] );
 		$default_columns = $this->ClassConfig->get_registed_columns( 'comments' );
 
-		if( !empty( $Data['use'] ) ) {
+		if( !empty( $Data['use'] ) && !empty( $default_columns ) ) {
 
 			foreach( $Data['use'] as $column_id => $column ) {
 
@@ -851,6 +1043,10 @@ class Post_Lists_View_Custom
 				
 			}
 
+		} else {
+			
+			$FilterColumn = $columns;
+			
 		}
 		
 		return $FilterColumn;
@@ -890,13 +1086,67 @@ class Post_Lists_View_Custom
 	}
 
 	// FilterStart
+	function comments_sortable_columns( $sortables ) {
+		
+		$Data = $this->ClassData->get_data_comments( true );
+		
+		if( !empty( $Data['use'] ) ) {
+
+			$registed_columns = $this->ClassConfig->get_registed_columns( 'comments' );
+			
+			if( !empty( $registed_columns ) ) {
+			
+				foreach( $Data['use'] as $column_id => $column ) {
+					
+					if( isset( $column['sort'] ) ) {
+						
+						if( $column['sort'] ) {
+							
+							if( empty( $sortables[$column_id] ) ) {
+								
+								if( !empty( $registed_columns['use'][$column_id]['orderby'] ) ) {
+	
+									$sortables[$column_id] = $registed_columns['use'][$column_id]['orderby'];
+									
+								} elseif( !empty( $registed_columns['not_use'][$column_id]['orderby'] ) ) {
+	
+									$sortables[$column_id] = $registed_columns['not_use'][$column_id]['orderby'];
+									
+								} else {
+	
+									$sortables[$column_id] = $column_id;
+									
+								}
+								
+							}
+							
+						} else {
+							
+							if( !empty( $sortables[$column_id] ) )
+								unset( $sortables[$column_id] );
+	
+						}
+						
+					}
+					
+				}
+				
+			}
+
+		}
+
+		return $sortables;
+
+	}
+
+	// FilterStart
 	function widgets_menu() {
 
 		global $wp_registered_widgets;
 
-		$Data = $this->ClassData->get_filt_record( $this->Plugin['record']['widgets'] );
+		$Data = $this->ClassData->get_data_widgets( true );
 		
-		if( !empty( $Data['not_use'] ) ) {
+		if( !empty( $Data['not_use'] ) && !empty( $wp_registered_widgets ) ) {
 
 			foreach( $Data['not_use'] as $widget_id => $widget_setting ) {
 
@@ -915,7 +1165,7 @@ class Post_Lists_View_Custom
 	// FilterStart
 	function nav_menu_metabox( $columns ) {
 
-		$Data = $this->ClassData->get_filt_record( $this->Plugin['record']['menus'] );
+		$Data = $this->ClassData->get_data_menus( true );
 		
 		if( !empty( $Data['not_use'] ) ) {
 
@@ -934,7 +1184,7 @@ class Post_Lists_View_Custom
 	// FilterStart
 	function menu_columns_header( $columns ) {
 
-		$Data = $this->ClassData->get_filt_record( $this->Plugin['record']['menus_adv'] );
+		$Data = $this->ClassData->get_data_menus_adv( true );
 		
 		if( !empty( $Data['not_use'] ) ) {
 			
@@ -958,7 +1208,7 @@ class Post_Lists_View_Custom
 	// FilterStart
 	function menu_advance_style() {
 
-		$Data = $this->ClassData->get_filt_record( $this->Plugin['record']['menus_adv'] );
+		$Data = $this->ClassData->get_data_menus_adv( true );
 		
 		$hide_set = '';
 		$hide_field = '';

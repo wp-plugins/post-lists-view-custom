@@ -18,8 +18,7 @@
 			<p><?php _e( 'Please enter the \'Donation delete key\' that have been described in the \'Line Break First and End download page\'.' , $Plvc->Plugin['ltd'] ); ?></p>
 			<form id="<?php echo $Plvc->Plugin['ltd']; ?>_donation_form" class="<?php echo $Plvc->Plugin['ltd']; ?>_form" method="post" action="<?php echo $Plvc->ClassManager->get_action_link(); ?>">
 				<input type="hidden" name="<?php echo $Plvc->Plugin['ltd']; ?>_settings" value="Y">
-				<?php wp_nonce_field( $Plvc->Plugin['nonces']['value'] , $Plvc->Plugin['nonces']['field'] ); ?>
-				<input type="hidden" name="record_field" value="donate" />
+				<?php wp_nonce_field( $Plvc->ClassInfo->nonces['value'] , $Plvc->ClassInfo->nonces['field'] ); ?>
 				<label for="donate_key"><?php _e( 'Donation delete key' , $Plvc->Plugin['ltd'] ); ?></label>
 				<input type="text" name="donate_key" id="donate_key" value="" class="large-text" />
 				<?php submit_button( __( 'Submit' ) , 'secondary' ); ?>
@@ -55,14 +54,14 @@
 		<p><?php _e( 'Version checked' , $Plvc->Plugin['ltd'] ); ?> : <?php echo $Plvc->ClassInfo->version_checked(); ?></p>
 		<ul>
 			<li><a href="<?php echo $Plvc->ClassInfo->author_url( array( 'tp' => 'use_plugin' , 'lc' => 'side' ) ); ?>" target="_blank"><?php _e( 'Developer\'s site' , $Plvc->Plugin['ltd'] ); ?></a></li>
-			<li><a href="<?php echo $Plvc->ClassInfo->links['forum']; ?>" target="_blank"><?php _e( 'Support Forums' ); ?></a></li>
-			<li><a href="<?php echo $Plvc->ClassInfo->links['review']; ?>" target="_blank"><?php _e( 'Reviews' , $Plvc->Plugin['ltd'] ); ?></a></li>
+			<li><a href="<?php echo $Plvc->Plugin['links']['forum']; ?>" target="_blank"><?php _e( 'Support Forums' ); ?></a></li>
+			<li><a href="<?php echo $Plvc->Plugin['links']['review']; ?>" target="_blank"><?php _e( 'Reviews' , $Plvc->Plugin['ltd'] ); ?></a></li>
 			<li><a href="https://twitter.com/gqevu6bsiz" target="_blank">twitter</a></li>
 			<li><a href="http://www.facebook.com/pages/Gqevu6bsiz/499584376749601" target="_blank">facebook</a></li>
 		</ul>
 		<h4>Translate Help</h4>
 		<p><a href="<?php echo $Plvc->ClassInfo->author_url( array( 'translate' => 1 , 'tp' => 'use_plugin' , 'lc' => 'side' ) ); ?>" target="_blank"><?php _e( 'Would you like to translate?' , $Plvc->Plugin['ltd'] ); ?></a></p>
-		<p><?php echo sprintf( __( 'Do you have a proposal you want to improve? Please contact to %s if it is necessary.' , $Plvc->Plugin['ltd'] ) , '<a href="' . $Plvc->ClassInfo->links['forum'] . '" target="_blank">' . __( 'Support Forums' ) . '</a>' ); ?></p>
+		<p><?php echo sprintf( __( 'Do you have a proposal you want to improve? Please contact to %s if it is necessary.' , $Plvc->Plugin['ltd'] ) , '<a href="' . $Plvc->Plugin['links']['forum'] . '" target="_blank">' . __( 'Support Forums' ) . '</a>' ); ?></p>
 	</div>
 </div>
 
@@ -78,6 +77,6 @@
 		<p><strong><a href="http://wordpress.org/extend/plugins/custom-options-plus-post-in/" target="_blank">Custom Options Plus Post in</a></strong></p>
 		<p class="description"><?php _e( 'The plugin that allows you to add the value of the options. Option value that you have created, can be used in addition to the template tag, Short code can be used in the body of the article.' , $Plvc->Plugin['ltd'] ); ?></p>
 		<p>&nbsp;</p>
-		<p><a href="<?php echo $Plvc->ClassInfo->links['profile']; ?>" target="_blank"><?php _e( 'Plugins' ); ?></a></p>
+		<p><a href="<?php echo $Plvc->Plugin['links']['profile']; ?>" target="_blank"><?php _e( 'Plugins' ); ?></a></p>
 	</div>
 </div>

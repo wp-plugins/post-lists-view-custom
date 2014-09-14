@@ -31,6 +31,10 @@
 .columns-2.plvc table.menu-lists tr.custom_taxonomy td {
 	color: #222;
 }
+.columns-2.plvc table.wp-list-table thead tr th.plugin .edit-field .description,
+.columns-2.plvc table.wp-list-table thead tr th.plugin .edit-field .remove-action a,
+.columns-2.plvc table.wp-list-table thead tr th.custom_field .edit-field .description,
+.columns-2.plvc table.wp-list-table thead tr th.custom_field .edit-field .remove-action a,
 .columns-2.plvc table.menu-lists tr.plugin td .description,
 .columns-2.plvc table.menu-lists tr.custom_post td .description,
 .columns-2.plvc table.menu-lists tr.custom_taxonomy td .description {

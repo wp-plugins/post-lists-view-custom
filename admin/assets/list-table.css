@@ -1,25 +1,24 @@
 /* All */
 
-.fixed .column-author,
-.fixed .column-categories,
-.fixed .column-tags,
-.fixed .column-comments,
-.fixed .column-date,
-#excerpt, .attachmentlinks,
-.fixed .column-slug
+.wp-list-table th.column-author,
+.wp-list-table th.column-categories,
+.wp-list-table th.column-tags,
+.wp-list-table th.column-comments,
+.wp-list-table th.column-date,
+.wp-list-table th#excerpt,
+.wp-list-table th.attachmentlinks,
+.wp-list-table th.column-slug,
+.wp-list-table th.column-id,
+.wp-list-table th.column-name
 {
 	width: auto;
-}
-
-.fixed thead th.column-id {
-	width: 3em;
 }
 
 
 /* Media Library */
 
-.fixed .column-icon,
-.upload-php .fixed .column-parent
+.wp-list-table th.column-icon,
+.upload-php .wp-list-table th.column-parent
 {
 	width: auto;
 }
@@ -28,14 +27,15 @@
 
 /* Comments */
 
-#comments-form .fixed .column-author,
-.fixed .column-response
+#comments-form .wp-list-table th.column-author,
+.wp-list-table th.column-response
 {
 	width: auto;
 }
 
 
 
-#excerpt, .attachmentlinks {
+.wp-list-table th#excerpt,
+.wp-list-table th.attachmentlinks {
 	height: auto;
 }
