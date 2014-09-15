@@ -91,7 +91,6 @@ class Plvc_Manager
 		$main_slug = $Plvc->Plugin['page_slug'];
 
 		add_menu_page( $Plvc->Plugin['name'] , $Plvc->Plugin['name'] , $cap , $main_slug , array( $this , 'views') );
-		add_submenu_page( $main_slug , $Plvc->Plugin['name'] , $Plvc->Plugin['name'] , $cap , $main_slug , array( $this , 'views' ) );
 		add_submenu_page( $main_slug , __( 'Posts' ) . __( 'List View' ) . __( 'Customize' ) , __( 'All Posts' ) , $cap , $Plvc->Plugin['record']['post'] , array( $this , 'views' ) );
 		add_submenu_page( $main_slug , __( 'Pages' ) . __( 'List View' ) . __( 'Customize' ) , __( 'All Pages' ) , $cap , $Plvc->Plugin['record']['page'] , array( $this , 'views' ) );
 		add_submenu_page( $main_slug , __( 'Media Library' ) . __( 'Customize' ) , __( 'Media Library' ) , $cap , $Plvc->Plugin['record']['media'] , array( $this , 'views' ) );
