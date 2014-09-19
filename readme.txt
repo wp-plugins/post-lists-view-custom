@@ -53,6 +53,7 @@ These list to customization is possible.
 * Fixed: Change the show to custom posts and custom taxonomy that is displayed on the Menu.
 * Fixed: Setting the automatic width of the ID column.
 * Fixed: Sort the columns.
+* Fixed: Strengthening of Ajax check.
 
 = 1.6.1 =
 * Updated: List table also apply to the width of Thumbnail.

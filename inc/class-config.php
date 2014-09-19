@@ -31,7 +31,7 @@ class Plvc_Config
 		$Plvc->Plugin['form']             = array( 'field' => $Plvc->Plugin['ltd'] . '_settings' );
 		$Plvc->Plugin['UPFN']             = 'Y';
 		$Plvc->Plugin['msg_notice']       = $Plvc->Plugin['ltd'] . '_msg';
-		$Plvc->Plugin['default_role']     = array( 'child' => 'manage_options' , 'network' => 'manage_options' );
+		$Plvc->Plugin['default_role']     = array( 'child' => 'manage_options' , 'network' => 'manage_network' );
 		
 		$Plvc->Plugin['dir_admin_assets'] = $Plvc->Plugin['url'] . trailingslashit( 'admin' ) . trailingslashit( 'assets' );
 
@@ -98,10 +98,14 @@ class Plvc_Config
 		$User = wp_get_current_user();
 		
 		if( !empty( $User->roles ) ) {
+
 			foreach( $User->roles as $role ) {
+
 				$Plvc->Current['user_role'] = $role;
 				break;
+
 			}
+
 		}
 
 		$Plvc->Current['superadmin'] = false;

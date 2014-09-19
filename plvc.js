@@ -8,12 +8,14 @@ jQuery(document).ready(function($) {
 		if( $('.plvc').hasClass('full-width') ) {
 			$.post(ajaxurl, {
 				'action': Action,
-				'f': 1,
+				'plvc_field_donate': plvc_donate.plvc_field_donate,
+				'f': 1
 			});
 		} else {
 			$.post(ajaxurl, {
 				'action': Action,
-				'f': 0,
+				'plvc_field_donate': plvc_donate.plvc_field_donate,
+				'f': 0
 			});
 		}
 		

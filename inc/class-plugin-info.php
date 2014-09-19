@@ -47,10 +47,25 @@ class Plvc_Plugin_Info
 
 			}
 
+			add_action( 'admin_print_scripts' , array( $this , 'admin_print_scripts' ) );
+
 		}
 
 	}
 	
+	function admin_print_scripts() {
+		
+		global $Plvc;
+		
+		if( $Plvc->ClassManager->is_settings_page() ) {
+			
+			$translation = array( $this->nonces['field'] => wp_create_nonce( $this->nonces['value'] ) );
+			wp_localize_script( $Plvc->Plugin['page_slug'] , $Plvc->Plugin['ltd'] . '_donate' , $translation );
+
+		}
+
+	}
+
 	function ajax_donation_toggle() {
 		
 		if( isset( $_POST['f'] ) ) {
@@ -305,7 +320,7 @@ class Plvc_Plugin_Info
 		
 		global $Plvc;
 
-		if( $Plvc->ClassManager->is_manager ) {
+		if( $Plvc->ClassManager->is_manager && check_ajax_referer( $this->nonces['value'] , $this->nonces['field'] ) ) {
 
 			if( $Plvc->Current['multisite'] ) {
 						

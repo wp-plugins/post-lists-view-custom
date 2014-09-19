@@ -28,7 +28,15 @@ class Plvc_Manager
 
 		$cap = false;
 
-		$cap = $Plvc->Plugin['default_role']['child'];
+		if( is_multisite() ) {
+
+			$cap = $Plvc->Plugin['default_role']['child'];
+
+		} else {
+
+			$cap = $Plvc->Plugin['default_role']['child'];
+
+		}
 		
 		$other_data = $Plvc->ClassData->get_data_others();
 		if( !empty( $other_data['capability'] ) )
@@ -50,24 +58,26 @@ class Plvc_Manager
 		
 		global $Plvc;
 
-		if( $Plvc->Current['admin'] && $this->is_manager && !$Plvc->Current['ajax'] ) {
+		if( $Plvc->Current['admin'] && $this->is_manager ) {
 			
-			$base_plugin = trailingslashit( $Plvc->Plugin['plugin_slug'] ) . $Plvc->Plugin['plugin_slug'] . '.php';
-			
-			add_filter( 'plugin_action_links_' . $base_plugin , array( $this , 'plugin_action_links' ) );
-			add_action( 'admin_menu' , array( $this , 'admin_menu' ) );
-			add_action( 'admin_notices' , array( $this , 'update_notice' ) );
+			if( !$Plvc->Current['ajax'] ) {
+
+				$base_plugin = trailingslashit( $Plvc->Plugin['plugin_slug'] ) . $Plvc->Plugin['plugin_slug'] . '.php';
 				
-			add_action( 'admin_print_scripts' , array( $this , 'admin_print_scripts' ) );
+				add_filter( 'plugin_action_links_' . $base_plugin , array( $this , 'plugin_action_links' ) );
+				add_action( 'admin_menu' , array( $this , 'admin_menu' ) );
+				add_action( 'admin_notices' , array( $this , 'update_notice' ) );
+					
+				add_action( 'admin_print_scripts' , array( $this , 'admin_print_scripts' ) );
+				
+			} else {
+				
+				add_action( 'wp_ajax_' . $Plvc->Plugin['ltd'] . '_add_list' , array( $this , 'ajax_add_list' ) );
+
+			}
 		
 		}
 
-		if( $Plvc->Current['admin'] && $this->is_manager && $Plvc->Current['ajax'] ) {
-			
-			add_action( 'wp_ajax_' . $Plvc->Plugin['ltd'] . '_add_list' , array( $this , 'ajax_add_list' ) );
-			
-		}
-		
 	}
 
 	function plugin_action_links( $links ) {
@@ -142,6 +152,9 @@ class Plvc_Manager
 			wp_enqueue_style( $Plvc->Plugin['page_slug'] , $Plvc->Plugin['url'] . $Plvc->Plugin['ltd'] . '.css', array() , $Plvc->Ver );
 			if( version_compare( $wp_version , '3.8' , '<' ) )
 				wp_enqueue_style( $Plvc->Plugin['page_slug'] . '-37' , $Plvc->Plugin['url'] . $Plvc->Plugin['ltd'] . '-3.7.css', array() , $Plvc->Ver );
+
+			$translation = array( $Plvc->Plugin['nonces']['field'] => wp_create_nonce( $Plvc->Plugin['nonces']['value'] ) );
+			wp_localize_script( $Plvc->Plugin['page_slug'] , $Plvc->Plugin['ltd'] , $translation );
 
 		}
 		
@@ -350,6 +363,9 @@ class Plvc_Manager
 		global $Plvc;
 
 		if( empty( $_POST['column_id'] ) or empty( $_POST['list_name'] ) or empty( $_POST['list_type'] ) )
+			return false;
+			
+		if( !check_ajax_referer( $Plvc->Plugin['nonces']['value'] , $Plvc->Plugin['nonces']['field'] ) )
 			return false;
 
 		$column_id = strip_tags( $_POST['column_id'] );

@@ -175,8 +175,8 @@ jQuery(document).ready(function($) {
 				var list_name = $possible.find('input[name=list_name]').val();
 				var list_type = $possible.find('input[name=list_type]').val();
 	
-				var PostData = { action: 'plvc_add_list' , column_id: column_id , list_name: list_name , list_type: list_type }
-	
+				var PostData = { action: 'plvc_add_list' , plvc_field: plvc.plvc_field , column_id: column_id , list_name: list_name , list_type: list_type }
+
 				$.ajax({
 					url: ajaxurl,
 					type : 'POST',
