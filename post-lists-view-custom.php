@@ -372,14 +372,13 @@ class Post_Lists_View_Custom
 	function admin_print_scripts() {
 		
 		global $pagenow;
-		global $Plvc;
 		
 		if( $this->is_list_page() && $this->is_apply_user() ) {
 
 			$Data = $this->ClassData->get_data_others();
 
 			if( empty( $Data['cell_auto'] ) )
-				wp_enqueue_style( $Plvc->Plugin['ltd'] , $Plvc->Plugin['url'] . 'admin/assets/list-table.css', array() , $this->Ver );
+				wp_enqueue_style( $this->Plugin['ltd'] , $this->Plugin['url'] . 'admin/assets/list-table.css', array() , $this->Ver );
 
 			if( !empty( $pagenow ) && $pagenow == 'edit.php' ) {
 				
