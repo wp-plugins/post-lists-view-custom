@@ -4,7 +4,7 @@ Donate link: http://gqevu6bsiz.chicappa.jp/please-donation/?utm_source=wporg&utm
 Tags: admin, post, posts, page, upload, media, attachment, lists, view, custom, customfield, field, custom_post, navi, menu, comment, widgets
 Requires at least: 3.6.1
 Tested up to: 4.0
-Stable tag: 1.6.1
+Stable tag: 1.7
 License: GPL2
 
 Customize the list of the post and page and the custom post type.

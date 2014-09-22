@@ -3,7 +3,7 @@
 Plugin Name: Post Lists View Custom
 Description: Allow to customizing for the list screen.
 Plugin URI: http://wordpress.org/extend/plugins/post-lists-view-custom/
-Version: 1.7-beta1
+Version: 1.7
 Author: gqevu6bsiz
 Author URI: http://gqevu6bsiz.chicappa.jp/?utm_source=use_plugin&utm_medium=list&utm_content=plvc&utm_campaign=1_7
 Text Domain: plvc
@@ -33,7 +33,7 @@ if ( !class_exists( 'Plvc' ) ) :
 class Post_Lists_View_Custom
 {
 
-	var	$Ver = '1.7-beta1';
+	var	$Ver = '1.7';
 
 	var $Plugin = array();
 	var $Current = array();
