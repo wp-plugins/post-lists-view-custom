@@ -141,7 +141,6 @@ class Plvc_Manager
 
 	function admin_print_scripts() {
 		
-		global $wp_version;
 		global $Plvc;
 		
 		if( $this->is_settings_page() ) {
@@ -150,8 +149,6 @@ class Plvc_Manager
 			wp_enqueue_script( $Plvc->Plugin['page_slug'] ,  $Plvc->Plugin['url'] . $Plvc->Plugin['ltd'] . '.js', $ReadedJs , $Plvc->Ver );
 			
 			wp_enqueue_style( $Plvc->Plugin['page_slug'] , $Plvc->Plugin['url'] . $Plvc->Plugin['ltd'] . '.css', array() , $Plvc->Ver );
-			if( version_compare( $wp_version , '3.8' , '<' ) )
-				wp_enqueue_style( $Plvc->Plugin['page_slug'] . '-37' , $Plvc->Plugin['url'] . $Plvc->Plugin['ltd'] . '-3.7.css', array() , $Plvc->Ver );
 
 			$translation = array( $Plvc->Plugin['nonces']['field'] => wp_create_nonce( $Plvc->Plugin['nonces']['value'] ) );
 			wp_localize_script( $Plvc->Plugin['page_slug'] , $Plvc->Plugin['ltd'] , $translation );
@@ -326,7 +323,6 @@ class Plvc_Manager
 	
 	function load_list() {
 
-		global $wp_version;
 		global $Plvc;
 
 		$custom_posts_types = $Plvc->ClassConfig->get_all_custom_posts();
@@ -340,10 +336,6 @@ class Plvc_Manager
 			
 			$load_list = array( 'link' => self_admin_url( 'upload.php?mode=list' ) , 'label' => __( 'Media Library' ) );
 
-			if( version_compare( $wp_version , '4.0' , '<' ) )
-				$load_list['link'] = self_admin_url( 'upload.php' );
-			
-			
 		} elseif( $this->list_type == 'comments' ) {
 			
 			$load_list = array( 'link' => self_admin_url( 'edit-comments.php' ) , 'label' => __( 'Comments' ) );

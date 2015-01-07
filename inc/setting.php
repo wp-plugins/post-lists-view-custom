@@ -6,7 +6,7 @@ $all_user_roles = $Plvc->ClassConfig->get_all_user_roles();
 $Data = $Plvc->ClassData->get_data_user_role();
 ?>
 <div class="wrap">
-	<div class="icon32" id="icon-tools"></div>
+
 	<h2><?php echo $this->page_title; ?></h2>
 
 	<p><?php _e( 'Apply the settings of Post Lists View Custom only user roles selected.' , $Plvc->Plugin['ltd'] ); ?></p>
@@ -45,7 +45,7 @@ $Data = $Plvc->ClassData->get_data_user_role();
 					</div>
 				</div>
 
-				<?php submit_button( __( 'Save' ) ); ?>
+				<?php submit_button(); ?>
 
 			</form>
 

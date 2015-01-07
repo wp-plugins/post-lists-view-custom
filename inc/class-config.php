@@ -99,7 +99,9 @@ class Plvc_Config
 		
 		if( !empty( $User->roles ) ) {
 
-			foreach( $User->roles as $role ) {
+			$user_roles = $User->roles;
+			
+			foreach( $user_roles as $role ) {
 
 				$Plvc->Current['user_role'] = $role;
 				break;
@@ -142,7 +144,7 @@ class Plvc_Config
 
 		include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 		
-		$check_plugins = array( 'mp6' => 'mp6/mp6.php' , 'afc' => 'advanced-custom-fields/acf.php' );
+		$check_plugins = array();
 		
 		if( !empty( $check_plugins ) ) {
 			foreach( $check_plugins as $name => $base_name ) {
@@ -188,12 +190,26 @@ class Plvc_Config
 		return 80;
 	}
 	
-	function get_all_custom_fields() {
+	function get_all_custom_fields( $list_type ) {
 		
 		global $wpdb;
 		
 		$custom_fields = array();
-		$all_custom_fields = $wpdb->get_col( "SELECT meta_key FROM $wpdb->postmeta GROUP BY meta_key HAVING meta_key NOT LIKE '\_%' ORDER BY meta_key" );
+
+		if( $list_type == 'media' or $list_type == 'comments' )
+			return $custom_fields;
+
+		$post_ids = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_type = %s", $list_type ) );
+
+		if( empty( $post_ids ) )
+			return $custom_fields;
+		
+		$post_ids_str = implode( ',' , $post_ids );
+		
+		$query = "SELECT DISTINCT meta_key FROM $wpdb->postmeta ";
+		$query .= "WHERE post_id IN( $post_ids_str ) HAVING meta_key NOT LIKE '\_%' ORDER BY meta_key ASC ";
+		
+		$all_custom_fields = $wpdb->get_col( $query );
 
 		if( !empty( $all_custom_fields ) ) {
 
@@ -214,6 +230,7 @@ class Plvc_Config
 			if( !empty( $all_custom_fields ) ) {
 				
 				$remove_fields = array( 'field_' );
+
 				foreach( $remove_fields as $field_name ) {
 					
 					foreach( $all_custom_fields as $key => $val ) {
@@ -295,6 +312,8 @@ class Plvc_Config
 	
 	function get_core_posts_columns() {
 		
+		global $Plvc;
+		
 		$columns = array(
 			'title'      => array( 'sort' => true  , 'orderby' => 'title' , 'label' => __( 'Title' ) ),
 			'author'     => array( 'sort' => false , 'orderby' => 'author' , 'label' => __( 'Author' ) ),
@@ -304,7 +323,7 @@ class Plvc_Config
 			'date'       => array( 'sort' => false , 'orderby' => 'date' , 'label' => __( 'Date' ) ),
 			'slug'       => array( 'sort' => false , 'orderby' => 'name' , 'label' => __( 'Slug' ) ),
 			'excerpt'    => array( 'sort' => false , 'orderby' => 'post_excerpt' , 'label' => __( 'Excerpt' ) ),
-			'id'         => array( 'sort' => false , 'orderby' => 'ID' , 'label' => __( 'ID' ) ),
+			'id'         => array( 'sort' => false , 'orderby' => 'ID' , 'label' => __( 'ID' , $Plvc->Plugin['ltd'] ) ),
 		);
 		
 		if( current_theme_supports( 'post-thumbnails' ) )
@@ -319,6 +338,8 @@ class Plvc_Config
 	
 	function get_core_media_columns() {
 		
+		global $Plvc;
+
 		$columns = array(
 			'icon'         => array( 'sort' => false , 'orderby' => '' , 'label' => '' ),
 			'title'        => array( 'sort' => true , 'orderby' => 'title' , 'label' => _x( 'File' , 'column name' ) ),
@@ -330,7 +351,7 @@ class Plvc_Config
 			'image_alt'    => array( 'sort' => false , 'orderby' => 'image_alt' , 'label' => __( 'Alternative Text' ) ),
 			'post_excerpt' => array( 'sort' => false , 'orderby' => 'post_excerpt' , 'label' => __( 'Caption' ) ),
 			'post_content' => array( 'sort' => false , 'orderby' => '' , 'label' => __( 'Details' ) ),
-			'id'           => array( 'sort' => false , 'orderby' => 'ID' , 'label' => __( 'ID' ) ),
+			'id'           => array( 'sort' => false , 'orderby' => 'ID' , 'label' => __( 'ID' , $Plvc->Plugin['ltd'] ) ),
 		);
 		
 		return $columns;
@@ -339,6 +360,8 @@ class Plvc_Config
 	
 	function get_core_comments_columns() {
 		
+		global $Plvc;
+
 		$columns = array(
 			'author'                  => array( 'sort' => true , 'orderby' => 'comment_author' , 'label' => __( 'Author' ) ),
 			'comment'                 => array( 'sort' => true , 'orderby' => '' , 'label' => __( 'Comments' ) ),
@@ -346,7 +369,7 @@ class Plvc_Config
 			'newcomment_author'       => array( 'sort' => false , 'orderby' => 'comment_author' , 'label' => __( 'Name' ) ),
 			'newcomment_author_email' => array( 'sort' => false , 'orderby' => 'comment_author_email' , 'label' => __( 'E-mail' ) ),
 			'newcomment_author_url'   => array( 'sort' => false , 'orderby' => 'comment_author_url' , 'label' => __( 'URL' ) ),
-			'id'                      => array( 'sort' => false , 'orderby' => 'comment_ID' , 'label' => __( 'ID' ) ),
+			'id'                      => array( 'sort' => false , 'orderby' => 'comment_ID' , 'label' => __( 'ID' , $Plvc->Plugin['ltd'] ) ),
 		);
 		
 		return $columns;
@@ -493,7 +516,7 @@ class Plvc_Config
 				
 			}
 			
-			$custom_fields = $this->get_all_custom_fields();
+			$custom_fields = $this->get_all_custom_fields( $list_type );
 	
 			if( !empty( $custom_fields ) && !in_array( $list_type , array( 'media' , 'comments' ) ) ) {
 						

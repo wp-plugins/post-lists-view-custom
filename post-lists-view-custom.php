@@ -3,9 +3,9 @@
 Plugin Name: Post Lists View Custom
 Description: Allow to customizing for the list screen.
 Plugin URI: http://wordpress.org/extend/plugins/post-lists-view-custom/
-Version: 1.7
+Version: 1.7.1
 Author: gqevu6bsiz
-Author URI: http://gqevu6bsiz.chicappa.jp/?utm_source=use_plugin&utm_medium=list&utm_content=plvc&utm_campaign=1_7
+Author URI: http://gqevu6bsiz.chicappa.jp/?utm_source=use_plugin&utm_medium=list&utm_content=plvc&utm_campaign=1_7_1
 Text Domain: plvc
 Domain Path: /languages
 */
@@ -33,7 +33,7 @@ if ( !class_exists( 'Plvc' ) ) :
 class Post_Lists_View_Custom
 {
 
-	var	$Ver = '1.7';
+	var	$Ver = '1.7.1';
 
 	var $Plugin = array();
 	var $Current = array();
@@ -70,8 +70,16 @@ class Post_Lists_View_Custom
 		add_action( 'load-edit-comments.php' , array( $this , 'registed_columns_load_action' ) );
 		add_action( 'load-upload.php' , array( $this , 'registed_columns_load_action' ) );
 		
+		add_action( 'init' , array( $this , $this->Plugin['ltd'] . '_init' ) , 20 );
+		
 		add_action( 'wp_loaded' , array( $this , 'FilterStart' ) );
 
+	}
+	
+	function plvc_init() {
+		
+		do_action( $this->Plugin['ltd'] . '_init' );
+		
 	}
 
 	function registed_columns_load_action() {
@@ -1147,14 +1155,31 @@ class Post_Lists_View_Custom
 		
 		if( !empty( $Data['not_use'] ) && !empty( $wp_registered_widgets ) ) {
 
+			$widgets_pattern_ids = array();
+
 			foreach( $Data['not_use'] as $widget_id => $widget_setting ) {
 
-				if( array_key_exists( $widget_id , $wp_registered_widgets ) ) {
+				preg_match( '/(.*)-[0-9]/' , $widget_id , $match );
+				
+				if( !empty( $match[1] ) )
+					$widgets_pattern_ids[] = $match[1];
+				
+			}
+			
+			foreach( $wp_registered_widgets as $core_widget_id => $widget ) {
+				
+				foreach( $widgets_pattern_ids as $widget_id ) {
+	
+					preg_match( '/' . $widget_id . '-[0-9]/' , $core_widget_id , $match );
 					
-					unset( $wp_registered_widgets[$widget_id] );
+					if( empty( $match[0] ) )
+						continue;
+
+					unset( $wp_registered_widgets[$core_widget_id] );
+					break;
 					
 				}
-				
+
 			}
 
 		}

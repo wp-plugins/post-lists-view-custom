@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Post Lists View Custom\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-14 14:08+0900\n"
-"PO-Revision-Date: 2014-09-14 14:08+0900\n"
+"POT-Creation-Date: 2015-01-07 14:51+0900\n"
+"PO-Revision-Date: 2015-01-07 14:51+0900\n"
 "Last-Translator: gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
 "Language-Team: gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -18,77 +18,83 @@ msgstr ""
 msgid "Allow to customizing for the list screen."
 msgstr ""
 
-#: post-lists-view-custom.php:212
+#: post-lists-view-custom.php:220
 msgid "Sort"
 msgstr ""
 
-#: post-lists-view-custom.php:274
+#: post-lists-view-custom.php:282
 msgid "Taxonomy"
 msgstr ""
 
-#: inc/class-config.php:658
+#: inc/class-config.php:326
+#: inc/class-config.php:354
+#: inc/class-config.php:372
+msgid "ID"
+msgstr ""
+
+#: inc/class-config.php:679
 msgid "Automatic"
 msgstr ""
 
-#: inc/class-config.php:659
+#: inc/class-config.php:680
 msgid "Not automatic"
 msgstr ""
 
-#: inc/class-manager.php:100
-#: inc/class-manager.php:223
+#: inc/class-manager.php:109
+#: inc/class-manager.php:232
 msgid "show screen"
 msgstr ""
 
-#: inc/class-manager.php:101
+#: inc/class-manager.php:110
 msgid "show advanced properties screen"
 msgstr ""
 
-#: inc/class-manager.php:101
+#: inc/class-manager.php:110
 msgid "advanced properties"
 msgstr ""
 
-#: inc/class-manager.php:102
-#: inc/class-manager.php:191
+#: inc/class-manager.php:111
+#: inc/class-manager.php:200
 msgid "Custom Post Type"
 msgstr ""
 
-#: inc/class-manager.php:103
-#: inc/class-manager.php:236
-#: inc/setting_other.php:34
+#: inc/class-manager.php:112
+#: inc/class-manager.php:245
+#: inc/setting_other.php:33
 msgid "Other Settings"
 msgstr ""
 
-#: inc/class-manager.php:168
-#: inc/class-manager.php:175
-#: inc/class-manager.php:191
-#: inc/class-manager.php:196
-#: inc/class-manager.php:203
-#: inc/class-manager.php:210
-#: inc/class-manager.php:217
-#: inc/class-manager.php:223
+#: inc/class-manager.php:177
+#: inc/class-manager.php:184
+#: inc/class-manager.php:200
+#: inc/class-manager.php:205
+#: inc/class-manager.php:212
+#: inc/class-manager.php:219
+#: inc/class-manager.php:226
+#: inc/class-manager.php:232
 #, php-format
 msgid "%2$s for %3$s %1$s"
 msgstr ""
 
-#: inc/class-manager.php:229
+#: inc/class-manager.php:238
 msgid "Menus of advanced feature adapted to the screen"
 msgstr ""
 
-#: inc/class-manager.php:288
+#: inc/class-manager.php:297
 msgid "Apply user roles: "
 msgstr ""
 
-#: inc/class-manager.php:303
+#: inc/class-manager.php:312
 #, php-format
 msgid "Authority to apply the setting is not selected. <a href=\"%s\">From here</a>, please select the permissions you want to set."
 msgstr ""
 
-#: inc/class-plugin-info.php:95
+#: inc/class-plugin-info.php:110
 #: inc/information.php:3
 msgid "Thank you for your donation."
 msgstr ""
 
-#: inc/class-plugin-info.php:102
+#: inc/class-plugin-info.php:117
 #: inc/information.php:14
 msgid "Please consider making a donation."
 msgstr ""
@@ -194,14 +200,14 @@ msgstr ""
 
 #: inc/setting.php:57
 #: inc/setting_menu.php:81
-#: inc/setting_other.php:119
+#: inc/setting_other.php:110
 #: inc/setting_post.php:102
 msgid "Reset all settings?"
 msgstr ""
 
 #: inc/setting.php:58
 #: inc/setting_menu.php:82
-#: inc/setting_other.php:120
+#: inc/setting_other.php:111
 #: inc/setting_post.php:103
 msgid "Reset settings"
 msgstr ""
@@ -214,32 +220,32 @@ msgstr ""
 msgid "Please select the column item to hide."
 msgstr ""
 
-#: inc/setting_other.php:43
+#: inc/setting_other.php:42
 #, php-format
 msgid "Please choose the minimum role that can modify %s settings."
 msgstr ""
 
-#: inc/setting_other.php:55
+#: inc/setting_other.php:54
 msgid "Automatic width conversion of List table"
 msgstr ""
 
-#: inc/setting_other.php:58
+#: inc/setting_other.php:57
 msgid "This means is include the CSS for auto width settings on List page."
 msgstr ""
 
-#: inc/setting_other.php:60
+#: inc/setting_other.php:59
 msgid "Width setting of cell"
 msgstr ""
 
-#: inc/setting_other.php:69
+#: inc/setting_other.php:68
 msgid "Automatic width setting CSS file"
 msgstr ""
 
-#: inc/setting_other.php:97
+#: inc/setting_other.php:88
 msgid "Change the Thumbnail size for Post, Page, and Custom Post type."
 msgstr ""
 
-#: inc/setting_other.php:101
+#: inc/setting_other.php:92
 msgid "Height will be displayed in proportion to the width."
 msgstr ""
 

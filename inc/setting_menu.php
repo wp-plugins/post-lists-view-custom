@@ -5,7 +5,7 @@ global $Plvc;
 $menus = $this->get_data_menus( $this->menu_type );
 ?>
 <div class="wrap">
-	<div class="icon32" id="icon-options-general"></div>
+
 	<h2><?php echo $this->page_title; ?></h2>
 	
 	<h3 id="plvc-apply-user-roles" class="nav-tab-wrapper"><?php echo $this->get_apply_roles_html(); ?></h3>
@@ -63,7 +63,7 @@ $menus = $this->get_data_menus( $this->menu_type );
 					
 					<p>&nbsp;</p>
 	
-					<?php submit_button( __( 'Save' ) ); ?>
+					<?php submit_button(); ?>
 	
 				</form>
 	

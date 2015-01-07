@@ -1,6 +1,5 @@
 <?php
 
-global $wp_version;
 global $Plvc;
 
 $Data = $Plvc->ClassData->get_data_others();
@@ -12,7 +11,7 @@ $list_table_cell_auto = $Plvc->ClassConfig->get_list_table_cell_auto();
 $default_thumbnail_size = $Plvc->ClassConfig->get_default_thumbnail_size();
 ?>
 <div class="wrap">
-	<div class="icon32" id="icon-tools"></div>
+
 	<h2><?php echo $this->page_title; ?></h2>
 
 	<?php $class = $Plvc->ClassInfo->get_width_class(); ?>
@@ -71,20 +70,12 @@ $default_thumbnail_size = $Plvc->ClassConfig->get_default_thumbnail_size();
 								<div class="width_auto_cell_description">
 
 									<h4>[0] <?php echo $list_table_cell_auto[0]; ?></h4>
-									<?php if( version_compare( $wp_version , '3.8' , '<' ) ) : ?>
-										<a href="<?php echo $Plvc->Plugin['url']; ?>images/cell_width_auto_image-37.png" target="_blank"><img src="<?php echo $Plvc->Plugin['url']; ?>images/cell_width_auto_image-37.png" /></a>
-									<?php else: ?>
-										<a href="<?php echo $Plvc->Plugin['url']; ?>images/cell_width_auto_image.png" target="_blank"><img src="<?php echo $Plvc->Plugin['url']; ?>images/cell_width_auto_image.png" /></a>
-									<?php endif; ?>
+									<a href="<?php echo $Plvc->Plugin['url']; ?>images/cell_width_auto_image.png" target="_blank"><img src="<?php echo $Plvc->Plugin['url']; ?>images/cell_width_auto_image.png" /></a>
 
 									<p>&nbsp;</p>
 
 									<h4>[1] <?php echo $list_table_cell_auto[1]; ?> (<?php _e( 'Default' ); ?>)</h4>
-									<?php if( version_compare( $wp_version , '3.8' , '<' ) ) : ?>
-										<a href="<?php echo $Plvc->Plugin['url']; ?>images/cell_width_not_auto_image-37.png" target="_blank"><img src="<?php echo $Plvc->Plugin['url']; ?>images/cell_width_not_auto_image-37.png" /></a>
-									<?php else: ?>
-										<a href="<?php echo $Plvc->Plugin['url']; ?>images/cell_width_not_auto_image.png" target="_blank"><img src="<?php echo $Plvc->Plugin['url']; ?>images/cell_width_not_auto_image.png" /></a>
-									<?php endif; ?>
+									<a href="<?php echo $Plvc->Plugin['url']; ?>images/cell_width_not_auto_image.png" target="_blank"><img src="<?php echo $Plvc->Plugin['url']; ?>images/cell_width_not_auto_image.png" /></a>
 
 								</div>
 							</td>
@@ -105,7 +96,7 @@ $default_thumbnail_size = $Plvc->ClassConfig->get_default_thumbnail_size();
 					</tbody>
 				</table>
 
-				<?php submit_button( __( 'Save' ) ); ?>
+				<?php submit_button(); ?>
 	
 			</form>
 

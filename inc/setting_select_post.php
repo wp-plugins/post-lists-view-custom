@@ -5,7 +5,7 @@ global $Plvc;
 $custom_posts_types = $Plvc->ClassConfig->get_all_custom_posts();
 ?>
 <div class="wrap">
-	<div class="icon32" id="icon-tools"></div>
+
 	<h2><?php echo $this->page_title; ?></h2>
 
 	<?php $class = $Plvc->ClassInfo->get_width_class(); ?>
