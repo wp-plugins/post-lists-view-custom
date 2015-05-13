@@ -258,7 +258,7 @@ class Plvc_Manager
 		
 		global $Plvc;
 		
-		$url = remove_query_arg( array( $Plvc->Plugin['msg_notice'] , 'donated' ) );
+		$url = esc_url( remove_query_arg( array( $Plvc->Plugin['msg_notice'] , 'donated' ) ) );
 		
 		return $url;
 

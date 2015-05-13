@@ -26,7 +26,7 @@ $custom_posts_types = $Plvc->ClassConfig->get_all_custom_posts();
 				<ul>
 					<?php foreach( $custom_posts_types as $post_name => $custom_post ) : ?>
 						<li>
-							<a href="<?php echo add_query_arg( array( 'custom_post_type' => $post_name ) ); ?>"><?php echo $custom_post['name']; ?></a>
+							<a href="<?php echo esc_url( add_query_arg( array( 'custom_post_type' => $post_name ) ) ); ?>"><?php echo $custom_post['name']; ?></a>
 							<span class="description">[ <?php echo $post_name; ?> ]</span>
 						</li>
 					<?php endforeach; ?>

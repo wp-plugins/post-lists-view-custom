@@ -412,7 +412,7 @@ class Plvc_Data
 
 		}
 
-		wp_redirect( add_query_arg( $Plvc->Plugin['msg_notice'] , 'update' ) );
+		wp_redirect( esc_url_raw( add_query_arg( $Plvc->Plugin['msg_notice'] , 'update' ) ) );
 		exit;
 
 	}
@@ -438,7 +438,7 @@ class Plvc_Data
 
 		}
 
-		wp_redirect( add_query_arg( $Plvc->Plugin['msg_notice'] , 'update' ) );
+		wp_redirect( esc_url_raw( add_query_arg( $Plvc->Plugin['msg_notice'] , 'update' ) ) );
 		exit;
 
 	}
@@ -464,7 +464,7 @@ class Plvc_Data
 
 		}
 
-		wp_redirect( add_query_arg( $Plvc->Plugin['msg_notice'] , 'update' ) );
+		wp_redirect( esc_url_raw( add_query_arg( $Plvc->Plugin['msg_notice'] , 'update' ) ) );
 		exit;
 
 	}
@@ -490,7 +490,7 @@ class Plvc_Data
 
 		}
 
-		wp_redirect( add_query_arg( $Plvc->Plugin['msg_notice'] , 'update' ) );
+		wp_redirect( esc_url_raw( add_query_arg( $Plvc->Plugin['msg_notice'] , 'update' ) ) );
 		exit;
 
 	}
@@ -516,7 +516,7 @@ class Plvc_Data
 
 		}
 
-		wp_redirect( add_query_arg( $Plvc->Plugin['msg_notice'] , 'update' ) );
+		wp_redirect( esc_url_raw( add_query_arg( $Plvc->Plugin['msg_notice'] , 'update' ) ) );
 		exit;
 
 	}
@@ -542,7 +542,7 @@ class Plvc_Data
 
 		}
 
-		wp_redirect( add_query_arg( $Plvc->Plugin['msg_notice'] , 'update' ) );
+		wp_redirect( esc_url_raw( add_query_arg( $Plvc->Plugin['msg_notice'] , 'update' ) ) );
 		exit;
 
 	}
@@ -568,7 +568,7 @@ class Plvc_Data
 
 		}
 
-		wp_redirect( add_query_arg( $Plvc->Plugin['msg_notice'] , 'update' ) );
+		wp_redirect( esc_url_raw( add_query_arg( $Plvc->Plugin['msg_notice'] , 'update' ) ) );
 		exit;
 
 	}
@@ -594,7 +594,7 @@ class Plvc_Data
 
 		}
 
-		wp_redirect( add_query_arg( $Plvc->Plugin['msg_notice'] , 'update' ) );
+		wp_redirect( esc_url_raw( add_query_arg( $Plvc->Plugin['msg_notice'] , 'update' ) ) );
 		exit;
 
 	}
@@ -625,7 +625,7 @@ class Plvc_Data
 
 		}
 		
-		wp_redirect( add_query_arg( $Plvc->Plugin['msg_notice'] , 'update' ) );
+		wp_redirect( esc_url_raw( add_query_arg( $Plvc->Plugin['msg_notice'] , 'update' ) ) );
 		exit;
 
 	}
@@ -646,7 +646,7 @@ class Plvc_Data
 
 		}
 
-		wp_redirect( add_query_arg( $Plvc->Plugin['msg_notice'] , 'delete' ) );
+		wp_redirect( esc_url_raw( add_query_arg( $Plvc->Plugin['msg_notice'] , 'delete' ) ) );
 		exit;
 
 	}
@@ -675,7 +675,7 @@ class Plvc_Data
 
 		}
 		
-		wp_redirect( add_query_arg( $Plvc->Plugin['msg_notice'] , 'update' ) );
+		wp_redirect( esc_url_raw( add_query_arg( $Plvc->Plugin['msg_notice'] , 'update' ) ) );
 		exit;
 
 	}
@@ -718,7 +718,7 @@ class Plvc_Data
 
 		}
 		
-		wp_redirect( add_query_arg( $Plvc->Plugin['msg_notice'] , 'update' ) );
+		wp_redirect( esc_url_raw( add_query_arg( $Plvc->Plugin['msg_notice'] , 'update' ) ) );
 		exit;
 		
 	}

@@ -308,7 +308,7 @@ class Plvc_Plugin_Info
 		
 				}
 
-				wp_redirect( add_query_arg( $Plvc->Plugin['msg_notice'] , 'donated' ) );
+				wp_redirect( esc_url_raw( add_query_arg( $Plvc->Plugin['msg_notice'] , 'donated' ) ) );
 
 			}
 
