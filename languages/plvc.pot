@@ -32,6 +32,10 @@ msgstr ""
 msgid "ID"
 msgstr ""
 
+#: inc/class-config.php:328
+msgid "Only Title"
+msgstr ""
+
 #: inc/class-config.php:679
 msgid "Automatic"
 msgstr ""

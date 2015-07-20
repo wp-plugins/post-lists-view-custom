@@ -109,6 +109,7 @@ class Plvc_Manager
 		add_submenu_page( $main_slug , __( 'Menus' ) . ' '. __( 'show screen' , $Plvc->Plugin['ltd'] ) . ' '. __( 'Customize' ) , __( 'Menus' ) , $cap , $Plvc->Plugin['record']['menus'] , array( $this , 'views' ) );
 		add_submenu_page( $main_slug , __( 'Menus' ) . ' '. __( 'show advanced properties screen' , $Plvc->Plugin['ltd'] ) . ' '. __( 'Customize' ) , __( 'Menus' ) . ' ' . __( 'advanced properties' , $Plvc->Plugin['ltd'] ) , $cap , $Plvc->Plugin['record']['menus_adv'] , array( $this , 'views' ) );
 		add_submenu_page( $main_slug , __( 'Custom Post Type' , $Plvc->Plugin['ltd'] ) , __( 'Custom Post Type' , $Plvc->Plugin['ltd'] ) , $cap , $Plvc->Plugin['record']['custom_posts'] , array( $this , 'views' ) );
+		add_submenu_page( $main_slug , __( 'Users' ) . __( 'Customize' ) , __( 'Users' ) , $cap , $Plvc->Plugin['record']['users'] , array( $this , 'views' ) );
 		add_submenu_page( $main_slug , __( 'Other Settings' , $Plvc->Plugin['ltd'] ) , __( 'Other Settings' , $Plvc->Plugin['ltd'] ) , $cap , $Plvc->Plugin['record']['other'] , array( $this , 'views' ) );
 
 	}
@@ -129,6 +130,7 @@ class Plvc_Manager
 			$Plvc->Plugin['record']['menus'],
 			$Plvc->Plugin['record']['menus_adv'],
 			$Plvc->Plugin['record']['custom_posts'],
+			$Plvc->Plugin['record']['users'],
 			$Plvc->Plugin['record']['other']
 		);
 		
@@ -240,6 +242,13 @@ class Plvc_Manager
 
 				include_once $manage_page_path . 'setting_menu.php';
 				
+			} elseif( $plugin_page == $Plvc->Plugin['record']['users'] ) {
+				
+				$this->page_title = sprintf( __( '%2$s for %3$s %1$s' , $Plvc->Plugin['ltd'] ) , __( 'Customize' ) , __( 'List View' ) , __( 'Users' ) );
+				$this->list_type = 'users';
+				$this->list_name = 'users';
+				include_once $manage_page_path . 'setting_post.php';
+				
 			} elseif( $plugin_page == $Plvc->Plugin['record']['other'] ) {
 				
 				$this->page_title =__( 'Other Settings' , $Plvc->Plugin['ltd'] );
@@ -247,8 +256,6 @@ class Plvc_Manager
 				include_once $manage_page_path . 'setting_other.php';
 				
 			}
-			
-			add_filter( 'admin_footer_text' , array( $Plvc->ClassInfo , 'admin_footer_text' ) );
 			
 		}
 		
@@ -344,6 +351,10 @@ class Plvc_Manager
 			
 			$load_list = array( 'link' => self_admin_url( 'edit.php?post_type=' . $this->list_name ) , 'label' => $custom_posts_types[$this->list_name]['name'] );
 			
+		} elseif( $this->list_type == 'users' ) {
+			
+			$load_list = array( 'link' => self_admin_url( 'users.php' ) , 'label' => __( 'Users' ) );
+			
 		}
 		
 		return $load_list;
@@ -370,8 +381,12 @@ class Plvc_Manager
 
 		foreach( $Columns as $use_type => $column ) {
 
-			if( array_key_exists( $column_id , $column ) )
+			if( array_key_exists( $column_id , $column ) ) {
+
 				$add_column = $Columns[$use_type][$column_id];
+				break;
+				
+			}
 
 		}
 
@@ -446,6 +461,10 @@ class Plvc_Manager
 			} elseif( $list_type == 'comments' ) {
 				
 				$Data = $Plvc->ClassData->get_data_comments();
+			
+			} elseif( $list_type == 'users' ) {
+				
+				$Data = $Plvc->ClassData->get_data_users();
 			
 			} else {
 

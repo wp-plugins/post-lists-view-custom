@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Post Lists View Custom\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-07 14:51+0900\n"
-"PO-Revision-Date: 2015-01-07 15:02+0900\n"
+"PO-Revision-Date: 2015-07-14 13:43+0900\n"
 "Last-Translator: gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
 "Language-Team: gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -34,6 +34,10 @@ msgstr "タクソノミー"
 #: inc/class-config.php:372
 msgid "ID"
 msgstr "ID"
+
+#: inc/class-config.php:328
+msgid "Only Title"
+msgstr "タイトルのみ"
 
 #: inc/class-config.php:679
 msgid "Automatic"

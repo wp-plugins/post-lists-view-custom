@@ -9,21 +9,17 @@ ksort( $capabilities );
 
 $list_table_cell_auto = $Plvc->ClassConfig->get_list_table_cell_auto();
 $default_thumbnail_size = $Plvc->ClassConfig->get_default_thumbnail_size();
+
 ?>
-<div class="wrap">
+<div class="wrap <?php echo $Plvc->Plugin['ltd']; ?>">
 
 	<h2><?php echo $this->page_title; ?></h2>
 
-	<?php $class = $Plvc->ClassInfo->get_width_class(); ?>
-	<div class="metabox-holder columns-2 <?php echo $class; ?>">
+	<p>&nbsp;</p>
 
-		<div id="postbox-container-1" class="postbox-container">
-
-			<?php include_once $Plvc->Plugin['dir'] . 'inc/information.php'; ?>
-		
-		</div>
-
-		<div id="postbox-container-2" class="postbox-container">
+	<div class="metabox-holder columns-1">
+	
+		<div id="postbox-container" class="postbox-container">
 
 			<form id="<?php echo $Plvc->Plugin['ltd']; ?>_other_form" class="<?php echo $Plvc->Plugin['ltd']; ?>_form" method="post" action="<?php echo $this->get_action_link(); ?>">
 				<input type="hidden" name="<?php echo $Plvc->Plugin['form']['field']; ?>" value="Y">
@@ -119,6 +115,27 @@ $default_thumbnail_size = $Plvc->ClassConfig->get_default_thumbnail_size();
 	</div>
 
 </div>
+
+<style>
+#plvc_other_form .width_auto_cell_description {
+	text-align: center;
+	display: none;
+}
+#plvc_other_form .width_auto_cell_description h4 {
+	font-size: 18px;
+	line-height: 25px;
+}
+#plvc_other_form .width_auto_cell_description img {
+	max-width: 100%;
+	width: auto;
+}
+#plvc_other_form .help_width_auto_cell_description {
+	background-image: url(../wp-admin/images/arrows.png);
+	background-repeat: no-repeat;
+	background-position: 4px 4px;
+	padding-left: 20px;
+}
+</style>
 <script>
 jQuery(document).ready(function($) {
 

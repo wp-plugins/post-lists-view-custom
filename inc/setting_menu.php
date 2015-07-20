@@ -3,23 +3,19 @@
 global $Plvc;
 
 $menus = $this->get_data_menus( $this->menu_type );
+
 ?>
-<div class="wrap">
+<div class="wrap <?php echo $Plvc->Plugin['ltd']; ?>">
 
 	<h2><?php echo $this->page_title; ?></h2>
 	
+	<p>&nbsp;</p>
+	
 	<h3 id="plvc-apply-user-roles" class="nav-tab-wrapper"><?php echo $this->get_apply_roles_html(); ?></h3>
 
-	<?php $class = $Plvc->ClassInfo->get_width_class(); ?>
-	<div class="metabox-holder columns-2 <?php echo $class; ?>">
-
-		<div id="postbox-container-1" class="postbox-container">
-
-			<?php include_once $Plvc->Plugin['dir'] . 'inc/information.php'; ?>
-		
-		</div>
-
-		<div id="postbox-container-2" class="postbox-container">
+	<div class="metabox-holder columns-1">
+	
+		<div id="postbox-container" class="postbox-container">
 
 			<?php if( !empty( $menus ) ) : ?>
 

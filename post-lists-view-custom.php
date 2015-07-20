@@ -3,9 +3,9 @@
 Plugin Name: Post Lists View Custom
 Description: Allow to customizing for the list screen.
 Plugin URI: http://wordpress.org/extend/plugins/post-lists-view-custom/
-Version: 1.7.2
+Version: 1.7.3
 Author: gqevu6bsiz
-Author URI: http://gqevu6bsiz.chicappa.jp/?utm_source=use_plugin&utm_medium=list&utm_content=plvc&utm_campaign=1_7_2
+Author URI: http://gqevu6bsiz.chicappa.jp/?utm_source=use_plugin&utm_medium=list&utm_content=plvc&utm_campaign=1_7_3
 Text Domain: plvc
 Domain Path: /languages
 */
@@ -33,7 +33,7 @@ if ( !class_exists( 'Plvc' ) ) :
 class Post_Lists_View_Custom
 {
 
-	var	$Ver = '1.7.2';
+	var	$Ver = '1.7.3';
 
 	var $Plugin = array();
 	var $Current = array();
@@ -69,6 +69,7 @@ class Post_Lists_View_Custom
 		add_action( 'load-edit.php' , array( $this , 'registed_columns_load_action' ) );
 		add_action( 'load-edit-comments.php' , array( $this , 'registed_columns_load_action' ) );
 		add_action( 'load-upload.php' , array( $this , 'registed_columns_load_action' ) );
+		add_action( 'load-users.php' , array( $this , 'registed_columns_load_action' ) );
 		
 		add_action( 'init' , array( $this , $this->Plugin['ltd'] . '_init' ) , 20 );
 		
@@ -98,6 +99,11 @@ class Post_Lists_View_Custom
 
 			$column_type = 'media';
 			$sortable_type = 'upload';
+
+		} elseif( $pagenow == 'users.php' ) {
+
+			$column_type = 'users';
+			$sortable_type = 'users';
 
 		} elseif( $pagenow == 'edit.php' ) {
 
@@ -138,6 +144,10 @@ class Post_Lists_View_Custom
 
 				$column_type = $typenow;
 
+			} elseif( $pagenow == 'users.php' ) {
+
+				$column_type = 'users';
+
 			}
 			
 			if( !empty( $column_type ) && !empty( $columns['cb'] ) ) {
@@ -177,6 +187,10 @@ class Post_Lists_View_Custom
 			} elseif( $pagenow == 'edit.php' ) {
 
 				$column_type = $typenow;
+
+			} elseif( $pagenow == 'users.php' ) {
+
+				$column_type = 'users';
 
 			}
 			
@@ -296,7 +310,7 @@ class Post_Lists_View_Custom
 		
 		$check = false;
 		
-		if( in_array( $pagenow , array( 'edit.php' , 'upload.php' , 'edit-comments.php' ) ) )
+		if( in_array( $pagenow , array( 'edit.php' , 'upload.php' , 'edit-comments.php' , 'users.php' ) ) )
 			$check = true;
 		
 		if( !$check && $this->Current['ajax'] ) {
@@ -421,6 +435,10 @@ class Post_Lists_View_Custom
 			} elseif( $pagenow == 'edit-comments.php' ) {
 				
 				$this->load_edit_comments();
+			
+			} elseif( $pagenow == 'users.php' ) {
+				
+				$this->load_edit_users();
 			
 			} elseif( $pagenow == 'admin-ajax.php' && !empty( $_REQUEST['action'] ) ) {
 				
@@ -626,6 +644,25 @@ class Post_Lists_View_Custom
 				add_filter( 'manage_edit-comments_columns' , array( $this , 'comments_columns_header' ) , 10001 );
 				add_action( 'manage_comments_custom_column' , array( $this , 'comments_columns_body' ) , 10 , 2 );
 				add_filter( 'manage_edit-comments_sortable_columns', array( $this , 'comments_sortable_columns' ) , 10001 );
+
+			}
+
+		}
+
+	}
+
+	// FilterStart
+	function load_edit_users() {
+		
+		if( $this->is_list_page() && $this->is_apply_user() ) {
+			
+			$Data = $this->ClassData->get_data_users( true );
+
+			if( !empty( $Data ) ) {
+
+				add_filter( 'manage_users_columns' , array( $this , 'users_columns_header' ) , 10001 );
+				add_filter( 'manage_users_custom_column' , array( $this , 'users_columns_body' ) , 10 , 3 );
+				add_filter( 'manage_users_sortable_columns', array( $this , 'users_sortable_columns' ) , 10001 );
 
 			}
 
@@ -1100,6 +1137,106 @@ class Post_Lists_View_Custom
 		if( !empty( $Data['use'] ) ) {
 
 			$registed_columns = $this->ClassConfig->get_registed_columns( 'comments' );
+			
+			if( !empty( $registed_columns ) ) {
+			
+				foreach( $Data['use'] as $column_id => $column ) {
+					
+					if( isset( $column['sort'] ) ) {
+						
+						if( $column['sort'] ) {
+							
+							if( empty( $sortables[$column_id] ) ) {
+								
+								if( !empty( $registed_columns['use'][$column_id]['orderby'] ) ) {
+	
+									$sortables[$column_id] = $registed_columns['use'][$column_id]['orderby'];
+									
+								} elseif( !empty( $registed_columns['not_use'][$column_id]['orderby'] ) ) {
+	
+									$sortables[$column_id] = $registed_columns['not_use'][$column_id]['orderby'];
+									
+								} else {
+	
+									$sortables[$column_id] = $column_id;
+									
+								}
+								
+							}
+							
+						} else {
+							
+							if( !empty( $sortables[$column_id] ) )
+								unset( $sortables[$column_id] );
+	
+						}
+						
+					}
+					
+				}
+				
+			}
+
+		}
+
+		return $sortables;
+
+	}
+
+	// FilterStart
+	function users_columns_header( $columns ) {
+		
+		$Data = $this->ClassData->get_data_users( true );
+		$FilterColumn = array( 'cb' => $columns['cb'] );
+		$default_columns = $this->ClassConfig->get_registed_columns( 'users' );
+
+		if( !empty( $Data['use'] ) && !empty( $default_columns ) ) {
+
+			foreach( $Data['use'] as $column_id => $column ) {
+
+				if( array_key_exists( $column_id , $default_columns['use'] ) or array_key_exists( $column_id , $default_columns['not_use'] ) )
+				$FilterColumn[$column_id] = $column['name'];
+				
+			}
+
+		} else {
+			
+			$FilterColumn = $columns;
+			
+		}
+		
+		return $FilterColumn;
+		
+	}
+
+	// FilterStart
+	function users_columns_body( $false , $column_name , $user_id ) {
+		
+		$content = '';
+		$user = get_userdata( $user_id );
+		
+		if( !empty( $user ) ) {
+			
+			if( $column_name == 'id' ) {
+				
+				$content = $user_id;
+				
+			}
+
+		}
+
+		return $content;
+		
+	}
+
+	// FilterStart
+	function users_sortable_columns( $sortables ) {
+		
+		$Data = $this->ClassData->get_data_users( true );
+		
+		if( !empty( $Data['use'] ) ) {
+
+			$registed_columns = $this->ClassConfig->get_registed_columns( 'users' );
 			
 			if( !empty( $registed_columns ) ) {
 			

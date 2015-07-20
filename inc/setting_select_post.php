@@ -3,26 +3,20 @@
 global $Plvc;
 
 $custom_posts_types = $Plvc->ClassConfig->get_all_custom_posts();
+
 ?>
-<div class="wrap">
+<div class="wrap <?php echo $Plvc->Plugin['ltd']; ?>">
 
 	<h2><?php echo $this->page_title; ?></h2>
 
-	<?php $class = $Plvc->ClassInfo->get_width_class(); ?>
-	<div class="metabox-holder columns-2 <?php echo $class; ?>">
-
-		<div id="postbox-container-1" class="postbox-container">
-
-			<?php include_once $Plvc->Plugin['dir'] . 'inc/information.php'; ?>
-		
-		</div>
-
-		<div id="postbox-container-2" class="postbox-container">
+	<div class="metabox-holder columns-1">
+	
+		<div id="postbox-container" class="postbox-container">
 
 			<?php if( !empty( $custom_posts_types ) ) : ?>
 			
 				<p><?php _e( 'Please choose a custom post type you want to change the list\'s view.' , $Plvc->Plugin['ltd'] ); ?></p>
-				<p>&nbsp;</p>
+
 				<ul>
 					<?php foreach( $custom_posts_types as $post_name => $custom_post ) : ?>
 						<li>

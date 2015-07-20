@@ -50,6 +50,7 @@ class Plvc_Config
 		$Plvc->Plugin['record']['menus']        = $Plvc->Plugin['ltd'] . '_menus';
 		$Plvc->Plugin['record']['menus_adv']    = $Plvc->Plugin['ltd'] . '_menus_adv';
 		$Plvc->Plugin['record']['custom_posts'] = $Plvc->Plugin['ltd'] . '_custom_posts';
+		$Plvc->Plugin['record']['users']        = $Plvc->Plugin['ltd'] . '_users';
 		$Plvc->Plugin['record']['other']        = $Plvc->Plugin['ltd'] . '_other';
 		$Plvc->Plugin['record']['regist_columns'] = $Plvc->Plugin['ltd'] . '_regist_columns';
 		$Plvc->Plugin['record']['regist_sortable_columns'] = $Plvc->Plugin['ltd'] . '_regist_sortable_columns';
@@ -324,6 +325,7 @@ class Plvc_Config
 			'slug'       => array( 'sort' => false , 'orderby' => 'name' , 'label' => __( 'Slug' ) ),
 			'excerpt'    => array( 'sort' => false , 'orderby' => 'post_excerpt' , 'label' => __( 'Excerpt' ) ),
 			'id'         => array( 'sort' => false , 'orderby' => 'ID' , 'label' => __( 'ID' , $Plvc->Plugin['ltd'] ) ),
+			'only_title' => array( 'sort' => false , 'orderby' => 'title' , 'label' => __( 'Only Title' , $Plvc->Plugin['ltd'] ) ),
 		);
 		
 		if( current_theme_supports( 'post-thumbnails' ) )
@@ -370,6 +372,23 @@ class Plvc_Config
 			'newcomment_author_email' => array( 'sort' => false , 'orderby' => 'comment_author_email' , 'label' => __( 'E-mail' ) ),
 			'newcomment_author_url'   => array( 'sort' => false , 'orderby' => 'comment_author_url' , 'label' => __( 'URL' ) ),
 			'id'                      => array( 'sort' => false , 'orderby' => 'comment_ID' , 'label' => __( 'ID' , $Plvc->Plugin['ltd'] ) ),
+		);
+		
+		return $columns;
+
+	}
+	
+	function get_core_users_columns() {
+		
+		global $Plvc;
+
+		$columns = array(
+			'username' => array( 'sort' => true , 'orderby' => 'login' , 'label' => __( 'User Name' ) ),
+			'name'     => array( 'sort' => true , 'orderby' => 'name' , 'label' => __( 'Name' ) ),
+			'email'    => array( 'sort' => true , 'orderby' => 'email' , 'label' => __( 'Email' ) ),
+			'role'     => array( 'sort' => false , 'orderby' => '' , 'label' => __( 'User Role Group' ) ),
+			'posts'    => array( 'sort' => false , 'orderby' => '' , 'label' => __( 'Posts' ) ),
+			'id'       => array( 'sort' => false , 'orderby' => 'ID' , 'label' => __( 'ID' , $Plvc->Plugin['ltd'] ) ),
 		);
 		
 		return $columns;
@@ -476,6 +495,10 @@ class Plvc_Config
 			} elseif( $list_type == 'comments' ) {
 
 				$core_columns = $this->get_core_comments_columns();
+
+			} elseif( $list_type == 'users' ) {
+
+				$core_columns = $this->get_core_users_columns();
 
 			} else {
 

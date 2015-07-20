@@ -161,6 +161,16 @@ class Plvc_Data
 
 	}
 
+	function get_data_users( $filter = false ) {
+		
+		global $Plvc;
+		
+		$Data = $this->get_filt_record( $Plvc->Plugin['record']['users'] , $filter );
+		
+		return $Data;
+
+	}
+
 	function get_registed_columns( $post_name = false ) {
 		
 		global $Plvc;
@@ -289,6 +299,10 @@ class Plvc_Data
 					} elseif( $RecordField == $Plvc->Plugin['record']['custom_posts'] ) {
 						
 						$this->update_custom_post();
+						
+					} elseif( $RecordField == $Plvc->Plugin['record']['users'] ) {
+						
+						$this->update_users();
 						
 					} elseif( $RecordField == $Plvc->Plugin['record']['other'] ) {
 						
@@ -625,6 +639,32 @@ class Plvc_Data
 
 		}
 		
+		wp_redirect( esc_url_raw( add_query_arg( $Plvc->Plugin['msg_notice'] , 'update' ) ) );
+		exit;
+
+	}
+
+	private function update_users() {
+		
+		global $Plvc;
+
+		if( empty( $_POST['use'] ) )
+			return false;
+
+		$Update = $this->update_format_list( $_POST );
+
+		$record = apply_filters( 'plvc_pre_update' , $Plvc->Plugin['record']['users'] );
+
+		if( $Plvc->Current['multisite'] && $Plvc->Current['network_admin'] ) {
+			
+			//update_option( $record , $Update );
+			
+		} else {
+
+			update_option( $record , $Update );
+
+		}
+
 		wp_redirect( esc_url_raw( add_query_arg( $Plvc->Plugin['msg_notice'] , 'update' ) ) );
 		exit;
 
