@@ -3,9 +3,9 @@
 Plugin Name: Post Lists View Custom
 Description: Allow to customizing for the list screen.
 Plugin URI: http://wordpress.org/extend/plugins/post-lists-view-custom/
-Version: 1.7.3
+Version: 1.7.4
 Author: gqevu6bsiz
-Author URI: http://gqevu6bsiz.chicappa.jp/?utm_source=use_plugin&utm_medium=list&utm_content=plvc&utm_campaign=1_7_3
+Author URI: http://gqevu6bsiz.chicappa.jp/?utm_source=use_plugin&utm_medium=list&utm_content=plvc&utm_campaign=1_7_4
 Text Domain: plvc
 Domain Path: /languages
 */
@@ -33,7 +33,7 @@ if ( !class_exists( 'Plvc' ) ) :
 class Post_Lists_View_Custom
 {
 
-	var	$Ver = '1.7.3';
+	var	$Ver = '1.7.4';
 
 	var $Plugin = array();
 	var $Current = array();
@@ -823,6 +823,121 @@ class Post_Lists_View_Custom
 				
 			}
 	
+		} elseif( $column_name == 'only_title' ) {
+			
+			$post = get_post( $post_id );
+			
+			$current_level = 0;
+			
+			if( !empty( $post->post_parent ) ) {
+				
+				$find_post_id = (int) $post->post_parent;
+				
+				while ( $find_post_id > 0 ) {
+					
+					$parent_post = get_post( $find_post_id );
+					
+					if ( is_null( $parent_post ) ) {
+
+						break;
+
+					}
+
+					$current_level++;
+					$find_post_id = (int) $parent_post->post_parent;
+
+				}
+				
+			}
+			
+			$pad = str_repeat( '&#8212; ' , $current_level );
+			
+			$content = '<strong>';
+			
+			$format = get_post_format( $post->ID );
+
+			if ( $format ) {
+
+				$label = get_post_format_string( $format );
+	
+				$content .= sprintf( '<a href="%1$s" class="post-state-format post-format-icon post-format-%2$s" title="%3$s">%3$s:</a>' , esc_url( add_query_arg( array( 'post_format' => $format, 'post_type' => $post->post_type ), 'edit.php' ) ) , $format , $label );
+			}
+
+			$can_edit_post = current_user_can( 'edit_post', $post->ID );
+			$title = _draft_or_post_title( $post->ID );
+
+			if ( $can_edit_post && $post->post_status != 'trash' ) {
+
+				$edit_link = get_edit_post_link( $post->ID );
+				$content .= sprintf( '<a class="row-title" href="%1$s" title="%2$s">%3$s</a>' , $edit_link , esc_attr( sprintf( __( 'Edit &#8220;%s&#8221;' ), $title ) ) , $pad . $title );
+
+			} else {
+
+				$content .= $pad . $title;
+
+			}
+			
+			$post_states = array();
+
+			if ( !empty( $post->post_password ) ) {
+				
+				$post_states[] = __( 'Password protected' );
+
+			} elseif( 'private' == $post->post_status ) {
+				
+				$post_states[] = __( 'Private' );
+
+			} elseif( 'draft' == $post->post_status ) {
+				
+				$post_states[] = __( 'Draft' );
+
+			} elseif( 'pending' == $post->post_status ) {
+				
+				$post_states[] =  _x( 'Pending' , 'post state' );
+
+			} elseif( is_sticky( $post->ID ) ) {
+				
+				$post_states[] = __( 'Sticky' );
+
+			}
+			
+			if( 'future' == $post->post_status ) {
+				
+				$post_states[] = __( 'Scheduled' );
+
+			}
+			
+			if( get_option( 'page_on_front' ) == $post->ID ) {
+				
+				$post_states[] = __( 'Front Page' );
+
+			}
+			
+			if( get_option( 'page_for_posts' ) == $post->ID ) {
+				
+				$post_states[] = __( 'Posts Page' );
+
+			}
+			
+			if( !empty( $post_states ) ) {
+				
+				$state_count = count( $post_states );
+				$i = 0;
+				
+				$content .= ' - ';
+
+				foreach( $post_states as $state ) {
+					
+					$i++;
+					( $i == $state_count ) ? $sep = '' : $sep = ', ';
+					$content .= sprintf( '<span class="post-state">%s</span>' , $state . $sep );
+					
+				}
+				
+			}
+
+			$content .= '</strong>';
+			
 		} else {
 				
 			$post_meta = get_post_meta( $post_id , $column_name , false );

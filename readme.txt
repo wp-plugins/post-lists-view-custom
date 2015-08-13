@@ -3,8 +3,8 @@ Contributors: gqevu6bsiz
 Donate link: http://gqevu6bsiz.chicappa.jp/please-donation/?utm_source=wporg&utm_medium=donate&utm_content=plvc&utm_campaign=1_7_3
 Tags: admin, post, posts, page, upload, media, attachment, lists, view, custom, customfield, field, custom_post, navi, menu, comment, widgets
 Requires at least: 3.8
-Tested up to: 4.2.2
-Stable tag: 1.7.3
+Tested up to: 4.3
+Stable tag: 1.7.4
 License: GPL2
 
 Customize the list of the post and page and the custom post type.
@@ -44,6 +44,9 @@ These list to customization is possible.
 5. Screen Widgets
 
 == Changelog ==
+
+= 1.7.4 =
+* Fixed: Show the only title column of the Posts list.
 
 = 1.7.3 =
 * Updated: Adjustment of the CSS.
